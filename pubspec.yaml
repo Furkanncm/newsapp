@@ -1,0 +1,59 @@
+name: newsapp
+description: "A new Flutter project."
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Util
+  go_router: ^14.8.1
+  equatable: ^2.0.7
+
+  # Network
+  dio: ^5.8.0
+  json_annotation: ^4.9.0
+
+  # Cache
+  shared_preferences: ^2.5.3
+
+  # State Managment
+  flutter_mobx: ^2.3.0
+  mobx: ^2.5.0
+
+  # Localization
+  easy_localization: ^3.0.7+1
+
+  # Module
+  codegen:
+    path: module/codegen
+
+  lucielle:
+    git:
+      url: https://github.com/Furkanncm/lucielle_core
+      ref: main
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.13
+  flutter_gen_runner: ^5.10.0
+  very_good_analysis: ^7.0.0
+  json_serializable: ^6.9.0
+  mobx_codegen: ^2.7.0
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/country/
+    - assets/translations/

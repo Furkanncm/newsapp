@@ -1,0 +1,2 @@
+C:/Users/21360859036/Desktop/newsapp/android/app/.cxx/Debug/2n2s526n/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/21360859036/Desktop/newsapp/android/app/.cxx/Debug/2n2s526n/arm64-v8a/CMakeFiles/rebuild_cache.dir
