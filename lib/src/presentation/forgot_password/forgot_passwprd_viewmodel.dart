@@ -34,7 +34,6 @@ abstract class _ForgotPasswordViewmodelBase with Store {
   @action
   void setSelectedOption(String option) {
     selectedOption = option;
-    print('Selected option: $selectedOption');
   }
 
   @action

@@ -8,6 +8,7 @@ import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/common/widget/textfield/email_texfield.dart';
+import 'package:newsapp/src/presentation/forgot_password/forgot_password_mixin.dart';
 import 'package:newsapp/src/presentation/forgot_password/forgot_passwprd_viewmodel.dart';
 
 @immutable
@@ -18,23 +19,7 @@ final class ForgotPasswordView extends StatefulWidget {
   State<ForgotPasswordView> createState() => _ForgotPasswordViewState();
 }
 
-class _ForgotPasswordViewState extends State<ForgotPasswordView> {
-  late final ForgotPasswordViewmodel viewmodel;
-  @override
-  void initState() {
-    super.initState();
-    viewmodel = ForgotPasswordViewmodel();
-    viewmodel.emailController = TextEditingController();
-    viewmodel.phoneController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    viewmodel.emailController.dispose();
-    viewmodel.phoneController.dispose();
-    super.dispose();
-  }
-
+class _ForgotPasswordViewState extends State<ForgotPasswordView> with ForgotPasswordMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +53,7 @@ final class _Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LuciText.titleLarge(
+          LuciText.headlineSmall(
             LocaleKeys.forgotPasswordTitle.tr(),
             fontWeight: FontWeight.bold,
           ),
