@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/enums/otp_options_enum.dart';
 import 'package:newsapp/src/data/enums/route_paths.dart';
-import 'package:newsapp/src/data/model/otp_model.dart';
+import 'package:newsapp/src/data/model/otp/otp_model.dart';
 
 part 'forgot_passwprd_viewmodel.g.dart';
 

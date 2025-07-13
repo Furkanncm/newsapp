@@ -31,7 +31,6 @@ class _LoginViewState extends State<LoginView> with LoginMixin {
             onPressed: () => router.goNamed(RoutePaths.chooseCountry.name),
             child: LuciText.bodyLarge(
               LocaleKeys.skip.tr(),
-              textColor: AppTheme.primaryColor,
             ),
           ),
         ],

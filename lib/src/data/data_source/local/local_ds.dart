@@ -38,12 +38,8 @@ class CacheRepository implements ICacheRepository {
   CacheRepository(this._prefs);
 
   /// Private named constructor used to initialize the singleton instance.
-  CacheRepository._init() {
-    getInstance();
-  }
+  CacheRepository._init();
   static CacheRepository? _instance;
-
-  /// Returns the singleton instance of [CacheRepository].
   static CacheRepository get instance {
     return _instance ??= CacheRepository._init();
   }
@@ -54,8 +50,7 @@ class CacheRepository implements ICacheRepository {
   /// Initializes the [SharedPreferences] instance asynchronously.
   @override
   Future<void> getInstance() async {
-    if (_prefs != null) return;
-    _prefs = await SharedPreferences.getInstance();
+    _prefs ??= await SharedPreferences.getInstance();
   }
 
   /// Encodes a unique cache key by combining the runtime type and an identifier.

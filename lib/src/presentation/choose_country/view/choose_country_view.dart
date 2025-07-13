@@ -3,10 +3,11 @@ import 'package:codegen/model/country_model/country_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/button/bottom_button.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
-import 'package:newsapp/src/data/data_source/local/local_ds.dart';
-import 'package:newsapp/src/data/enums/pref_keys.dart';
+import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/presentation/choose_country/view/choose_country_mixin.dart';
 
 class ChooseCountryView extends StatefulWidget {
@@ -18,11 +19,21 @@ class ChooseCountryView extends StatefulWidget {
 class _ChooseCountryViewState extends State<ChooseCountryView> with ChooseCountryMixin {
   @override
   Widget build(BuildContext context) {
-    CacheRepository.instance.setBool(PrefKeys.isOnboardActive, true);
     return Scaffold(
       appBar: AppBar(
-        title: LuciText.titleSmall(LocaleKeys.selectCountry.tr()),
+        title: LuciText.labelMedium(
+          LocaleKeys.selectCountry.tr(),
+          fontWeight: FontWeight.bold,
+        ),
         centerTitle: true,
+        actions: [
+          TextButton(
+            onPressed: () => router.goNamed(RoutePaths.home.name),
+            child: LuciText.bodyLarge(
+              LocaleKeys.skip.tr(),
+            ),
+          ),
+        ],
       ),
       body: Stack(
         children: [
@@ -106,9 +117,8 @@ class _ChooseCountryViewState extends State<ChooseCountryView> with ChooseCountr
                             ),
                             title: LuciText.bodyLarge(
                               item.name,
-                              textColor: item.isSelected == true
-                                  ? AppTheme.bodyDark
-                                  : AppTheme.bodyText,
+                              textColor:
+                                  item.isSelected == true ? AppTheme.bodyDark : AppTheme.bodyText,
                             ),
                           );
                         },
@@ -116,66 +126,13 @@ class _ChooseCountryViewState extends State<ChooseCountryView> with ChooseCountr
                     },
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: next,
-                  child: Center(child: LuciText.titleSmall(LocaleKeys.next.tr())),
-                ),
               ],
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: ValueListenableBuilder<bool>(
-              valueListenable: isSelectCountryStateHold,
-              builder: (context, value, child) {
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeInOutCubic,
-                  height: value ? context.height * 0.06 : 0,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Colors.orangeAccent, Colors.deepOrange],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: const BorderRadius.horizontal(
-                      left: Radius.circular(10),
-                      right: Radius.circular(10),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha:0.2),
-                        blurRadius: 10,
-                        offset: const Offset(0, -2),
-                      ),
-                    ],
-                  ),
-                  child: value
-                      ? Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.warning_amber_outlined, color: Colors.white),
-                                LuciText.labelSmall(
-                                  LocaleKeys.selectCountry.tr(),
-                                  textColor: Colors.white,
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      : null,
-                );
-              },
             ),
           ),
           emptyBox,
         ],
       ),
+      bottomNavigationBar: BottomButton(text: LocaleKeys.next.tr(), onPressed: () {}),
     );
   }
 }

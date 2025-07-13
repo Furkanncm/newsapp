@@ -8,7 +8,7 @@ import 'package:newsapp/src/common/utils/constants/view_constants.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
-import 'package:newsapp/src/data/model/otp_model.dart';
+import 'package:newsapp/src/data/model/otp/otp_model.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_mixin.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_viewmodel.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
