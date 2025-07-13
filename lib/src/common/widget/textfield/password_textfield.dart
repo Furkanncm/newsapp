@@ -1,5 +1,3 @@
-import 'package:codegen/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lucielle/widget/sized_box/space_box.dart';
 import 'package:lucielle/widget/textfield/password_field.dart';
@@ -9,10 +7,12 @@ import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 final class PasswordField extends StatelessWidget {
   const PasswordField({
     required this.passwordController,
+    this.labelText = 'Password',
     super.key,
   });
 
   final TextEditingController passwordController;
+  final String labelText;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ final class PasswordField extends StatelessWidget {
       children: [
         Text.rich(
           TextSpan(
-            text: LocaleKeys.password.tr(),
+            text: labelText,
             children: const [
               TextSpan(
                 text: '*',

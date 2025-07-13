@@ -4,6 +4,7 @@ enum RoutePaths {
   signUp('/signUp'),
   forgotPassword('/forgotPassword'),
   otpVerification('/otpVerification'),
+  resetPassword('/resetPassword'),
   chooseCountry('/chooseCountry'),
   home('/home'),
   newsDetail('/news-detail'),

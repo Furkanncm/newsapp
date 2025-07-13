@@ -20,6 +20,7 @@
   "beenMissed": "been missed!",
   "email": "Email",
   "password": "Password",
+  
   "rememberMe": "Remember me",
   "forgotPassword": "Forgot Password?",
   "login": "Login",
@@ -34,5 +35,15 @@
   "viaSMS": "via SMS",
   "submit": "Submit",
   "exampleGmail":"example@gmail.com",
-  "examplePhoneNumber":"+90-5xx-xxx-xx-xx"
+  "examplePhoneNumber":"+90-5xx-xxx-xx-xx",
+  "otpVerification": "OTP Verification",
+  "enterOtpSentTo": "Enter the OTP sent to ",
+  "resendCodeIn": "Resend code in ",
+  "retry": "retry",
+  "seconds": "s",
+  "sendCodeAgain": "Send code again",
+  "verify": "Verify",
+  "newPassword": "New Password",
+  "confirmNewPassword": "Confirm New Password",
+  "reset": "Reset"
 }

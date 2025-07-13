@@ -18,6 +18,9 @@ abstract class _OTPVerificationViewmodelBase with Store {
   bool isRetry = false;
   Timer? timer;
 
+  @observable
+  bool isPinComp = false;
+
   @action
   void changeRetryState(bool value) => isRetry = value;
 
@@ -27,7 +30,8 @@ abstract class _OTPVerificationViewmodelBase with Store {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (secondsRemaining == 0) {
         timer.cancel();
-        changeRetryState(true); 
+        pinCodeController.clear();
+        changeRetryState(true);
       } else {
         decrementTimer();
       }
@@ -37,14 +41,21 @@ abstract class _OTPVerificationViewmodelBase with Store {
   @action
   void sendOtp() {
     secondsRemaining = 60;
-    changeRetryState(false); 
+    changeRetryState(false);
     startTimer();
+  }
+
+  @action
+  void stopTimer() {
+    pinCodeController.clear();
+    timer?.cancel();
   }
 
   @action
   void decrementTimer() {
     secondsRemaining--;
   }
+
+  @action
+  void pinCompleted() => isPinComp = true;
 }
-
-

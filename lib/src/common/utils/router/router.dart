@@ -8,6 +8,7 @@ import 'package:newsapp/src/presentation/login/login_view.dart';
 import 'package:newsapp/src/presentation/news_detail/news_detail_view.dart';
 import 'package:newsapp/src/presentation/onboard/onboard_view.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_view.dart';
+import 'package:newsapp/src/presentation/reset_password/reset_password_view.dart';
 import 'package:newsapp/src/presentation/sign_up/sign_up_view.dart';
 
 final GoRouter router = GoRouter(
@@ -32,13 +33,16 @@ final GoRouter router = GoRouter(
       name: RoutePaths.forgotPassword.name,
       path: RoutePaths.forgotPassword.path,
       builder: (context, state) => const ForgotPasswordView(),
-      routes: [
-        GoRoute(
-          name: RoutePaths.otpVerification.name,
-          path: RoutePaths.otpVerification.path,
-          builder: (context, state) => const OtpVerificationView(),
-        ),
-      ],
+    ),
+    GoRoute(
+      name: RoutePaths.otpVerification.name,
+      path: RoutePaths.otpVerification.path,
+      builder: (context, state) => const OtpVerificationView(),
+    ),
+    GoRoute(
+      name: RoutePaths.resetPassword.name,
+      path: RoutePaths.resetPassword.path,
+      builder: (context, state) => const ResetPasswordView(),
     ),
     GoRoute(
       name: RoutePaths.chooseCountry.name,

@@ -473,7 +473,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "50f4307ae843fd5bbf94d48014e8a8d9b0cc975a"
+      resolved-ref: "19ed794c66765b22fe7a36049584cd8494133058"
       url: "https://github.com/Furkanncm/lucielle_core"
     source: git
     version: "0.0.1"

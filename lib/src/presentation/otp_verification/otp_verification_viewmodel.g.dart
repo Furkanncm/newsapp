@@ -41,6 +41,22 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
     });
   }
 
+  late final _$isPinCompAtom =
+      Atom(name: '_OTPVerificationViewmodelBase.isPinComp', context: context);
+
+  @override
+  bool get isPinComp {
+    _$isPinCompAtom.reportRead();
+    return super.isPinComp;
+  }
+
+  @override
+  set isPinComp(bool value) {
+    _$isPinCompAtom.reportWrite(value, super.isPinComp, () {
+      super.isPinComp = value;
+    });
+  }
+
   late final _$_OTPVerificationViewmodelBaseActionController =
       ActionController(name: '_OTPVerificationViewmodelBase', context: context);
 
@@ -78,6 +94,17 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
   }
 
   @override
+  void stopTimer() {
+    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController
+        .startAction(name: '_OTPVerificationViewmodelBase.stopTimer');
+    try {
+      return super.stopTimer();
+    } finally {
+      _$_OTPVerificationViewmodelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void decrementTimer() {
     final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController
         .startAction(name: '_OTPVerificationViewmodelBase.decrementTimer');
@@ -89,10 +116,22 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
   }
 
   @override
+  void pinCompleted() {
+    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController
+        .startAction(name: '_OTPVerificationViewmodelBase.pinCompleted');
+    try {
+      return super.pinCompleted();
+    } finally {
+      _$_OTPVerificationViewmodelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 secondsRemaining: ${secondsRemaining},
-isRetry: ${isRetry}
+isRetry: ${isRetry},
+isPinComp: ${isPinComp}
     ''';
   }
 }

@@ -3,12 +3,12 @@ import 'package:newsapp/src/presentation/forgot_password/forgot_password_view.da
 import 'package:newsapp/src/presentation/forgot_password/forgot_passwprd_viewmodel.dart';
 
 mixin ForgotPasswordMixin on State<ForgotPasswordView> {
-
-    late final ForgotPasswordViewmodel viewmodel;
+  late final ForgotPasswordViewmodel viewmodel;
   @override
   void initState() {
     super.initState();
     viewmodel = ForgotPasswordViewmodel();
+    viewmodel.formKey = GlobalKey<FormState>();
     viewmodel.emailController = TextEditingController();
     viewmodel.phoneController = TextEditingController();
   }
@@ -19,5 +19,4 @@ mixin ForgotPasswordMixin on State<ForgotPasswordView> {
     viewmodel.phoneController.dispose();
     super.dispose();
   }
-
 }

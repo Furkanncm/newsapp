@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/constants/view_constants.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
@@ -23,7 +24,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> with ForgotPass
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: router.pop,
+        ),
+      ),
       body: _Body(
         viewmodel: viewmodel,
         emailController: viewmodel.emailController,
@@ -66,30 +72,34 @@ final class _Body extends StatelessWidget {
           Observer(
             builder: (context) {
               return viewmodel.isSubmitted
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text.rich(
-                          TextSpan(
-                            text:
-                                viewmodel.isEmailSelected ? LocaleKeys.email.tr() : 'Mobile number',
-                            children: const [
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(color: AppTheme.errorColor),
-                              ),
-                            ],
+                  ? Form(
+                      key: viewmodel.formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text.rich(
+                            TextSpan(
+                              text: viewmodel.isEmailSelected
+                                  ? LocaleKeys.email.tr()
+                                  : 'Mobile number',
+                              children: const [
+                                TextSpan(
+                                  text: '*',
+                                  style: TextStyle(color: AppTheme.errorColor),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        verticalBox4,
-                        if (viewmodel.isEmailSelected)
-                          EmailTextField(emailController: emailController)
-                        else
-                          LuciPhoneTextFormField(
-                            labelText: '',
-                            controller: phoneController,
-                          ),
-                      ],
+                          verticalBox4,
+                          if (viewmodel.isEmailSelected)
+                            EmailTextField(emailController: emailController)
+                          else
+                            LuciPhoneTextFormField(
+                              labelText: '',
+                              controller: phoneController,
+                            ),
+                        ],
+                      ),
                     )
                   : _EmailAndPhoneNumber(viewmodel: viewmodel);
             },
@@ -266,9 +276,13 @@ final class _SubmitButton extends StatelessWidget {
   final ForgotPasswordViewmodel viewmodel;
   @override
   Widget build(BuildContext context) {
-    return BottomButton(
-      text: LocaleKeys.submit.tr(),
-      onPressed: viewmodel.onSubmit,
+    return Observer(
+      builder: (_) {
+        return BottomButton(
+          text: LocaleKeys.submit.tr(),
+          onPressed: viewmodel.onSubmit,
+        );
+      },
     );
   }
 }

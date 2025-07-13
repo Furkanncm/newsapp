@@ -34,5 +34,15 @@
   "viaSMS": "SMS ile",
   "submit": "Gönder",
   "exampleGmail":"example@gmail.com",
-  "examplePhoneNumber":"+90-5xx-xxx-xx-xx"
+  "examplePhoneNumber":"+90-5xx-xxx-xx-xx",
+   "otpVerification": "OTP Doğrulama",
+  "enterOtpSentTo": "OTP şu adrese gönderildi: ",
+  "resendCodeIn": "Kodu tekrar gönder ",
+  "retry": "tekrar gönder",
+  "seconds": "s",
+  "sendCodeAgain": "Kodu yeniden gönder",
+  "verify": "Doğrula",
+  "newPassword": "Yeni Şifre",
+  "confirmNewPassword": "Yeni Şifreyi Onayla",
+  "reset": "Sıfırla"
 }

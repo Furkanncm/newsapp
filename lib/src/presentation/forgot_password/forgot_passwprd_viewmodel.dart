@@ -20,6 +20,7 @@ abstract class _ForgotPasswordViewmodelBase with Store {
   ];
   late final TextEditingController emailController;
   late final TextEditingController phoneController;
+  late final GlobalKey<FormState> formKey;
 
   OTPModel? _otpModel;
 
@@ -28,6 +29,9 @@ abstract class _ForgotPasswordViewmodelBase with Store {
 
   @observable
   bool isSubmitted = false;
+
+  @observable
+  bool isValid = false;
 
   bool get isEmailSelected => selectedOption == options[0];
 
@@ -39,11 +43,14 @@ abstract class _ForgotPasswordViewmodelBase with Store {
   @action
   void onSubmit() {
     isSubmitted = true;
-    if (emailController.text.isEmpty && phoneController.text.isEmpty) return;
-    if (isEmailSelected && emailController.text.isNotEmpty) {
+    if (isEmailSelected) {
       _otpModel = OTPModel(otpOptions: OTPOptions.email, otpContent: emailController.text);
-    } else if (!isEmailSelected && phoneController.text.isNotEmpty) {
+    } else if (!isEmailSelected) {
       _otpModel = OTPModel(otpOptions: OTPOptions.sms, otpContent: phoneController.text);
+    }
+    if (!(formKey.currentState?.validate() ?? false)) {
+      isValid = true;
+      return;
     }
     router.pushNamed(RoutePaths.otpVerification.name, extra: _otpModel);
   }

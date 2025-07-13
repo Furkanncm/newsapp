@@ -39,5 +39,15 @@ abstract class  LocaleKeys {
   static const submit = 'submit';
   static const exampleGmail = 'exampleGmail';
   static const examplePhoneNumber = 'examplePhoneNumber';
+  static const otpVerification = 'otpVerification';
+  static const enterOtpSentTo = 'enterOtpSentTo';
+  static const resendCodeIn = 'resendCodeIn';
+  static const retry = 'retry';
+  static const seconds = 'seconds';
+  static const sendCodeAgain = 'sendCodeAgain';
+  static const verify = 'verify';
+  static const newPassword = 'newPassword';
+  static const confirmNewPassword = 'confirmNewPassword';
+  static const reset = 'reset';
 
 }
