@@ -15,6 +15,7 @@ class AppConfiguration {
     WidgetsFlutterBinding.ensureInitialized();
     await CacheRepository.instance.getInstance();
     await EasyLocalization.ensureInitialized();
+
     runApp(
       EasyLocalization(
         supportedLocales: LocalizationManager.instance.supportedLocales,

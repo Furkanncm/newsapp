@@ -9,8 +9,8 @@ part of 'otp_verification_viewmodel.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
-  late final _$secondsRemainingAtom = Atom(
-      name: '_OTPVerificationViewmodelBase.secondsRemaining', context: context);
+  late final _$secondsRemainingAtom =
+      Atom(name: '_OTPVerificationViewmodelBase.secondsRemaining', context: context);
 
   @override
   int get secondsRemaining {
@@ -25,8 +25,7 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
     });
   }
 
-  late final _$isRetryAtom =
-      Atom(name: '_OTPVerificationViewmodelBase.isRetry', context: context);
+  late final _$isRetryAtom = Atom(name: '_OTPVerificationViewmodelBase.isRetry', context: context);
 
   @override
   bool get isRetry {
@@ -62,8 +61,8 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
 
   @override
   void changeRetryState(bool value) {
-    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController
-        .startAction(name: '_OTPVerificationViewmodelBase.changeRetryState');
+    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController.startAction(
+        name: '_OTPVerificationViewmodelBase.changeRetryState');
     try {
       return super.changeRetryState(value);
     } finally {
@@ -73,8 +72,8 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
 
   @override
   void startTimer() {
-    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController
-        .startAction(name: '_OTPVerificationViewmodelBase.startTimer');
+    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController.startAction(
+        name: '_OTPVerificationViewmodelBase.startTimer');
     try {
       return super.startTimer();
     } finally {
@@ -84,8 +83,8 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
 
   @override
   void sendOtp() {
-    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController
-        .startAction(name: '_OTPVerificationViewmodelBase.sendOtp');
+    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController.startAction(
+        name: '_OTPVerificationViewmodelBase.sendOtp');
     try {
       return super.sendOtp();
     } finally {
@@ -95,8 +94,8 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
 
   @override
   void stopTimer() {
-    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController
-        .startAction(name: '_OTPVerificationViewmodelBase.stopTimer');
+    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController.startAction(
+        name: '_OTPVerificationViewmodelBase.stopTimer');
     try {
       return super.stopTimer();
     } finally {
@@ -106,8 +105,8 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
 
   @override
   void decrementTimer() {
-    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController
-        .startAction(name: '_OTPVerificationViewmodelBase.decrementTimer');
+    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController.startAction(
+        name: '_OTPVerificationViewmodelBase.decrementTimer');
     try {
       return super.decrementTimer();
     } finally {
@@ -117,8 +116,8 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
 
   @override
   void pinCompleted() {
-    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController
-        .startAction(name: '_OTPVerificationViewmodelBase.pinCompleted');
+    final _$actionInfo = _$_OTPVerificationViewmodelBaseActionController.startAction(
+        name: '_OTPVerificationViewmodelBase.pinCompleted');
     try {
       return super.pinCompleted();
     } finally {

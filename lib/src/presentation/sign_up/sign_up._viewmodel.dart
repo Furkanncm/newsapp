@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+
 part 'sign_up._viewmodel.g.dart';
 
 class SignUpViewmodel = _SignUpViewmodelBase with _$SignUpViewmodel;
 
 abstract class _SignUpViewmodelBase with Store {
-  
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

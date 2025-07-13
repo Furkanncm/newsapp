@@ -49,5 +49,6 @@
   "phoneNumber": "Phone Number",
     "congratulations_title": "Congratulations!",
   "congratulations_subtitle": "Your account is ready to use",
-  "go_to_homepage": "Go to Homepage"
+  "go_to_homepage": "Go to Homepage",
+  "skip":"Skip"
 }

@@ -1,4 +1,5 @@
 enum RoutePaths {
+  splash('/'),
   onboard('/onboard'),
   login('/login'),
   signUp('/signUp'),

@@ -25,29 +25,44 @@ class _LoginViewState extends State<LoginView> with LoginMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: ViewConstants.instance.pagePadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              verticalBox48,
-              const _Headline(),
-              verticalBox48,
-              EmailPasswordForm(
-                emailController: emailController,
-                passwordController: passwordController,
-                formKey: formKey,
-              ),
-              verticalBox4,
-              _RememberMe(viewmodel: viewModel),
-              verticalBox12,
-              _LoginButton(isFormValid: isFormValid),
-              verticalBox16,
-              const SocialMediaLogin(),
-              verticalBox16,
-              const _DontHaveAccount(),
-            ],
+      appBar: AppBar(
+        actions: [
+          TextButton(
+            onPressed: () => router.goNamed(RoutePaths.chooseCountry.name),
+            child: LuciText.bodyLarge(
+              LocaleKeys.skip.tr(),
+              textColor: AppTheme.primaryColor,
+            ),
+          ),
+        ],
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: ViewConstants.instance.pagePadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const _Headline(),
+                verticalBox24,
+                EmailPasswordForm(
+                  emailController: emailController,
+                  passwordController: passwordController,
+                  formKey: formKey,
+                ),
+                verticalBox4,
+                _RememberMe(viewmodel: viewModel),
+                verticalBox12,
+                _LoginButton(isFormValid: isFormValid),
+                verticalBox16,
+                const SocialMediaLogin(),
+                verticalBox24,
+                const _DontHaveAccount(),
+                verticalBox64,
+                verticalBox64,
+                verticalBox32,
+              ],
+            ),
           ),
         ),
       ),

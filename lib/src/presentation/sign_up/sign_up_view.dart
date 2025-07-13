@@ -26,35 +26,36 @@ class _SignUpViewState extends State<SignUpView> with SignUpMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: ViewConstants.instance.pagePadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              verticalBox48,
-              LuciText.headlineLarge(
-                LocaleKeys.hello.tr(),
-                fontWeight: FontWeight.bold,
-                textColor: AppTheme.primaryColor,
-              ),
-              verticalBox8,
-              FaddedText(text: LocaleKeys.signUpToGetStarted.tr()),
-              verticalBox48,
-              EmailPasswordForm(
-                emailController: emailController,
-                passwordController: passwordController,
-                formKey: formKey,
-              ),
-              verticalBox4,
-              _RememberMe(viewmodel: viewModel),
-              verticalBox16,
-              const _SignUpButton(),
-              verticalBox16,
-              const SocialMediaLogin(),
-              verticalBox16,
-              const _AlreadyHaveAccount(),
-            ],
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: ViewConstants.instance.pagePadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LuciText.headlineLarge(
+                  LocaleKeys.hello.tr(),
+                  fontWeight: FontWeight.bold,
+                  textColor: AppTheme.primaryColor,
+                ),
+                verticalBox8,
+                FaddedText(text: LocaleKeys.signUpToGetStarted.tr()),
+                verticalBox24,
+                EmailPasswordForm(
+                  emailController: emailController,
+                  passwordController: passwordController,
+                  formKey: formKey,
+                ),
+                verticalBox4,
+                _RememberMe(viewmodel: viewModel),
+                verticalBox16,
+                const _SignUpButton(),
+                verticalBox16,
+                const SocialMediaLogin(),
+                verticalBox24,
+                const _AlreadyHaveAccount(),
+              ],
+            ),
           ),
         ),
       ),

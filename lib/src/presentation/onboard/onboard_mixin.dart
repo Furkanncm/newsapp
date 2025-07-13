@@ -19,7 +19,6 @@ mixin OnboardMixin on State<OnboardView> {
   @override
   void initState() {
     super.initState();
-    print(isDontShowAgainValue);
     setIsOnboardActive(true);
   }
 
@@ -60,6 +59,5 @@ mixin OnboardMixin on State<OnboardView> {
   void dontShowAgain(bool? value) {
     isDontShowAgain.value = value ?? false;
     setIsOnboardActive(!isDontShowAgain.value);
-    print(isDontShowAgain);
   }
 }

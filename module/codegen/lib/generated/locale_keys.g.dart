@@ -53,5 +53,6 @@ abstract class  LocaleKeys {
   static const congratulations_title = 'congratulations_title';
   static const congratulations_subtitle = 'congratulations_subtitle';
   static const go_to_homepage = 'go_to_homepage';
+  static const skip = 'skip';
 
 }

@@ -1,6 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:newsapp/src/data/data_source/local/local_ds.dart';
-import 'package:newsapp/src/data/enums/pref_keys.dart';
 import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/presentation/choose_country/view/choose_country_view.dart';
 import 'package:newsapp/src/presentation/congratulations/congratulations_view.dart';
@@ -11,10 +9,16 @@ import 'package:newsapp/src/presentation/onboard/onboard_view.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_view.dart';
 import 'package:newsapp/src/presentation/reset_password/reset_password_view.dart';
 import 'package:newsapp/src/presentation/sign_up/sign_up_view.dart';
+import 'package:newsapp/src/presentation/splash/splash_view.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: RoutePaths.onboard.path,
+  initialLocation: RoutePaths.splash.path,
   routes: [
+    GoRoute(
+      path: RoutePaths.splash.path,
+      name: RoutePaths.splash.name,
+      builder: (context, state) => const SplashView(),
+    ),
     GoRoute(
       path: RoutePaths.onboard.path,
       name: RoutePaths.onboard.name,
@@ -61,9 +65,4 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const NewsDetailView(),
     ),
   ],
-  redirect: (context, state) {
-    final isOnboardActive = CacheRepository.instance.getBool(PrefKeys.isOnboardActive);
-    if (!(isOnboardActive ?? true)) return RoutePaths.login.path;
-    return null;
-  },
 );
