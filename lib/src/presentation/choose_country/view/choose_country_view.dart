@@ -107,8 +107,8 @@ class _ChooseCountryViewState extends State<ChooseCountryView> with ChooseCountr
                             title: LuciText.bodyLarge(
                               item.name,
                               textColor: item.isSelected == true
-                                  ? AppTheme.textColorDark
-                                  : AppTheme.textColorLight,
+                                  ? AppTheme.bodyDark
+                                  : AppTheme.bodyText,
                             ),
                           );
                         },

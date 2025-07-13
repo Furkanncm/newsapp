@@ -16,39 +16,54 @@ class ColorName {
   /// Color: #F1C40F
   static const Color accentColor = Color(0xFFF1C40F);
 
-  /// Color: #1E2D24
-  static const Color backgroundDark = Color(0xFF1E2D24);
+  /// Color: #1C1C1C
+  static const Color backgroundDark = Color(0xFF1C1C1C);
 
-  /// Color: #F0FDF4
-  static const Color backgroundLight = Color(0xFFF0FDF4);
+  /// Color: #C4C4C4
+  static const Color bodyDark = Color(0xFFC4C4C4);
 
-  /// Color: #E74C3C
-  static const Color errorColor = Color(0xFFE74C3C);
+  /// Color: #444444
+  static const Color bodyText = Color(0xFF444444);
 
-  /// Color: #2ECC71
-  static const Color primaryColor = Color(0xFF2ECC71);
+  /// Color: #F2F3F6
+  static const Color buttonBackground = Color(0xFFF2F3F6);
 
-  /// Color: #27AE60
-  static const Color primaryVariant = Color(0xFF27AE60);
+  /// Color: #6C7386
+  static const Color buttonText = Color(0xFF6C7386);
 
-  /// Color: #A3E4D7
-  static const Color secondaryColor = Color(0xFFA3E4D7);
+  /// Color: #F2F3F6
+  static const Color disabledInput = Color(0xFFF2F3F6);
 
-  /// Color: #1ABC9C
-  static const Color secondaryVariant = Color(0xFF1ABC9C);
+  /// Color: #ED2E7E
+  static const Color errorColor = Color(0xFFED2E7E);
 
-  /// Color: #2ECC71
-  static const Color successColor = Color(0xFF2ECC71);
+  /// Color: #2E2E2E
+  static const Color inputDark = Color(0xFF2E2E2E);
+
+  /// Color: #979DB8
+  static const Color placeholder = Color(0xFF979DB8);
+
+  /// Color: #0071F2
+  static const Color primaryColor = Color(0xFF0071F2);
+
+  /// Color: #00C28B
+  static const Color successColor = Color(0xFF00C28B);
 
   /// Color: #FFFFFF
   static const Color surfaceColor = Color(0xFFFFFFFF);
 
-  /// Color: #2C3E50
-  static const Color surfaceDarkColor = Color(0xFF2C3E50);
-
   /// Color: #ECF0F1
   static const Color textColorDark = Color(0xFFECF0F1);
 
-  /// Color: #1E2D24
-  static const Color textColorLight = Color(0xFF1E2D24);
+  /// Color: #4E4B66
+  static const Color textColorLight = Color(0xFF4E4B66);
+
+  /// Color: #1C1C1C
+  static const Color titleActive = Color(0xFF1C1C1C);
+
+  /// Color: #F2F3F6
+  static const Color titleDark = Color(0xFFF2F3F6);
+
+  /// Color: #F5B73F
+  static const Color warningColor = Color(0xFFF5B73F);
 }

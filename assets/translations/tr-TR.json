@@ -44,5 +44,9 @@
   "verify": "Doğrula",
   "newPassword": "Yeni Şifre",
   "confirmNewPassword": "Yeni Şifreyi Onayla",
-  "reset": "Sıfırla"
+  "reset": "Sıfırla",
+  "phoneNumber": "Telefon Numarası",
+    "congratulations_title": "Tebrikler!",
+  "congratulations_subtitle": "Hesabınız kullanıma hazır",
+  "go_to_homepage": "Ana Sayfaya Git"
 }

@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#2ECC71</color>          <!-- Soft Green -->
-    <color name="primaryVariant">#27AE60</color>        <!-- Deep Green -->
-    <color name="secondaryColor">#A3E4D7</color>        <!-- Mint Green -->
-    <color name="secondaryVariant">#1ABC9C</color>      <!-- Turquoise -->
-    
-    <color name="backgroundLight">#F0FDF4</color>       <!-- Very Light Green -->
-    <color name="backgroundDark">#1E2D24</color>        <!-- Dark Green Background -->
-    
-    <color name="surfaceColor">#FFFFFF</color>          <!-- Cards etc. -->
-    <color name="surfaceDarkColor">#2C3E50</color>      <!-- Dark Surface -->
+    <!-- Grayscale -->
+    <color name="titleActive">#1C1C1C</color>         <!-- Darkest Gray -->
+    <color name="bodyText">#444444</color>            <!-- Body Text -->
+    <color name="buttonText">#6C7386</color>          <!-- Button Text -->
+    <color name="placeholder">#979DB8</color>         <!-- Placeholder Text -->
+    <color name="buttonBackground">#F2F3F6</color>    <!-- Light Gray Button -->
+    <color name="disabledInput">#F2F3F6</color>       <!-- Disabled Input Background -->
 
-    <color name="textColorLight">#1E2D24</color>        <!-- Text on light bg -->
-    <color name="textColorDark">#ECF0F1</color>         <!-- Text on dark bg -->
+    <!-- Main Colors -->
+    <color name="primaryColor">#0071F2</color>        <!-- Bright Blue -->
+    <color name="errorColor">#ED2E7E</color>          <!-- Pinkish Red -->
+    <color name="successColor">#00C28B</color>        <!-- Teal Green -->
+    <color name="warningColor">#F5B73F</color>        <!-- Soft Yellow -->
 
-    <color name="errorColor">#E74C3C</color>            <!-- Red for error -->
-    <color name="successColor">#2ECC71</color>          <!-- Reuse primary -->
+    <!-- Dark Mode -->
+    <color name="backgroundDark">#1C1C1C</color>      <!-- Dark Background -->
+    <color name="inputDark">#2E2E2E</color>           <!-- Input Field Background -->
+    <color name="bodyDark">#C4C4C4</color>            <!-- Body Text in Dark Mode -->
+    <color name="titleDark">#F2F3F6</color>           <!-- Title in Dark Mode -->
 
-    <color name="accentColor">#F1C40F</color>           <!-- Yellow highlight -->
+    <!-- Other -->
+    <color name="surfaceColor">#FFFFFF</color>        <!-- Card Background -->
+    <color name="textColorLight">#4E4B66</color>      <!-- Optional Light Text -->
+    <color name="textColorDark">#ECF0F1</color>       <!-- Optional Dark Text -->
+    <color name="accentColor">#F1C40F</color>         <!-- Accent / Highlight -->
 </resources>

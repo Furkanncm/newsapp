@@ -14,7 +14,7 @@ final class FaddedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return LuciText.labelSmall(
       text,
-      textColor: AppTheme.surfaceDarkColor.withValues(alpha: 0.5),
+      textColor: AppTheme.bodyText,
     );
   }
 }

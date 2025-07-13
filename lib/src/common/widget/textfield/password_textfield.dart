@@ -7,11 +7,13 @@ import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 final class PasswordField extends StatelessWidget {
   const PasswordField({
     required this.passwordController,
+    this.confirmPasswordController,
     this.labelText = 'Password',
     super.key,
   });
 
   final TextEditingController passwordController;
+  final TextEditingController? confirmPasswordController;
   final String labelText;
 
   @override
@@ -33,6 +35,7 @@ final class PasswordField extends StatelessWidget {
         verticalBox4,
         LuciPasswordTextFormField(
           controller: passwordController,
+          confirmController: confirmPasswordController,
           labelText: '',
         ),
       ],

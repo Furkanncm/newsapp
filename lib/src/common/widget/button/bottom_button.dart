@@ -17,13 +17,21 @@ final class BottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: AppTheme.placeholder,
+            width: 0.6,
+          ),
+        ),
+      ),
       width: double.infinity,
       child: Card(
         margin: EdgeInsets.zero,
         shape: LinearBorder.bottom(),
         elevation: 3,
-        color: Colors.grey[200],
+        color: AppTheme.surfaceColor,
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),

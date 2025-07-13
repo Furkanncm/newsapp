@@ -12,35 +12,33 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/ic_app_logo.png
+  AssetGenImage get icAppLogo => const AssetGenImage('assets/images/ic_app_logo.png');
+
   /// File path: assets/images/ic_apple.png
-  AssetGenImage get icApple =>
-      const AssetGenImage('assets/images/ic_apple.png');
+  AssetGenImage get icApple => const AssetGenImage('assets/images/ic_apple.png');
 
   /// File path: assets/images/ic_facebook.png
-  AssetGenImage get icFacebook =>
-      const AssetGenImage('assets/images/ic_facebook.png');
+  AssetGenImage get icFacebook => const AssetGenImage('assets/images/ic_facebook.png');
 
   /// File path: assets/images/ic_google.png
-  AssetGenImage get icGoogle =>
-      const AssetGenImage('assets/images/ic_google.png');
+  AssetGenImage get icGoogle => const AssetGenImage('assets/images/ic_google.png');
 
   /// File path: assets/images/onboard1.png
-  AssetGenImage get onboard1 =>
-      const AssetGenImage('assets/images/onboard1.png');
+  AssetGenImage get onboard1 => const AssetGenImage('assets/images/onboard1.png');
 
   /// File path: assets/images/onboard2.png
-  AssetGenImage get onboard2 =>
-      const AssetGenImage('assets/images/onboard2.png');
+  AssetGenImage get onboard2 => const AssetGenImage('assets/images/onboard2.png');
 
   /// File path: assets/images/onboard3.png
-  AssetGenImage get onboard3 =>
-      const AssetGenImage('assets/images/onboard3.png');
+  AssetGenImage get onboard3 => const AssetGenImage('assets/images/onboard3.png');
 
   /// Directory path: assets/images
   String get path => 'assets/images';
 
   /// List of all assets
   List<AssetGenImage> get values => [
+    icAppLogo,
     icApple,
     icFacebook,
     icGoogle,

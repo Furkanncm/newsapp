@@ -49,5 +49,9 @@ abstract class  LocaleKeys {
   static const newPassword = 'newPassword';
   static const confirmNewPassword = 'confirmNewPassword';
   static const reset = 'reset';
+  static const phoneNumber = 'phoneNumber';
+  static const congratulations_title = 'congratulations_title';
+  static const congratulations_subtitle = 'congratulations_subtitle';
+  static const go_to_homepage = 'go_to_homepage';
 
 }

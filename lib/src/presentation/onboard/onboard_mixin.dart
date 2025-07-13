@@ -5,7 +5,6 @@ import 'package:newsapp/src/data/enums/pref_keys.dart';
 import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/presentation/onboard/onboard_model.dart';
 import 'package:newsapp/src/presentation/onboard/onboard_view.dart';
-import 'package:newsapp/src/presentation/onboard/onboard_viewmodel.dart';
 
 mixin OnboardMixin on State<OnboardView> {
   List<OnboardModel> get onboardList => OnboardModel.getItems;
@@ -16,17 +15,16 @@ mixin OnboardMixin on State<OnboardView> {
   ValueNotifier<bool> isLastPage = ValueNotifier(false);
   final ValueNotifier<bool> isDontShowAgain = ValueNotifier(false);
   bool get isDontShowAgainValue => isDontShowAgain.value;
-  late final OnboardViewmodel viewModel;
 
   @override
   void initState() {
     super.initState();
-    viewModel = OnboardViewmodel();
-    setActivation();
+    print(isDontShowAgainValue);
+    setIsOnboardActive(true);
   }
 
-  Future<void> setActivation() async {
-    await CacheRepository.instance.setBool(PrefKeys.isOnboardActive, true);
+  Future<void> setIsOnboardActive(bool isActivated) async {
+    await CacheRepository.instance.setBool(PrefKeys.isOnboardActive, isActivated);
   }
 
   void pageChanged(int value) {
@@ -38,7 +36,7 @@ mixin OnboardMixin on State<OnboardView> {
   void nextPage() {
     if (currentPage == onboardList.length - 1) {
       router.pushReplacementNamed(RoutePaths.login.name);
-      if (isDontShowAgainValue == true) viewModel.setOnboardVisibleState();
+      if (isDontShowAgainValue == true) setIsOnboardActive(false);
     }
     if (currentPage < onboardList.length - 1) {
       pageController.animateToPage(
@@ -61,5 +59,7 @@ mixin OnboardMixin on State<OnboardView> {
 
   void dontShowAgain(bool? value) {
     isDontShowAgain.value = value ?? false;
+    setIsOnboardActive(!isDontShowAgain.value);
+    print(isDontShowAgain);
   }
 }

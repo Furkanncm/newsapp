@@ -104,7 +104,7 @@ final class _RememberMe extends StatelessWidget {
         ),
         LuciText.bodyMedium(
           LocaleKeys.rememberMe.tr(),
-          textColor: AppTheme.textColorLight,
+          textColor: AppTheme.bodyText,
         ),
         const Spacer(),
         GestureDetector(
@@ -147,7 +147,7 @@ final class _DontHaveAccount extends StatelessWidget {
       children: [
         LuciText.bodyMedium(
           LocaleKeys.dontHaveAccount.tr(),
-          textColor: AppTheme.surfaceDarkColor.withValues(alpha: 0.5),
+          textColor: AppTheme.placeholder,
         ),
         GestureDetector(
           onTap: () => router.goNamed(RoutePaths.signUp.name),

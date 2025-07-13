@@ -73,7 +73,7 @@ class _OnboardViewState extends State<OnboardView> with OnboardMixin {
                               return CircleAvatar(
                                 radius: index == value ? 6 : 3,
                                 backgroundColor:
-                                    index == value ? AppTheme.primaryColor : AppTheme.accentColor,
+                                    index == value ? AppTheme.primaryColor : AppTheme.buttonText,
                               );
                             },
                           ),

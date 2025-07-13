@@ -17,7 +17,7 @@ final class SocialMediaLogin extends StatelessWidget {
         Center(
           child: LuciText.bodyMedium(
             LocaleKeys.orContinueWith.tr(),
-            textColor: AppTheme.surfaceDarkColor.withValues(alpha: 0.5),
+            textColor: AppTheme.placeholder,
           ),
         ),
         verticalBox16,

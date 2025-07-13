@@ -2,20 +2,27 @@ import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Ana renkler
-  static const Color primaryColor = ColorName.primaryColor; // #2ECC71 - Soft Green
-  static const Color primaryVariant = ColorName.primaryVariant; // #27AE60 - Deep Green
-  static const Color secondaryColor = ColorName.secondaryColor; // #A3E4D7 - Mint Green
-  static const Color secondaryVariant = ColorName.secondaryVariant; // #1ABC9C - Turquoise
-  static const Color backgroundLight = ColorName.backgroundLight; // #F0FDF4
-  static const Color backgroundDark = ColorName.backgroundDark; // #1E2D24
-  static const Color surfaceColor = ColorName.surfaceColor; // #FFFFFF
-  static const Color surfaceDarkColor = Color.fromARGB(255, 116, 126, 137); // #2C3E50
-  static const Color textColorLight = ColorName.textColorLight; // #1E2D24
-  static const Color textColorDark = ColorName.textColorDark; // #ECF0F1
-  static const Color errorColor = ColorName.errorColor; // #E74C3C
-  static const Color accentColor = ColorName.accentColor; //  #F1C40F
+  // Renk tanımları
+  static const Color primaryColor = ColorName.primaryColor; // #0071F2
+  static const Color errorColor = ColorName.errorColor; // #ED2E7E
+  static const Color successColor = ColorName.successColor; // #00C28B
+  static const Color warningColor = ColorName.warningColor; // #F5B73F
+  static const Color titleActive = ColorName.titleActive; // #1C1C1C
+  static const Color bodyText = ColorName.bodyText; // #444444
+  static const Color buttonText = ColorName.buttonText; // #6C7386
+  static const Color placeholder = ColorName.placeholder; // #979DB8
+  static const Color buttonBackground = ColorName.buttonBackground; // #F2F3F6
+  static const Color disabledInput = ColorName.disabledInput; // #F2F3F6
+  static const Color accentColor = ColorName.accentColor; // #F1C40F
 
+  static const Color backgroundDark = ColorName.backgroundDark; // #1C1C1C
+  static const Color inputDark = ColorName.inputDark; // #2E2E2E
+  static const Color bodyDark = ColorName.bodyDark; // #C4C4C4
+  static const Color titleDark = ColorName.titleDark; // #F2F3F6
+
+  static const Color surfaceColor = Colors.white;
+
+  // Light Theme
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
@@ -23,20 +30,20 @@ class AppTheme {
     scaffoldBackgroundColor: Colors.white,
     colorScheme: const ColorScheme.light().copyWith(
       primary: primaryColor,
-      secondary: secondaryColor,
-      surface: backgroundLight,
+      secondary: successColor,
+      surface: buttonBackground,
       error: errorColor,
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      foregroundColor: textColorLight,
+      foregroundColor: titleActive,
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: surfaceColor,
-      suffixIconColor: primaryVariant,
-      labelStyle: const TextStyle(color: Colors.black),
+      suffixIconColor: primaryColor,
+      labelStyle: const TextStyle(color: bodyText),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide.none,
@@ -52,22 +59,22 @@ class AppTheme {
       ),
     ),
     checkboxTheme: CheckboxThemeData(
-      fillColor: const WidgetStatePropertyAll(backgroundLight),
+      fillColor: const WidgetStatePropertyAll(buttonBackground),
       checkColor: const WidgetStatePropertyAll(backgroundDark),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: accentColor,
-        textStyle: const TextStyle(fontWeight: FontWeight.bold),
+        foregroundColor: buttonText,
       ),
     ),
     iconTheme: const IconThemeData(
       size: 24,
-      color: primaryVariant,
+      color: primaryColor,
     ),
   );
 
+  // Dark Theme
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
@@ -75,22 +82,22 @@ class AppTheme {
     scaffoldBackgroundColor: backgroundDark,
     colorScheme: const ColorScheme.dark().copyWith(
       primary: primaryColor,
-      secondary: secondaryVariant,
-      surface: backgroundDark,
+      secondary: successColor,
+      surface: inputDark,
       error: errorColor,
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      foregroundColor: textColorDark,
+      foregroundColor: titleDark,
     ),
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(fontSize: 16, color: textColorDark),
-      titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: textColorDark),
+      bodyLarge: TextStyle(fontSize: 16, color: bodyDark),
+      titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: titleDark),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: surfaceDarkColor,
+      fillColor: inputDark,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide.none,
@@ -99,19 +106,19 @@ class AppTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: primaryVariant,
+        backgroundColor: primaryColor,
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(vertical: 14),
       ),
     ),
     checkboxTheme: CheckboxThemeData(
-      fillColor: const WidgetStatePropertyAll(backgroundLight),
+      fillColor: const WidgetStatePropertyAll(titleDark),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: secondaryColor,
+        foregroundColor: successColor,
       ),
     ),
   );

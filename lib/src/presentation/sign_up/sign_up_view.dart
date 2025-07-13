@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +86,7 @@ final class _RememberMe extends StatelessWidget {
         ),
         LuciText.bodyMedium(
           LocaleKeys.rememberMe.tr(),
-          textColor: AppTheme.textColorLight,
+          textColor: AppTheme.bodyText,
         ),
       ],
     );
@@ -118,7 +117,7 @@ final class _AlreadyHaveAccount extends StatelessWidget {
       children: [
         LuciText.bodyMedium(
           LocaleKeys.alreadyHaveAnAccount.tr(),
-          textColor: AppTheme.surfaceDarkColor.withValues(alpha: 0.5),
+          textColor: AppTheme.placeholder,
         ),
         GestureDetector(
           onTap: () => router.goNamed(RoutePaths.login.name),

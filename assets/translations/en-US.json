@@ -45,5 +45,9 @@
   "verify": "Verify",
   "newPassword": "New Password",
   "confirmNewPassword": "Confirm New Password",
-  "reset": "Reset"
+  "reset": "Reset",
+  "phoneNumber": "Phone Number",
+    "congratulations_title": "Congratulations!",
+  "congratulations_subtitle": "Your account is ready to use",
+  "go_to_homepage": "Go to Homepage"
 }

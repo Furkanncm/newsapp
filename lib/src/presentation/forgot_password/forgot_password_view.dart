@@ -66,7 +66,7 @@ final class _Body extends StatelessWidget {
           verticalBox16,
           LuciText.bodyLarge(
             LocaleKeys.forgotPasswordSubtitle.tr(),
-            textColor: AppTheme.backgroundDark.withValues(alpha: 0.8),
+            textColor: AppTheme.bodyText,
           ),
           verticalBox32,
           Observer(
@@ -81,7 +81,7 @@ final class _Body extends StatelessWidget {
                             TextSpan(
                               text: viewmodel.isEmailSelected
                                   ? LocaleKeys.email.tr()
-                                  : 'Mobile number',
+                                  : LocaleKeys.phoneNumber.tr(),
                               children: const [
                                 TextSpan(
                                   text: '*',
@@ -129,6 +129,7 @@ final class _EmailAndPhoneNumber extends StatelessWidget {
               selectedOption: viewmodel.selectedOption,
               title: LocaleKeys.viaEmail.tr(),
               description: LocaleKeys.exampleGmail.tr(),
+              icon: Icons.mail_outline_outlined,
               viewmodel: viewmodel,
               onChanged: (value) => viewmodel.setSelectedOption(value!),
               isSelected: viewmodel.isEmailSelected,
@@ -143,6 +144,7 @@ final class _EmailAndPhoneNumber extends StatelessWidget {
               selectedOption: viewmodel.selectedOption,
               title: LocaleKeys.viaSMS.tr(),
               description: LocaleKeys.examplePhoneNumber.tr(),
+              icon: Icons.phone,
               viewmodel: viewmodel,
               onChanged: (value) => viewmodel.setSelectedOption(value!),
               isSelected: !viewmodel.isEmailSelected,
@@ -163,6 +165,7 @@ final class _OptionCard extends StatelessWidget {
     required this.description,
     required this.viewmodel,
     required this.isSelected,
+    required this.icon,
     this.onChanged,
   });
 
@@ -173,17 +176,18 @@ final class _OptionCard extends StatelessWidget {
   final ForgotPasswordViewmodel viewmodel;
   final void Function(String?)? onChanged;
   final bool isSelected;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => onChanged!(option),
       child: Card(
-        color: Colors.grey[250],
+        color: AppTheme.buttonBackground,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),
           side: BorderSide(
-            color: isSelected ? Colors.green : Colors.transparent,
+            color: isSelected ? AppTheme.primaryColor : Colors.transparent,
             width: 2,
           ),
         ),
@@ -194,7 +198,7 @@ final class _OptionCard extends StatelessWidget {
             width: double.infinity,
             child: Row(
               children: [
-                const _MailIcon(),
+                _MailIcon(icon: icon),
                 horizontalBox16,
                 _TitleAndDescription(title: title, description: description),
                 const Spacer(),
@@ -214,12 +218,16 @@ final class _OptionCard extends StatelessWidget {
 
 @immutable
 final class _MailIcon extends StatelessWidget {
-  const _MailIcon();
+  const _MailIcon({
+    required this.icon,
+  });
+
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
-    return const Card(
-      shape: RoundedRectangleBorder(
+    return Card(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(6),
         ),
@@ -228,9 +236,9 @@ final class _MailIcon extends StatelessWidget {
       child: Padding(
         padding: NaPadding.elevatedButtonPadding,
         child: Icon(
-          Icons.mail_outline_outlined,
+          icon,
           size: 30,
-          color: AppTheme.backgroundLight,
+          color: AppTheme.disabledInput,
         ),
       ),
     );
@@ -256,7 +264,7 @@ final class _TitleAndDescription extends StatelessWidget {
         verticalBox4,
         LuciText.bodySmall(
           title,
-          textColor: AppTheme.surfaceDarkColor.withValues(alpha: 0.7),
+          textColor: AppTheme.placeholder,
         ),
         verticalBox8,
         LuciText.bodyMedium(
