@@ -1,15 +1,18 @@
 import 'package:equatable/equatable.dart';
+import 'package:newsapp/src/data/enums/topics.dart';
 
 class User extends Equatable {
-  const User(
-      {required this.id,
-      required this.name,
-      required this.surname,
-      required this.email,
-      required this.password,
-      required this.phone,
-      required this.country,
-      required this.profilePhotoPath});
+  const User({
+    required this.id,
+    required this.name,
+    required this.surname,
+    required this.email,
+    required this.password,
+    required this.phone,
+    required this.country,
+    required this.profilePhotoPath,
+    required this.topics,
+  });
 
   final String? id;
   final String? name;
@@ -19,9 +22,11 @@ class User extends Equatable {
   final String? phone;
   final String? country;
   final String? profilePhotoPath;
+  final List<Topic>? topics;
 
   @override
-  List<Object?> get props => [id, name, surname, email, password, phone, country, profilePhotoPath];
+  List<Object?> get props =>
+      [id, name, surname, email, password, phone, country, profilePhotoPath, topics];
 
   User copyWith({
     String? id,
@@ -32,6 +37,7 @@ class User extends Equatable {
     String? phone,
     String? country,
     String? profilePhotoPath,
+    List<Topic>? topics,
   }) {
     return User(
       id: id ?? this.id,
@@ -42,6 +48,7 @@ class User extends Equatable {
       phone: phone ?? this.phone,
       country: country ?? this.country,
       profilePhotoPath: profilePhotoPath ?? this.profilePhotoPath,
+      topics: topics ?? this.topics,
     );
   }
 }

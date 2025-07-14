@@ -3,10 +3,11 @@ import 'package:lucielle/utils/utils.dart';
 import 'package:lucielle/widget/button/elevated_button.dart';
 import 'package:lucielle/widget/text/luci_text.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 
 @immutable
-final class BottomButton extends StatelessWidget {
-  const BottomButton({
+final class NewsBottomButton extends StatelessWidget {
+  const NewsBottomButton({
     required this.text,
     required this.onPressed,
     super.key,
@@ -31,10 +32,10 @@ final class BottomButton extends StatelessWidget {
         margin: EdgeInsets.zero,
         shape: LinearBorder.bottom(),
         elevation: 3,
-        color: AppTheme.surfaceColor,
+        color: AppTheme.buttonBackground,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
+            padding: NaPadding.mainButtonPadding,
             child: SizedBox(
               width: double.infinity,
               height: context.height * .06,

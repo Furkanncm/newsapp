@@ -54,5 +54,7 @@ abstract class  LocaleKeys {
   static const congratulations_subtitle = 'congratulations_subtitle';
   static const go_to_homepage = 'go_to_homepage';
   static const skip = 'skip';
+  static const doesNotFoundAnyCountry = 'doesNotFoundAnyCountry';
+  static const chooseYourTopics = 'chooseYourTopics';
 
 }

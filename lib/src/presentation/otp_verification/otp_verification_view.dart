@@ -34,7 +34,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> with OtTPVeri
       body: _Body(extra: extra, viewmodel: viewmodel),
       bottomNavigationBar: Observer(
         builder: (_) {
-          return BottomButton(
+          return NewsBottomButton(
             text: viewmodel.isRetry ? LocaleKeys.resendCodeIn.tr() : LocaleKeys.verify.tr(),
             onPressed: viewmodel.isRetry
                 ? viewmodel.sendOtp

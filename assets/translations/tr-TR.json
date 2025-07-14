@@ -49,5 +49,7 @@
     "congratulations_title": "Tebrikler!",
   "congratulations_subtitle": "Hesabınız kullanıma hazır",
   "go_to_homepage": "Ana Sayfaya Git",
-  "skip": "atla"
+  "skip": "Atla",
+  "doesNotFoundAnyCountry": "Ülkenizi bulamadık!",
+  "chooseYourTopics": "İlgi Alanlarını Seç"
 }

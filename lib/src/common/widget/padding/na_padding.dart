@@ -7,4 +7,5 @@ final class NaPadding {
   static const EdgeInsets pagePadding = EdgeInsets.symmetric(horizontal: 18, vertical: 20);
   static const EdgeInsets onboardCounterPadding = EdgeInsets.symmetric(horizontal: 4);
   static const EdgeInsets elevatedButtonPadding = EdgeInsets.all(12);
+  static const EdgeInsets mainButtonPadding = EdgeInsets.symmetric(horizontal: 28, vertical: 20);
 }

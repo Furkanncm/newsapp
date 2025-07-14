@@ -25,16 +25,7 @@ class _LoginViewState extends State<LoginView> with LoginMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextButton(
-            onPressed: () => router.goNamed(RoutePaths.chooseCountry.name),
-            child: LuciText.bodyLarge(
-              LocaleKeys.skip.tr(),
-            ),
-          ),
-        ],
-      ),
+      appBar: AppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(

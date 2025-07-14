@@ -12,11 +12,13 @@ mixin _$LoginViewmodel on _LoginViewmodelBase, Store {
   Computed<bool>? _$isFormValidComputed;
 
   @override
-  bool get isFormValid => (_$isFormValidComputed ??=
-          Computed<bool>(() => super.isFormValid, name: '_LoginViewmodelBase.isFormValid'))
-      .value;
+  bool get isFormValid =>
+      (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid,
+              name: '_LoginViewmodelBase.isFormValid'))
+          .value;
 
-  late final _$isRememberMeAtom = Atom(name: '_LoginViewmodelBase.isRememberMe', context: context);
+  late final _$isRememberMeAtom =
+      Atom(name: '_LoginViewmodelBase.isRememberMe', context: context);
 
   @override
   bool get isRememberMe {
@@ -31,7 +33,8 @@ mixin _$LoginViewmodel on _LoginViewmodelBase, Store {
     });
   }
 
-  late final _$isLoadingAtom = Atom(name: '_LoginViewmodelBase.isLoading', context: context);
+  late final _$isLoadingAtom =
+      Atom(name: '_LoginViewmodelBase.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -52,8 +55,7 @@ mixin _$LoginViewmodel on _LoginViewmodelBase, Store {
   @override
   void toggleRememberMe() {
     final _$actionInfo = _$_LoginViewmodelBaseActionController.startAction(
-      name: '_LoginViewmodelBase.toggleRememberMe',
-    );
+        name: '_LoginViewmodelBase.toggleRememberMe');
     try {
       return super.toggleRememberMe();
     } finally {

@@ -96,7 +96,7 @@ class _OnboardViewState extends State<OnboardView> with OnboardMixin {
                   ValueListenableBuilder<bool>(
                     valueListenable: isLastPage,
                     builder: (context, value, child) {
-                      return NaButton(
+                      return NewsButton(
                         text: value ? LocaleKeys.getStarted.tr() : LocaleKeys.next.tr(),
                         onPressed: nextPage,
                       );

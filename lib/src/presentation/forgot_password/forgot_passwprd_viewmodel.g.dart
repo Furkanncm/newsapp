@@ -9,8 +9,8 @@ part of 'forgot_passwprd_viewmodel.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
-  late final _$selectedOptionAtom =
-      Atom(name: '_ForgotPasswordViewmodelBase.selectedOption', context: context);
+  late final _$selectedOptionAtom = Atom(
+      name: '_ForgotPasswordViewmodelBase.selectedOption', context: context);
 
   @override
   String get selectedOption {
@@ -41,7 +41,8 @@ mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
     });
   }
 
-  late final _$isValidAtom = Atom(name: '_ForgotPasswordViewmodelBase.isValid', context: context);
+  late final _$isValidAtom =
+      Atom(name: '_ForgotPasswordViewmodelBase.isValid', context: context);
 
   @override
   bool get isValid {
@@ -61,8 +62,8 @@ mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
 
   @override
   void setSelectedOption(String option) {
-    final _$actionInfo = _$_ForgotPasswordViewmodelBaseActionController.startAction(
-        name: '_ForgotPasswordViewmodelBase.setSelectedOption',);
+    final _$actionInfo = _$_ForgotPasswordViewmodelBaseActionController
+        .startAction(name: '_ForgotPasswordViewmodelBase.setSelectedOption');
     try {
       return super.setSelectedOption(option);
     } finally {
@@ -72,8 +73,8 @@ mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
 
   @override
   void onSubmit() {
-    final _$actionInfo = _$_ForgotPasswordViewmodelBaseActionController.startAction(
-        name: '_ForgotPasswordViewmodelBase.onSubmit',);
+    final _$actionInfo = _$_ForgotPasswordViewmodelBaseActionController
+        .startAction(name: '_ForgotPasswordViewmodelBase.onSubmit');
     try {
       return super.onSubmit();
     } finally {

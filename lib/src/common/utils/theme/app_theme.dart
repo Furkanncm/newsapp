@@ -27,7 +27,7 @@ class AppTheme {
     useMaterial3: true,
     brightness: Brightness.light,
     primaryColor: primaryColor,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: buttonBackground,
     colorScheme: const ColorScheme.light().copyWith(
       primary: primaryColor,
       secondary: successColor,
@@ -35,7 +35,8 @@ class AppTheme {
       error: errorColor,
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
+      backgroundColor: buttonBackground,
       elevation: 0,
       foregroundColor: titleActive,
     ),

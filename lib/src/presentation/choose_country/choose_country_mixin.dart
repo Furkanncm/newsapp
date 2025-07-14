@@ -1,14 +1,16 @@
 import 'package:codegen/model/country_model/country_model.dart';
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
+import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/rootbundle/root_bundle_repository.dart';
-import 'package:newsapp/src/presentation/choose_country/view/choose_country_view.dart';
+import 'package:newsapp/src/presentation/choose_country/choose_country_view.dart';
 
 mixin ChooseCountryMixin on State<ChooseCountryView> {
   final RootBundleManager rootBundleService = RootBundleManager();
   late final CountryRepository _countryRepository;
   ValueNotifier<List<Country>> countryListNotifier = ValueNotifier([]);
-  late List<Country> _allCountries;
+  late List<Country> allCountries;
   Country? selectedCountry;
   late final ValueNotifier<bool> isSelectCountryStateHold;
 
@@ -25,8 +27,8 @@ mixin ChooseCountryMixin on State<ChooseCountryView> {
   }
 
   Future<void> _getCountries() async {
-    _allCountries = await _countryRepository.getCountries();
-    countryListNotifier.value = List.from(_allCountries);
+    allCountries = await _countryRepository.getCountries();
+    countryListNotifier.value = List.from(allCountries);
   }
 
   void _getCountriesWithCompute() => _getCountries();
@@ -36,13 +38,14 @@ mixin ChooseCountryMixin on State<ChooseCountryView> {
 
     if (selectedCountry != null && selectedCountry!.code == tappedCountry.code) {
       selectedCountry = null;
+      isSelectCountryStateHold.value = false;
       countryListNotifier.value =
           countryListNotifier.value.map((e) => e.copyWith(isSelected: false)).toList();
       return;
     }
 
     selectedCountry = tappedCountry;
-
+    isSelectCountryStateHold.value = true;
     final updatedList = countryListNotifier.value.asMap().entries.map((entry) {
       final index = entry.key;
       final country = entry.value;
@@ -55,9 +58,9 @@ mixin ChooseCountryMixin on State<ChooseCountryView> {
   void searchCountry(String query) {
     isAnyWord.value = searchController.text.isNotEmpty;
     if (query.isEmpty) {
-      countryListNotifier.value = List.from(_allCountries);
+      countryListNotifier.value = List.from(allCountries);
     } else {
-      countryListNotifier.value = _allCountries.where((country) {
+      countryListNotifier.value = allCountries.where((country) {
         return (country.name ?? '').toLowerCase().startsWith(
               query.toLowerCase(),
             );
@@ -68,18 +71,14 @@ mixin ChooseCountryMixin on State<ChooseCountryView> {
   void clearController() {
     searchController.clear();
     isAnyWord.value = searchController.text.isNotEmpty;
-    countryListNotifier.value = _allCountries;
+    countryListNotifier.value = allCountries;
   }
 
   void next() {
-    if (selectedCountry == null) {
-      isSelectCountryStateHold.value = true;
-      Future.delayed(const Duration(seconds: 1), () {
-        isSelectCountryStateHold.value = false;
-      });
-    } else {
-      _countryRepository.selectCountryAndNext(selectedCountry!);
-    }
+    if (selectedCountry == null) return;
+
+    _countryRepository.selectCountryAndNext(selectedCountry!);
+    router.pushNamed(RoutePaths.topics.name);
   }
 
   @override

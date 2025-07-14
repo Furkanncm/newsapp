@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:newsapp/src/data/enums/route_paths.dart';
-import 'package:newsapp/src/presentation/choose_country/view/choose_country_view.dart';
+import 'package:newsapp/src/presentation/choose_country/choose_country_view.dart';
 import 'package:newsapp/src/presentation/congratulations/congratulations_view.dart';
 import 'package:newsapp/src/presentation/forgot_password/forgot_password_view.dart';
 import 'package:newsapp/src/presentation/login/login_view.dart';
@@ -10,6 +10,7 @@ import 'package:newsapp/src/presentation/otp_verification/otp_verification_view.
 import 'package:newsapp/src/presentation/reset_password/reset_password_view.dart';
 import 'package:newsapp/src/presentation/sign_up/sign_up_view.dart';
 import 'package:newsapp/src/presentation/splash/splash_view.dart';
+import 'package:newsapp/src/presentation/topic/topic_view.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: RoutePaths.splash.path,
@@ -58,6 +59,11 @@ final GoRouter router = GoRouter(
       name: RoutePaths.chooseCountry.name,
       path: RoutePaths.chooseCountry.path,
       builder: (context, state) => const ChooseCountryView(),
+    ),
+    GoRoute(
+      name: RoutePaths.topics.name,
+      path: RoutePaths.topics.path,
+      builder: (context, state) => const TopicsView(),
     ),
     GoRoute(
       path: RoutePaths.home.path,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lucielle/widget/text/luci_text.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 
-class NaButton extends StatelessWidget {
-  const NaButton({
+class NewsButton extends StatelessWidget {
+  const NewsButton({
     required this.text,
     super.key,
     this.onPressed,

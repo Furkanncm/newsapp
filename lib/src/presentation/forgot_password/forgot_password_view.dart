@@ -286,7 +286,7 @@ final class _SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-        return BottomButton(
+        return NewsBottomButton(
           text: LocaleKeys.submit.tr(),
           onPressed: viewmodel.onSubmit,
         );

@@ -40,7 +40,7 @@ class _SplashViewState extends State<SplashView> {
   Future<void> navigate() async {
     final isOnboardActive = CacheRepository.instance.getBool(PrefKeys.isOnboardActive);
     if (isOnboardActive == false) {
-      router.goNamed(RoutePaths.login.name);
+      router.goNamed(RoutePaths.chooseCountry.name);
     } else {
       router.goNamed(RoutePaths.onboard.name);
     }
@@ -63,7 +63,7 @@ class _SplashViewState extends State<SplashView> {
                 builder: (context, value, child) {
                   return LinearProgressIndicator(
                     value: value,
-                    backgroundColor: AppTheme.buttonText.withValues(alpha:0.2),
+                    backgroundColor: AppTheme.buttonText.withValues(alpha: 0.2),
                     color: AppTheme.primaryColor,
                   );
                 },

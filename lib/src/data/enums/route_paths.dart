@@ -8,6 +8,7 @@ enum RoutePaths {
   resetPassword('/resetPassword'),
   congratulations('/congratulations'),
   chooseCountry('/chooseCountry'),
+  topics('/topic'),
   home('/home'),
   newsDetail('/news-detail'),
   newsList('/news-list');

@@ -26,7 +26,7 @@ class CongratulationsView extends StatelessWidget with CongratulationsMixin {
           ],
         ),
       ),
-      bottomNavigationBar: BottomButton(
+      bottomNavigationBar: NewsBottomButton(
         text: LocaleKeys.go_to_homepage.tr(),
         onPressed: routeHomePage,
       ),
