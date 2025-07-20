@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:lucielle/widget/sized_box/space_box.dart';
 import 'package:lucielle/widget/textfield/password_field.dart';
-import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/text/label_with_star.dart';
 
 @immutable
 final class PasswordField extends StatelessWidget {
@@ -21,17 +21,7 @@ final class PasswordField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text.rich(
-          TextSpan(
-            text: labelText,
-            children: const [
-              TextSpan(
-                text: '*',
-                style: TextStyle(color: AppTheme.errorColor),
-              ),
-            ],
-          ),
-        ),
+        LabelWithStar(text: labelText),
         verticalBox4,
         LuciPasswordTextFormField(
           controller: passwordController,

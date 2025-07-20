@@ -1,13 +1,14 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/constants/view_constants.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
+import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/data/enums/topics.dart';
 import 'package:newsapp/src/presentation/topic/topic_mixin.dart';
 import 'package:newsapp/src/presentation/topic/topic_viewmodel.dart';
@@ -144,7 +145,9 @@ final class _NextButton extends StatelessWidget {
       builder: (_) {
         return NewsBottomButton(
           text: LocaleKeys.next.tr(),
-          onPressed: viewmodel.selectedTopics.isNotEmpty ? () {} : null,
+          onPressed: viewmodel.selectedTopics.isNotEmpty
+              ? () => router.pushNamed(RoutePaths.fillProfile.name)
+              : null,
         );
       },
     );

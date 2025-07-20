@@ -2,7 +2,7 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/widget/sized_box/space_box.dart';
-import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/text/label_with_star.dart';
 import 'package:newsapp/src/common/widget/textfield/email_texfield.dart';
 
 @immutable
@@ -24,17 +24,7 @@ class _EmailFieldWithLabelState extends State<EmailFieldWithLabel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text.rich(
-          TextSpan(
-            text: LocaleKeys.email.tr(),
-            children: const [
-              TextSpan(
-                text: '*',
-                style: TextStyle(color: AppTheme.errorColor),
-              ),
-            ],
-          ),
-        ),
+        LabelWithStar(text: LocaleKeys.email.tr()),
         verticalBox4,
         EmailTextField(emailController: widget.emailController),
       ],

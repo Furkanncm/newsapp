@@ -118,7 +118,7 @@ class _PinFieldState extends State<PinField> {
           animationDuration: const Duration(milliseconds: 300),
           errorAnimationController: widget.viewmodel.errorController,
           controller: widget.viewmodel.pinCodeController,
-          backgroundColor: Colors.white,
+          backgroundColor: AppTheme.buttonBackground,
           enabled: !widget.viewmodel.isRetry,
           onCompleted: (v) async {
             widget.viewmodel.pinCompleted();

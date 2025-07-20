@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/presentation/choose_country/choose_country_view.dart';
 import 'package:newsapp/src/presentation/congratulations/congratulations_view.dart';
+import 'package:newsapp/src/presentation/fill_profile/fill_profile_view.dart';
 import 'package:newsapp/src/presentation/forgot_password/forgot_password_view.dart';
 import 'package:newsapp/src/presentation/login/login_view.dart';
 import 'package:newsapp/src/presentation/news_detail/news_detail_view.dart';
@@ -64,6 +65,11 @@ final GoRouter router = GoRouter(
       name: RoutePaths.topics.name,
       path: RoutePaths.topics.path,
       builder: (context, state) => const TopicsView(),
+    ),
+     GoRoute(
+      name: RoutePaths.fillProfile.name,
+      path: RoutePaths.fillProfile.path,
+      builder: (context, state) => const FillProfileView(),
     ),
     GoRoute(
       path: RoutePaths.home.path,
