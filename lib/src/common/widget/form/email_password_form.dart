@@ -1,3 +1,5 @@
+import 'package:codegen/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/widget/sized_box/space_box.dart';
 import 'package:newsapp/src/common/widget/textfield/email_textfield_with_label.dart';
@@ -23,7 +25,10 @@ class EmailPasswordForm extends StatelessWidget {
         children: [
           EmailFieldWithLabel(emailController: emailController),
           verticalBox16,
-          PasswordField(passwordController: passwordController),
+          PasswordField(
+            passwordController: passwordController,
+            labelText: LocaleKeys.password.tr(),
+          ),
         ],
       ),
     );

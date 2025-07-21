@@ -26,7 +26,7 @@ final class PasswordField extends StatelessWidget {
         LuciPasswordTextFormField(
           controller: passwordController,
           confirmController: confirmPasswordController,
-          labelText: '',
+          labelText: labelText,
         ),
       ],
     );
