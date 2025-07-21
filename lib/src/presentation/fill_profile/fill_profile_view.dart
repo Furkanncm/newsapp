@@ -36,7 +36,7 @@ class _FillProfileViewState extends State<FillProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const NewsAppBar(title: 'Fill your Profile'),
+      appBar: const NewsAppBar(title: 'Fill your Profiledsadsa'),
       body: SingleChildScrollView(
         child: Padding(
           padding: ViewConstants.instance.pagePadding,
