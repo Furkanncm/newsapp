@@ -52,5 +52,9 @@
   "go_to_homepage": "Go to Homepage",
   "skip":"Skip",
   "doesNotFoundAnyCountry":"Sorry, we couldn't find any country.",
-  "chooseYourTopics": "Choose your Topics"
+  "chooseYourTopics": "Choose your Topics",
+  "cannotNull":"is can not be null",
+  "fillProfile":"Fill your Profile",
+  "username":"Username",
+  "fullName":"Full Name"
 }

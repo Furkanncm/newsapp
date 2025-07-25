@@ -1,7 +1,8 @@
 import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:lucielle/lucielle.dart';
 
-class AppTheme {
+class AppTheme extends LuciTheme {
   // Renk tanımları
   static const Color primaryColor = ColorName.primaryColor; // #0071F2
   static const Color errorColor = ColorName.errorColor; // #ED2E7E
@@ -123,4 +124,7 @@ class AppTheme {
       ),
     ),
   );
+
+  @override
+  ThemeData get luciThemeData => lightTheme;
 }

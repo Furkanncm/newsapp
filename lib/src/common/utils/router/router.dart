@@ -14,7 +14,7 @@ import 'package:newsapp/src/presentation/splash/splash_view.dart';
 import 'package:newsapp/src/presentation/topic/topic_view.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: RoutePaths.splash.path,
+  initialLocation: RoutePaths.fillProfile.path,
   routes: [
     GoRoute(
       path: RoutePaths.splash.path,

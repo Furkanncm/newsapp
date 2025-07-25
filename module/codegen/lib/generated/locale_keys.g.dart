@@ -56,5 +56,9 @@ abstract class  LocaleKeys {
   static const skip = 'skip';
   static const doesNotFoundAnyCountry = 'doesNotFoundAnyCountry';
   static const chooseYourTopics = 'chooseYourTopics';
+  static const cannotNull = 'cannotNull';
+  static const fillProfile = 'fillProfile';
+  static const username = 'username';
+  static const fullName = 'fullName';
 
 }
