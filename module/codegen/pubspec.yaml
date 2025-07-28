@@ -41,4 +41,5 @@ flutter_gen:
 flutter:
   assets:
     - assets/images/
+    - assets/ui_kit_images/
 

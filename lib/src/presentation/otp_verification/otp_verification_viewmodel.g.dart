@@ -10,7 +10,9 @@ part of 'otp_verification_viewmodel.dart';
 
 mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
   late final _$secondsRemainingAtom = Atom(
-      name: '_OTPVerificationViewmodelBase.secondsRemaining', context: context);
+    name: '_OTPVerificationViewmodelBase.secondsRemaining',
+    context: context,
+  );
 
   @override
   int get secondsRemaining {
@@ -25,8 +27,10 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
     });
   }
 
-  late final _$isRetryAtom =
-      Atom(name: '_OTPVerificationViewmodelBase.isRetry', context: context);
+  late final _$isRetryAtom = Atom(
+    name: '_OTPVerificationViewmodelBase.isRetry',
+    context: context,
+  );
 
   @override
   bool get isRetry {
@@ -41,8 +45,10 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
     });
   }
 
-  late final _$isPinCompAtom =
-      Atom(name: '_OTPVerificationViewmodelBase.isPinComp', context: context);
+  late final _$isPinCompAtom = Atom(
+    name: '_OTPVerificationViewmodelBase.isPinComp',
+    context: context,
+  );
 
   @override
   bool get isPinComp {
@@ -57,8 +63,10 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
     });
   }
 
-  late final _$_OTPVerificationViewmodelBaseActionController =
-      ActionController(name: '_OTPVerificationViewmodelBase', context: context);
+  late final _$_OTPVerificationViewmodelBaseActionController = ActionController(
+    name: '_OTPVerificationViewmodelBase',
+    context: context,
+  );
 
   @override
   void changeRetryState(bool value) {

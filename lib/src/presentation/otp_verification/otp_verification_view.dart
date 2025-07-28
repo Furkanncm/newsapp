@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/constants/view_constants.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
+import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/data/model/otp/otp_model.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_mixin.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_viewmodel.dart';
@@ -62,7 +62,7 @@ final class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: ViewConstants.instance.pagePadding,
+        padding: NaPadding.pagePadding,
         child: Align(
           child: Column(
             children: [

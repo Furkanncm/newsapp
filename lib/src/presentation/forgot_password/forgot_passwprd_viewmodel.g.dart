@@ -10,7 +10,9 @@ part of 'forgot_passwprd_viewmodel.dart';
 
 mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
   late final _$selectedOptionAtom = Atom(
-      name: '_ForgotPasswordViewmodelBase.selectedOption', context: context);
+    name: '_ForgotPasswordViewmodelBase.selectedOption',
+    context: context,
+  );
 
   @override
   String get selectedOption {
@@ -25,8 +27,10 @@ mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
     });
   }
 
-  late final _$isSubmittedAtom =
-      Atom(name: '_ForgotPasswordViewmodelBase.isSubmitted', context: context);
+  late final _$isSubmittedAtom = Atom(
+    name: '_ForgotPasswordViewmodelBase.isSubmitted',
+    context: context,
+  );
 
   @override
   bool get isSubmitted {
@@ -41,8 +45,10 @@ mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
     });
   }
 
-  late final _$isValidAtom =
-      Atom(name: '_ForgotPasswordViewmodelBase.isValid', context: context);
+  late final _$isValidAtom = Atom(
+    name: '_ForgotPasswordViewmodelBase.isValid',
+    context: context,
+  );
 
   @override
   bool get isValid {
@@ -57,8 +63,10 @@ mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
     });
   }
 
-  late final _$_ForgotPasswordViewmodelBaseActionController =
-      ActionController(name: '_ForgotPasswordViewmodelBase', context: context);
+  late final _$_ForgotPasswordViewmodelBaseActionController = ActionController(
+    name: '_ForgotPasswordViewmodelBase',
+    context: context,
+  );
 
   @override
   void setSelectedOption(String option) {

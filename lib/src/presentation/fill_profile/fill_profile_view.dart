@@ -1,16 +1,14 @@
 import 'dart:io';
-
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/dialog/news_app_dialogs.dart';
-import 'package:newsapp/src/common/utils/constants/view_constants.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/utils/validator/validator.dart';
 import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
+import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/common/widget/text/label_with_star.dart';
 import 'package:newsapp/src/common/widget/textfield/email_textfield_with_label.dart';
 import 'package:newsapp/src/common/widget/textfield/textfield_with_label.dart';
@@ -24,12 +22,17 @@ final class FillProfileView extends StatefulWidget {
   State<FillProfileView> createState() => _FillProfileViewState();
 }
 
-class _FillProfileViewState extends State<FillProfileView> with FillProfileMixin {
+class _FillProfileViewState extends State<FillProfileView>
+    with FillProfileMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NewsAppBar(title: LocaleKeys.fillProfile.tr()),
-      body: _Body(onNextPressed: setProfilePhoto, imageFile: imageFile, viewmodel: viewmodel),
+      body: _Body(
+        imageFile: imageFile,
+        viewmodel: viewmodel,
+        onPressed: () => setProfilePhoto(context),
+      ),
       bottomNavigationBar: _NextButton(viewmodel: viewmodel),
     );
   }
@@ -38,34 +41,25 @@ class _FillProfileViewState extends State<FillProfileView> with FillProfileMixin
 @immutable
 final class _Body extends StatelessWidget {
   const _Body({
-    required this.onNextPressed,
     required this.imageFile,
     required this.viewmodel,
+    required this.onPressed,
   });
 
-  final VoidCallback onNextPressed;
   final ValueNotifier<XFile?> imageFile;
   final FillProfileViewmodel viewmodel;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: ViewConstants.instance.pagePadding,
+        padding: NaPadding.pagePadding,
         child: Column(
           children: [
             Center(
               child: GestureDetector(
-                onTap: () async {
-                  await LuciDialogs.showDialog(
-                    context: context,
-                    title: 'Are you sure?',
-                    content: 'Are you sure you want to change your profile photo?',
-                    positiveButtonLabel: 'YES',
-                    negativeButtonLabel: 'NO',
-                    positiveButtonCallback: () {},
-                  );
-                },
+                onTap: onPressed,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -163,14 +157,16 @@ final class _FormField extends StatelessWidget {
             label: LocaleKeys.username.tr(),
             prefixIcon: const Icon(Icons.person_2_outlined),
             controller: viewmodel.nameController,
-            validator: (value) => Validator.isEmptyOrNull(value, LocaleKeys.username.tr()),
+            validator: (value) =>
+                Validator.isEmptyOrNull(value, LocaleKeys.username.tr()),
           ),
           verticalBox16,
           TextFieldWithLabel(
             label: LocaleKeys.fullName.tr(),
             prefixIcon: const Icon(Icons.person_2_outlined),
             controller: viewmodel.fullNameController,
-            validator: (value) => Validator.isEmptyOrNull(value, LocaleKeys.fullName.tr()),
+            validator: (value) =>
+                Validator.isEmptyOrNull(value, LocaleKeys.fullName.tr()),
           ),
           verticalBox16,
           EmailFieldWithLabel(emailController: viewmodel.emailController),

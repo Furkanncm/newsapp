@@ -1,4 +1,4 @@
-import 'package:app_settings/app_settings.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lucielle/widget/bottom_sheet/image_picker_bottom_sheet.dart';
@@ -9,7 +9,6 @@ import 'package:newsapp/src/presentation/fill_profile/fill_profile_viewmodel.dar
 mixin FillProfileMixin on State<FillProfileView> {
   late final FillProfileViewmodel viewmodel;
   final ValueNotifier<XFile?> imageFile = ValueNotifier(null);
-  int _count = 0;
 
   @override
   void initState() {
@@ -22,26 +21,18 @@ mixin FillProfileMixin on State<FillProfileView> {
     viewmodel.phoneController = TextEditingController();
   }
 
-  Future<void> setProfilePhoto() async {
+  Future<void> setProfilePhoto(BuildContext context) async {
     final result = await ImagePickerBottomSheet().showImagePickerBottomSheet(
-      showDragHandle: true,
       context: context,
+      locale: context.locale,
+      showDragHandle: true,
       bottomSheetBackgroundColor: AppTheme.buttonBackground,
       textColor: AppTheme.bodyText,
       buttonBackgroundColor: AppTheme.bodyDark,
     );
-    if (result == null) {
-      _count++;
-      return;
-    }
-    if (_count == 2) {
-      
-    }
-    imageFile.value = result;
-  }
+    if (result == null) return;
 
-  Future<void> routeAppSettings() async {
-    await AppSettings.openAppSettings();
+    imageFile.value = result;
   }
 
   @override

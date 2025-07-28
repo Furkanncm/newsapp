@@ -2,7 +2,7 @@ import 'package:codegen/codegen.dart';
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
-import 'package:newsapp/src/common/utils/extensions/asset_extension.dart';
+import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
 
 final class OnboardModel {
   OnboardModel({this.image, this.header, this.description});

@@ -1,0 +1,39 @@
+import 'package:codegen/codegen.dart';
+import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
+import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
+import 'package:newsapp/src/common/widget/other/news_onboard.dart';
+import 'package:newsapp/src/common/widget/padding/na_padding.dart';
+
+class AllTrendsView extends StatefulWidget {
+  const AllTrendsView({super.key});
+
+  @override
+  State<AllTrendsView> createState() => _AllTrendsViewState();
+}
+
+class _AllTrendsViewState extends State<AllTrendsView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: NewsAppBar(
+        title: 'Trending',
+        actions: [
+          Padding(
+            padding: NaPadding.rightPadding,
+            child: Assets.uiKitImages.icCommentOutline.toIcon(32),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: NaPadding.pagePadding,
+        child: ListView.builder(
+          itemCount: 20,
+          itemBuilder: (BuildContext context, int index) {
+            return TrendNewsOnboard(onDetail: () {});
+          },
+        ),
+      ),
+    );
+  }
+}

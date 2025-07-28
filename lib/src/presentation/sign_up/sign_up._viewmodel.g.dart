@@ -12,13 +12,15 @@ mixin _$SignUpViewmodel on _SignUpViewmodelBase, Store {
   Computed<bool>? _$isFormValidComputed;
 
   @override
-  bool get isFormValid =>
-      (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid,
-              name: '_SignUpViewmodelBase.isFormValid'))
-          .value;
+  bool get isFormValid => (_$isFormValidComputed ??= Computed<bool>(
+    () => super.isFormValid,
+    name: '_SignUpViewmodelBase.isFormValid',
+  )).value;
 
-  late final _$isRememberMeAtom =
-      Atom(name: '_SignUpViewmodelBase.isRememberMe', context: context);
+  late final _$isRememberMeAtom = Atom(
+    name: '_SignUpViewmodelBase.isRememberMe',
+    context: context,
+  );
 
   @override
   bool get isRememberMe {
@@ -33,8 +35,10 @@ mixin _$SignUpViewmodel on _SignUpViewmodelBase, Store {
     });
   }
 
-  late final _$isLoadingAtom =
-      Atom(name: '_SignUpViewmodelBase.isLoading', context: context);
+  late final _$isLoadingAtom = Atom(
+    name: '_SignUpViewmodelBase.isLoading',
+    context: context,
+  );
 
   @override
   bool get isLoading {
@@ -49,13 +53,16 @@ mixin _$SignUpViewmodel on _SignUpViewmodelBase, Store {
     });
   }
 
-  late final _$_SignUpViewmodelBaseActionController =
-      ActionController(name: '_SignUpViewmodelBase', context: context);
+  late final _$_SignUpViewmodelBaseActionController = ActionController(
+    name: '_SignUpViewmodelBase',
+    context: context,
+  );
 
   @override
   void toggleRememberMe() {
     final _$actionInfo = _$_SignUpViewmodelBaseActionController.startAction(
-        name: '_SignUpViewmodelBase.toggleRememberMe');
+      name: '_SignUpViewmodelBase.toggleRememberMe',
+    );
     try {
       return super.toggleRememberMe();
     } finally {
@@ -66,7 +73,8 @@ mixin _$SignUpViewmodel on _SignUpViewmodelBase, Store {
   @override
   void resetForm() {
     final _$actionInfo = _$_SignUpViewmodelBaseActionController.startAction(
-        name: '_SignUpViewmodelBase.resetForm');
+      name: '_SignUpViewmodelBase.resetForm',
+    );
     try {
       return super.resetForm();
     } finally {

@@ -1,3 +1,5 @@
+// dart format width=80
+
 /// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
 ///  FlutterGen
@@ -5,7 +7,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: deprecated_member_use,directives_ordering,implicit_dynamic_list_literal,unnecessary_import
 
 import 'package:flutter/widgets.dart';
 
@@ -13,25 +15,32 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/ic_app_logo.png
-  AssetGenImage get icAppLogo => const AssetGenImage('assets/images/ic_app_logo.png');
+  AssetGenImage get icAppLogo =>
+      const AssetGenImage('assets/images/ic_app_logo.png');
 
   /// File path: assets/images/ic_apple.png
-  AssetGenImage get icApple => const AssetGenImage('assets/images/ic_apple.png');
+  AssetGenImage get icApple =>
+      const AssetGenImage('assets/images/ic_apple.png');
 
   /// File path: assets/images/ic_facebook.png
-  AssetGenImage get icFacebook => const AssetGenImage('assets/images/ic_facebook.png');
+  AssetGenImage get icFacebook =>
+      const AssetGenImage('assets/images/ic_facebook.png');
 
   /// File path: assets/images/ic_google.png
-  AssetGenImage get icGoogle => const AssetGenImage('assets/images/ic_google.png');
+  AssetGenImage get icGoogle =>
+      const AssetGenImage('assets/images/ic_google.png');
 
   /// File path: assets/images/onboard1.png
-  AssetGenImage get onboard1 => const AssetGenImage('assets/images/onboard1.png');
+  AssetGenImage get onboard1 =>
+      const AssetGenImage('assets/images/onboard1.png');
 
   /// File path: assets/images/onboard2.png
-  AssetGenImage get onboard2 => const AssetGenImage('assets/images/onboard2.png');
+  AssetGenImage get onboard2 =>
+      const AssetGenImage('assets/images/onboard2.png');
 
   /// File path: assets/images/onboard3.png
-  AssetGenImage get onboard3 => const AssetGenImage('assets/images/onboard3.png');
+  AssetGenImage get onboard3 =>
+      const AssetGenImage('assets/images/onboard3.png');
 
   /// Directory path: assets/images
   String get path => 'assets/images';
@@ -48,19 +57,167 @@ class $AssetsImagesGen {
   ];
 }
 
+class $AssetsUiKitImagesGen {
+  const $AssetsUiKitImagesGen();
+
+  /// File path: assets/ui_kit_images/ic_add box_outline.png
+  AssetGenImage get icAddBoxOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_add box_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_add_outline.png
+  AssetGenImage get icAddOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_add_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_align center_outline.png
+  AssetGenImage get icAlignCenterOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_align center_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_align left_outline.png
+  AssetGenImage get icAlignLeftOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_align left_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_bold_outline.png
+  AssetGenImage get icBoldOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_bold_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_comment_outline.png
+  AssetGenImage get icCommentOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_comment_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_compass_outline.png
+  AssetGenImage get icCompassOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_compass_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_eye close_outline.png
+  AssetGenImage get icEyeCloseOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_eye close_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_facebook_filled.png
+  AssetGenImage get icFacebookFilled =>
+      const AssetGenImage('assets/ui_kit_images/ic_facebook_filled.png');
+
+  /// File path: assets/ui_kit_images/ic_filter_outline.png
+  AssetGenImage get icFilterOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_filter_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_home_outline.png
+  AssetGenImage get icHomeOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_home_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_italic_outline.png
+  AssetGenImage get icItalicOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_italic_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_lock_outline.png
+  AssetGenImage get icLockOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_lock_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_logout_outline.png
+  AssetGenImage get icLogoutOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_logout_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_more hor_outline.png
+  AssetGenImage get icMoreHorOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_more hor_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_more_outline.png
+  AssetGenImage get icMoreOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_more_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_notification_outline.png
+  AssetGenImage get icNotificationOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_notification_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_profile_outline.png
+  AssetGenImage get icProfileOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_profile_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_question_outline.png
+  AssetGenImage get icQuestionOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_question_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_questionmark_outline.png
+  AssetGenImage get icQuestionmarkOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_questionmark_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_reply_outline.png
+  AssetGenImage get icReplyOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_reply_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_right_outline.png
+  AssetGenImage get icRightOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_right_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_send_outline.png
+  AssetGenImage get icSendOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_send_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_setting_outline.png
+  AssetGenImage get icSettingOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_setting_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_time.png
+  AssetGenImage get icTime =>
+      const AssetGenImage('assets/ui_kit_images/ic_time.png');
+
+  /// File path: assets/ui_kit_images/ic_time_outline.png
+  AssetGenImage get icTimeOutline =>
+      const AssetGenImage('assets/ui_kit_images/ic_time_outline.png');
+
+  /// Directory path: assets/ui_kit_images
+  String get path => 'assets/ui_kit_images';
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+    icAddBoxOutline,
+    icAddOutline,
+    icAlignCenterOutline,
+    icAlignLeftOutline,
+    icBoldOutline,
+    icCommentOutline,
+    icCompassOutline,
+    icEyeCloseOutline,
+    icFacebookFilled,
+    icFilterOutline,
+    icHomeOutline,
+    icItalicOutline,
+    icLockOutline,
+    icLogoutOutline,
+    icMoreHorOutline,
+    icMoreOutline,
+    icNotificationOutline,
+    icProfileOutline,
+    icQuestionOutline,
+    icQuestionmarkOutline,
+    icReplyOutline,
+    icRightOutline,
+    icSendOutline,
+    icSettingOutline,
+    icTime,
+    icTimeOutline,
+  ];
+}
+
 class Assets {
   const Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsUiKitImagesGen uiKitImages = $AssetsUiKitImagesGen();
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+    this.animation,
+  });
 
   final String _assetName;
 
   final Size? size;
   final Set<String> flavors;
+  final AssetGenImageAnimation? animation;
 
   Image image({
     Key? key,
@@ -122,4 +279,16 @@ class AssetGenImage {
   String get path => _assetName;
 
   String get keyName => _assetName;
+}
+
+class AssetGenImageAnimation {
+  const AssetGenImageAnimation({
+    required this.isAnimation,
+    required this.duration,
+    required this.frames,
+  });
+
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
 }

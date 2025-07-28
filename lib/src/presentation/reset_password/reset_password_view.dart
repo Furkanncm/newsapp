@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/constants/view_constants.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
+import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/common/widget/textfield/password_textfield.dart';
 import 'package:newsapp/src/presentation/reset_password/reset_password_mixin.dart';
 import 'package:newsapp/src/presentation/reset_password/reset_password_viewmodel.dart';
@@ -59,7 +59,7 @@ final class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: ViewConstants.instance.pagePadding,
+      padding: NaPadding.pagePadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

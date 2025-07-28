@@ -1,11 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsapp/src/common/widget/navigation_bar/bottom_navigationbar.dart';
 import 'package:newsapp/src/data/enums/route_paths.dart';
+import 'package:newsapp/src/presentation/all_trends/all_trends_view.dart';
 import 'package:newsapp/src/presentation/choose_country/choose_country_view.dart';
 import 'package:newsapp/src/presentation/congratulations/congratulations_view.dart';
 import 'package:newsapp/src/presentation/fill_profile/fill_profile_view.dart';
 import 'package:newsapp/src/presentation/forgot_password/forgot_password_view.dart';
+import 'package:newsapp/src/presentation/home/home_view.dart';
 import 'package:newsapp/src/presentation/login/login_view.dart';
-import 'package:newsapp/src/presentation/news_detail/news_detail_view.dart';
 import 'package:newsapp/src/presentation/onboard/onboard_view.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_view.dart';
 import 'package:newsapp/src/presentation/reset_password/reset_password_view.dart';
@@ -13,8 +16,12 @@ import 'package:newsapp/src/presentation/sign_up/sign_up_view.dart';
 import 'package:newsapp/src/presentation/splash/splash_view.dart';
 import 'package:newsapp/src/presentation/topic/topic_view.dart';
 
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorKey = GlobalKey<NavigatorState>();
+
 final GoRouter router = GoRouter(
-  initialLocation: RoutePaths.fillProfile.path,
+  navigatorKey: _rootNavigatorKey,
+  initialLocation: RoutePaths.home.path,
   routes: [
     GoRoute(
       path: RoutePaths.splash.path,
@@ -66,15 +73,48 @@ final GoRouter router = GoRouter(
       path: RoutePaths.topics.path,
       builder: (context, state) => const TopicsView(),
     ),
-     GoRoute(
+    GoRoute(
       name: RoutePaths.fillProfile.name,
       path: RoutePaths.fillProfile.path,
       builder: (context, state) => const FillProfileView(),
     ),
-    GoRoute(
-      path: RoutePaths.home.path,
-      name: RoutePaths.home.name,
-      builder: (context, state) => const NewsDetailView(),
+    ShellRoute(
+      navigatorKey: _shellNavigatorKey,
+      builder: (context, state, child) => AppNavigationBar(child: child),
+      routes: [
+        GoRoute(
+          path: RoutePaths.home.path,
+          name: RoutePaths.home.name,
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: HomeView()),
+          routes: [
+            GoRoute(
+              name: RoutePaths.allTrends.name,
+              path: RoutePaths.allTrends.path,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: AllTrendsView()),
+            ),
+          ],
+        ),
+        GoRoute(
+          path: RoutePaths.explore.path,
+          name: RoutePaths.explore.name,
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: Placeholder()),
+        ),
+        GoRoute(
+          path: RoutePaths.bookmark.path,
+          name: RoutePaths.bookmark.name,
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: Placeholder()),
+        ),
+        GoRoute(
+          path: RoutePaths.profile.path,
+          name: RoutePaths.profile.name,
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: Placeholder()),
+        ),
+      ],
     ),
   ],
 );

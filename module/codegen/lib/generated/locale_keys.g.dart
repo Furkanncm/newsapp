@@ -24,6 +24,8 @@ abstract class  LocaleKeys {
   static const beenMissed = 'beenMissed';
   static const email = 'email';
   static const password = 'password';
+  static const yes = 'yes';
+  static const no = 'no';
   static const rememberMe = 'rememberMe';
   static const forgotPassword = 'forgotPassword';
   static const login = 'login';
@@ -60,5 +62,28 @@ abstract class  LocaleKeys {
   static const fillProfile = 'fillProfile';
   static const username = 'username';
   static const fullName = 'fullName';
+  static const locationPermissionTitle = 'locationPermissionTitle';
+  static const locationPermissionDescription = 'locationPermissionDescription';
+  static const notificationPermissionTitle = 'notificationPermissionTitle';
+  static const notificationPermissionDescription = 'notificationPermissionDescription';
+  static const cameraPermissionTitle = 'cameraPermissionTitle';
+  static const cameraPermissionDescription = 'cameraPermissionDescription';
+  static const galleryPermissionTitle = 'galleryPermissionTitle';
+  static const galleryPermissionDescription = 'galleryPermissionDescription';
+  static const microphonePermissionTitle = 'microphonePermissionTitle';
+  static const microphonePermissionDescription = 'microphonePermissionDescription';
+  static const storagePermissionTitle = 'storagePermissionTitle';
+  static const storagePermissionDescription = 'storagePermissionDescription';
+  static const permissionSettingsButton = 'permissionSettingsButton';
+  static const permissionDeniedForever = 'permissionDeniedForever';
+  static const permissionDenied = 'permissionDenied';
+  static const permissionGranted = 'permissionGranted';
+  static const permissionRequest = 'permissionRequest';
+  static const allow = 'allow';
+  static const deny = 'deny';
+  static const requiredPermission = 'requiredPermission';
+  static const seeAll = 'seeAll';
+  static const latest = 'latest';
+  static const trending = 'trending';
 
 }

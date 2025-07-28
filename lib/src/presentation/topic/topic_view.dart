@@ -3,11 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/constants/view_constants.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
+import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/data/enums/topics.dart';
 import 'package:newsapp/src/presentation/topic/topic_mixin.dart';
@@ -33,9 +33,7 @@ class _TopicsViewState extends State<TopicsView> with TopicMixin {
 
 @immutable
 final class _Body extends StatelessWidget {
-  const _Body({
-    required this.viewmodel,
-  });
+  const _Body({required this.viewmodel});
 
   final TopicViewmodel viewmodel;
 
@@ -45,15 +43,14 @@ final class _Body extends StatelessWidget {
       children: [
         verticalBox16,
         Padding(
-          padding: ViewConstants.instance.pagePadding,
+          padding: NaPadding.pagePadding,
           child: Wrap(
             spacing: 10,
             runSpacing: 12,
             children: Topic.values.map((topic) {
-              return _TopicWidget(
-                viewmodel: viewmodel,
-                topic: topic,
-              );
+              return topic.name == Topic.all.name
+                  ? emptyBox
+                  : _TopicWidget(viewmodel: viewmodel, topic: topic);
             }).toList(),
           ),
         ),
@@ -64,10 +61,7 @@ final class _Body extends StatelessWidget {
 
 @immutable
 final class _TopicWidget extends StatelessWidget {
-  const _TopicWidget({
-    required this.viewmodel,
-    required this.topic,
-  });
+  const _TopicWidget({required this.viewmodel, required this.topic});
 
   final TopicViewmodel viewmodel;
   final Topic topic;
@@ -83,15 +77,13 @@ final class _TopicWidget extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
             decoration: BoxDecoration(
-              color:
-                  viewmodel.isSelected(topic) ? AppTheme.primaryColor : AppTheme.buttonBackground,
+              color: viewmodel.isSelected(topic)
+                  ? AppTheme.primaryColor
+                  : AppTheme.buttonBackground,
               borderRadius: BorderRadius.circular(6),
               border: Border.all(color: AppTheme.primaryColor),
             ),
-            child: _CategoryWidget(
-              viewmodel: viewmodel,
-              topic: topic,
-            ),
+            child: _CategoryWidget(viewmodel: viewmodel, topic: topic),
           ),
         );
       },
@@ -101,10 +93,7 @@ final class _TopicWidget extends StatelessWidget {
 
 @immutable
 final class _CategoryWidget extends StatelessWidget {
-  const _CategoryWidget({
-    required this.viewmodel,
-    required this.topic,
-  });
+  const _CategoryWidget({required this.viewmodel, required this.topic});
 
   final TopicViewmodel viewmodel;
 
@@ -117,13 +106,16 @@ final class _CategoryWidget extends StatelessWidget {
       children: [
         Icon(
           topic.icon,
-          color: viewmodel.isSelected(topic) ? AppTheme.buttonBackground : AppTheme.primaryColor,
+          color: viewmodel.isSelected(topic)
+              ? AppTheme.buttonBackground
+              : AppTheme.primaryColor,
         ),
         horizontalBox12,
         LuciText.bodyLarge(
           topic.value,
-          textColor:
-              viewmodel.isSelected(topic) ? AppTheme.buttonBackground : AppTheme.primaryColor,
+          textColor: viewmodel.isSelected(topic)
+              ? AppTheme.buttonBackground
+              : AppTheme.primaryColor,
           fontWeight: FontWeight.bold,
         ),
       ],
@@ -133,9 +125,7 @@ final class _CategoryWidget extends StatelessWidget {
 
 @immutable
 final class _NextButton extends StatelessWidget {
-  const _NextButton({
-    required this.viewmodel,
-  });
+  const _NextButton({required this.viewmodel});
 
   final TopicViewmodel viewmodel;
 

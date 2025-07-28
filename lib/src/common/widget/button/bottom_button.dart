@@ -19,6 +19,7 @@ final class NewsBottomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: NaPadding.zeroPadding,
       decoration: const BoxDecoration(
         border: Border(
           top: BorderSide(

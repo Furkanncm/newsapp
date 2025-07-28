@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:codegen/codegen.dart';
 import 'package:flutter/material.dart';
-import 'package:newsapp/src/common/utils/extensions/asset_extension.dart';
+import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';

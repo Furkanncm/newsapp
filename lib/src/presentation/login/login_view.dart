@@ -3,12 +3,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/constants/view_constants.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/centered_button.dart';
 import 'package:newsapp/src/common/widget/button/social_media_button.dart';
 import 'package:newsapp/src/common/widget/form/email_password_form.dart';
+import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/common/widget/text/fadded_text.dart';
 import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/presentation/login/login_mixin.dart';
@@ -29,7 +29,7 @@ class _LoginViewState extends State<LoginView> with LoginMixin {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: ViewConstants.instance.pagePadding,
+            padding: NaPadding.pagePadding,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

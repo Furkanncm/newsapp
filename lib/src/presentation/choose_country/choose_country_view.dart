@@ -1,13 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:codegen/codegen.dart';
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/constants/view_constants.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
+import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/presentation/choose_country/choose_country_mixin.dart';
 
 @immutable
@@ -24,7 +24,7 @@ class _ChooseCountryViewState extends State<ChooseCountryView> with ChooseCountr
       extendBody: true,
       appBar: NewsAppBar(title: LocaleKeys.selectCountry.tr()),
       body: Padding(
-        padding: ViewConstants.instance.pagePadding,
+        padding: NaPadding.pagePadding,
         child: Column(
           children: [
             ValueListenableBuilder<bool>(
