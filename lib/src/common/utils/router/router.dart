@@ -21,7 +21,7 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: RoutePaths.home.path,
+  initialLocation: RoutePaths.splash.path,
   routes: [
     GoRoute(
       path: RoutePaths.splash.path,

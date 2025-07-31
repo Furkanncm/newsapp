@@ -117,7 +117,7 @@ final class _AnimatedNewsOnboard extends StatelessWidget {
               child: FadeTransition(opacity: animation, child: child),
             );
           },
-          child: viewmodel.isSeeAll
+          child: !viewmodel.isSeeAll
               ? Column(
                   key: const ValueKey(true),
                   children: [

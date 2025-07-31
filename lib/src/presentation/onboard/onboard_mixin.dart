@@ -34,7 +34,7 @@ mixin OnboardMixin on State<OnboardView> {
 
   void nextPage() {
     if (currentPage == onboardList.length - 1) {
-      router.pushReplacementNamed(RoutePaths.login.name);
+      router.pushReplacementNamed(RoutePaths.home.name);
       if (isDontShowAgainValue == true) setIsOnboardActive(false);
     }
     if (currentPage < onboardList.length - 1) {

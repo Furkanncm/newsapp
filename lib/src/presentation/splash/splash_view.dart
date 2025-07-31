@@ -40,7 +40,7 @@ class _SplashViewState extends State<SplashView> {
   Future<void> navigate() async {
     final isOnboardActive = CacheRepository.instance.getBool(PrefKeys.isOnboardActive);
     if (isOnboardActive == false) {
-      router.goNamed(RoutePaths.chooseCountry.name);
+      router.goNamed(RoutePaths.home.name);
     } else {
       router.goNamed(RoutePaths.onboard.name);
     }
