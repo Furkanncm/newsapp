@@ -80,5 +80,12 @@
   "requiredPermission": "Permission is required for this feature",
   "seeAll": "See All",
   "latest": "Latest",
-  "trending": "Trending"
+  "trending": "Trending",
+  "noConnection":"No Internet Connection",
+  "saved":"Saved",
+  "save":"Save",
+  "explore": "Explore",
+  "topic":"Topic",
+  "popularTopic":"Popular Topics",
+  "bookmark":"Bookmark"
 }

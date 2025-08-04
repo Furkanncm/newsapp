@@ -23,13 +23,15 @@ dependencies:
   # Network
   dio: ^5.8.0
   json_annotation: ^4.9.0
+  connectivity_plus: ^6.1.4
 
   # Cache
   shared_preferences: ^2.5.3
 
-  # State Managment
+  # State Managments
   flutter_mobx: ^2.3.0
   mobx: ^2.5.0
+
 
   # Localization
   easy_localization: ^3.0.7+1
@@ -42,6 +44,7 @@ dependencies:
     git:
       url: https://github.com/Furkanncm/lucielle_core
       ref: main
+
 
     
 dev_dependencies:

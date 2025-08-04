@@ -1,18 +1,18 @@
 import 'package:codegen/gen/assets.gen.dart';
 import 'package:codegen/generated/locale_keys.g.dart';
+import 'package:codegen/model/topic/topic.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
-import 'package:newsapp/src/common/widget/other/news_info.dart';
+import 'package:newsapp/src/common/widget/other/list_last_news.dart';
 import 'package:newsapp/src/common/widget/other/news_onboard.dart';
 import 'package:newsapp/src/common/widget/other/row_see_all.dart';
+import 'package:newsapp/src/common/widget/other/search_field.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/data/enums/route_paths.dart';
-import 'package:newsapp/src/data/enums/topics.dart';
 import 'package:newsapp/src/presentation/home/home_viewmodel.dart';
 
 @immutable
@@ -25,11 +25,13 @@ final class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late final HomeViewmodel viewmodel;
+  late final TextEditingController controller;
 
   @override
   void initState() {
     super.initState();
     viewmodel = HomeViewmodel();
+    controller = TextEditingController();
   }
 
   @override
@@ -42,11 +44,15 @@ class _HomeViewState extends State<HomeView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             verticalBox20,
-            const _SearchField(),
+            SearchField(
+              controller: controller,
+              readOnly: true,
+              onTap: () => router.pushNamed(RoutePaths.searchPage.name),
+            ),
             verticalBox12,
             _AnimatedNewsOnboard(viewmodel: viewmodel),
             RowSeeAllWidget(
-              text: 'Lastest',
+              text: LocaleKeys.latest.tr(),
               onSeeAllPressed: () => viewmodel.changeIsSeeAll(),
             ),
             verticalBox16,
@@ -77,28 +83,6 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 @immutable
-final class _SearchField extends StatelessWidget {
-  const _SearchField();
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: LocaleKeys.search.tr(),
-        border: const OutlineInputBorder(),
-        prefixIcon: Assets.uiKitImages.icQuestionmarkOutline.toIcon(32),
-        suffixIcon: GestureDetector(
-          onTap: () {
-            //FILTRE
-          },
-          child: Assets.uiKitImages.icFilterOutline.toIcon(32),
-        ),
-      ),
-    );
-  }
-}
-
-@immutable
 final class _AnimatedNewsOnboard extends StatelessWidget {
   const _AnimatedNewsOnboard({required this.viewmodel});
 
@@ -109,7 +93,7 @@ final class _AnimatedNewsOnboard extends StatelessWidget {
     return Observer(
       builder: (_) {
         return AnimatedSwitcher(
-          duration: const Duration(milliseconds: 400),
+          duration: const Duration(milliseconds: 300),
           transitionBuilder: (child, animation) {
             return SizeTransition(
               sizeFactor: animation,
@@ -122,7 +106,7 @@ final class _AnimatedNewsOnboard extends StatelessWidget {
                   key: const ValueKey(true),
                   children: [
                     RowSeeAllWidget(
-                      text: 'Trending',
+                      text: LocaleKeys.trending.tr(),
                       onSeeAllPressed: () {
                         router.pushNamed(RoutePaths.allTrends.name);
                       },
@@ -150,11 +134,15 @@ final class _HorizontalTopicList extends StatelessWidget {
       height: 40,
       child: ListView.builder(
         padding: NaPadding.zeroPadding,
-        itemCount: Topic.values.length,
+        itemCount: Topic.allTopics.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
-          final topic = Topic.values[index];
-          return _HorizontalTopic(viewmodel: viewmodel, topic: topic);
+          final topic = Topic.allTopics[index];
+          return _HorizontalTopic(
+            viewmodel: viewmodel,
+            topic: topic,
+            index: index,
+          );
         },
       ),
     );
@@ -163,17 +151,22 @@ final class _HorizontalTopicList extends StatelessWidget {
 
 @immutable
 final class _HorizontalTopic extends StatelessWidget {
-  const _HorizontalTopic({required this.viewmodel, required this.topic});
+  const _HorizontalTopic({
+    required this.viewmodel,
+    required this.topic,
+    required this.index,
+  });
 
   final HomeViewmodel viewmodel;
   final Topic topic;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
         return GestureDetector(
-          onTap: () => viewmodel.changeIndex(topic.index),
+          onTap: () => viewmodel.changeIndex(index),
           child: Padding(
             padding: NaPadding.rightPadding,
             child: IntrinsicWidth(
@@ -181,12 +174,12 @@ final class _HorizontalTopic extends StatelessWidget {
                 children: [
                   LuciText.bodyLarge(
                     topic.value,
-                    fontWeight: viewmodel.lastestIndex == topic.index
+                    fontWeight: viewmodel.lastestIndex == index
                         ? FontWeight.w600
                         : FontWeight.normal,
                   ),
                   verticalBox4,
-                  if (viewmodel.lastestIndex == topic.index)
+                  if (viewmodel.lastestIndex == index)
                     Container(
                       height: 3,
                       decoration: const BoxDecoration(
@@ -205,61 +198,6 @@ final class _HorizontalTopic extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-@immutable
-final class ListLastestNews extends StatelessWidget {
-  const ListLastestNews({super.key});
-
-  // final List<News> newsList
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        padding: NaPadding.zeroPadding,
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) {
-          return const LastNews();
-        },
-      ),
-    );
-  }
-}
-
-@immutable
-final class LastNews extends StatelessWidget {
-  const LastNews({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: NaPadding.verticalPadding,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 96,
-            height: 96,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Assets.images.onboard2.toFit,
-            ),
-          ),
-          horizontalBox12,
-          const Expanded(
-            child: NewsInfo(
-              region: 'Europe',
-              title:
-                  "Ukraine's President Zelensky to BBC: Blood money being paid lorem ipsum lorem ipsum",
-              source: 'BBC News',
-              pastTime: '14m ago',
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

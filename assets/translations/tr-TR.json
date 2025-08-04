@@ -80,5 +80,13 @@
   "requiredPermission": "Bu özellik için izin gerekli",
   "seeAll": "Hepsini Gör",
   "latest": "En Yeniler",
-  "trending": "Trend Olanlar"
+  "trending": "Trend Olanlar",
+  "noConnection":"İnternet bağlantısı yok",
+  "saved":"Kaydedildi",
+  "save":"Kaydet",
+  "explore": "Keşfet",
+  "topic":"Kategori",
+  "popularTopic":"Popüler kategoriler",
+  "bookmark":"Kaydedilenler"
+
 }

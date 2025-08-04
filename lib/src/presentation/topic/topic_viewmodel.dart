@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:newsapp/src/data/enums/topics.dart';
+import 'package:codegen/model/topic/topic.dart';
 
 part 'topic_viewmodel.g.dart';
 

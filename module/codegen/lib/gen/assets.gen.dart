@@ -80,6 +80,10 @@ class $AssetsUiKitImagesGen {
   AssetGenImage get icBoldOutline =>
       const AssetGenImage('assets/ui_kit_images/ic_bold_outline.png');
 
+  /// File path: assets/ui_kit_images/ic_business.png
+  AssetGenImage get icBusiness =>
+      const AssetGenImage('assets/ui_kit_images/ic_business.png');
+
   /// File path: assets/ui_kit_images/ic_comment_outline.png
   AssetGenImage get icCommentOutline =>
       const AssetGenImage('assets/ui_kit_images/ic_comment_outline.png');
@@ -87,6 +91,10 @@ class $AssetsUiKitImagesGen {
   /// File path: assets/ui_kit_images/ic_compass_outline.png
   AssetGenImage get icCompassOutline =>
       const AssetGenImage('assets/ui_kit_images/ic_compass_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_entertainment.png
+  AssetGenImage get icEntertainment =>
+      const AssetGenImage('assets/ui_kit_images/ic_entertainment.png');
 
   /// File path: assets/ui_kit_images/ic_eye close_outline.png
   AssetGenImage get icEyeCloseOutline =>
@@ -99,6 +107,14 @@ class $AssetsUiKitImagesGen {
   /// File path: assets/ui_kit_images/ic_filter_outline.png
   AssetGenImage get icFilterOutline =>
       const AssetGenImage('assets/ui_kit_images/ic_filter_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_general.png
+  AssetGenImage get icGeneral =>
+      const AssetGenImage('assets/ui_kit_images/ic_general.png');
+
+  /// File path: assets/ui_kit_images/ic_health.png
+  AssetGenImage get icHealth =>
+      const AssetGenImage('assets/ui_kit_images/ic_health.png');
 
   /// File path: assets/ui_kit_images/ic_home_outline.png
   AssetGenImage get icHomeOutline =>
@@ -148,6 +164,10 @@ class $AssetsUiKitImagesGen {
   AssetGenImage get icRightOutline =>
       const AssetGenImage('assets/ui_kit_images/ic_right_outline.png');
 
+  /// File path: assets/ui_kit_images/ic_science.jpeg
+  AssetGenImage get icScience =>
+      const AssetGenImage('assets/ui_kit_images/ic_science.jpeg');
+
   /// File path: assets/ui_kit_images/ic_send_outline.png
   AssetGenImage get icSendOutline =>
       const AssetGenImage('assets/ui_kit_images/ic_send_outline.png');
@@ -155,6 +175,14 @@ class $AssetsUiKitImagesGen {
   /// File path: assets/ui_kit_images/ic_setting_outline.png
   AssetGenImage get icSettingOutline =>
       const AssetGenImage('assets/ui_kit_images/ic_setting_outline.png');
+
+  /// File path: assets/ui_kit_images/ic_sports.png
+  AssetGenImage get icSports =>
+      const AssetGenImage('assets/ui_kit_images/ic_sports.png');
+
+  /// File path: assets/ui_kit_images/ic_technology.png
+  AssetGenImage get icTechnology =>
+      const AssetGenImage('assets/ui_kit_images/ic_technology.png');
 
   /// File path: assets/ui_kit_images/ic_time.png
   AssetGenImage get icTime =>
@@ -174,11 +202,15 @@ class $AssetsUiKitImagesGen {
     icAlignCenterOutline,
     icAlignLeftOutline,
     icBoldOutline,
+    icBusiness,
     icCommentOutline,
     icCompassOutline,
+    icEntertainment,
     icEyeCloseOutline,
     icFacebookFilled,
     icFilterOutline,
+    icGeneral,
+    icHealth,
     icHomeOutline,
     icItalicOutline,
     icLockOutline,
@@ -191,8 +223,11 @@ class $AssetsUiKitImagesGen {
     icQuestionmarkOutline,
     icReplyOutline,
     icRightOutline,
+    icScience,
     icSendOutline,
     icSettingOutline,
+    icSports,
+    icTechnology,
     icTime,
     icTimeOutline,
   ];

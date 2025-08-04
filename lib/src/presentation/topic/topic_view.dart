@@ -9,7 +9,7 @@ import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/data/enums/route_paths.dart';
-import 'package:newsapp/src/data/enums/topics.dart';
+import 'package:codegen/model/topic/topic.dart';
 import 'package:newsapp/src/presentation/topic/topic_mixin.dart';
 import 'package:newsapp/src/presentation/topic/topic_viewmodel.dart';
 
@@ -47,8 +47,8 @@ final class _Body extends StatelessWidget {
           child: Wrap(
             spacing: 10,
             runSpacing: 12,
-            children: Topic.values.map((topic) {
-              return topic.name == Topic.all.name
+            children: Topic.allTopics.map((topic) {
+              return topic.value == Topic.allTopics.first.value
                   ? emptyBox
                   : _TopicWidget(viewmodel: viewmodel, topic: topic);
             }).toList(),

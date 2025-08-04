@@ -16,14 +16,16 @@ class AppConfiguration {
     await CacheRepository.instance.getInstance();
     await EasyLocalization.ensureInitialized();
 
-    runApp(
-      EasyLocalization(
-        supportedLocales: LocalizationManager.instance.supportedLocales,
-        path: LocalizationManager.instance.path,
-        fallbackLocale: LocalizationManager.instance.foolbackLocale,
-        startLocale: LocalizationManager.instance.foolbackLocale,
-        child: const NewsApp(),
-      ),
-    );
+    await Future.microtask(() {
+      runApp(
+        EasyLocalization(
+          supportedLocales: LocalizationManager.instance.supportedLocales,
+          path: LocalizationManager.instance.path,
+          fallbackLocale: LocalizationManager.instance.foolbackLocale,
+          startLocale: LocalizationManager.instance.foolbackLocale,
+          child: const NewsApp(),
+        ),
+      );
+    });
   }
 }

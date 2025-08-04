@@ -85,5 +85,12 @@ abstract class  LocaleKeys {
   static const seeAll = 'seeAll';
   static const latest = 'latest';
   static const trending = 'trending';
+  static const noConnection = 'noConnection';
+  static const saved = 'saved';
+  static const save = 'save';
+  static const explore = 'explore';
+  static const topic = 'topic';
+  static const popularTopic = 'popularTopic';
+  static const bookmark = 'bookmark';
 
 }

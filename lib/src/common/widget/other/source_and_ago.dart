@@ -20,7 +20,7 @@ final class SourceAndAgoWidget extends StatelessWidget {
       children: [
         LuciText.bodySmall(source, fontWeight: FontWeight.w500),
         horizontalBox20,
-        Assets.uiKitImages.icSendOutline.toIcon(16),
+        Assets.uiKitImages.icTimeOutline.toIcon(16),
         horizontalBox4,
         LuciText.bodySmall(pastTime),
         const Spacer(),

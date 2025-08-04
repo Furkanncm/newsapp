@@ -1,0 +1,80 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:codegen/gen/assets.gen.dart';
+import 'package:codegen/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:lucielle/widget/sized_box/space_box.dart';
+import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
+
+class SearchField extends StatefulWidget {
+  const SearchField({
+    this.onChanged,
+    super.key,
+    this.controller,
+    this.readOnly = false,
+    this.onTap,
+  });
+
+  final TextEditingController? controller;
+  final bool readOnly;
+  final VoidCallback? onTap;
+  final ValueChanged<String>? onChanged;
+
+  @override
+  State<SearchField> createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<SearchField> {
+  late final TextEditingController _controller;
+  late final FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = widget.controller ?? TextEditingController();
+    _focusNode = FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!widget.readOnly) {
+        _focusNode.requestFocus();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      onTap: widget.onTap,
+      readOnly: widget.readOnly,
+      focusNode: _focusNode,
+      controller: _controller,
+      onChanged: (value) {
+        widget.onChanged?.call(value);
+        setState(() {});
+      },
+      decoration: InputDecoration(
+        hintText: LocaleKeys.search.tr(),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        prefixIcon: Assets.uiKitImages.icQuestionmarkOutline.toIcon(32),
+        suffixIcon: widget.controller?.text.isEmpty ?? true
+            ? emptyBox
+            : IconButton(
+                onPressed: () {
+                  _controller.clear();
+                  setState(() {});
+                },
+                icon: const Icon(Icons.clear),
+              ),
+      ),
+    );
+  }
+}

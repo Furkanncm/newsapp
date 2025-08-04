@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:newsapp/src/data/enums/topics.dart';
+import 'package:codegen/model/topic/topic.dart';
 
 class User extends Equatable {
   const User({

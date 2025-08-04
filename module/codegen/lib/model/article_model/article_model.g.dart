@@ -7,10 +7,9 @@ part of 'article_model.dart';
 // **************************************************************************
 
 Article _$ArticleFromJson(Map<String, dynamic> json) => Article(
-  source:
-      json['source'] == null
-          ? null
-          : Source.fromJson(json['source'] as Map<String, dynamic>),
+  source: json['source'] == null
+      ? null
+      : Source.fromJson(json['source'] as Map<String, dynamic>),
   author: json['author'] as String?,
   title: json['title'] as String?,
   description: json['description'] as String?,

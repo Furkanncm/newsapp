@@ -30,9 +30,7 @@ class AppNavigationBar extends StatelessWidget {
         showUnselectedLabels: true,
         currentIndex: currentIndex,
         onTap: (index) {
-          if (index != currentIndex) {
-            router.go(tabs[index]);
-          }
+          router.go(tabs[index]);
         },
         items: [
           BottomNavigationBarItem(

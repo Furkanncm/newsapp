@@ -16,9 +16,11 @@ enum RoutePaths {
   profile('/profile'),
   allTrends('/allTrends'),
   allLastest('/allLastest'),
+  searchPage('/searchPage'),
+  exploreTopic('/exploreTopic'),
   newsDetail('/news-detail'),
   newsList('/news-list');
-const RoutePaths(this.path);
+
+  const RoutePaths(this.path);
   final String path;
-  
 }
