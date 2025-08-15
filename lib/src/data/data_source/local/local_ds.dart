@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:codegen/codegen.dart' show BaseModel;
 import 'package:codegen/model/base_model/base_model.dart' show BaseModel;
-import 'package:newsapp/src/data/enums/pref_keys.dart';
+import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Interface for cache managers to ensure consistent data operations.
@@ -93,11 +93,11 @@ class CacheRepository implements ICacheRepository {
   ///           Must extend [BaseModel] and implement `fromJson`.
   ///
   /// Returns a [Future] that resolves to the deserialized model object of type [T].
-  Future<T> getGenericModel<T>(String id, BaseModel<T> model) async {
-    final codedId = idCoder(id, T.runtimeType);
+  Future<T?> getGenericModel<T>(String id, BaseModel<T> model) async {
+    final codedId = idCoder(id, model.runtimeType);
     final stringModel = _prefs!.getString(codedId);
-
-    final stringJson = jsonDecode(stringModel ?? '');
+    if (stringModel == null) return null;
+    final stringJson = jsonDecode(stringModel);
     return model.fromJson(stringJson as Map<String, dynamic>);
   }
 
@@ -111,7 +111,7 @@ class CacheRepository implements ICacheRepository {
   ///
   /// Returns a [Future] that resolves to `true` if the value was successfully removed.
   Future<bool> removeGenericModel<T>(String id, T model) async {
-    final codedId = idCoder(id, T.runtimeType);
+    final codedId = idCoder(id, model.runtimeType);
     return _prefs!.remove(codedId);
   }
 
@@ -126,7 +126,8 @@ class CacheRepository implements ICacheRepository {
 
   /// Stores a boolean value for the given [key].
   @override
-  Future<bool> setBool(PrefKeys key, bool value) async => _prefs!.setBool(key.rawValue, value);
+  Future<bool> setBool(PrefKeys key, bool value) async =>
+      _prefs!.setBool(key.rawValue, value);
 
   /// Retrieves a boolean value associated with the given [key].
   @override
@@ -134,7 +135,8 @@ class CacheRepository implements ICacheRepository {
 
   /// Stores an integer value for the given [key].
   @override
-  Future<bool> setInt(PrefKeys key, int value) async => _prefs!.setInt(key.rawValue, value);
+  Future<bool> setInt(PrefKeys key, int value) async =>
+      _prefs!.setInt(key.rawValue, value);
 
   /// Retrieves an integer value associated with the given [key].
   @override
@@ -156,7 +158,8 @@ class CacheRepository implements ICacheRepository {
 
   /// Retrieves a list of strings associated with the given [key].
   @override
-  List<String>? getStringList(PrefKeys key) => _prefs!.getStringList(key.rawValue);
+  List<String>? getStringList(PrefKeys key) =>
+      _prefs!.getStringList(key.rawValue);
 
   /// Removes the value associated with the given [key].
   @override

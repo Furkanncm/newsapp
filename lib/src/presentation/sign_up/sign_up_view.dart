@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/centered_button.dart';
@@ -10,7 +11,6 @@ import 'package:newsapp/src/common/widget/button/social_media_button.dart';
 import 'package:newsapp/src/common/widget/form/email_password_form.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/common/widget/text/fadded_text.dart';
-import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/presentation/sign_up/sign_up._viewmodel.dart';
 import 'package:newsapp/src/presentation/sign_up/sign_up_mixin.dart';
 

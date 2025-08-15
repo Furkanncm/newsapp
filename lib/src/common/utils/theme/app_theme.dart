@@ -66,13 +66,26 @@ class AppTheme extends LuciTheme {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     ),
     textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        foregroundColor: buttonText,
-      ),
+      style: TextButton.styleFrom(foregroundColor: buttonText),
     ),
-    iconTheme: const IconThemeData(
-      size: 24,
-      color: primaryColor,
+    iconTheme: const IconThemeData(size: 24, color: primaryColor),
+
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: AppTheme.primaryColor,
+      unselectedItemColor: AppTheme.bodyDark,
+      showUnselectedLabels: true,
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) return primaryColor;
+        return placeholder;
+      }),
+      trackColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return primaryColor.withValues(alpha: 0.5);
+        }
+        return placeholder.withValues(alpha: 0.3);
+      }),
     ),
   );
 
@@ -95,7 +108,11 @@ class AppTheme extends LuciTheme {
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(fontSize: 16, color: bodyDark),
-      titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: titleDark),
+      titleLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: titleDark,
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -118,10 +135,24 @@ class AppTheme extends LuciTheme {
       fillColor: const WidgetStatePropertyAll(titleDark),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        foregroundColor: successColor,
-      ),
+
+    iconTheme: const IconThemeData(size: 24, color: primaryColor),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: AppTheme.primaryColor,
+      unselectedItemColor: AppTheme.bodyDark,
+      showUnselectedLabels: true,
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) return primaryColor;
+        return titleDark;
+      }),
+      trackColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return primaryColor.withOpacity(0.5);
+        }
+        return titleDark.withOpacity(0.3);
+      }),
     ),
   );
 

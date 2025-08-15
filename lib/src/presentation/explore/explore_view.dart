@@ -2,12 +2,13 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
+import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/news_onboard.dart';
 import 'package:newsapp/src/common/widget/other/row_see_all.dart';
 import 'package:newsapp/src/common/widget/other/topics_list.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
-import 'package:newsapp/src/data/enums/route_paths.dart';
 
 class ExploreView extends StatefulWidget {
   const ExploreView({super.key});
@@ -21,7 +22,11 @@ class _ExploreViewState extends State<ExploreView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: LuciText.headlineSmall(LocaleKeys.explore.tr(), fontWeight: FontWeight.bold),
+        title: LuciText.titleMedium(
+          LocaleKeys.explore.tr(),
+          fontWeight: FontWeight.bold,
+          textColor: AppTheme.primaryColor,
+        ),
       ),
       body: CustomScrollView(
         slivers: [
@@ -52,7 +57,7 @@ class _ExploreViewState extends State<ExploreView> {
                 color: Theme.of(context).scaffoldBackgroundColor,
                 padding: NaPadding.pagePadding,
                 alignment: Alignment.centerLeft,
-                child:  RowSeeAllWidget(
+                child: RowSeeAllWidget(
                   text: LocaleKeys.popularTopic.tr(),
                   isSeeAllVisible: false,
                 ),

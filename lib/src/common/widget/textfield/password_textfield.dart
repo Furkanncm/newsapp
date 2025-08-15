@@ -21,7 +21,7 @@ final class PasswordField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LabelWithStar(text: labelText),
+        LabelWithStar(isRequired: true, text: labelText),
         verticalBox4,
         LuciPasswordTextFormField(
           controller: passwordController,

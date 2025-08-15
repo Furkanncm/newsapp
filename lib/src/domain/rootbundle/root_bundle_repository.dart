@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:codegen/model/country_model/country_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:newsapp/src/common/utils/enums/root_bundle.dart';
 import 'package:newsapp/src/common/utils/extensions/root_bunlde_extension.dart';
-import 'package:newsapp/src/data/enums/root_bundle.dart';
 
 abstract class IRootBundleManager {
   Future<List<Country>> loadCountries(RootBundle bundle);

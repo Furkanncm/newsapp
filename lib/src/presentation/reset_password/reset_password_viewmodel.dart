@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
-import 'package:newsapp/src/data/enums/route_paths.dart';
 
 part 'reset_password_viewmodel.g.dart';
 

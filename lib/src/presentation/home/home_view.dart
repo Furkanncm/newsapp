@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/list_last_news.dart';
@@ -12,7 +13,6 @@ import 'package:newsapp/src/common/widget/other/news_onboard.dart';
 import 'package:newsapp/src/common/widget/other/row_see_all.dart';
 import 'package:newsapp/src/common/widget/other/search_field.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
-import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/presentation/home/home_viewmodel.dart';
 
 @immutable

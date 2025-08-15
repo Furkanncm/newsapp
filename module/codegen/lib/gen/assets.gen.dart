@@ -30,6 +30,13 @@ class $AssetsImagesGen {
   AssetGenImage get icGoogle =>
       const AssetGenImage('assets/images/ic_google.png');
 
+  /// File path: assets/images/ic_instagram.png
+  AssetGenImage get icInstagram =>
+      const AssetGenImage('assets/images/ic_instagram.png');
+
+  /// File path: assets/images/ic_x.png
+  AssetGenImage get icX => const AssetGenImage('assets/images/ic_x.png');
+
   /// File path: assets/images/onboard1.png
   AssetGenImage get onboard1 =>
       const AssetGenImage('assets/images/onboard1.png');
@@ -51,6 +58,8 @@ class $AssetsImagesGen {
     icApple,
     icFacebook,
     icGoogle,
+    icInstagram,
+    icX,
     onboard1,
     onboard2,
     onboard3,

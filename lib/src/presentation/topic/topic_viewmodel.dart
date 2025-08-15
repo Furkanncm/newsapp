@@ -1,5 +1,5 @@
-import 'package:mobx/mobx.dart';
 import 'package:codegen/model/topic/topic.dart';
+import 'package:mobx/mobx.dart';
 
 part 'topic_viewmodel.g.dart';
 

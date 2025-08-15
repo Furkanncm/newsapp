@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucielle/utils/extensions/extensions.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
-import 'package:newsapp/src/common/utils/theme/app_theme.dart';
-import 'package:newsapp/src/data/enums/route_paths.dart';
 
 class AppNavigationBar extends StatelessWidget {
   const AppNavigationBar({required this.child, super.key});
@@ -25,9 +24,6 @@ class AppNavigationBar extends StatelessWidget {
     return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppTheme.primaryColor,
-        unselectedItemColor: AppTheme.bodyText,
-        showUnselectedLabels: true,
         currentIndex: currentIndex,
         onTap: (index) {
           router.go(tabs[index]);

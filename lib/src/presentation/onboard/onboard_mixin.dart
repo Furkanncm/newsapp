@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
-import 'package:newsapp/src/data/enums/pref_keys.dart';
-import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/presentation/onboard/onboard_model.dart';
 import 'package:newsapp/src/presentation/onboard/onboard_view.dart';
 
@@ -23,7 +23,10 @@ mixin OnboardMixin on State<OnboardView> {
   }
 
   Future<void> setIsOnboardActive(bool isActivated) async {
-    await CacheRepository.instance.setBool(PrefKeys.isOnboardActive, isActivated);
+    await CacheRepository.instance.setBool(
+      PrefKeys.isOnboardActive,
+      isActivated,
+    );
   }
 
   void pageChanged(int value) {
@@ -34,7 +37,7 @@ mixin OnboardMixin on State<OnboardView> {
 
   void nextPage() {
     if (currentPage == onboardList.length - 1) {
-      router.pushReplacementNamed(RoutePaths.home.name);
+      router.pushReplacementNamed(RoutePaths.topics.name);
       if (isDontShowAgainValue == true) setIsOnboardActive(false);
     }
     if (currentPage < onboardList.length - 1) {

@@ -71,9 +71,10 @@ class _OnboardViewState extends State<OnboardView> with OnboardMixin {
                             valueListenable: currentPageNotifier,
                             builder: (context, value, child) {
                               return CircleAvatar(
-                                radius: index == value ? 6 : 3,
-                                backgroundColor:
-                                    index == value ? AppTheme.primaryColor : AppTheme.buttonText,
+                                radius: index == value ? 8 : 4,
+                                backgroundColor: index == value
+                                    ? AppTheme.primaryColor
+                                    : AppTheme.buttonText,
                               );
                             },
                           ),
@@ -97,7 +98,9 @@ class _OnboardViewState extends State<OnboardView> with OnboardMixin {
                     valueListenable: isLastPage,
                     builder: (context, value, child) {
                       return NewsButton(
-                        text: value ? LocaleKeys.getStarted.tr() : LocaleKeys.next.tr(),
+                        text: value
+                            ? LocaleKeys.getStarted.tr()
+                            : LocaleKeys.next.tr(),
                         onPressed: nextPage,
                       );
                     },
@@ -114,9 +117,7 @@ class _OnboardViewState extends State<OnboardView> with OnboardMixin {
 
 @immutable
 final class _ImageField extends StatelessWidget {
-  const _ImageField({
-    required this.item,
-  });
+  const _ImageField({required this.item});
 
   final OnboardModel item;
 
@@ -138,13 +139,8 @@ final class HeaderAndDescriptionField extends StatelessWidget {
       padding: NaPadding.pagePadding,
       child: Column(
         children: [
-          LuciText.titleMedium(
-            item.header ?? '',
-            fontWeight: FontWeight.bold,
-          ),
-          LuciText.bodyMedium(
-            item.description ?? '',
-          ),
+          LuciText.titleMedium(item.header ?? '', fontWeight: FontWeight.bold),
+          LuciText.bodyMedium(item.description ?? ''),
         ],
       ),
     );

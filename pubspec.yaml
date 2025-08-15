@@ -19,6 +19,7 @@ dependencies:
   equatable: ^2.0.7
   pin_code_fields: ^8.0.1
   country_list_pick: ^1.0.1+6
+  share_plus: ^11.0.0
 
   # Network
   dio: ^5.8.0
@@ -44,7 +45,7 @@ dependencies:
     git:
       url: https://github.com/Furkanncm/lucielle_core
       ref: main
-
+  url_launcher: ^6.3.2
 
     
 dev_dependencies:

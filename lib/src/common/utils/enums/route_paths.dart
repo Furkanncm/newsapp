@@ -10,6 +10,7 @@ enum RoutePaths {
   chooseCountry('/chooseCountry'),
   topics('/topic'),
   fillProfile('/fillProfile'),
+  editProfile('/editProfile'),
   home('/home'),
   explore('/explore'),
   bookmark('/bookmark'),
@@ -19,7 +20,8 @@ enum RoutePaths {
   searchPage('/searchPage'),
   exploreTopic('/exploreTopic'),
   newsDetail('/news-detail'),
-  newsList('/news-list');
+  newsList('/news-list'),
+  help('/help');
 
   const RoutePaths(this.path);
   final String path;

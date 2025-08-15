@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:codegen/gen/assets.gen.dart';
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -13,12 +12,14 @@ class SearchField extends StatefulWidget {
     this.controller,
     this.readOnly = false,
     this.onTap,
+    this.focusNode,
   });
 
   final TextEditingController? controller;
   final bool readOnly;
   final VoidCallback? onTap;
   final ValueChanged<String>? onChanged;
+  final FocusNode? focusNode;
 
   @override
   State<SearchField> createState() => _SearchFieldState();
@@ -26,19 +27,18 @@ class SearchField extends StatefulWidget {
 
 class _SearchFieldState extends State<SearchField> {
   late final TextEditingController _controller;
-  late final FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
     _controller = widget.controller ?? TextEditingController();
-    _focusNode = FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!widget.readOnly) {
-        _focusNode.requestFocus();
-      }
-    });
+    if (widget.focusNode != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!widget.readOnly) {
+          widget.focusNode!.requestFocus();
+        }
+      });
+    }
   }
 
   @override
@@ -46,7 +46,9 @@ class _SearchFieldState extends State<SearchField> {
     if (widget.controller == null) {
       _controller.dispose();
     }
-    _focusNode.dispose();
+    if (widget.focusNode != null) {
+      widget.focusNode!.dispose();
+    }
     super.dispose();
   }
 
@@ -55,7 +57,7 @@ class _SearchFieldState extends State<SearchField> {
     return TextField(
       onTap: widget.onTap,
       readOnly: widget.readOnly,
-      focusNode: _focusNode,
+      focusNode: widget.focusNode,
       controller: _controller,
       onChanged: (value) {
         widget.onChanged?.call(value);

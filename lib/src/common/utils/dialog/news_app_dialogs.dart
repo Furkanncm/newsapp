@@ -26,4 +26,25 @@ class NewsAppDialogs {
       dialogBackgroundColor: AppTheme.buttonBackground,
     );
   }
+
+  static Future<void> logOutDialog({
+    required BuildContext context,
+    required String title,
+    required String content,
+    required VoidCallback onPositiveButton,
+    String? positiveButtonLabel,
+    String? negativeButtonLabel,
+  }) async {
+    return LuciDialogs.showDialog<void>(
+      barrierDismissible: false,
+      context: context,
+      title: title,
+      content: content,
+      positiveButtonLabel: positiveButtonLabel ?? 'Log Out'.toUpperCase(),
+      negativeButtonLabel: negativeButtonLabel ?? 'Cancel'.toUpperCase(),
+      positiveButtonCallback: onPositiveButton,
+      primaryColor: AppTheme.primaryColor,
+      dialogBackgroundColor: AppTheme.buttonBackground,
+    );
+  }
 }

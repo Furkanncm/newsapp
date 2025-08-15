@@ -1,5 +1,5 @@
-import 'package:equatable/equatable.dart';
 import 'package:codegen/model/topic/topic.dart';
+import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
   const User({
@@ -25,8 +25,17 @@ class User extends Equatable {
   final List<Topic>? topics;
 
   @override
-  List<Object?> get props =>
-      [id, name, surname, email, password, phone, country, profilePhotoPath, topics];
+  List<Object?> get props => [
+    id,
+    name,
+    surname,
+    email,
+    password,
+    phone,
+    country,
+    profilePhotoPath,
+    topics,
+  ];
 
   User copyWith({
     String? id,

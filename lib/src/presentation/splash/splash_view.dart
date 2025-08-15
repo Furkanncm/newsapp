@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:codegen/codegen.dart';
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
-import 'package:newsapp/src/data/enums/pref_keys.dart';
-import 'package:newsapp/src/data/enums/route_paths.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -38,7 +38,9 @@ class _SplashViewState extends State<SplashView> {
   }
 
   Future<void> navigate() async {
-    final isOnboardActive = CacheRepository.instance.getBool(PrefKeys.isOnboardActive);
+    final isOnboardActive = CacheRepository.instance.getBool(
+      PrefKeys.isOnboardActive,
+    );
     if (isOnboardActive == false) {
       router.goNamed(RoutePaths.home.name);
     } else {

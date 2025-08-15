@@ -1,4 +1,4 @@
-import 'package:newsapp/src/data/enums/otp_options_enum.dart';
+import 'package:newsapp/src/common/utils/enums/otp_options_enum.dart';
 
 class OTPModel {
   OTPModel({

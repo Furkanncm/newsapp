@@ -6,6 +6,7 @@ import 'package:newsapp/src/common/widget/textfield/news_app_textfield.dart';
 class TextFieldWithLabel extends StatelessWidget {
   const TextFieldWithLabel({
     required this.label,
+    required this.isRequired,
     super.key,
     this.controller,
     this.keyboardType,
@@ -44,13 +45,14 @@ class TextFieldWithLabel extends StatelessWidget {
   final bool? enabled;
   final FocusNode? focusNode;
   final Color? fillColor;
+  final bool isRequired;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LabelWithStar(text: label),
+        LabelWithStar( isRequired: isRequired, text: label),
         verticalBox4,
         NewsAppTextField(
           controller: controller,
@@ -58,7 +60,7 @@ class TextFieldWithLabel extends StatelessWidget {
           onChanged: onChanged,
           textAlign: textAlign,
           autovalidateMode: autovalidateMode,
-          validator: validator,
+          validator: isRequired ? validator : null,
           onEditingComplete: onEditingComplete,
           onFieldSubmitted: onFieldSubmitted,
           textInputAction: textInputAction,

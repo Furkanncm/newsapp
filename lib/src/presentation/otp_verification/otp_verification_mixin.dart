@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
-import 'package:newsapp/src/data/enums/route_paths.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_view.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_viewmodel.dart';
 

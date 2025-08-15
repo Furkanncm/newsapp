@@ -7,10 +7,7 @@ import 'package:newsapp/src/common/widget/textfield/email_texfield.dart';
 
 @immutable
 final class EmailFieldWithLabel extends StatefulWidget {
-  const EmailFieldWithLabel({
-    required this.emailController,
-    super.key,
-  });
+  const EmailFieldWithLabel({required this.emailController, super.key});
 
   final TextEditingController emailController;
 
@@ -24,7 +21,7 @@ class _EmailFieldWithLabelState extends State<EmailFieldWithLabel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LabelWithStar(text: LocaleKeys.email.tr()),
+        LabelWithStar(isRequired: true, text: LocaleKeys.email.tr()),
         verticalBox4,
         EmailTextField(emailController: widget.emailController),
       ],

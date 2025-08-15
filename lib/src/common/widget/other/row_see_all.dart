@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/domain/theme/theme_repository.dart';
 
 @immutable
 final class RowSeeAllWidget extends StatelessWidget {
@@ -29,7 +30,11 @@ final class RowSeeAllWidget extends StatelessWidget {
             onTap: onSeeAllPressed,
             child: LuciText.bodySmall(
               LocaleKeys.seeAll.tr(),
-              textColor: AppTheme.bodyText,
+              textColor:
+                  ThemeRepository.instace.themeNotifier.value ==
+                      AppTheme.darkTheme
+                  ? AppTheme.bodyDark
+                  : AppTheme.bodyText,
             ),
           ),
         ),

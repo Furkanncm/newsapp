@@ -7,11 +7,13 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     super.key,
     this.centerTitle = true,
+    this.bottom,
   });
 
   final String title;
   final bool centerTitle;
   final List<Widget>? actions;
+  final TabBar? bottom;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +21,15 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: LuciText.labelMedium(title, fontWeight: FontWeight.bold),
       centerTitle: centerTitle,
       actions: actions,
+      bottom: bottom,
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize {
+    if (bottom != null) {
+      return Size.fromHeight(kToolbarHeight + bottom!.preferredSize.height);
+    }
+    return const Size.fromHeight(kToolbarHeight);
+  }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/enums/search_page.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/list_last_news.dart';
 import 'package:newsapp/src/common/widget/other/search_field.dart';
 import 'package:newsapp/src/common/widget/other/topics_list.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
-import 'package:newsapp/src/data/enums/search_page.dart';
 import 'package:newsapp/src/presentation/search/search_viewmodel.dart';
 
 class SearchView extends StatefulWidget {
@@ -50,6 +50,7 @@ class _SearchViewState extends State<SearchView> {
                     return SearchField(
                       controller: controller,
                       onChanged: viewmodel.onSearchChanged,
+                      focusNode: FocusNode(),
                     );
                   },
                 ),
