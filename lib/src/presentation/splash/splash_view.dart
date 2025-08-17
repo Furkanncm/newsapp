@@ -8,6 +8,7 @@ import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
+import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -17,34 +18,40 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  Timer? timer;
-  final Duration _duration = const Duration(milliseconds: 250);
-  double _progress = 0;
+  double _currentStep = 0;
+  double _previousStep = 0;
+  late final CacheRepository _cacheRepository;
+
   @override
   void initState() {
     super.initState();
-    timerStart();
+    _cacheRepository = CacheRepository.instance;
+    _init();
   }
 
-  void timerStart() {
-    timer = Timer.periodic(_duration, (timer) {
-      _progress = _progress + (1 / 8);
-      setState(() {});
-      if (timer.tick == 8) {
-        timer.cancel();
-        navigate();
-      }
+  Future<void> _incrementProgress() async {
+    setState(() {
+      _previousStep = _currentStep;
+      _currentStep += 1;
     });
+    await Future<void>.delayed(const Duration(milliseconds: 300));
   }
 
-  Future<void> navigate() async {
-    final isOnboardActive = CacheRepository.instance.getBool(
-      PrefKeys.isOnboardActive,
-    );
-    if (isOnboardActive == false) {
+  Future<void> _init() async {
+    await _incrementProgress();
+    await FirebaseDataSource.instance.initialize();
+    await _incrementProgress();
+    final userId = _cacheRepository.getString(PrefKeys.isUserLoggedIn);
+    await _incrementProgress();
+
+    checkLogin(userId?.isNotEmpty);
+  }
+
+  void checkLogin(bool? isLoggedIn) {
+    if (isLoggedIn == true) {
       router.goNamed(RoutePaths.home.name);
     } else {
-      router.goNamed(RoutePaths.onboard.name);
+      router.goNamed(RoutePaths.login.name);
     }
   }
 
@@ -60,8 +67,11 @@ class _SplashViewState extends State<SplashView> {
             child: SizedBox(
               height: 12,
               child: TweenAnimationBuilder<double>(
-                tween: Tween<double>(begin: 0, end: _progress),
-                duration: const Duration(milliseconds: 100),
+                tween: Tween<double>(
+                  begin: _previousStep / 3,
+                  end: _currentStep / 3,
+                ),
+                duration: const Duration(milliseconds: 300),
                 builder: (context, value, child) {
                   return LinearProgressIndicator(
                     value: value,

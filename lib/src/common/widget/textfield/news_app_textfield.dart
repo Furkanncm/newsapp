@@ -15,7 +15,7 @@ class NewsAppTextField extends StatelessWidget {
     this.prefixIcon,
     this.hintText,
     this.labelText,
-    this.maxLength,
+    this.maxLines,
     this.suffixIcon,
     this.enabled,
     this.focusNode,
@@ -57,7 +57,7 @@ class NewsAppTextField extends StatelessWidget {
   final String? labelText;
 
   /// The maximum number of lines the field can have.
-  final int? maxLength;
+  final int? maxLines;
 
   /// A widget to display after the input (e.g., visibility toggle).
   final Widget? suffixIcon;
@@ -97,7 +97,7 @@ class NewsAppTextField extends StatelessWidget {
       ).copyWith(filled: true, fillColor: fillColor ?? Colors.white),
       enabled: enabled,
       focusNode: focusNode,
-      maxLines: maxLength ?? 1,
+      maxLines: maxLines ?? 1,
     );
   }
 }

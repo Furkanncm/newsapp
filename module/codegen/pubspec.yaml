@@ -15,6 +15,7 @@ dependencies:
   
   flutter_gen: ^5.11.0
   easy_localization: ^3.0.8
+  firebase_auth: ^6.0.1
 
 dev_dependencies:
   flutter_test:
@@ -22,7 +23,6 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_gen_runner: ^5.10.0
   build_runner: ^2.5.4
-  easy_localization: ^3.0.7+1
   json_serializable: ^6.9.0
 
 flutter_gen:
@@ -30,12 +30,8 @@ flutter_gen:
     outputs:
       directory_path_enabled: true
 
-  # Optional
   integrations:
     image: true
-    flutter_svg: true
-    rive: true
-    lottie: true
 
   colors:
     inputs:

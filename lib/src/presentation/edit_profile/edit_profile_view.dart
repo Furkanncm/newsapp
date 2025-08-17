@@ -70,6 +70,7 @@ final class _Body extends StatelessWidget {
         verticalBox12,
         _FormWidget(viewmodel: viewmodel),
         LabelTextField(
+          maxLines: 5,
           label: LocaleKeys.bio.tr(),
           prefixIcon: const Icon(Icons.text_snippet_outlined),
           controller: viewmodel.bioController,

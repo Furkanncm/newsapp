@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsapp/src/common/utils/enums/firebase_auth.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/widget/navigation_bar/bottom_navigationbar.dart';
 import 'package:newsapp/src/common/widget/other/topic_list_view.dart';
+import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
 import 'package:newsapp/src/presentation/all_trends/all_trends_view.dart';
 import 'package:newsapp/src/presentation/bookmark/bookmark_view.dart';
 import 'package:newsapp/src/presentation/choose_country/choose_country_view.dart';
@@ -106,6 +108,12 @@ final GoRouter router = GoRouter(
       path: RoutePaths.help.path,
       builder: (context, state) => const HelpView(),
     ),
+    GoRoute(
+      name: RoutePaths.exploreTopic.name,
+      path: RoutePaths.exploreTopic.path,
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: TopicListView()),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) => AppNavigationBar(child: child),
@@ -129,14 +137,6 @@ final GoRouter router = GoRouter(
           name: RoutePaths.explore.name,
           pageBuilder: (context, state) =>
               const NoTransitionPage(child: ExploreView()),
-          routes: [
-            GoRoute(
-              name: RoutePaths.exploreTopic.name,
-              path: RoutePaths.exploreTopic.path,
-              pageBuilder: (context, state) =>
-                  const NoTransitionPage(child: TopicListView()),
-            ),
-          ],
         ),
         GoRoute(
           path: RoutePaths.bookmark.path,
@@ -153,4 +153,13 @@ final GoRouter router = GoRouter(
       ],
     ),
   ],
+  redirect: (context, state) {
+    final authenticationStatus = FirebaseDataSource.instance.authStatus;
+
+    if (authenticationStatus == FirebaseAuthEnum.unauthenticated) {
+      print(state.fullPath);
+    }
+
+    return null;
+  },
 );

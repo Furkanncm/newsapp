@@ -9,14 +9,6 @@ part of 'login_viewmodel.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$LoginViewmodel on _LoginViewmodelBase, Store {
-  Computed<bool>? _$isFormValidComputed;
-
-  @override
-  bool get isFormValid => (_$isFormValidComputed ??= Computed<bool>(
-    () => super.isFormValid,
-    name: '_LoginViewmodelBase.isFormValid',
-  )).value;
-
   late final _$isRememberMeAtom = Atom(
     name: '_LoginViewmodelBase.isRememberMe',
     context: context,
@@ -53,6 +45,24 @@ mixin _$LoginViewmodel on _LoginViewmodelBase, Store {
     });
   }
 
+  late final _$isFormValidAtom = Atom(
+    name: '_LoginViewmodelBase.isFormValid',
+    context: context,
+  );
+
+  @override
+  bool get isFormValid {
+    _$isFormValidAtom.reportRead();
+    return super.isFormValid;
+  }
+
+  @override
+  set isFormValid(bool value) {
+    _$isFormValidAtom.reportWrite(value, super.isFormValid, () {
+      super.isFormValid = value;
+    });
+  }
+
   late final _$_LoginViewmodelBaseActionController = ActionController(
     name: '_LoginViewmodelBase',
     context: context,
@@ -65,6 +75,18 @@ mixin _$LoginViewmodel on _LoginViewmodelBase, Store {
     );
     try {
       return super.toggleRememberMe();
+    } finally {
+      _$_LoginViewmodelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void validateForm() {
+    final _$actionInfo = _$_LoginViewmodelBaseActionController.startAction(
+      name: '_LoginViewmodelBase.validateForm',
+    );
+    try {
+      return super.validateForm();
     } finally {
       _$_LoginViewmodelBaseActionController.endAction(_$actionInfo);
     }

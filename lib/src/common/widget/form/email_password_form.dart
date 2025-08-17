@@ -10,16 +10,19 @@ class EmailPasswordForm extends StatelessWidget {
     required this.emailController,
     required this.passwordController,
     required this.formKey,
+    this.onChanged,
     super.key,
   });
 
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final GlobalKey<FormState> formKey;
+  final VoidCallback? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      onChanged: onChanged,
       key: formKey,
       child: Column(
         children: [

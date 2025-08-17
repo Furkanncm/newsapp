@@ -4,7 +4,7 @@ import 'package:lucielle/widget/button/elevated_button.dart';
 import 'package:lucielle/widget/text/luci_text.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
-class CenteredButton extends StatelessWidget {
+class CenteredButton extends StatefulWidget {
   const CenteredButton({
     required this.text,
     required this.onPressed,
@@ -12,7 +12,14 @@ class CenteredButton extends StatelessWidget {
   });
 
   final String text;
-  final VoidCallback onPressed;
+  final Future<void> Function()? onPressed;
+
+  @override
+  State<CenteredButton> createState() => _CenteredButtonState();
+}
+
+class _CenteredButtonState extends State<CenteredButton> {
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +28,25 @@ class CenteredButton extends StatelessWidget {
       height: context.height * .06,
       child: LuciElevatedButton(
         backgroundColor: AppTheme.primaryColor,
-        onPressed: onPressed,
-        child: LuciText.labelMedium(text),
+        onPressed: isLoading
+            ? null
+            : () async {
+                if (widget.onPressed != null) {
+                  setState(() => isLoading = true);
+                  try {
+                    await widget.onPressed!();
+                  } finally {
+                    if (mounted) setState(() => isLoading = false);
+                  }
+                }
+              },
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: AppTheme.buttonBackground,
+                ),
+              )
+            : LuciText.labelMedium(widget.text),
       ),
     );
   }

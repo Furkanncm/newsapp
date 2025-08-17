@@ -7,7 +7,7 @@ class ThemeRepository {
   ThemeRepository._();
 
   static ThemeRepository? _instance;
-  static ThemeRepository get instace => _instance ??= ThemeRepository._();
+  static ThemeRepository get instance => _instance ??= ThemeRepository._();
 
   final CacheRepository _repository = CacheRepository.instance;
 

@@ -1,0 +1,1 @@
+enum FirebaseAuthEnum { authenticated, unauthenticated }

@@ -122,5 +122,19 @@
   "faq": "SSS",
   "contact": "İletişim",
   "darkMode": "Gece Modu",
-  "security": "Güvenlik"
+  "security": "Güvenlik",
+  "userNotFound": "Bu e-posta ile kullanıcı bulunamadı.",
+  "wrongPassword": "Şifre yanlış.",
+  "invalidEmail": "E-posta adresi geçersiz.",
+  "userDisabled": "Bu hesap devre dışı bırakılmıştır.",
+  "emailAlreadyInUse": "Bu e-posta başka bir hesapla ilişkilendirilmiş.",
+  "weakPassword": "Şifre çok zayıf.",
+  "operationNotAllowed": "Bu giriş yöntemi izinli değil.",
+  "tooManyRequests": "Çok fazla istek gönderildi. Lütfen daha sonra tekrar deneyin.",
+  "networkRequestFailed": "Ağ hatası. İnternet bağlantınızı kontrol edin.",
+  "invalidCredential": "E-posta veya şifre yanlış.",
+  "unknownError": "Bilinmeyen bir hata oluştu.",
+  "loggedInAs": "Şu kullanıcı ile giriş yapıldı:",
+  "registrationSuccess": "Kayıt başarılı!",
+  "registrationFail": "Kayıt başarısız. Lütfen tekrar deneyin."
 }

@@ -1,21 +1,31 @@
-import 'package:codegen/gen/assets.gen.dart';
+import 'package:codegen/codegen.dart';
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class Topic extends Equatable {
+part 'topic.g.dart';
+
+@JsonSerializable()
+@immutable
+final class Topic extends Equatable implements BaseModel<Topic> {
   const Topic({
     required this.value,
-    required this.icon,
+    @IconDataConverter() required this.icon,
     required this.description,
     required this.isSaved,
-    this.image,
+    @ImageConverter() this.image,
   });
 
+  @ImageConverter()
   final Image? image;
+
   final String value;
+
+  @IconDataConverter()
   final IconData icon;
+
   final String description;
   final bool isSaved;
 
@@ -81,6 +91,13 @@ class Topic extends Equatable {
   @override
   List<Object?> get props => [value, icon, description, isSaved, image];
 
+  factory Topic.fromJson(Map<String, dynamic> json) => _$TopicFromJson(json);
+  @override
+  Map<String, dynamic> toJson() => _$TopicToJson(this);
+
+  @override
+  Topic fromJson(Map<String, Object?> json) => Topic.fromJson(json);
+
   Topic copyWith({
     String? value,
     IconData? icon,
@@ -110,4 +127,29 @@ extension AssetGenImageExtension on AssetGenImage {
 
   Image get toFit =>
       image(fit: BoxFit.cover, package: LocaleKeys.packageName.tr());
+}
+class IconDataConverter implements JsonConverter<IconData, int> {
+  const IconDataConverter();
+
+  @override
+  IconData fromJson(int json) => IconData(json, fontFamily: 'MaterialIcons');
+
+  @override
+  int toJson(IconData object) => object.codePoint;
+}
+
+class ImageConverter implements JsonConverter<Image?, String?> {
+  const ImageConverter();
+
+  @override
+  Image? fromJson(String? json) =>
+      json == null ? null : Image.asset(json, fit: BoxFit.cover);
+
+  @override
+  String? toJson(Image? object) {
+    if (object is Image && object.image is AssetImage) {
+      return (object.image as AssetImage).assetName;
+    }
+    return null;
+  }
 }

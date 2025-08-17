@@ -8,15 +8,9 @@ class LocalizationManager {
     return _instance ??= LocalizationManager._init();
   }
 
-  final Locale _enLocale = Locale(
-    StringConstants.en.name,
-    StringConstants.en.value,
-  );
-  final Locale _trLocale = Locale(
-    StringConstants.tr.name,
-    StringConstants.tr.value,
-  );
+  final Locale _enLocale = const Locale(StringConstants.en, StringConstants.en);
+  final Locale _trLocale = const Locale(StringConstants.tr, StringConstants.tr);
   List<Locale> get supportedLocales => [_enLocale, _trLocale];
-  String get path => StringConstants.translationPath.value;
+  String get path => StringConstants.translationPath;
   Locale? get foolbackLocale => _enLocale;
 }

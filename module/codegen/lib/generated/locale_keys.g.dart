@@ -127,5 +127,24 @@ abstract class  LocaleKeys {
   static const contact = 'contact';
   static const darkMode = 'darkMode';
   static const security = 'security';
+  static const translationPath = 'translationPath';
+  static const profileImage = 'profileImage';
+  static const users = 'users';
+  static const articles = 'articles';
+  static const topics = 'topics';
+  static const userNotFound = 'userNotFound';
+  static const wrongPassword = 'wrongPassword';
+  static const invalidEmail = 'invalidEmail';
+  static const userDisabled = 'userDisabled';
+  static const emailAlreadyInUse = 'emailAlreadyInUse';
+  static const weakPassword = 'weakPassword';
+  static const operationNotAllowed = 'operationNotAllowed';
+  static const tooManyRequests = 'tooManyRequests';
+  static const networkRequestFailed = 'networkRequestFailed';
+  static const invalidCredential = 'invalidCredential';
+  static const unknownError = 'unknownError';
+  static const loggedInAs = 'loggedInAs';
+  static const registrationSuccess = 'registrationSuccess';
+  static const registrationFail = 'registrationFail';
 
 }

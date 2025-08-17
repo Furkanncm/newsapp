@@ -31,7 +31,7 @@ final class RowSeeAllWidget extends StatelessWidget {
             child: LuciText.bodySmall(
               LocaleKeys.seeAll.tr(),
               textColor:
-                  ThemeRepository.instace.themeNotifier.value ==
+                  ThemeRepository.instance.themeNotifier.value ==
                       AppTheme.darkTheme
                   ? AppTheme.bodyDark
                   : AppTheme.bodyText,

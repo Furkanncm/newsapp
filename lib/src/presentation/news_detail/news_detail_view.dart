@@ -32,7 +32,7 @@ class _NewsDetailViewState extends State<NewsDetailView> with NewsDetailMixin {
       body: _Body(article: article),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          await shareNews(article.url ?? '');
+          await shareNews(url:article.url ?? '');
         },
         label: LuciText.bodyMedium(LocaleKeys.share.tr()),
         icon: const Icon(Icons.share),

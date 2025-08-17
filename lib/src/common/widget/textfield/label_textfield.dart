@@ -5,11 +5,18 @@ import 'package:newsapp/src/common/widget/textfield/news_app_textfield.dart';
 
 @immutable
 final class LabelTextField extends StatelessWidget {
-  const LabelTextField({required this.label, required this.controller, this.prefixIcon, super.key});
+  const LabelTextField({
+    required this.label,
+    required this.controller,
+    this.prefixIcon,
+    this.maxLines = 1,
+    super.key,
+  });
 
   final String label;
   final Widget? prefixIcon;
   final TextEditingController controller;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +25,7 @@ final class LabelTextField extends StatelessWidget {
       children: [
         LabelWithStar(text: label),
         verticalBox4,
-        NewsAppTextField(prefixIcon: prefixIcon),
+        NewsAppTextField(maxLines: maxLines, prefixIcon: prefixIcon),
       ],
     );
   }

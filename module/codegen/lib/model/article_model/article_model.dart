@@ -1,5 +1,5 @@
- import 'package:codegen/model/base_model/base_model.dart';
-import 'package:codegen/model/source/source_model.dart';
+import 'package:codegen/codegen.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -7,8 +7,8 @@ part 'article_model.g.dart';
 
 @JsonSerializable()
 @immutable
-final class Article extends BaseModel<Article> {
-  Article({
+final class Article extends Equatable implements BaseModel<Article> {
+  const Article({
     this.source,
     this.author,
     this.title,
@@ -19,9 +19,8 @@ final class Article extends BaseModel<Article> {
     this.content,
   });
 
-  factory Article.fromJson(Map<String, dynamic> json) => _$ArticleFromJson(
-        json,
-      );
+  factory Article.fromJson(Map<String, dynamic> json) =>
+      _$ArticleFromJson(json);
   final Source? source;
   final String? author;
   final String? title;
@@ -32,8 +31,20 @@ final class Article extends BaseModel<Article> {
   final String? content;
 
   @override
+  List<Object?> get props => [
+    source,
+    author,
+    title,
+    description,
+    url,
+    urlToImage,
+    publishedAt,
+    content,
+  ];
+
+  @override
   Map<String, dynamic> toJson() => _$ArticleToJson(this);
 
   @override
-  Article fromJson(Map<String, dynamic> json) => _$ArticleFromJson(json);
+  Article fromJson(Map<String, Object?> json) => Article.fromJson(json);
 }

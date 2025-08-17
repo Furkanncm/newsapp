@@ -43,7 +43,7 @@ class _LoginViewState extends State<LoginView> with LoginMixin {
                 verticalBox4,
                 _RememberMe(viewmodel: viewModel),
                 verticalBox12,
-                _LoginButton(isFormValid: isFormValid),
+                _LoginButton(isFormValid: isFormValid, onPressed: login),
                 verticalBox16,
                 const SocialMediaLogin(),
                 verticalBox24,
@@ -88,9 +88,7 @@ final class _Headline extends StatelessWidget {
 
 @immutable
 final class _RememberMe extends StatelessWidget {
-  const _RememberMe({
-    required this.viewmodel,
-  });
+  const _RememberMe({required this.viewmodel});
 
   final LoginViewmodel viewmodel;
   @override
@@ -126,18 +124,13 @@ final class _RememberMe extends StatelessWidget {
 
 @immutable
 final class _LoginButton extends StatelessWidget {
-  const _LoginButton({
-    required this.isFormValid,
-  });
+  const _LoginButton({required this.isFormValid, required this.onPressed});
 
   final bool isFormValid;
-
+  final Future<void> Function()? onPressed;
   @override
   Widget build(BuildContext context) {
-    return CenteredButton(
-      text: LocaleKeys.login.tr(),
-      onPressed: () => router.goNamed(RoutePaths.signUp.name),
-    );
+    return CenteredButton(text: LocaleKeys.login.tr(), onPressed: onPressed);
   }
 }
 

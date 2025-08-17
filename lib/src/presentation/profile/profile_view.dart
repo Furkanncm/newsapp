@@ -75,7 +75,7 @@ final class _UserDetails extends StatelessWidget with ProfileMixin {
     return Column(
       children: [
         Hero(
-          tag: StringConstants.profileImage.value,
+          tag: StringConstants.profileImage,
           child: GestureDetector(
             onTap: () => showProfileImageDialog(context),
             child: CircleAvatar(
@@ -155,7 +155,7 @@ final class _DarkmodeSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: ThemeRepository.instace.themeNotifier,
+      valueListenable: ThemeRepository.instance.themeNotifier,
       builder: (context, value, child) {
         final isDark =
             Theme.brightnessOf(context) == AppTheme.darkTheme.brightness;
@@ -168,7 +168,7 @@ final class _DarkmodeSwitch extends StatelessWidget {
           trailing: Switch.adaptive(
             activeColor: AppTheme.primaryColor,
             value: isDark,
-            onChanged: (_) => ThemeRepository.instace.setTheme(context),
+            onChanged: (_) => ThemeRepository.instance.setTheme(context),
           ),
         );
       },

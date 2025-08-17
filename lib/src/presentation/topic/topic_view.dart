@@ -9,7 +9,6 @@ import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
-import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/presentation/topic/topic_mixin.dart';
 import 'package:newsapp/src/presentation/topic/topic_viewmodel.dart';
 
@@ -24,9 +23,19 @@ class _TopicsViewState extends State<TopicsView> with TopicMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewsAppBar(title: LocaleKeys.chooseYourTopics.tr()),
+      appBar: NewsAppBar(
+        title: LocaleKeys.chooseYourTopics.tr(),
+        actions: [
+          TextButton(
+            onPressed: navigateFillProfile,
+            child: LuciText.bodyMedium(
+              LocaleKeys.skip.tr(),
+              textColor: AppTheme.primaryColor,
+            ),
+          ),
+        ],
+      ),
       body: _Body(viewmodel: viewmodel),
-      bottomNavigationBar: _NextButton(viewmodel: viewmodel),
     );
   }
 }
@@ -42,19 +51,17 @@ final class _Body extends StatelessWidget {
     return Column(
       children: [
         verticalBox16,
-        Padding(
-          padding: NaPadding.pagePadding,
-          child: Wrap(
-            verticalDirection: VerticalDirection.up,
-            spacing: 10,
-            runSpacing: 12,
-            children: Topic.allTopics.map((topic) {
-              return topic.value == Topic.allTopics.first.value
-                  ? emptyBox
-                  : _TopicWidget(viewmodel: viewmodel, topic: topic);
-            }).toList(),
-          ),
+        Wrap(
+          spacing: 12,
+          runSpacing: 10,
+          children: Topic.allTopics.map((topic) {
+            return topic.value == Topic.allTopics.first.value
+                ? emptyBox
+                : _TopicWidget(viewmodel: viewmodel, topic: topic);
+          }).toList(),
         ),
+        const Spacer(),
+        _NextButton(viewmodel: viewmodel),
       ],
     );
   }
@@ -101,24 +108,29 @@ final class _CategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          topic.icon,
-          color: viewmodel.isSelected(topic)
-              ? AppTheme.buttonBackground
-              : AppTheme.primaryColor,
-        ),
-        horizontalBox12,
-        LuciText.bodyLarge(
-          topic.value,
-          textColor: viewmodel.isSelected(topic)
-              ? AppTheme.buttonBackground
-              : AppTheme.primaryColor,
-          fontWeight: FontWeight.bold,
-        ),
-      ],
+    return SizedBox(
+      width: 125,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            topic.icon,
+            color: viewmodel.isSelected(topic)
+                ? AppTheme.buttonBackground
+                : AppTheme.primaryColor,
+          ),
+          horizontalBox12,
+          Flexible(
+            child: LuciText.bodyLarge(
+              topic.value,
+              textColor: viewmodel.isSelected(topic)
+                  ? AppTheme.buttonBackground
+                  : AppTheme.primaryColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

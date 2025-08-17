@@ -19,7 +19,7 @@ class TextFieldWithLabel extends StatelessWidget {
     this.textInputAction,
     this.prefixIcon,
     this.labelText,
-    this.maxLength,
+    this.maxLines,
     this.suffixIcon,
     this.enabled,
     this.focusNode,
@@ -40,7 +40,7 @@ class TextFieldWithLabel extends StatelessWidget {
   final Widget? prefixIcon;
   final String? hintText;
   final String? labelText;
-  final int? maxLength;
+  final int? maxLines;
   final Widget? suffixIcon;
   final bool? enabled;
   final FocusNode? focusNode;
@@ -67,7 +67,7 @@ class TextFieldWithLabel extends StatelessWidget {
           prefixIcon: prefixIcon,
           hintText: hintText,
           labelText: labelText,
-          maxLength: maxLength,
+          maxLines: maxLines,
           suffixIcon: suffixIcon,
           enabled: enabled,
           focusNode: focusNode,

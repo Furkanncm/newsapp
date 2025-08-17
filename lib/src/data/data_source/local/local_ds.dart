@@ -34,8 +34,6 @@ abstract class ICacheRepository {
 /// Provides helper methods to store and retrieve data types like String,
 /// bool, int, double, and List<String>.
 class CacheRepository implements ICacheRepository {
-  /// Constructor that initializes [SharedPreferences] manually.
-  CacheRepository(this._prefs);
 
   /// Private named constructor used to initialize the singleton instance.
   CacheRepository._init();

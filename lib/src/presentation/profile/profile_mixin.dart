@@ -9,7 +9,7 @@ mixin ProfileMixin on StatelessWidget {
       context: context,
       builder: (context) {
         return Hero(
-          tag: StringConstants.profileImage.value,
+          tag: StringConstants.profileImage,
           child: Dialog(
             elevation: 2,
             shape: RoundedRectangleBorder(
@@ -35,8 +35,9 @@ mixin ProfileMixin on StatelessWidget {
       context: context,
       title: LocaleKeys.logOut.tr(),
       content: LocaleKeys.logOutConfirm.tr(),
-      onPositiveButton: () {
-        // Handle log out
+      onPositiveButton: () async {
+        await viewmodel.logOut();
+        router.goNamed(RoutePaths.login.name);
       },
     );
   }

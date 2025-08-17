@@ -11,8 +11,8 @@ import 'package:newsapp/src/common/widget/button/social_media_button.dart';
 import 'package:newsapp/src/common/widget/form/email_password_form.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/common/widget/text/fadded_text.dart';
-import 'package:newsapp/src/presentation/sign_up/sign_up._viewmodel.dart';
 import 'package:newsapp/src/presentation/sign_up/sign_up_mixin.dart';
+import 'package:newsapp/src/presentation/sign_up/sign_up_viewmodel.dart';
 
 @immutable
 final class SignUpView extends StatefulWidget {
@@ -49,7 +49,7 @@ class _SignUpViewState extends State<SignUpView> with SignUpMixin {
                 verticalBox4,
                 _RememberMe(viewmodel: viewModel),
                 verticalBox16,
-                const _SignUpButton(),
+                _SignUpButton(onPressed: register),
                 verticalBox16,
                 const SocialMediaLogin(),
                 verticalBox24,
@@ -94,11 +94,13 @@ final class _RememberMe extends StatelessWidget {
 
 @immutable
 final class _SignUpButton extends StatelessWidget {
-  const _SignUpButton();
+  const _SignUpButton({required this.onPressed});
+
+  final Future<void> Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return CenteredButton(text: LocaleKeys.signUp.tr(), onPressed: () {});
+    return CenteredButton(text: LocaleKeys.signUp.tr(), onPressed: onPressed);
   }
 }
 
