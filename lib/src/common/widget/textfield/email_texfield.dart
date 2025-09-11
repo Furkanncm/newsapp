@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
 class EmailTextField extends StatefulWidget {
   const EmailTextField({
@@ -39,7 +40,10 @@ class _EmailTextFieldState extends State<EmailTextField> {
           return _emailController.text.isEmpty
               ? emptyBox
               : IconButton(
-                  icon: const Icon(Icons.clear_outlined),
+                  icon: const Icon(
+                    Icons.clear_outlined,
+                    color: AppTheme.bodyText,
+                  ),
                   onPressed: () {
                     _emailController.clear();
                   },

@@ -54,3 +54,4 @@ android/app/google-services.json
 .gitignore
 firebase.json
 lib/firebase_options.dart
+.env

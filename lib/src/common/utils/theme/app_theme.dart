@@ -87,6 +87,8 @@ class AppTheme extends LuciTheme {
         return placeholder.withValues(alpha: 0.3);
       }),
     ),
+    dividerTheme: const DividerThemeData(thickness: 1, color: placeholder),
+    
   );
 
   // Dark Theme
@@ -149,9 +151,9 @@ class AppTheme extends LuciTheme {
       }),
       trackColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return primaryColor.withOpacity(0.5);
+          return primaryColor.withValues(alpha: 0.5);
         }
-        return titleDark.withOpacity(0.3);
+        return titleDark.withValues(alpha: 0.3);
       }),
     ),
   );

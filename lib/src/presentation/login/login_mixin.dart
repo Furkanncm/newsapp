@@ -3,9 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
-import 'package:newsapp/src/common/utils/enums/snackbar_enum.dart';
+import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
-import 'package:newsapp/src/common/utils/snackbar/snackbar.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 import 'package:newsapp/src/presentation/login/login_view.dart';
@@ -37,27 +36,19 @@ mixin LoginMixin on State<LoginView> {
 
   Future<void> login() async {
     if (formKey.currentState?.validate() ?? false) {
-      final result = await viewModel.login();
-      if (result != null && result.succeeded == true) {
-        NewsAppSnackBar.show(
-          context: context,
-          text: '${LocaleKeys.loggedInAs.tr()} ${_userRepository.getUserEmail}',
-          type: SnackBarType.info,
-        );
-
-        navigate();
-      } else {
-        NewsAppSnackBar.show(
-          context: context,
-          text: result?.messages?.first ?? '',
-          type: SnackBarType.error,
-        );
-      }
+      await viewModel.login().withToast(
+        context,
+        successMessage: LocaleKeys.welcome_sincere.tr(),
+        onSuccess: navigate,
+      );
     }
   }
 
-  void navigate() {
-    if (_cacheRepository.getBool(PrefKeys.isTopicSkipped) == true) {
+  Future<void> navigate() async {
+    final userId = _cacheRepository.getString(PrefKeys.isUserLoggedIn);
+    if (userId == null) return;
+    await _userRepository.getUserInfo();
+    if (_userRepository.currentUser?.isSkipped == true) {
       router.goNamed(RoutePaths.home.name);
     } else {
       router.goNamed(RoutePaths.topics.name);

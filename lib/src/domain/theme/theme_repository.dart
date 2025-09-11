@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/constants/string_constants.dart';
 import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
@@ -14,6 +15,8 @@ class ThemeRepository {
   final ValueNotifier<ThemeData> themeNotifier = ValueNotifier(
     AppTheme.lightTheme,
   );
+
+  final String appFontFamily = StringConstants.fontFamily;
 
   void setTheme(BuildContext context) {
     final brightness = Theme.of(context).brightness;

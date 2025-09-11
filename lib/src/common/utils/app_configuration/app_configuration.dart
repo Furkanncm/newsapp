@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:newsapp/main.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
 import 'package:newsapp/src/domain/localization/localization_repository.dart';
@@ -17,6 +18,7 @@ class AppConfiguration {
     await CacheRepository.instance.getInstance();
     ThemeRepository.instance.loadTheme();
     await EasyLocalization.ensureInitialized();
+    await dotenv.load();
     runApp(
       EasyLocalization(
         supportedLocales: LocalizationManager.instance.supportedLocales,

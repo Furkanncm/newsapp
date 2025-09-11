@@ -32,7 +32,7 @@ class _NewsDetailViewState extends State<NewsDetailView> with NewsDetailMixin {
       body: _Body(article: article),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          await shareNews(url:article.url ?? '');
+          await shareNews(url: article.url ?? '');
         },
         label: LuciText.bodyMedium(LocaleKeys.share.tr()),
         icon: const Icon(Icons.share),
@@ -244,9 +244,15 @@ final class _NewsDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             verticalBox4,
-            LuciText.titleLarge(article.title, fontWeight: FontWeight.bold),
+            LuciText.titleLarge(
+              article.title ?? 'Unknown',
+              fontWeight: FontWeight.bold,
+            ),
             verticalBox32,
-            LuciText.bodyLarge(article.content, textColor: AppTheme.bodyText),
+            LuciText.bodyLarge(
+              article.content ?? 'There is no content available.',
+              textColor: AppTheme.bodyText,
+            ),
           ],
         ),
       ),

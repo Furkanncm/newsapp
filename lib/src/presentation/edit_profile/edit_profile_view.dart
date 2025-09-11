@@ -1,10 +1,12 @@
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/other/profile_photo.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
+import 'package:newsapp/src/common/widget/textfield/bio_textfield.dart';
 import 'package:newsapp/src/common/widget/textfield/email_textfield_with_label.dart';
 import 'package:newsapp/src/common/widget/textfield/full_name_textfield.dart';
 import 'package:newsapp/src/common/widget/textfield/label_textfield.dart';
@@ -58,28 +60,96 @@ final class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: NaPadding.pagePadding,
-      physics: const ClampingScrollPhysics(),
+    return Observer(
+      builder: (_) {
+        return viewmodel.user == null
+            ? const Center(child: CircularProgressIndicator.adaptive())
+            : ListView(
+                padding: NaPadding.pagePadding,
+                physics: const ClampingScrollPhysics(),
+                children: [
+                  ProfilePhotoWidget(
+                    onPressed: onPressed,
+                    imageFile: imageFile,
+                  ),
+                  verticalBox32,
+                  UserNameTextfield(nameController: viewmodel.nameController),
+                  verticalBox12,
+                  FullNameTextfield(
+                    fullNameController: viewmodel.fullNameController,
+                  ),
+                  verticalBox12,
+                  _FormWidget(viewmodel: viewmodel),
+                  BioTextField(
+                    controller: viewmodel.bioController,
+                    bio: viewmodel.bioController.text,
+                  ),
+                  verticalBox12,
+                  _GenderAndCountryPicker(viewmodel: viewmodel),
+                  verticalBox12,
+                  LabelTextField(
+                    label: LocaleKeys.website.tr(),
+                    prefixIcon: const Icon(Icons.link_outlined),
+                    controller: viewmodel.websiteController,
+                    userInfo: viewmodel.websiteController.text,
+                  ),
+                ],
+              );
+      },
+    );
+  }
+}
+
+@immutable
+final class _GenderAndCountryPicker extends StatelessWidget {
+  const _GenderAndCountryPicker({required this.viewmodel});
+
+  final EditProfileViewmodel viewmodel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
       children: [
-        ProfilePhotoWidget(onPressed: onPressed, imageFile: imageFile),
-        verticalBox32,
-        UserNameTextfield(nameController: viewmodel.nameController),
-        verticalBox12,
-        FullNameTextfield(fullNameController: viewmodel.fullNameController),
-        verticalBox12,
-        _FormWidget(viewmodel: viewmodel),
-        LabelTextField(
-          maxLines: 5,
-          label: LocaleKeys.bio.tr(),
-          prefixIcon: const Icon(Icons.text_snippet_outlined),
-          controller: viewmodel.bioController,
+        Observer(
+          builder: (_) {
+            return Expanded(
+              child: LabelTextField(
+                onTap: () => viewmodel.setGender(context: context),
+                prefixIcon: viewmodel.currentGender?.icon,
+                label: LocaleKeys.gender.tr(),
+                controller: viewmodel.genderController,
+                userInfo: viewmodel.currentGender?.label ?? '',
+              ),
+            );
+          },
         ),
-        verticalBox12,
-        LabelTextField(
-          label: LocaleKeys.website.tr(),
-          prefixIcon: const Icon(Icons.link_outlined),
-          controller: viewmodel.websiteController,
+        horizontalBox16,
+        Observer(
+          builder: (_) {
+            return Expanded(
+              child: LabelTextField(
+                onTap: () async => viewmodel.onCountryTap(context),
+                label: LocaleKeys.country.tr(),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Image.network(
+                      viewmodel.selectedCountry?.flag ?? '',
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(Icons.flag_circle_outlined);
+                      },
+                      width: 30,
+                      height: 30,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                controller: viewmodel.countryController,
+                userInfo: viewmodel.selectedCountry?.name ?? '',
+              ),
+            );
+          },
         ),
       ],
     );

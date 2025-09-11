@@ -1,13 +1,9 @@
-
 import 'package:codegen/codegen.dart';
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
-import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
-import 'package:newsapp/src/common/widget/button/bottom_button.dart';
-import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/presentation/choose_country/choose_country_mixin.dart';
 
 @immutable
@@ -17,79 +13,88 @@ final class ChooseCountryView extends StatefulWidget {
   State<ChooseCountryView> createState() => _ChooseCountryViewState();
 }
 
-class _ChooseCountryViewState extends State<ChooseCountryView> with ChooseCountryMixin {
+class _ChooseCountryViewState extends State<ChooseCountryView>
+    with ChooseCountryMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      appBar: NewsAppBar(title: LocaleKeys.selectCountry.tr()),
-      body: Padding(
-        padding: NaPadding.pagePadding,
-        child: Column(
-          children: [
-            ValueListenableBuilder<bool>(
-              valueListenable: isAnyWord,
-              builder: (context, value, child) {
-                return TextField(
-                  controller: searchController,
-                  onChanged: searchCountry,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: LocaleKeys.search.tr(),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        value ? Icons.clear_outlined : Icons.search_outlined,
-                        color: AppTheme.buttonText,
-                      ),
-                      onPressed: value ? clearController : null,
+      body: Column(
+        children: [
+          ValueListenableBuilder<bool>(
+            valueListenable: isAnyWord,
+            builder: (context, value, child) {
+              return TextField(
+                controller: searchController,
+                onChanged: searchCountry,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: LocaleKeys.search.tr(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      value ? Icons.clear_outlined : Icons.search_outlined,
+                      color: AppTheme.buttonText,
                     ),
+                    onPressed: value ? clearController : null,
                   ),
+                ),
+              );
+            },
+          ),
+          verticalBox12,
+          Expanded(
+            child: ValueListenableBuilder(
+              valueListenable: countryListNotifier,
+              builder: (context, value, child) {
+                if (countryListNotifier.value.isEmpty && isAnyWord.value) {
+                  return Center(
+                    child: LuciText.bodyLarge(
+                      LocaleKeys.doesNotFoundAnyCountry.tr(),
+                    ),
+                  );
+                }
+                if (countryListNotifier.value.isEmpty) {
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                }
+
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: countryListNotifier.value.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _CountrListTile(
+                      country: countryListNotifier.value[index],
+                      onCountrySelected: () => selectCountry(index),
+                    );
+                  },
                 );
               },
             ),
-            Expanded(
-              child: ValueListenableBuilder(
-                valueListenable: countryListNotifier,
-                builder: (context, value, child) {
-                  if (countryListNotifier.value.isEmpty && isAnyWord.value) {
-                    return Center(
-                      child: LuciText.bodyLarge(LocaleKeys.doesNotFoundAnyCountry.tr()),
-                    );
-                  }
-                  if (countryListNotifier.value.isEmpty) {
-                    return const Center(child: CircularProgressIndicator.adaptive());
-                  }
-
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: countryListNotifier.value.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return _CountrListTile(
-                        country: countryListNotifier.value[index],
-                        onCountrySelected: () => selectCountry(index),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: ValueListenableBuilder(
-        valueListenable: isSelectCountryStateHold,
-        builder: (context, value, child) {
-          return NewsBottomButton(
-            text: LocaleKeys.next.tr(),
-            onPressed: isSelectCountryStateHold.value ? next : null,
-          );
-        },
+          ),
+          ValueListenableBuilder(
+            valueListenable: isSelectCountryStateHold,
+            builder: (context, value, child) {
+              return SizedBox(
+                height: context.height * .06,
+                child: LuciElevatedButton(
+                  backgroundColor: value
+                      ? AppTheme.primaryColor
+                      : AppTheme.placeholder.withValues(alpha: 0.5),
+                  onPressed: isSelectCountryStateHold.value ? next : null,
+                  child: Center(
+                    child: LuciText.bodyMedium(LocaleKeys.next.tr()),
+                  ),
+                ),
+              );
+            },
+          ),
+          verticalBox16,
+        ],
       ),
     );
   }
 }
-
-
 
 @immutable
 final class _CountrListTile extends StatelessWidget {
@@ -107,9 +112,7 @@ final class _CountrListTile extends StatelessWidget {
       minLeadingWidth: 48,
       selected: country.isSelected ?? false,
       selectedTileColor: AppTheme.primaryColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       leading: SizedBox(
         width: 48,
         child: ClipRRect(
@@ -124,7 +127,9 @@ final class _CountrListTile extends StatelessWidget {
       ),
       title: LuciText.bodyLarge(
         country.name ?? '',
-        textColor: country.isSelected == true ? AppTheme.buttonBackground : AppTheme.bodyText,
+        textColor: country.isSelected == true
+            ? AppTheme.buttonBackground
+            : AppTheme.bodyText,
       ),
       onTap: onCountrySelected,
     );

@@ -6,6 +6,8 @@ class NewsAppTextField extends StatelessWidget {
     this.controller,
     this.keyboardType,
     this.onChanged,
+    this.onTap,
+    this.readOnly,
     this.textAlign,
     this.autovalidateMode,
     this.validator,
@@ -36,6 +38,8 @@ class NewsAppTextField extends StatelessWidget {
   /// Controls whether validation occurs automatically or manually.
   final AutovalidateMode? autovalidateMode;
 
+  final void Function()? onTap;
+
   final String? Function(String?)? validator;
 
   /// Called when editing is complete (e.g., on "done").
@@ -65,6 +69,8 @@ class NewsAppTextField extends StatelessWidget {
   /// Whether the text field is enabled or disabled.
   final bool? enabled;
 
+  final bool? readOnly;
+
   /// An optional focus node to control the field's focus state.
   final FocusNode? focusNode;
 
@@ -78,6 +84,8 @@ class NewsAppTextField extends StatelessWidget {
       controller: controller,
       validator: validator,
       onChanged: onChanged,
+      onTap: onTap,
+      readOnly: readOnly ?? false,
       textAlign: textAlign ?? TextAlign.left,
       autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
       onEditingComplete: onEditingComplete,
@@ -98,6 +106,7 @@ class NewsAppTextField extends StatelessWidget {
       enabled: enabled,
       focusNode: focusNode,
       maxLines: maxLines ?? 1,
+      minLines: 1,
     );
   }
 }

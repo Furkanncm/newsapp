@@ -2,96 +2,112 @@
   {
     "name": "Afghanistan",
     "code": "AF",
+    "phoneCode": "+93",
     "flag": "https://flagcdn.com/w40/af.png",
     "isSelected": false
   },
   {
     "name": "Albania",
     "code": "AL",
+    "phoneCode": "+355",
     "flag": "https://flagcdn.com/w40/al.png",
     "isSelected": false
   },
   {
     "name": "Algeria",
     "code": "DZ",
+    "phoneCode": "+213",
     "flag": "https://flagcdn.com/w40/dz.png",
     "isSelected": false
   },
   {
     "name": "Andorra",
     "code": "AD",
+    "phoneCode": "+376",
     "flag": "https://flagcdn.com/w40/ad.png",
     "isSelected": false
   },
   {
     "name": "Angola",
     "code": "AO",
+    "phoneCode": "+244",
     "flag": "https://flagcdn.com/w40/ao.png",
     "isSelected": false
   },
   {
     "name": "Antigua and Barbuda",
     "code": "AG",
+    "phoneCode": "+1-268",
     "flag": "https://flagcdn.com/w40/ag.png",
     "isSelected": false
   },
   {
     "name": "Argentina",
     "code": "AR",
+    "phoneCode": "+54",
     "flag": "https://flagcdn.com/w40/ar.png",
     "isSelected": false
   },
   {
     "name": "Armenia",
     "code": "AM",
+    "phoneCode": "+374",
     "flag": "https://flagcdn.com/w40/am.png",
     "isSelected": false
   },
   {
     "name": "Australia",
     "code": "AU",
+    "phoneCode": "+61",
     "flag": "https://flagcdn.com/w40/au.png",
     "isSelected": false
   },
   {
     "name": "Austria",
     "code": "AT",
+    "phoneCode": "+43",
     "flag": "https://flagcdn.com/w40/at.png",
     "isSelected": false
   },
   {
     "name": "Azerbaijan",
     "code": "AZ",
+    "phoneCode": "+994",
     "flag": "https://flagcdn.com/w40/az.png",
     "isSelected": false
   },
   {
     "name": "Bahamas",
     "code": "BS",
+    "phoneCode": "+1-242",
     "flag": "https://flagcdn.com/w40/bs.png",
     "isSelected": false
   },
   {
     "name": "Bahrain",
     "code": "BH",
+    "phoneCode": "+973",
     "flag": "https://flagcdn.com/w40/bh.png",
     "isSelected": false
   },
   {
     "name": "Bangladesh",
     "code": "BD",
+    "phoneCode": "+880",
     "flag": "https://flagcdn.com/w40/bd.png",
     "isSelected": false
   },
   {
     "name": "Barbados",
     "code": "BB",
+    "phoneCode": "+1-246",
     "flag": "https://flagcdn.com/w40/bb.png",
     "isSelected": false
   },
   {
     "name": "Belarus",
     "code": "BY",
+    "phoneCode": "+375",
     "flag": "https://flagcdn.com/w40/by.png",
     "isSelected": false
   },
@@ -104,1038 +120,1211 @@
   {
     "name": "Belize",
     "code": "BZ",
+    "phoneCode": "+501",
     "flag": "https://flagcdn.com/w40/bz.png",
     "isSelected": false
   },
   {
     "name": "Benin",
     "code": "BJ",
+    "phoneCode": "+229",
     "flag": "https://flagcdn.com/w40/bj.png",
     "isSelected": false
   },
   {
     "name": "Bhutan",
     "code": "BT",
+    "phoneCode": "+975",
     "flag": "https://flagcdn.com/w40/bt.png",
     "isSelected": false
   },
   {
     "name": "Bolivia",
     "code": "BO",
+    "phoneCode": "+591",
     "flag": "https://flagcdn.com/w40/bo.png",
     "isSelected": false
   },
   {
     "name": "Bosnia and Herzegovina",
     "code": "BA",
+    "phoneCode": "+387",
     "flag": "https://flagcdn.com/w40/ba.png",
     "isSelected": false
   },
   {
     "name": "Botswana",
     "code": "BW",
+    "phoneCode": "+267",
     "flag": "https://flagcdn.com/w40/bw.png",
     "isSelected": false
   },
   {
     "name": "Brazil",
     "code": "BR",
+    "phoneCode": "+55",
     "flag": "https://flagcdn.com/w40/br.png",
     "isSelected": false
   },
   {
     "name": "Brunei",
     "code": "BN",
+    "phoneCode": "+673",
     "flag": "https://flagcdn.com/w40/bn.png",
     "isSelected": false
   },
   {
     "name": "Bulgaria",
     "code": "BG",
+    "phoneCode": "+359",
     "flag": "https://flagcdn.com/w40/bg.png",
     "isSelected": false
   },
   {
     "name": "Burkina Faso",
     "code": "BF",
+    "phoneCode": "+226",
     "flag": "https://flagcdn.com/w40/bf.png",
     "isSelected": false
   },
   {
     "name": "Burundi",
     "code": "BI",
+    "phoneCode": "+257",
     "flag": "https://flagcdn.com/w40/bi.png",
     "isSelected": false
   },
   {
     "name": "Cabo Verde",
     "code": "CV",
+    "phoneCode": "+238",
     "flag": "https://flagcdn.com/w40/cv.png",
     "isSelected": false
   },
   {
     "name": "Cambodia",
     "code": "KH",
+    "phoneCode": "+855",
     "flag": "https://flagcdn.com/w40/kh.png",
     "isSelected": false
   },
   {
     "name": "Cameroon",
     "code": "CM",
+    "phoneCode": "+237",
     "flag": "https://flagcdn.com/w40/cm.png",
     "isSelected": false
   },
   {
     "name": "Canada",
     "code": "CA",
+    "phoneCode": "+1",
     "flag": "https://flagcdn.com/w40/ca.png",
     "isSelected": false
   },
   {
     "name": "Central African Republic",
     "code": "CF",
+    "phoneCode": "+236",
     "flag": "https://flagcdn.com/w40/cf.png",
     "isSelected": false
   },
   {
     "name": "Chad",
     "code": "TD",
+    "phoneCode": "+235",
     "flag": "https://flagcdn.com/w40/td.png",
     "isSelected": false
   },
   {
     "name": "Chile",
     "code": "CL",
+    "phoneCode": "+56",
     "flag": "https://flagcdn.com/w40/cl.png",
     "isSelected": false
   },
   {
     "name": "China",
     "code": "CN",
+    "phoneCode": "+86",
     "flag": "https://flagcdn.com/w40/cn.png",
     "isSelected": false
   },
   {
     "name": "Colombia",
     "code": "CO",
+    "phoneCode": "+57",
     "flag": "https://flagcdn.com/w40/co.png",
     "isSelected": false
   },
   {
     "name": "Comoros",
     "code": "KM",
+    "phoneCode": "+269",
     "flag": "https://flagcdn.com/w40/km.png",
     "isSelected": false
   },
   {
     "name": "Congo (Congo-Brazzaville)",
     "code": "CG",
+    "phoneCode": "+242",
     "flag": "https://flagcdn.com/w40/cg.png",
     "isSelected": false
   },
   {
     "name": "Costa Rica",
     "code": "CR",
+    "phoneCode": "+506",
     "flag": "https://flagcdn.com/w40/cr.png",
     "isSelected": false
   },
   {
     "name": "Croatia",
     "code": "HR",
+    "phoneCode": "+385",
     "flag": "https://flagcdn.com/w40/hr.png",
     "isSelected": false
   },
   {
     "name": "Cuba",
     "code": "CU",
+    "phoneCode": "+53",
     "flag": "https://flagcdn.com/w40/cu.png",
     "isSelected": false
   },
   {
     "name": "Cyprus",
     "code": "CY",
+    "phoneCode": "+357",
     "flag": "https://flagcdn.com/w40/cy.png",
     "isSelected": false
   },
   {
     "name": "Czechia",
     "code": "CZ",
+    "phoneCode": "+420",
     "flag": "https://flagcdn.com/w40/cz.png",
     "isSelected": false
   },
   {
     "name": "Democratic Republic of the Congo",
     "code": "CD",
+    "phoneCode": "+243",
     "flag": "https://flagcdn.com/w40/cd.png",
     "isSelected": false
   },
   {
     "name": "Denmark",
     "code": "DK",
+    "phoneCode": "+45",
     "flag": "https://flagcdn.com/w40/dk.png",
     "isSelected": false
   },
   {
     "name": "Djibouti",
     "code": "DJ",
+    "phoneCode": "+253",
     "flag": "https://flagcdn.com/w40/dj.png",
     "isSelected": false
   },
   {
     "name": "Dominica",
     "code": "DM",
+    "phoneCode": "+1-767",
     "flag": "https://flagcdn.com/w40/dm.png",
     "isSelected": false
   },
   {
     "name": "Dominican Republic",
     "code": "DO",
+    "phoneCode": "+1-809",
     "flag": "https://flagcdn.com/w40/do.png",
     "isSelected": false
   },
   {
     "name": "Ecuador",
     "code": "EC",
+    "phoneCode": "+593",
     "flag": "https://flagcdn.com/w40/ec.png",
     "isSelected": false
   },
   {
     "name": "Egypt",
     "code": "EG",
+    "phoneCode": "+20",
     "flag": "https://flagcdn.com/w40/eg.png",
     "isSelected": false
   },
   {
     "name": "El Salvador",
     "code": "SV",
+    "phoneCode": "+503",
     "flag": "https://flagcdn.com/w40/sv.png",
     "isSelected": false
   },
   {
     "name": "Equatorial Guinea",
     "code": "GQ",
+    "phoneCode": "+240",
     "flag": "https://flagcdn.com/w40/gq.png",
     "isSelected": false
   },
   {
     "name": "Eritrea",
     "code": "ER",
+    "phoneCode": "+291",
     "flag": "https://flagcdn.com/w40/er.png",
     "isSelected": false
   },
   {
     "name": "Estonia",
     "code": "EE",
+    "phoneCode": "+372",
     "flag": "https://flagcdn.com/w40/ee.png",
     "isSelected": false
   },
   {
     "name": "Eswatini",
     "code": "SZ",
+    "phoneCode": "+268",
     "flag": "https://flagcdn.com/w40/sz.png",
     "isSelected": false
   },
   {
     "name": "Ethiopia",
     "code": "ET",
+    "phoneCode": "+251",
     "flag": "https://flagcdn.com/w40/et.png",
     "isSelected": false
   },
   {
     "name": "Fiji",
     "code": "FJ",
+    "phoneCode": "+679",
     "flag": "https://flagcdn.com/w40/fj.png",
     "isSelected": false
   },
   {
     "name": "Finland",
     "code": "FI",
+    "phoneCode": "+358",
     "flag": "https://flagcdn.com/w40/fi.png",
     "isSelected": false
   },
   {
     "name": "France",
     "code": "FR",
+    "phoneCode": "+33",
     "flag": "https://flagcdn.com/w40/fr.png",
     "isSelected": false
   },
   {
     "name": "Gabon",
     "code": "GA",
+    "phoneCode": "+241",
     "flag": "https://flagcdn.com/w40/ga.png",
     "isSelected": false
   },
   {
     "name": "Gambia",
     "code": "GM",
+    "phoneCode": "+220",
     "flag": "https://flagcdn.com/w40/gm.png",
     "isSelected": false
   },
   {
     "name": "Georgia",
     "code": "GE",
+    "phoneCode": "+995",
     "flag": "https://flagcdn.com/w40/ge.png",
     "isSelected": false
   },
   {
     "name": "Germany",
     "code": "DE",
+    "phoneCode": "+49",
     "flag": "https://flagcdn.com/w40/de.png",
     "isSelected": false
   },
   {
     "name": "Ghana",
     "code": "GH",
+    "phoneCode": "+233",
     "flag": "https://flagcdn.com/w40/gh.png",
     "isSelected": false
   },
   {
     "name": "Greece",
     "code": "GR",
+    "phoneCode": "+30",
     "flag": "https://flagcdn.com/w40/gr.png",
     "isSelected": false
   },
   {
     "name": "Grenada",
     "code": "GD",
+    "phoneCode": "+1-473",
     "flag": "https://flagcdn.com/w40/gd.png",
     "isSelected": false
   },
   {
     "name": "Guatemala",
     "code": "GT",
+    "phoneCode": "+502",
     "flag": "https://flagcdn.com/w40/gt.png",
     "isSelected": false
   },
   {
     "name": "Guinea",
     "code": "GN",
+    "phoneCode": "+224",
     "flag": "https://flagcdn.com/w40/gn.png",
     "isSelected": false
   },
   {
     "name": "Guinea-Bissau",
     "code": "GW",
+    "phoneCode": "+245",
     "flag": "https://flagcdn.com/w40/gw.png",
     "isSelected": false
   },
   {
     "name": "Guyana",
     "code": "GY",
+    "phoneCode": "+592",
     "flag": "https://flagcdn.com/w40/gy.png",
     "isSelected": false
   },
   {
     "name": "Haiti",
     "code": "HT",
+    "phoneCode": "+509",
     "flag": "https://flagcdn.com/w40/ht.png",
     "isSelected": false
   },
   {
     "name": "Honduras",
     "code": "HN",
+    "phoneCode": "+504",
     "flag": "https://flagcdn.com/w40/hn.png",
     "isSelected": false
   },
   {
     "name": "Hungary",
     "code": "HU",
+    "phoneCode": "+36",
     "flag": "https://flagcdn.com/w40/hu.png",
     "isSelected": false
   },
   {
     "name": "Iceland",
     "code": "IS",
+    "phoneCode": "+354",
     "flag": "https://flagcdn.com/w40/is.png",
     "isSelected": false
   },
   {
     "name": "India",
     "code": "IN",
+    "phoneCode": "+91",
     "flag": "https://flagcdn.com/w40/in.png",
     "isSelected": false
   },
   {
     "name": "Indonesia",
     "code": "ID",
+    "phoneCode": "+62",
     "flag": "https://flagcdn.com/w40/id.png",
     "isSelected": false
   },
   {
     "name": "Iran",
     "code": "IR",
+    "phoneCode": "+98",
     "flag": "https://flagcdn.com/w40/ir.png",
     "isSelected": false
   },
   {
     "name": "Iraq",
     "code": "IQ",
+    "phoneCode": "+964",
     "flag": "https://flagcdn.com/w40/iq.png",
     "isSelected": false
   },
   {
     "name": "Ireland",
     "code": "IE",
+    "phoneCode": "+353",
     "flag": "https://flagcdn.com/w40/ie.png",
     "isSelected": false
   },
   {
     "name": "Israel",
     "code": "IL",
+    "phoneCode": "+972",
     "flag": "https://flagcdn.com/w40/il.png",
     "isSelected": false
   },
   {
     "name": "Italy",
     "code": "IT",
+    "phoneCode": "+39",
     "flag": "https://flagcdn.com/w40/it.png",
     "isSelected": false
   },
   {
     "name": "Jamaica",
     "code": "JM",
+    "phoneCode": "+1-876",
     "flag": "https://flagcdn.com/w40/jm.png",
     "isSelected": false
   },
   {
     "name": "Japan",
     "code": "JP",
+    "phoneCode": "+81",
     "flag": "https://flagcdn.com/w40/jp.png",
     "isSelected": false
   },
   {
     "name": "Jordan",
     "code": "JO",
+    "phoneCode": "+962",
     "flag": "https://flagcdn.com/w40/jo.png",
     "isSelected": false
   },
   {
     "name": "Kazakhstan",
     "code": "KZ",
+    "phoneCode": "+7",
     "flag": "https://flagcdn.com/w40/kz.png",
     "isSelected": false
   },
   {
     "name": "Kenya",
     "code": "KE",
+    "phoneCode": "+254",
     "flag": "https://flagcdn.com/w40/ke.png",
     "isSelected": false
   },
   {
     "name": "Kiribati",
     "code": "KI",
+    "phoneCode": "+686",
     "flag": "https://flagcdn.com/w40/ki.png",
     "isSelected": false
   },
   {
     "name": "Korea, North",
     "code": "KP",
+    "phoneCode": "+850",
     "flag": "https://flagcdn.com/w40/kp.png",
     "isSelected": false
   },
   {
     "name": "Korea, South",
     "code": "KR",
+    "phoneCode": "+82",
     "flag": "https://flagcdn.com/w40/kr.png",
     "isSelected": false
   },
   {
     "name": "Kuwait",
     "code": "KW",
+    "phoneCode": "+965",
     "flag": "https://flagcdn.com/w40/kw.png",
     "isSelected": false
   },
   {
     "name": "Kyrgyzstan",
     "code": "KG",
+    "phoneCode": "+996",
     "flag": "https://flagcdn.com/w40/kg.png",
     "isSelected": false
   },
   {
     "name": "Laos",
     "code": "LA",
+    "phoneCode": "+856",
     "flag": "https://flagcdn.com/w40/la.png",
     "isSelected": false
   },
   {
     "name": "Latvia",
     "code": "LV",
+    "phoneCode": "+371",
     "flag": "https://flagcdn.com/w40/lv.png",
     "isSelected": false
   },
   {
     "name": "Lebanon",
     "code": "LB",
+    "phoneCode": "+961",
     "flag": "https://flagcdn.com/w40/lb.png",
     "isSelected": false
   },
   {
     "name": "Lesotho",
     "code": "LS",
+    "phoneCode": "+266",
     "flag": "https://flagcdn.com/w40/ls.png",
     "isSelected": false
   },
   {
     "name": "Liberia",
     "code": "LR",
+    "phoneCode": "+231",
     "flag": "https://flagcdn.com/w40/lr.png",
     "isSelected": false
   },
   {
     "name": "Libya",
     "code": "LY",
+    "phoneCode": "+218",
     "flag": "https://flagcdn.com/w40/ly.png",
     "isSelected": false
   },
   {
     "name": "Madagascar",
     "code": "MG",
+    "phoneCode": "+261",
     "flag": "https://flagcdn.com/w40/mg.png",
     "isSelected": false
   },
   {
     "name": "Malawi",
     "code": "MW",
+    "phoneCode": "+265",
     "flag": "https://flagcdn.com/w40/mw.png",
     "isSelected": false
   },
   {
     "name": "Malaysia",
     "code": "MY",
+    "phoneCode": "+60",
     "flag": "https://flagcdn.com/w40/my.png",
     "isSelected": false
   },
   {
     "name": "Maldives",
     "code": "MV",
+    "phoneCode": "+960",
     "flag": "https://flagcdn.com/w40/mv.png",
     "isSelected": false
   },
   {
     "name": "Mali",
     "code": "ML",
+    "phoneCode": "+223",
     "flag": "https://flagcdn.com/w40/ml.png",
     "isSelected": false
   },
   {
     "name": "Malta",
     "code": "MT",
+    "phoneCode": "+356",
     "flag": "https://flagcdn.com/w40/mt.png",
     "isSelected": false
   },
   {
     "name": "Marshall Islands",
     "code": "MH",
+    "phoneCode": "+692",
     "flag": "https://flagcdn.com/w40/mh.png",
     "isSelected": false
   },
   {
     "name": "Mauritania",
     "code": "MR",
+    "phoneCode": "+222",
     "flag": "https://flagcdn.com/w40/mr.png",
     "isSelected": false
   },
   {
     "name": "Mauritius",
     "code": "MU",
+    "phoneCode": "+230",
     "flag": "https://flagcdn.com/w40/mu.png",
     "isSelected": false
   },
   {
     "name": "Mexico",
     "code": "MX",
+    "phoneCode": "+52",
     "flag": "https://flagcdn.com/w40/mx.png",
     "isSelected": false
   },
   {
     "name": "Micronesia",
     "code": "FM",
+    "phoneCode": "+691",
     "flag": "https://flagcdn.com/w40/fm.png",
     "isSelected": false
   },
   {
     "name": "Moldova",
     "code": "MD",
+    "phoneCode": "+373",
     "flag": "https://flagcdn.com/w40/md.png",
     "isSelected": false
   },
   {
     "name": "Monaco",
     "code": "MC",
+    "phoneCode": "+377",
     "flag": "https://flagcdn.com/w40/mc.png",
     "isSelected": false
   },
   {
     "name": "Mongolia",
     "code": "MN",
+    "phoneCode": "+976",
     "flag": "https://flagcdn.com/w40/mn.png",
     "isSelected": false
   },
   {
     "name": "Montenegro",
     "code": "ME",
+    "phoneCode": "+382",
     "flag": "https://flagcdn.com/w40/me.png",
     "isSelected": false
   },
   {
     "name": "Morocco",
     "code": "MA",
+    "phoneCode": "+212",
     "flag": "https://flagcdn.com/w40/ma.png",
     "isSelected": false
   },
   {
     "name": "Mozambique",
     "code": "MZ",
+    "phoneCode": "+258",
     "flag": "https://flagcdn.com/w40/mz.png",
     "isSelected": false
   },
   {
     "name": "Myanmar (Burma)",
     "code": "MM",
+    "phoneCode": "+95",
     "flag": "https://flagcdn.com/w40/mm.png",
     "isSelected": false
   },
   {
     "name": "Namibia",
     "code": "NA",
+    "phoneCode": "+264",
     "flag": "https://flagcdn.com/w40/na.png",
     "isSelected": false
   },
   {
     "name": "Nauru",
     "code": "NR",
+    "phoneCode": "+674",
     "flag": "https://flagcdn.com/w40/nr.png",
     "isSelected": false
   },
   {
     "name": "Nepal",
     "code": "NP",
+    "phoneCode": "+977",
     "flag": "https://flagcdn.com/w40/np.png",
     "isSelected": false
   },
   {
     "name": "Netherlands",
     "code": "NL",
+    "phoneCode": "+31",
     "flag": "https://flagcdn.com/w40/nl.png",
     "isSelected": false
   },
   {
     "name": "New Zealand",
     "code": "NZ",
+    "phoneCode": "+64",
     "flag": "https://flagcdn.com/w40/nz.png",
     "isSelected": false
   },
   {
     "name": "Nicaragua",
     "code": "NI",
+    "phoneCode": "+505",
     "flag": "https://flagcdn.com/w40/ni.png",
     "isSelected": false
   },
   {
     "name": "Niger",
     "code": "NE",
+    "phoneCode": "+227",
     "flag": "https://flagcdn.com/w40/ne.png",
     "isSelected": false
   },
   {
     "name": "Nigeria",
     "code": "NG",
+    "phoneCode": "+234",
     "flag": "https://flagcdn.com/w40/ng.png",
     "isSelected": false
   },
   {
     "name": "North Macedonia",
     "code": "MK",
+    "phoneCode": "+389",
     "flag": "https://flagcdn.com/w40/mk.png",
     "isSelected": false
   },
   {
     "name": "Norway",
     "code": "NO",
+    "phoneCode": "+47",
     "flag": "https://flagcdn.com/w40/no.png",
     "isSelected": false
   },
   {
     "name": "Oman",
     "code": "OM",
+    "phoneCode": "+968",
     "flag": "https://flagcdn.com/w40/om.png",
     "isSelected": false
   },
   {
     "name": "Pakistan",
     "code": "PK",
+    "phoneCode": "+92",
     "flag": "https://flagcdn.com/w40/pk.png",
     "isSelected": false
   },
   {
     "name": "Palau",
     "code": "PW",
+    "phoneCode": "+680",
     "flag": "https://flagcdn.com/w40/pw.png",
     "isSelected": false
   },
   {
     "name": "Panama",
     "code": "PA",
+    "phoneCode": "+507",
     "flag": "https://flagcdn.com/w40/pa.png",
     "isSelected": false
   },
   {
     "name": "Papua New Guinea",
     "code": "PG",
+    "phoneCode": "+675",
     "flag": "https://flagcdn.com/w40/pg.png",
     "isSelected": false
   },
   {
     "name": "Paraguay",
     "code": "PY",
+    "phoneCode": "+595",
     "flag": "https://flagcdn.com/w40/py.png",
     "isSelected": false
   },
   {
     "name": "Peru",
     "code": "PE",
+    "phoneCode": "+51",
     "flag": "https://flagcdn.com/w40/pe.png",
     "isSelected": false
   },
   {
     "name": "Philippines",
     "code": "PH",
+    "phoneCode": "+63",
     "flag": "https://flagcdn.com/w40/ph.png",
     "isSelected": false
   },
   {
     "name": "Poland",
     "code": "PL",
+    "phoneCode": "+48",
     "flag": "https://flagcdn.com/w40/pl.png",
     "isSelected": false
   },
   {
     "name": "Portugal",
     "code": "PT",
+    "phoneCode": "+351",
     "flag": "https://flagcdn.com/w40/pt.png",
     "isSelected": false
   },
   {
     "name": "Qatar",
     "code": "QA",
+    "phoneCode": "+974",
     "flag": "https://flagcdn.com/w40/qa.png",
     "isSelected": false
   },
   {
     "name": "Romania",
     "code": "RO",
+    "phoneCode": "+40",
     "flag": "https://flagcdn.com/w40/ro.png",
     "isSelected": false
   },
   {
     "name": "Russia",
     "code": "RU",
+    "phoneCode": "+7",
     "flag": "https://flagcdn.com/w40/ru.png",
     "isSelected": false
   },
   {
     "name": "Rwanda",
     "code": "RW",
+    "phoneCode": "+250",
     "flag": "https://flagcdn.com/w40/rw.png",
     "isSelected": false
   },
   {
     "name": "Saint Kitts and Nevis",
     "code": "KN",
+    "phoneCode": "+1-869",
     "flag": "https://flagcdn.com/w40/kn.png",
     "isSelected": false
   },
   {
     "name": "Saint Lucia",
     "code": "LC",
+    "phoneCode": "+1-758",
     "flag": "https://flagcdn.com/w40/lc.png",
     "isSelected": false
   },
   {
     "name": "Saint Vincent and the Grenadines",
     "code": "VC",
+    "phoneCode": "+1-784",
     "flag": "https://flagcdn.com/w40/vc.png",
     "isSelected": false
   },
   {
     "name": "Samoa",
     "code": "WS",
+    "phoneCode": "+685",
     "flag": "https://flagcdn.com/w40/ws.png",
     "isSelected": false
   },
   {
     "name": "San Marino",
     "code": "SM",
+    "phoneCode": "+378",
     "flag": "https://flagcdn.com/w40/sm.png",
     "isSelected": false
   },
   {
     "name": "Sao Tome and Principe",
     "code": "ST",
+    "phoneCode": "+239",
     "flag": "https://flagcdn.com/w40/st.png",
     "isSelected": false
   },
   {
     "name": "Saudi Arabia",
     "code": "SA",
+    "phoneCode": "+966",
     "flag": "https://flagcdn.com/w40/sa.png",
     "isSelected": false
   },
   {
     "name": "Senegal",
     "code": "SN",
+    "phoneCode": "+221",
     "flag": "https://flagcdn.com/w40/sn.png",
     "isSelected": false
   },
   {
     "name": "Serbia",
     "code": "RS",
+    "phoneCode": "+381",
     "flag": "https://flagcdn.com/w40/rs.png",
     "isSelected": false
   },
   {
     "name": "Seychelles",
     "code": "SC",
+    "phoneCode": "+248",
     "flag": "https://flagcdn.com/w40/sc.png",
     "isSelected": false
   },
   {
     "name": "Sierra Leone",
     "code": "SL",
+    "phoneCode": "+232",
     "flag": "https://flagcdn.com/w40/sl.png",
     "isSelected": false
   },
   {
     "name": "Singapore",
     "code": "SG",
+    "phoneCode": "+65",
     "flag": "https://flagcdn.com/w40/sg.png",
     "isSelected": false
   },
   {
     "name": "Slovakia",
     "code": "SK",
+    "phoneCode": "+421",
     "flag": "https://flagcdn.com/w40/sk.png",
     "isSelected": false
   },
   {
     "name": "Slovenia",
     "code": "SI",
+    "phoneCode": "+386",
     "flag": "https://flagcdn.com/w40/si.png",
     "isSelected": false
   },
   {
     "name": "Solomon Islands",
     "code": "SB",
+    "phoneCode": "+677",
     "flag": "https://flagcdn.com/w40/sb.png",
     "isSelected": false
   },
   {
     "name": "Somalia",
     "code": "SO",
+    "phoneCode": "+252",
     "flag": "https://flagcdn.com/w40/so.png",
     "isSelected": false
   },
   {
     "name": "South Africa",
     "code": "ZA",
+    "phoneCode": "+27",
     "flag": "https://flagcdn.com/w40/za.png",
     "isSelected": false
   },
   {
     "name": "South Sudan",
     "code": "SS",
+    "phoneCode": "+211",
     "flag": "https://flagcdn.com/w40/ss.png",
     "isSelected": false
   },
   {
     "name": "Spain",
     "code": "ES",
+    "phoneCode": "+34",
     "flag": "https://flagcdn.com/w40/es.png",
     "isSelected": false
   },
   {
     "name": "Sri Lanka",
     "code": "LK",
+    "phoneCode": "+94",
     "flag": "https://flagcdn.com/w40/lk.png",
     "isSelected": false
   },
   {
     "name": "Sudan",
     "code": "SD",
+    "phoneCode": "+249",
     "flag": "https://flagcdn.com/w40/sd.png",
     "isSelected": false
   },
   {
     "name": "Suriname",
     "code": "SR",
+    "phoneCode": "+597",
     "flag": "https://flagcdn.com/w40/sr.png",
     "isSelected": false
   },
   {
     "name": "Sweden",
     "code": "SE",
+    "phoneCode": "+46",
     "flag": "https://flagcdn.com/w40/se.png",
     "isSelected": false
   },
   {
     "name": "Switzerland",
     "code": "CH",
+    "phoneCode": "+41",
     "flag": "https://flagcdn.com/w40/ch.png",
     "isSelected": false
   },
   {
     "name": "Syria",
     "code": "SY",
+    "phoneCode": "+963",
     "flag": "https://flagcdn.com/w40/sy.png",
     "isSelected": false
   },
   {
     "name": "Taiwan",
     "code": "TW",
+    "phoneCode": "+886",
     "flag": "https://flagcdn.com/w40/tw.png",
     "isSelected": false
   },
   {
     "name": "Tajikistan",
     "code": "TJ",
+    "phoneCode": "+992",
     "flag": "https://flagcdn.com/w40/tj.png",
     "isSelected": false
   },
   {
     "name": "Tanzania",
     "code": "TZ",
+    "phoneCode": "+255",
     "flag": "https://flagcdn.com/w40/tz.png",
     "isSelected": false
   },
   {
     "name": "Thailand",
     "code": "TH",
+    "phoneCode": "+66",
     "flag": "https://flagcdn.com/w40/th.png",
     "isSelected": false
   },
   {
     "name": "Togo",
     "code": "TG",
+    "phoneCode": "+228",
     "flag": "https://flagcdn.com/w40/tg.png",
     "isSelected": false
   },
   {
     "name": "Tonga",
     "code": "TO",
+    "phoneCode": "+676",
     "flag": "https://flagcdn.com/w40/to.png",
     "isSelected": false
   },
   {
     "name": "Trinidad and Tobago",
     "code": "TT",
+    "phoneCode": "+1-868",
     "flag": "https://flagcdn.com/w40/tt.png",
     "isSelected": false
   },
   {
     "name": "Tunisia",
     "code": "TN",
+    "phoneCode": "+216",
     "flag": "https://flagcdn.com/w40/tn.png",
     "isSelected": false
   },
   {
     "name": "Turkey",
     "code": "TR",
+    "phoneCode": "+90",
     "flag": "https://flagcdn.com/w40/tr.png",
     "isSelected": false
   },
   {
     "name": "Turkmenistan",
     "code": "TM",
+    "phoneCode": "+993",
     "flag": "https://flagcdn.com/w40/tm.png",
     "isSelected": false
   },
   {
     "name": "Tuvalu",
     "code": "TV",
+    "phoneCode": "+688",
     "flag": "https://flagcdn.com/w40/tv.png",
     "isSelected": false
   },
   {
     "name": "Uganda",
     "code": "UG",
+    "phoneCode": "+256",
     "flag": "https://flagcdn.com/w40/ug.png",
     "isSelected": false
   },
   {
     "name": "Ukraine",
     "code": "UA",
+    "phoneCode": "+380",
     "flag": "https://flagcdn.com/w40/ua.png",
     "isSelected": false
   },
   {
     "name": "United Arab Emirates",
     "code": "AE",
+    "phoneCode": "+971",
     "flag": "https://flagcdn.com/w40/ae.png",
     "isSelected": false
   },
   {
     "name": "United Kingdom",
     "code": "GB",
+    "phoneCode": "+44",
     "flag": "https://flagcdn.com/w40/gb.png",
     "isSelected": false
   },
   {
     "name": "United States",
     "code": "US",
+    "phoneCode": "+1",
     "flag": "https://flagcdn.com/w40/us.png",
     "isSelected": false
   },
   {
     "name": "Uruguay",
     "code": "UY",
+    "phoneCode": "+598",
     "flag": "https://flagcdn.com/w40/uy.png",
     "isSelected": false
   },
   {
     "name": "Vanuatu",
     "code": "VU",
+    "phoneCode": "+678",
     "flag": "https://flagcdn.com/w40/vu.png",
     "isSelected": false
   },
   {
     "name": "Vatican City",
     "code": "VA",
+    "phoneCode": "+379",
     "flag": "https://flagcdn.com/w40/va.png",
     "isSelected": false
   },
   {
     "name": "Venezuela",
     "code": "VE",
+    "phoneCode": "+58",
     "flag": "https://flagcdn.com/w40/ve.png",
     "isSelected": false
   },
   {
     "name": "Vietnam",
     "code": "VN",
+    "phoneCode": "+84",
     "flag": "https://flagcdn.com/w40/vn.png",
     "isSelected": false
   },
   {
     "name": "Western Sahara",
     "code": "EH",
+    "phoneCode": "+212",
     "flag": "https://flagcdn.com/w40/eh.png",
     "isSelected": false
   },
   {
     "name": "Yemen",
     "code": "YE",
+    "phoneCode": "+967",
     "flag": "https://flagcdn.com/w40/ye.png",
     "isSelected": false
   },
   {
     "name": "Zambia",
     "code": "ZM",
+    "phoneCode": "+260",
     "flag": "https://flagcdn.com/w40/zm.png",
     "isSelected": false
   },
   {
     "name": "Zimbabwe",
     "code": "ZW",
+    "phoneCode": "+263",
     "flag": "https://flagcdn.com/w40/zw.png",
     "isSelected": false
   }

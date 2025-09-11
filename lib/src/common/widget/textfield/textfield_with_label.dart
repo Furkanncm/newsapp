@@ -52,7 +52,7 @@ class TextFieldWithLabel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LabelWithStar( isRequired: isRequired, text: label),
+        LabelWithStar(isRequired: isRequired, text: label),
         verticalBox4,
         NewsAppTextField(
           controller: controller,

@@ -15,38 +15,44 @@
     <!-- Eğer ses dosyaları da seçilecekse aç: -->
     <!-- <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" /> -->
 
-    <application
-        android:name="${applicationName}"
-        android:label="newsapp"
-        android:icon="@mipmap/ic_launcher"
-        android:requestLegacyExternalStorage="true">
+<application
+    android:name="${applicationName}"
+    android:label="newsapp"
+    android:icon="@mipmap/ic_launcher"
+    android:requestLegacyExternalStorage="true">
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:launchMode="singleTop"
-            android:taskAffinity=""
-            android:theme="@style/LaunchTheme"
-            android:hardwareAccelerated="true"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-            android:windowSoftInputMode="adjustResize">
+    <activity
+        android:name=".MainActivity"
+        android:exported="true"
+        android:launchMode="singleTop"
+        android:taskAffinity=""
+        android:theme="@style/LaunchTheme"
+        android:hardwareAccelerated="true"
+        android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+        android:windowSoftInputMode="adjustResize">
 
-            <!-- Flutter başlangıç teması -->
-            <meta-data
-                android:name="io.flutter.embedding.android.NormalTheme"
-                android:resource="@style/NormalTheme" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!-- Flutter Plugin Registrant -->
         <meta-data
-            android:name="flutterEmbedding"
-            android:value="2" />
-    </application>
+            android:name="io.flutter.embedding.android.NormalTheme"
+            android:resource="@style/NormalTheme" />
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+         
+    </activity>
+
+    <!-- Firebase reCAPTCHA için gerekli Activity -->
+    <activity
+        android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+        android:exported="true" />
+
+    <!-- Flutter Plugin Registrant -->
+    <meta-data
+        android:name="flutterEmbedding"
+        android:value="2" />
+</application>
+
 
     <!-- Metin işleme için gerekli görünürlük bildirimi -->
     <queries>

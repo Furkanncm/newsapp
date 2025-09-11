@@ -1,15 +1,20 @@
-import 'package:codegen/gen/assets.gen.dart';
+import 'package:codegen/model/article_model/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
+import 'package:newsapp/src/common/utils/extensions/string_extensions.dart';
 import 'package:newsapp/src/common/widget/other/news_info.dart';
+import 'package:newsapp/src/common/widget/other/safe_image_network.dart';
 
 @immutable
 final class TrendNewsOnboard extends StatelessWidget {
-  const TrendNewsOnboard({required this.onDetail, super.key});
+  const TrendNewsOnboard({
+    required this.onDetail,
+    required this.article,
+    super.key,
+  });
 
   final VoidCallback onDetail;
-  // final Source source;
+  final Article article;
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +24,20 @@ final class TrendNewsOnboard extends StatelessWidget {
         children: [
           SizedBox(
             width: double.infinity,
-            height: context.height * 0.2,
+            height: context.height * 0.18,
             child: ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(8),
-              child: Assets.images.onboard1.toFit,
+              child: SafeImageNetwork(article: article),
             ),
           ),
           verticalBox4,
           // Source paslanıcak.
-          const NewsInfo(
-            region: 'Europe',
-            title: 'Russian warship: Moskva sinks in Black Sea',
-            source: 'BBC News',
-            pastTime: '4h ago',
+          NewsInfo(
+            region: article.author ?? 'Unknown',
+            title: article.title ?? 'Unknown',
+            source: article.source?.name ?? 'Unknown',
+            pastTime: article.publishedAt?.setPastTime ?? 'Unknown',
           ),
-          verticalBox16,
         ],
       ),
     );

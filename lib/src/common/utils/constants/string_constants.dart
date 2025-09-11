@@ -2,8 +2,13 @@
 class StringConstants {
   // Translation paths
   static const translationPath = 'assets/translations';
-  static const en = 'US';
+  static const en = 'en';
+  static const us = 'US';
   static const tr = 'TR';
+  static const fontFamily = 'Poppins';
+  static const newsApiKey = 'NEWS_API_KEY';
+  static const baseUrl = 'BASE_URL';
+  static const queryParamsKeys = 'apiKey';
 
   // Firebase collections & fields
   static const profileImage = 'profile_image';

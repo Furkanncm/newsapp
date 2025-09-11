@@ -114,6 +114,7 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) =>
           const NoTransitionPage(child: TopicListView()),
     ),
+
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) => AppNavigationBar(child: child),
@@ -156,9 +157,7 @@ final GoRouter router = GoRouter(
   redirect: (context, state) {
     final authenticationStatus = FirebaseDataSource.instance.authStatus;
 
-    if (authenticationStatus == FirebaseAuthEnum.unauthenticated) {
-      print(state.fullPath);
-    }
+    if (authenticationStatus == FirebaseAuthEnum.unauthenticated) {}
 
     return null;
   },

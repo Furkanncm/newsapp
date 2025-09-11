@@ -13,7 +13,6 @@ final class NewsInfo extends StatelessWidget {
     super.key,
   });
 
-  // final Source source;
   final String region;
   final String title;
   final String source;
@@ -24,8 +23,7 @@ final class NewsInfo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LuciText.bodyMedium(region, textColor: AppTheme.bodyText),
-        verticalBox4,
+        LuciText.bodyMedium(region, textColor: AppTheme.bodyText, maxLines: 1),
         LuciText.bodyLarge(
           title,
           maxLines: 2,
@@ -33,7 +31,6 @@ final class NewsInfo extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
         verticalBox4,
-        // source paslanıcak
         SourceAndAgoWidget(source: source, pastTime: pastTime),
       ],
     );

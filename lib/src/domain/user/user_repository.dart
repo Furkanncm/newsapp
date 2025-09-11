@@ -1,41 +1,54 @@
+import 'package:codegen/model/topic/topic.dart';
+import 'package:codegen/model/user/user_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/base/base_response.dart';
 import 'package:newsapp/src/common/utils/enums/firebase_auth.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
 import 'package:share_plus/share_plus.dart';
 
 abstract class IUserRepository {
-  User? get getCurrentUser;
+  UserModel? get currentUser;
   Future<XFile?> setProfilePhoto(BuildContext context);
   String? get getUserId;
   String? get getUserEmail;
   String? get getUserName;
   String? get getUserPhotoURL;
   FirebaseAuthEnum get authStatus;
+  void setCurrentUser(UserModel user);
   void setIsNewUser(AdditionalUserInfo? additionalUserInfo);
+  Future<UserModel?> getUserInfo();
+  Future<void> setSkipped();
+  Future<NetworkResponse<bool>> updateProfile({required UserModel user});
+  Future<void> updateTopic({required List<Topic> topics});
 }
 
-class UserRepository extends IUserRepository {
-  final FirebaseDataSource _firebaseDataSource = FirebaseDataSource.instance;
+class UserRepository implements IUserRepository {
+  factory UserRepository() => instance;
+
+  UserRepository._();
   bool? isNewUser;
+  static final UserRepository instance = UserRepository._();
+
+  final FirebaseDataSource _firebaseDataSource = FirebaseDataSource.instance;
 
   @override
-  User? get getCurrentUser => _firebaseDataSource.getCurrentUser();
+  UserModel? currentUser;
 
   @override
-  String? get getUserId => _firebaseDataSource.getUserId();
+  String? get getUserId => currentUser?.id;
 
   @override
-  String? get getUserEmail => _firebaseDataSource.getUserEmail();
+  String? get getUserEmail => currentUser?.email;
 
   @override
-  String? get getUserName => _firebaseDataSource.getUserName();
+  String? get getUserName => currentUser?.name;
 
   @override
-  String? get getUserPhotoURL => _firebaseDataSource.getUserPhotoURL();
+  String? get getUserPhotoURL => currentUser?.profilePhoto;
 
   @override
   FirebaseAuthEnum get authStatus => _firebaseDataSource.authStatus;
@@ -57,5 +70,35 @@ class UserRepository extends IUserRepository {
     if (result == null) return null;
     // Firebase kayıt
     return result;
+  }
+
+  @override
+  Future<UserModel?> getUserInfo() async {
+    final user = await _firebaseDataSource.getUserInfo();
+    setCurrentUser(user);
+    return user;
+  }
+
+  @override
+  void setCurrentUser(UserModel? user) {
+    if (user == null) return;
+    currentUser = user;
+  }
+
+  @override
+  Future<void> setSkipped() async {
+    await _firebaseDataSource.updateProfile(currentUser!.copyWith(isSkipped: true));
+  }
+
+  @override
+  Future<NetworkResponse<bool>> updateProfile({required UserModel user}) async {
+    return _firebaseDataSource.updateProfile(
+        user.copyWith(id: currentUser?.id ?? ''),
+      );
+  }
+
+  @override
+  Future<void> updateTopic({required List<Topic> topics}) async {
+    await _firebaseDataSource.updateTopic(topics: topics);
   }
 }

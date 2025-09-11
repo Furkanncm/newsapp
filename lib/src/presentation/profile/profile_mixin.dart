@@ -1,7 +1,7 @@
 part of 'profile_view.dart';
 
 mixin ProfileMixin on StatelessWidget {
-  late final ProfileViewModel viewmodel = ProfileViewModel();
+  final ProfileViewModel viewmodel = ProfileViewModel();
 
   void showProfileImageDialog(BuildContext context) {
     showAdaptiveDialog<void>(
@@ -35,6 +35,7 @@ mixin ProfileMixin on StatelessWidget {
       context: context,
       title: LocaleKeys.logOut.tr(),
       content: LocaleKeys.logOutConfirm.tr(),
+
       onPositiveButton: () async {
         await viewmodel.logOut();
         router.goNamed(RoutePaths.login.name);

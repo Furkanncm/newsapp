@@ -8,6 +8,7 @@ import 'package:newsapp/src/common/utils/extensions/root_bunlde_extension.dart';
 
 abstract class IRootBundleManager {
   Future<List<Country>> loadCountries(RootBundle bundle);
+  List<Country> parseCountries(String jsonStr);
 }
 
 class RootBundleManager implements IRootBundleManager {
@@ -17,8 +18,11 @@ class RootBundleManager implements IRootBundleManager {
     return compute(parseCountries, jsonStr);
   }
 
+  @override
   List<Country> parseCountries(String jsonStr) {
     final data = json.decode(jsonStr) as List<dynamic>;
-    return data.map((e) => Country.fromJson(e as Map<String, dynamic>)).toList();
+    return data
+        .map((e) => Country.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 }

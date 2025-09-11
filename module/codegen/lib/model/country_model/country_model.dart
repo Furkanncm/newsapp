@@ -8,12 +8,13 @@ part 'country_model.g.dart';
 @JsonSerializable()
 @immutable
 final class Country extends Equatable implements BaseModel<Country> {
-  const Country({this.name, this.code, this.flag, this.isSelected});
+  const Country({this.name, this.code, this.phoneCode, this.flag, this.isSelected});
 
   factory Country.fromJson(Map<String, dynamic> json) => _$CountryFromJson(json);
 
   final String? name;
   final String? code;
+  final String? phoneCode;
   final String? flag;
   final bool? isSelected;
 
@@ -23,15 +24,16 @@ final class Country extends Equatable implements BaseModel<Country> {
   @override
   Map<String, Object?> toJson() => _$CountryToJson(this);
 
-  Country copyWith({String? name, String? code, String? flag, bool? isSelected}) {
+  Country copyWith({String? name, String? code, String? phoneCode, String? flag, bool? isSelected}) {
     return Country(
       name: name ?? this.name,
       code: code ?? this.code,
+      phoneCode: phoneCode ?? this.phoneCode,
       flag: flag ?? this.flag,
       isSelected: isSelected ?? this.isSelected,
     );
   }
 
   @override
-  List<dynamic> get props => [name, code, flag, isSelected];
+  List<dynamic> get props => [name, code, phoneCode, flag, isSelected];
 }

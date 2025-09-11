@@ -1,6 +1,7 @@
+import 'package:codegen/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lucielle/utils/extensions/extensions.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 
@@ -33,7 +34,7 @@ class AppNavigationBar extends StatelessWidget {
             icon: Icon(
               currentIndex == 0 ? Icons.home_rounded : Icons.home_outlined,
             ),
-            label: RoutePaths.home.name.capitalizeFirst,
+            label: LocaleKeys.home.tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -41,7 +42,7 @@ class AppNavigationBar extends StatelessWidget {
                   ? Icons.explore_rounded
                   : Icons.explore_outlined,
             ),
-            label: RoutePaths.explore.name.capitalizeFirst,
+            label: LocaleKeys.explore.tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -49,7 +50,7 @@ class AppNavigationBar extends StatelessWidget {
                   ? Icons.bookmark_rounded
                   : Icons.bookmark_border_outlined,
             ),
-            label: RoutePaths.bookmark.name.capitalizeFirst,
+            label: LocaleKeys.bookmarks.tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -57,7 +58,7 @@ class AppNavigationBar extends StatelessWidget {
                   ? Icons.person_2_rounded
                   : Icons.person_2_outlined,
             ),
-            label: RoutePaths.profile.name.capitalizeFirst,
+            label: LocaleKeys.profile.tr(),
           ),
         ],
       ),

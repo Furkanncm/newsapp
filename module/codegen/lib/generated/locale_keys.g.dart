@@ -13,6 +13,10 @@ abstract class  LocaleKeys {
   static const foodDescription = 'foodDescription';
   static const back = 'back';
   static const next = 'next';
+  static const home = 'home';
+  static const profile = 'profile';
+  static const settings = 'settings';
+  static const bookmarks = 'bookmarks';
   static const getStarted = 'getStarted';
   static const selectCountry = 'selectCountry';
   static const search = 'search';
@@ -145,6 +149,16 @@ abstract class  LocaleKeys {
   static const unknownError = 'unknownError';
   static const loggedInAs = 'loggedInAs';
   static const registrationSuccess = 'registrationSuccess';
+  static const welcome_sincere = 'welcome_sincere';
   static const registrationFail = 'registrationFail';
+  static const bio_placeholder = 'bio_placeholder';
+  static const website_placeholder = 'website_placeholder';
+  static const username_placeholder = 'username_placeholder';
+  static const full_name_placeholder = 'full_name_placeholder';
+  static const editProfileSuccess = 'editProfileSuccess';
+  static const cancel = 'cancel';
+  static const gender = 'gender';
+  static const country = 'country';
+  static const language = 'language';
 
 }

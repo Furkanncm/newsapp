@@ -1,8 +1,7 @@
 enum PrefKeys {
   isOnboardActive('isOnboardActive'),
   themeCacheKey('ThemeCacheKey'),
-  isUserLoggedIn('isUserLoggedIn'),
-  isTopicSkipped('isTopicSkipped');
+  isUserLoggedIn('isUserLoggedIn');
 
   const PrefKeys(this.rawValue);
   final String rawValue;

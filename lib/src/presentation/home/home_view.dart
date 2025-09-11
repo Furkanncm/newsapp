@@ -1,4 +1,5 @@
-import 'package:codegen/gen/assets.gen.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:codegen/codegen.dart';
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:codegen/model/topic/topic.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -13,6 +14,7 @@ import 'package:newsapp/src/common/widget/other/news_onboard.dart';
 import 'package:newsapp/src/common/widget/other/row_see_all.dart';
 import 'package:newsapp/src/common/widget/other/search_field.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
+import 'package:newsapp/src/presentation/home/home_mixin.dart';
 import 'package:newsapp/src/presentation/home/home_viewmodel.dart';
 
 @immutable
@@ -23,17 +25,7 @@ final class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  late final HomeViewmodel viewmodel;
-  late final TextEditingController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    viewmodel = HomeViewmodel();
-    controller = TextEditingController();
-  }
-
+class _HomeViewState extends State<HomeView> with HomeMixin {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,21 +35,39 @@ class _HomeViewState extends State<HomeView> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(user?.email ?? ''),
             verticalBox20,
             SearchField(
               controller: controller,
               readOnly: true,
-              onTap: () => router.pushNamed(RoutePaths.searchPage.name),
+              onTap: () => router.pushNamed(
+                RoutePaths.searchPage.name,
+                extra: viewmodel.news?.articles ?? [],
+              ),
             ),
-            verticalBox12,
-            _AnimatedNewsOnboard(viewmodel: viewmodel),
+            verticalBox8,
+            Observer(
+              builder: (_) {
+                return _AnimatedNewsOnboard(
+                  viewmodel: viewmodel,
+                  article: viewmodel.news?.articles ?? [],
+                );
+              },
+            ),
+            verticalBox4,
             RowSeeAllWidget(
               text: LocaleKeys.latest.tr(),
               onSeeAllPressed: () => viewmodel.changeIsSeeAll(),
             ),
             verticalBox16,
             _HorizontalTopicList(viewmodel: viewmodel),
-            const ListLastestNews(),
+            Observer(
+              builder: (_) {
+                return ListLastestNews(
+                  newsList: viewmodel.categoryNews?.articles ?? [],
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -84,12 +94,14 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
 
 @immutable
 final class _AnimatedNewsOnboard extends StatelessWidget {
-  const _AnimatedNewsOnboard({required this.viewmodel});
+  const _AnimatedNewsOnboard({required this.viewmodel, required this.article});
 
   final HomeViewmodel viewmodel;
+  final List<Article> article;
 
   @override
   Widget build(BuildContext context) {
+    final showsArticle = article.take(5).toList();
     return Observer(
       builder: (_) {
         return AnimatedSwitcher(
@@ -108,11 +120,47 @@ final class _AnimatedNewsOnboard extends StatelessWidget {
                     RowSeeAllWidget(
                       text: LocaleKeys.trending.tr(),
                       onSeeAllPressed: () {
-                        router.pushNamed(RoutePaths.allTrends.name);
+                        router.pushNamed(
+                          RoutePaths.allTrends.name,
+                          extra: article,
+                        );
                       },
                     ),
                     verticalBox16,
-                    TrendNewsOnboard(onDetail: () {}),
+                    if (article.isEmpty)
+                      SizedBox(
+                        height: context.height * 0.30,
+                        child: const Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        ),
+                      )
+                    else
+                      CarouselSlider.builder(
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          enlargeCenterPage: true,
+                          viewportFraction: 0.9,
+                          enlargeStrategy: CenterPageEnlargeStrategy.zoom,
+                          initialPage: 1,
+                          height: context.height * 0.30,
+                        ),
+                        itemCount: showsArticle.length,
+                        itemBuilder:
+                            (
+                              BuildContext context,
+                              int itemIndex,
+                              int pageViewIndex,
+                            ) => Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 8),
+                              child: TrendNewsOnboard(
+                                onDetail: () => router.pushNamed(
+                                  RoutePaths.newsDetail.name,
+                                  extra: showsArticle[itemIndex],
+                                ),
+                                article: showsArticle[itemIndex],
+                              ),
+                            ),
+                      ),
                   ],
                 )
               : emptyBox,
@@ -166,14 +214,14 @@ final class _HorizontalTopic extends StatelessWidget {
     return Observer(
       builder: (_) {
         return GestureDetector(
-          onTap: () => viewmodel.changeIndex(index),
+          onTap: () => viewmodel.changeIndex(index, topic),
           child: Padding(
             padding: NaPadding.rightPadding,
             child: IntrinsicWidth(
               child: Column(
                 children: [
                   LuciText.bodyLarge(
-                    topic.value,
+                    topic.value?.capitalizeFirst,
                     fontWeight: viewmodel.lastestIndex == index
                         ? FontWeight.w600
                         : FontWeight.normal,

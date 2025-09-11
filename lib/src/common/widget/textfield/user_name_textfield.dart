@@ -13,7 +13,7 @@ final class UserNameTextfield extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFieldWithLabel(
       label: LocaleKeys.username.tr(),
-      prefixIcon: const Icon(Icons.person_2_outlined),
+      prefixIcon: const Icon(Icons.alternate_email_outlined),
       controller: nameController,
       isRequired: false,
     );

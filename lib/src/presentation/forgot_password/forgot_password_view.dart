@@ -19,7 +19,8 @@ final class ForgotPasswordView extends StatefulWidget {
   State<ForgotPasswordView> createState() => _ForgotPasswordViewState();
 }
 
-class _ForgotPasswordViewState extends State<ForgotPasswordView> with ForgotPasswordMixin {
+class _ForgotPasswordViewState extends State<ForgotPasswordView>
+    with ForgotPasswordMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,9 +112,7 @@ final class _Body extends StatelessWidget {
 
 @immutable
 final class _EmailAndPhoneNumber extends StatelessWidget {
-  const _EmailAndPhoneNumber({
-    required this.viewmodel,
-  });
+  const _EmailAndPhoneNumber({required this.viewmodel});
 
   final ForgotPasswordViewmodel viewmodel;
 
@@ -217,9 +216,7 @@ final class _OptionCard extends StatelessWidget {
 
 @immutable
 final class _MailIcon extends StatelessWidget {
-  const _MailIcon({
-    required this.icon,
-  });
+  const _MailIcon({required this.icon});
 
   final IconData icon;
 
@@ -227,18 +224,12 @@ final class _MailIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(6),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(6)),
       ),
       color: AppTheme.primaryColor,
       child: Padding(
         padding: NaPadding.elevatedButtonPadding,
-        child: Icon(
-          icon,
-          size: 30,
-          color: AppTheme.disabledInput,
-        ),
+        child: Icon(icon, size: 30, color: AppTheme.disabledInput),
       ),
     );
   }
@@ -246,10 +237,7 @@ final class _MailIcon extends StatelessWidget {
 
 @immutable
 final class _TitleAndDescription extends StatelessWidget {
-  const _TitleAndDescription({
-    required this.title,
-    required this.description,
-  });
+  const _TitleAndDescription({required this.title, required this.description});
 
   final String title;
   final String description;
@@ -261,14 +249,9 @@ final class _TitleAndDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         verticalBox4,
-        LuciText.bodySmall(
-          title,
-          textColor: AppTheme.placeholder,
-        ),
+        LuciText.bodySmall(title, textColor: AppTheme.placeholder),
         verticalBox8,
-        LuciText.bodyMedium(
-          description,
-        ),
+        LuciText.bodyMedium(description),
       ],
     );
   }
@@ -276,9 +259,7 @@ final class _TitleAndDescription extends StatelessWidget {
 
 @immutable
 final class _SubmitButton extends StatelessWidget {
-  const _SubmitButton({
-    required this.viewmodel,
-  });
+  const _SubmitButton({required this.viewmodel});
 
   final ForgotPasswordViewmodel viewmodel;
   @override

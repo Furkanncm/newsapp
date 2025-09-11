@@ -17,7 +17,7 @@ abstract class _SignUpViewmodelBase with Store {
   bool get isFormValid => validateForm();
 
   @observable
-  bool isRememberMe = false;
+  bool isRememberMe = true;
 
   @observable
   NetworkResponse<bool?>? registrationResponse;
@@ -46,8 +46,9 @@ abstract class _SignUpViewmodelBase with Store {
   }
 
   @action
-  Future<void> register() async {
-    if (!isFormValid) return;
+  Future<NetworkResponse<bool>> register() async {
+    if (!isFormValid) return NetworkResponse.failure(message: 'Invalid form');
+
     isLoading = true;
 
     final response = await _firebaseDataSource.register(
@@ -56,13 +57,15 @@ abstract class _SignUpViewmodelBase with Store {
       isRememberMe: isRememberMe,
     );
 
-    isLoading = false;
+    isLoading = false;  
     registrationResponse = response;
     if (response.data == true && response.succeeded == true) {
       isSuccess = true;
       resetForm();
+      return NetworkResponse.success(data: response.succeeded??false);
     } else {
       isSuccess = false;
+      return NetworkResponse.failure(message: 'Registration failed');
     }
   }
 }

@@ -7,6 +7,7 @@ import 'package:newsapp/src/common/widget/other/list_last_news.dart';
 import 'package:newsapp/src/common/widget/other/search_field.dart';
 import 'package:newsapp/src/common/widget/other/topics_list.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
+import 'package:newsapp/src/presentation/search/search_mixin.dart';
 import 'package:newsapp/src/presentation/search/search_viewmodel.dart';
 
 class SearchView extends StatefulWidget {
@@ -16,24 +17,7 @@ class SearchView extends StatefulWidget {
   State<SearchView> createState() => _SearchViewState();
 }
 
-class _SearchViewState extends State<SearchView> {
-  late final TextEditingController controller;
-  late final SearchViewmodel viewmodel;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = TextEditingController();
-    viewmodel = SearchViewmodel();
-  }
-
-  @override
-  void dispose() {
-    viewmodel.debounce?.cancel();
-    controller.dispose();
-    super.dispose();
-  }
-
+class _SearchViewState extends State<SearchView> with SearchMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +33,14 @@ class _SearchViewState extends State<SearchView> {
                   builder: (_) {
                     return SearchField(
                       controller: controller,
-                      onChanged: viewmodel.onSearchChanged,
+                      onChanged: (value) {
+                        viewmodel.onSearchChanged(value);
+                      },
                       focusNode: FocusNode(),
                     );
                   },
                 ),
+
                 verticalBox20,
                 _HorizontalTopicList(viewmodel: viewmodel),
                 verticalBox20,
@@ -62,7 +49,7 @@ class _SearchViewState extends State<SearchView> {
             Observer(
               builder: (context) {
                 if (viewmodel.lastestIndex == 0) {
-                  return const ListLastestNews();
+                  return ListLastestNews(newsList: viewmodel.filteredNews);
                 }
                 if (viewmodel.lastestIndex == 1) {
                   return const Expanded(child: TopicsList());
@@ -70,6 +57,7 @@ class _SearchViewState extends State<SearchView> {
                 return emptyBox;
               },
             ),
+
             verticalBox16,
           ],
         ),

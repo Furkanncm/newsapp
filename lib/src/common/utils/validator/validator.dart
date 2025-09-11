@@ -5,6 +5,8 @@ class Validator {
   const Validator._();
 
   static String? isEmptyOrNull(String? value, String? label) {
-    return value == null || value.isEmpty ? '$label ${LocaleKeys.cannotNull.tr()}' : null;
+    return value == null || value.isEmpty
+        ? '$label ${LocaleKeys.cannotNull.tr()}'
+        : null;
   }
 }

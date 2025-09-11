@@ -9,6 +9,7 @@ import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
 import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/domain/user/user_repository.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -21,11 +22,13 @@ class _SplashViewState extends State<SplashView> {
   double _currentStep = 0;
   double _previousStep = 0;
   late final CacheRepository _cacheRepository;
+  late final IUserRepository _userRepository;
 
   @override
   void initState() {
     super.initState();
     _cacheRepository = CacheRepository.instance;
+    _userRepository = UserRepository();
     _init();
   }
 
@@ -43,8 +46,9 @@ class _SplashViewState extends State<SplashView> {
     await _incrementProgress();
     final userId = _cacheRepository.getString(PrefKeys.isUserLoggedIn);
     await _incrementProgress();
-
-    checkLogin(userId?.isNotEmpty);
+    await checkUser(userId: userId);
+    await _incrementProgress();
+     checkLogin(userId?.isNotEmpty);
   }
 
   void checkLogin(bool? isLoggedIn) {
@@ -53,6 +57,12 @@ class _SplashViewState extends State<SplashView> {
     } else {
       router.goNamed(RoutePaths.login.name);
     }
+  }
+
+
+  Future<void> checkUser({required String? userId}) async {
+    if (userId == null) return;
+    await _userRepository.getUserInfo();
   }
 
   @override
@@ -68,8 +78,8 @@ class _SplashViewState extends State<SplashView> {
               height: 12,
               child: TweenAnimationBuilder<double>(
                 tween: Tween<double>(
-                  begin: _previousStep / 3,
-                  end: _currentStep / 3,
+                  begin: _previousStep / 5,
+                  end: _currentStep / 5,
                 ),
                 duration: const Duration(milliseconds: 300),
                 builder: (context, value, child) {

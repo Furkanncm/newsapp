@@ -1,6 +1,7 @@
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
@@ -9,6 +10,7 @@ import 'package:newsapp/src/common/widget/other/news_onboard.dart';
 import 'package:newsapp/src/common/widget/other/row_see_all.dart';
 import 'package:newsapp/src/common/widget/other/topics_list.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
+import 'package:newsapp/src/presentation/explore/explore_mixin.dart';
 
 class ExploreView extends StatefulWidget {
   const ExploreView({super.key});
@@ -17,7 +19,7 @@ class ExploreView extends StatefulWidget {
   State<ExploreView> createState() => _ExploreViewState();
 }
 
-class _ExploreViewState extends State<ExploreView> {
+class _ExploreViewState extends State<ExploreView> with ExploreMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +38,7 @@ class _ExploreViewState extends State<ExploreView> {
               child: RowSeeAllWidget(
                 text: LocaleKeys.topic.tr(),
                 onSeeAllPressed: () =>
-                    router.pushNamed(RoutePaths.exploreTopic.name),
+                    router.goNamed(RoutePaths.exploreTopic.name),
               ),
             ),
           ),
@@ -65,13 +67,25 @@ class _ExploreViewState extends State<ExploreView> {
             ),
           ),
 
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return Padding(
-                padding: NaPadding.pagePadding.copyWith(top: 0),
-                child: TrendNewsOnboard(onDetail: () {}),
+          Observer(
+            builder: (_) {
+              return SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return Padding(
+                    padding: NaPadding.pagePadding.copyWith(top: 0),
+                    child: viewmodel.news?.articles != null
+                        ? TrendNewsOnboard(
+                            onDetail: () => router.pushNamed(
+                              RoutePaths.newsDetail.name,
+                              extra: viewmodel.news!.articles![index],
+                            ),
+                            article: viewmodel.news!.articles![index],
+                          )
+                        : const Center(child: CircularProgressIndicator()),
+                  );
+                }, childCount: viewmodel.news?.articles?.length ?? 0),
               );
-            }, childCount: 20),
+            },
           ),
         ],
       ),

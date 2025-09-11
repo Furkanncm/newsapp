@@ -8,12 +8,11 @@ final class FullNameTextfield extends StatelessWidget {
   const FullNameTextfield({required this.fullNameController, super.key});
 
   final TextEditingController fullNameController;
-
   @override
   Widget build(BuildContext context) {
     return TextFieldWithLabel(
       label: LocaleKeys.fullName.tr(),
-      prefixIcon: const Icon(Icons.person_2_outlined),
+      prefixIcon: const Icon(Icons.person_outline_outlined),
       controller: fullNameController,
       isRequired: false,
     );

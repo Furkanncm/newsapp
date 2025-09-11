@@ -4,11 +4,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/enums/route_paths.dart';
-import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
+import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/presentation/topic/topic_mixin.dart';
 import 'package:newsapp/src/presentation/topic/topic_viewmodel.dart';
 
@@ -51,14 +50,23 @@ final class _Body extends StatelessWidget {
     return Column(
       children: [
         verticalBox16,
-        Wrap(
-          spacing: 12,
-          runSpacing: 10,
-          children: Topic.allTopics.map((topic) {
-            return topic.value == Topic.allTopics.first.value
-                ? emptyBox
-                : _TopicWidget(viewmodel: viewmodel, topic: topic);
-          }).toList(),
+        Expanded(
+          child: GridView.builder(
+            padding: NaPadding.pagePadding,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+            ),
+            itemCount: Topic.allTopics.length - 1,
+            itemBuilder: (context, index) {
+              final topic = Topic.allTopics[index + 1];
+              return topic.value == Topic.allTopics.first.value
+                  ? emptyBox
+                  : _TopicWidget(viewmodel: viewmodel, topic: topic);
+            },
+          ),
         ),
         const Spacer(),
         _NextButton(viewmodel: viewmodel),
@@ -109,7 +117,7 @@ final class _CategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 125,
+      width: double.infinity,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -148,7 +156,7 @@ final class _NextButton extends StatelessWidget {
         return NewsBottomButton(
           text: LocaleKeys.next.tr(),
           onPressed: viewmodel.selectedTopics.isNotEmpty
-              ? () => router.pushNamed(RoutePaths.fillProfile.name)
+              ? viewmodel.onNextPressed
               : null,
         );
       },

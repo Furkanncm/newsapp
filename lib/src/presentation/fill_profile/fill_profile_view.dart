@@ -1,16 +1,16 @@
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/enums/route_paths.dart';
-import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
 import 'package:newsapp/src/common/widget/other/profile_photo.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
-import 'package:newsapp/src/common/widget/textfield/email_textfield_with_label.dart';
+import 'package:newsapp/src/common/widget/textfield/bio_textfield.dart';
 import 'package:newsapp/src/common/widget/textfield/full_name_textfield.dart';
+import 'package:newsapp/src/common/widget/textfield/label_textfield.dart';
 import 'package:newsapp/src/common/widget/textfield/phone_number_textfield.dart';
 import 'package:newsapp/src/common/widget/textfield/user_name_textfield.dart';
 import 'package:newsapp/src/presentation/fill_profile/fill_profile_mixin.dart';
@@ -33,7 +33,7 @@ class _FillProfileViewState extends State<FillProfileView>
         title: LocaleKeys.fillProfile.tr(),
         actions: [
           TextButton(
-            onPressed: () => router.goNamed(RoutePaths.home.name),
+            onPressed: () => skipProfile(context),
             child: LuciText.bodyMedium(
               LocaleKeys.skip.tr(),
               textColor: AppTheme.primaryColor,
@@ -93,13 +93,84 @@ final class _FormField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          UserNameTextfield(nameController: viewmodel.nameController),
-          verticalBox16,
-          FullNameTextfield(fullNameController: viewmodel.fullNameController),
-          verticalBox16,
-          EmailFieldWithLabel(emailController: viewmodel.emailController),
-          verticalBox16,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: UserNameTextfield(
+                  nameController: viewmodel.usernameController,
+                ),
+              ),
+              horizontalBox16,
+              Expanded(
+                child: FullNameTextfield(
+                  fullNameController: viewmodel.fullNameController,
+                ),
+              ),
+            ],
+          ),
+          verticalBox12,
           PhoneNumberTextfield(phoneController: viewmodel.phoneController),
+          verticalBox12,
+          BioTextField(
+            controller: viewmodel.bioController,
+            bio: viewmodel.bioController.text,
+          ),
+          verticalBox12,
+          Row(
+            children: [
+              Observer(
+                builder: (_) {
+                  return Expanded(
+                    child: LabelTextField(
+                      onTap: () => viewmodel.setGender(context: context),
+                      prefixIcon: viewmodel.currentGender?.icon,
+                      label: LocaleKeys.gender.tr(),
+                      controller: viewmodel.genderController,
+                      userInfo: viewmodel.currentGender?.label ?? '',
+                    ),
+                  );
+                },
+              ),
+              horizontalBox16,
+              Observer(
+                builder: (_) {
+                  return Expanded(
+                    child: LabelTextField(
+                      onTap: () async {
+                        await viewmodel.onCountryTap(context);
+                      },
+                      label: LocaleKeys.country.tr(),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Image.network(
+                            viewmodel.selectedCountry?.flag ?? '',
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(Icons.flag_circle_outlined);
+                            },
+                            width: 30,
+                            height: 30,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      controller: viewmodel.countryController,
+                      userInfo: viewmodel.selectedCountry?.name ?? '',
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+          verticalBox12,
+          LabelTextField(
+            label: LocaleKeys.website.tr(),
+            prefixIcon: const Icon(Icons.link_outlined),
+            controller: viewmodel.websiteController,
+            userInfo: viewmodel.websiteController.text,
+          ),
         ],
       ),
     );
@@ -116,7 +187,7 @@ final class _NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return NewsBottomButton(
       text: LocaleKeys.next.tr(),
-      onPressed: viewmodel.next,
+      onPressed: () => viewmodel.next(context),
     );
   }
 }

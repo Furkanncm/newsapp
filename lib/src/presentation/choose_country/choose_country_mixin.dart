@@ -1,6 +1,5 @@
 import 'package:codegen/model/country_model/country_model.dart';
 import 'package:flutter/material.dart';
-import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/rootbundle/root_bundle_repository.dart';
@@ -20,7 +19,7 @@ mixin ChooseCountryMixin on State<ChooseCountryView> {
   @override
   void initState() {
     super.initState();
-    _countryRepository = CountryRepository(rootBundleService: rootBundleService);
+    _countryRepository = CountryRepository();
     searchController = TextEditingController();
     _getCountriesWithCompute();
     isSelectCountryStateHold = ValueNotifier(false);
@@ -31,16 +30,19 @@ mixin ChooseCountryMixin on State<ChooseCountryView> {
     countryListNotifier.value = List.from(allCountries);
   }
 
+
   void _getCountriesWithCompute() => _getCountries();
 
   void selectCountry(int selectedIndex) {
     final tappedCountry = countryListNotifier.value[selectedIndex];
 
-    if (selectedCountry != null && selectedCountry!.code == tappedCountry.code) {
+    if (selectedCountry != null &&
+        selectedCountry!.code == tappedCountry.code) {
       selectedCountry = null;
       isSelectCountryStateHold.value = false;
-      countryListNotifier.value =
-          countryListNotifier.value.map((e) => e.copyWith(isSelected: false)).toList();
+      countryListNotifier.value = countryListNotifier.value
+          .map((e) => e.copyWith(isSelected: false))
+          .toList();
       return;
     }
 
@@ -62,8 +64,8 @@ mixin ChooseCountryMixin on State<ChooseCountryView> {
     } else {
       countryListNotifier.value = allCountries.where((country) {
         return (country.name ?? '').toLowerCase().startsWith(
-              query.toLowerCase(),
-            );
+          query.toLowerCase(),
+        );
       }).toList();
     }
   }
@@ -78,7 +80,7 @@ mixin ChooseCountryMixin on State<ChooseCountryView> {
     if (selectedCountry == null) return;
 
     _countryRepository.selectCountryAndNext(selectedCountry!);
-    router.pushNamed(RoutePaths.topics.name);
+    router.pop();
   }
 
   @override

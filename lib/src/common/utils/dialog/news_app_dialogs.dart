@@ -40,8 +40,11 @@ class NewsAppDialogs {
       context: context,
       title: title,
       content: content,
-      positiveButtonLabel: positiveButtonLabel ?? 'Log Out'.toUpperCase(),
-      negativeButtonLabel: negativeButtonLabel ?? 'Cancel'.toUpperCase(),
+      icon: Icons.logout_rounded,
+      positiveButtonLabel:
+          positiveButtonLabel ?? LocaleKeys.logOut.tr().toUpperCase(),
+      negativeButtonLabel:
+          negativeButtonLabel ?? LocaleKeys.cancel.toUpperCase(),
       positiveButtonCallback: onPositiveButton,
       primaryColor: AppTheme.primaryColor,
       dialogBackgroundColor: AppTheme.buttonBackground,
