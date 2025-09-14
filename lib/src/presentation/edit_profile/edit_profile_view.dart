@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
+import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 import 'package:newsapp/src/common/widget/other/profile_photo.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/common/widget/textfield/bio_textfield.dart';
@@ -63,7 +64,7 @@ final class _Body extends StatelessWidget {
     return Observer(
       builder: (_) {
         return viewmodel.user == null
-            ? const Center(child: CircularProgressIndicator.adaptive())
+            ? const AdaptiveCircular()
             : ListView(
                 padding: NaPadding.pagePadding,
                 physics: const ClampingScrollPhysics(),

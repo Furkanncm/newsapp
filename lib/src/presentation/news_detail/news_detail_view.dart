@@ -2,13 +2,16 @@ import 'package:codegen/codegen.dart';
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:lucielle/utils/extensions/string_extension/string_extension.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/widget/widget.dart';
+import 'package:newsapp/src/common/utils/extensions/string_extensions.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/blur_icon.dart';
+import 'package:newsapp/src/common/widget/other/safe_image_network.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/presentation/news_detail/news_detail_mixin.dart';
+import 'package:newsapp/src/presentation/news_detail/news_detail_viewmodel.dart';
 
 @immutable
 final class NewsDetailView extends StatefulWidget {
@@ -21,19 +24,16 @@ final class NewsDetailView extends StatefulWidget {
 class _NewsDetailViewState extends State<NewsDetailView> with NewsDetailMixin {
   @override
   Widget build(BuildContext context) {
-    final article = GoRouter.of(context).state.extra! as Article;
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: _AppBar(
-        onBookmarkPressed: () => saveNews(article),
-        bookmarkedNotifier: isBookmarked,
+        onBookmarkPressed: () => viewmodel.toggleBookmark(article),
+        article: article,
+        viewmodel: viewmodel,
       ),
       body: _Body(article: article),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          await shareNews(url: article.url ?? '');
-        },
+        onPressed: () async => shareNews(url: article.url ?? ''),
         label: LuciText.bodyMedium(LocaleKeys.share.tr()),
         icon: const Icon(Icons.share),
         backgroundColor: AppTheme.primaryColor,
@@ -46,11 +46,13 @@ class _NewsDetailViewState extends State<NewsDetailView> with NewsDetailMixin {
 final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   const _AppBar({
     required this.onBookmarkPressed,
-    required this.bookmarkedNotifier,
+    required this.article,
+    required this.viewmodel,
   });
 
   final VoidCallback? onBookmarkPressed;
-  final ValueNotifier<bool> bookmarkedNotifier;
+  final Article article;
+  final NewsDetailViewmodel viewmodel;
 
   @override
   Widget build(BuildContext context) {
@@ -58,26 +60,27 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: const IconThemeData(color: AppTheme.buttonBackground),
       backgroundColor: Colors.transparent,
       elevation: 0,
+      leading: IconButton(
+        onPressed: ()=>router.pop(true),
+        icon: const Icon(Icons.arrow_back_ios_new_outlined),
+      ),
       actions: [
         horizontalBox8,
-        ValueListenableBuilder(
-          valueListenable: bookmarkedNotifier,
-          builder: (context, value, child) {
+        Observer(
+          builder: (_) {
             return GestureDetector(
               onTap: () => onBookmarkPressed?.call(),
               child: BlurIcon(
-                child: Icon(value ? Icons.bookmark : Icons.bookmark_border),
+                child: Icon(
+                  viewmodel.isBookmarked(article)
+                      ? Icons.bookmark
+                      : Icons.bookmark_border,
+                ),
               ),
             );
           },
         ),
         horizontalBox4,
-        GestureDetector(
-          onTap: () {
-            // Handle more options tap
-          },
-          child: const BlurIcon(child: Icon(Icons.more_vert_outlined)),
-        ),
       ],
     );
   }
@@ -150,54 +153,10 @@ final class _NewsPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(bottom: Radius.circular(24)),
-      child: Hero(
-        tag: article.source?.id?.toIntOrNull() ?? 0,
-        child: Image.network(
-          article.urlToImage ?? '',
-          height: 350,
-          width: double.infinity,
-          fit: BoxFit.cover,
-          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-            if (wasSynchronouslyLoaded || frame != null) {
-              return AnimatedOpacity(
-                opacity: 1,
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeIn,
-                child: child,
-              );
-            } else {
-              return Container(
-                height: 350,
-                width: double.infinity,
-                color: AppTheme.bodyDark,
-                child: const Center(child: CircularProgressIndicator()),
-              );
-            }
-          },
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Container(
-              height: 350,
-              width: double.infinity,
-              color: AppTheme.bodyDark,
-              child: const Center(child: CircularProgressIndicator()),
-            );
-          },
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              height: 350,
-              width: double.infinity,
-              color: AppTheme.bodyDark,
-              child: Center(
-                child: Icon(
-                  Icons.broken_image,
-                  size: 48,
-                  color: AppTheme.buttonText.withValues(alpha: 0.5),
-                ),
-              ),
-            );
-          },
-        ),
+      child: SizedBox(
+        height: 350,
+        width: double.infinity,
+        child: SafeImageNetwork(article: article),
       ),
     );
   }
@@ -217,12 +176,15 @@ final class _NewsSource extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           LuciText.bodySmall(
-            '${LocaleKeys.by.tr()} ${article.author}',
+            '${LocaleKeys.by.tr()} ${article.source?.name}',
             fontWeight: FontWeight.w600,
             textColor: Colors.grey.shade700,
           ),
           verticalBox4,
-          LuciText.bodySmall('14m ago', textColor: Colors.grey.shade600),
+          LuciText.bodySmall(
+            article.publishedAt?.setPastTime ?? '',
+            textColor: Colors.grey.shade600,
+          ),
         ],
       ),
     );

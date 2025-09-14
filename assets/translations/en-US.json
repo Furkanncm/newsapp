@@ -158,5 +158,10 @@
   "female": "Female",
   "other": "Other",
   "country": "Country",
-  "language": "Language"
+  "language": "Language",
+   "noNetwork": {
+    "title": "Whooops!",
+    "subtitle1": "No Internet connection Found,",
+    "subtitle2": "Please check your Internet Settings"
+  }
 }

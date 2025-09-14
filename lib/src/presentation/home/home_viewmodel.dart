@@ -25,6 +25,9 @@ abstract class _HomeViewmodelBase with Store {
   @observable
   News? categoryNews;
 
+  @observable
+  bool isLoading = false;
+
   @action
   void changeIndex(int index, Topic topic) {
     lastestIndex = index;
@@ -45,6 +48,7 @@ abstract class _HomeViewmodelBase with Store {
 
   @action
   Future<void> fetchNewsForCategory(Topic topic) async {
+    isLoading = true;
     final data = await NewsApiDs().fetch<News>(
       path: RemoteDsPath.topheadlines,
       queryParameters: {
@@ -55,6 +59,7 @@ abstract class _HomeViewmodelBase with Store {
     if (data.succeeded ?? false) {
       categoryNews = data.data;
     }
+    isLoading = false;
   }
 
   @action

@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/src/common/utils/app_configuration/app_configuration.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
-import 'package:newsapp/src/common/widget/other/builder.dart';
 import 'package:newsapp/src/domain/theme/theme_repository.dart';
 
 Future<void> main() async {
@@ -20,7 +19,7 @@ final class NewsApp extends StatelessWidget {
       valueListenable: ThemeRepository.instance.themeNotifier,
       builder: (context, theme, _) {
         return MaterialApp.router(
-          builder: (context, child) => AppBuilder(child: child),
+          // builder: (context, child) => AppBuilder(child: child),
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,

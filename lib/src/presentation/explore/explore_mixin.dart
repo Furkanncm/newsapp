@@ -3,7 +3,6 @@ import 'package:newsapp/src/presentation/explore/explore_view.dart';
 import 'package:newsapp/src/presentation/explore/explore_viewmodel.dart';
 
 mixin ExploreMixin on State<ExploreView> {
-
   late final ExploreViewmodel viewmodel;
 
   @override

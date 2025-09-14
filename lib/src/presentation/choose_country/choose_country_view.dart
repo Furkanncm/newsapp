@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 import 'package:newsapp/src/presentation/choose_country/choose_country_mixin.dart';
 
 @immutable
@@ -53,12 +54,7 @@ class _ChooseCountryViewState extends State<ChooseCountryView>
                     ),
                   );
                 }
-                if (countryListNotifier.value.isEmpty) {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
-                }
-
+                if (countryListNotifier.value.isEmpty) const AdaptiveCircular();
                 return ListView.builder(
                   shrinkWrap: true,
                   itemCount: countryListNotifier.value.length,

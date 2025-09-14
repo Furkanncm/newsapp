@@ -153,5 +153,10 @@
   "female": "Kadın",
   "other": "Diğer",
   "country":"Ülke",
-  "language":"Dil"
+  "language":"Dil",
+   "noNetwork": {
+    "title": "Bağlantı Hatası!",
+    "subtitle1": "İnternet bağlantısı bulunamadı,",
+    "subtitle2": "Lütfen internet ayarlarınızı kontrol edin"
+  }
 }

@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:newsapp/src/common/utils/enums/firebase_auth.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/widget/navigation_bar/bottom_navigationbar.dart';
+import 'package:newsapp/src/common/widget/other/no_network_container.dart';
 import 'package:newsapp/src/common/widget/other/topic_list_view.dart';
 import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/domain/network_status/network_status.dart';
 import 'package:newsapp/src/presentation/all_trends/all_trends_view.dart';
 import 'package:newsapp/src/presentation/bookmark/bookmark_view.dart';
 import 'package:newsapp/src/presentation/choose_country/choose_country_view.dart';
@@ -28,9 +30,11 @@ import 'package:newsapp/src/presentation/topic/topic_view.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
+final networkNotifier = NetworkStatusNotifier();
 
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
+  refreshListenable: networkNotifier,
   initialLocation: RoutePaths.splash.path,
   routes: [
     GoRoute(
@@ -114,6 +118,12 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) =>
           const NoTransitionPage(child: TopicListView()),
     ),
+    GoRoute(
+      name: RoutePaths.noNetwork.name,
+      path: RoutePaths.noNetwork.path,
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: NoNetworkContainer()),
+    ),
 
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -155,9 +165,20 @@ final GoRouter router = GoRouter(
     ),
   ],
   redirect: (context, state) {
-    final authenticationStatus = FirebaseDataSource.instance.authStatus;
+    final authStatus = FirebaseDataSource.instance.authStatus;
+    final status = networkNotifier.value;
+    if (status == NetworkStatus.off &&
+        state.fullPath != RoutePaths.noNetwork.path) {
+      return RoutePaths.noNetwork.path;
+    }
 
-    if (authenticationStatus == FirebaseAuthEnum.unauthenticated) {}
+
+    if (status == NetworkStatus.on &&
+        state.fullPath == RoutePaths.noNetwork.path) {
+      return RoutePaths.splash.path;
+    }
+
+    if (authStatus == FirebaseAuthEnum.unauthenticated) {}
 
     return null;
   },

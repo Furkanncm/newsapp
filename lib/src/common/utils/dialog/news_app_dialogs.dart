@@ -50,4 +50,26 @@ class NewsAppDialogs {
       dialogBackgroundColor: AppTheme.buttonBackground,
     );
   }
+
+  static void showNoConnectionDialog(BuildContext context) {
+    showAdaptiveDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('No Internet Connection'),
+          content: const Text(
+            'Please check your internet connection and try again.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

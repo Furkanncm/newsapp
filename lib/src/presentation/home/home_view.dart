@@ -9,6 +9,7 @@ import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 import 'package:newsapp/src/common/widget/other/list_last_news.dart';
 import 'package:newsapp/src/common/widget/other/news_onboard.dart';
 import 'package:newsapp/src/common/widget/other/row_see_all.dart';
@@ -63,9 +64,11 @@ class _HomeViewState extends State<HomeView> with HomeMixin {
             _HorizontalTopicList(viewmodel: viewmodel),
             Observer(
               builder: (_) {
-                return ListLastestNews(
-                  newsList: viewmodel.categoryNews?.articles ?? [],
-                );
+                return viewmodel.isLoading
+                    ? const AdaptiveCircular()
+                    : ListLastestNews(
+                        newsList: viewmodel.categoryNews?.articles ?? [],
+                      );
               },
             ),
           ],
@@ -130,9 +133,7 @@ final class _AnimatedNewsOnboard extends StatelessWidget {
                     if (article.isEmpty)
                       SizedBox(
                         height: context.height * 0.30,
-                        child: const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        ),
+                        child: const AdaptiveCircular.withoutExpanded(),
                       )
                     else
                       CarouselSlider.builder(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 
 enum NetworkStatus {
   on,
@@ -24,35 +25,37 @@ enum NetworkStatus {
 typedef NetworkCallback = void Function(NetworkStatus result);
 
 abstract class INetworkStatusManager {
-  Future<NetworkStatus> checkNetworkFirstTime();
-  void handleNetworkStatus(NetworkCallback onChange);
-  void dispose();
+  Future<void> init();
+  void disposeNotifier();
+  late final Connectivity connectivity;
+  StreamSubscription<List<ConnectivityResult>>? subscription;
 }
 
-class NetworkStatusManager implements INetworkStatusManager {
-  NetworkStatusManager() {
-    _connectivity = Connectivity();
-  }
-  late final Connectivity _connectivity;
-  StreamSubscription<List<ConnectivityResult>>? _subscription;
-
-  @override
-  Future<NetworkStatus> checkNetworkFirstTime() async {
-    final connectivityResults = await _connectivity.checkConnectivity();
-    return NetworkStatus.checkNetworkResult(connectivityResults);
+class NetworkStatusNotifier extends ValueNotifier<NetworkStatus>
+    implements INetworkStatusManager {
+  NetworkStatusNotifier() : super(NetworkStatus.on) {
+    connectivity = Connectivity();
+    init();
   }
 
   @override
-  void handleNetworkStatus(NetworkCallback onChange) {
-    _subscription = _connectivity.onConnectivityChanged.listen((
-      List<ConnectivityResult> result,
-    ) {
-      onChange.call(NetworkStatus.checkNetworkResult(result));
+  late final Connectivity connectivity;
+  @override
+  StreamSubscription<List<ConnectivityResult>>? subscription;
+
+  @override
+  Future<void> init() async {
+    final first = await connectivity.checkConnectivity();
+    value = NetworkStatus.checkNetworkResult(first);
+
+    subscription = connectivity.onConnectivityChanged.listen((results) {
+      value = NetworkStatus.checkNetworkResult(results);
     });
   }
 
   @override
-  void dispose() {
-    _subscription?.cancel();
+  void disposeNotifier() {
+    subscription?.cancel();
+    super.dispose();
   }
 }

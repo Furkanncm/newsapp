@@ -21,7 +21,9 @@ enum RoutePaths {
   exploreTopic('/exploreTopic'),
   newsDetail('/news-detail'),
   newsList('/news-list'),
-  help('/help');
+  help('/help'),
+  noNetwork('/noNetwork')
+  ;
 
   const RoutePaths(this.path);
   final String path;

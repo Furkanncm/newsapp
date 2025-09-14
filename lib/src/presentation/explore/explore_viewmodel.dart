@@ -11,8 +11,14 @@ class ExploreViewmodel = _Base with _$ExploreViewmodel;
 abstract class _Base with Store {
   @observable
   News? news;
+
+
+ @observable
+  bool isLoading = false;
+
   @action
   Future<void> fetchTrendingNews() async {
+    changeLoading();
     if (news != null) return;
     final data = await NewsApiDs().fetch<News>(
       path: RemoteDsPath.topheadlines,
@@ -21,5 +27,9 @@ abstract class _Base with Store {
     if (data.succeeded ?? false) {
       news = data.data;
     }
+    changeLoading();
   }
+
+    @action
+  void changeLoading() => isLoading = !isLoading;
 }

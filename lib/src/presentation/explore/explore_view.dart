@@ -6,6 +6,7 @@ import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 import 'package:newsapp/src/common/widget/other/news_onboard.dart';
 import 'package:newsapp/src/common/widget/other/row_see_all.dart';
 import 'package:newsapp/src/common/widget/other/topics_list.dart';
@@ -69,19 +70,23 @@ class _ExploreViewState extends State<ExploreView> with ExploreMixin {
 
           Observer(
             builder: (_) {
+              if (viewmodel.isLoading) {
+                return const SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: AdaptiveCircular.withoutExpanded(),
+                );
+              }
               return SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   return Padding(
                     padding: NaPadding.pagePadding.copyWith(top: 0),
-                    child: viewmodel.news?.articles != null
-                        ? TrendNewsOnboard(
-                            onDetail: () => router.pushNamed(
-                              RoutePaths.newsDetail.name,
-                              extra: viewmodel.news!.articles![index],
-                            ),
-                            article: viewmodel.news!.articles![index],
-                          )
-                        : const Center(child: CircularProgressIndicator()),
+                    child: TrendNewsOnboard(
+                      onDetail: () => router.pushNamed(
+                        RoutePaths.newsDetail.name,
+                        extra: viewmodel.news!.articles![index],
+                      ),
+                      article: viewmodel.news!.articles![index],
+                    ),
                   );
                 }, childCount: viewmodel.news?.articles?.length ?? 0),
               );

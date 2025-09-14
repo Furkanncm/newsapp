@@ -31,7 +31,6 @@ final class TrendNewsOnboard extends StatelessWidget {
             ),
           ),
           verticalBox4,
-          // Source paslanıcak.
           NewsInfo(
             region: article.author ?? 'Unknown',
             title: article.title ?? 'Unknown',

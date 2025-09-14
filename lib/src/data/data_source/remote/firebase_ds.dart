@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codegen/generated/locale_keys.g.dart';
+import 'package:codegen/model/article_model/article_model.dart';
 import 'package:codegen/model/topic/topic.dart';
 import 'package:codegen/model/user/user_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -35,9 +36,7 @@ abstract class IFirebaseDataSource {
   Future<UserModel?> getUserInfo();
   Future<NetworkResponse<String>?> loginWithGoogle();
   Future<NetworkResponse<bool>> updateProfile(UserModel user);
-  Future<void> updateTopic({
-    required List<Topic> topics,
-  });
+  Future<void> updateTopic({required List<Topic> topics});
   Future<void> sendVerificationCodePhoneNumber({required String phoneNumber});
 }
 
@@ -57,7 +56,8 @@ class FirebaseDataSource implements IFirebaseDataSource {
   late final GoogleSignIn _googleSignIn;
   late final CountryRepository _countryRepository;
   @override
-  String get userId => _cacheRepository.getString(PrefKeys.isUserLoggedIn)??'';
+  String get userId =>
+      _cacheRepository.getString(PrefKeys.isUserLoggedIn) ?? '';
 
   bool? isNewUser;
 
@@ -176,6 +176,13 @@ class FirebaseDataSource implements IFirebaseDataSource {
         .collection(FirebaseCollection.users.collectionName)
         .doc(user.id)
         .set(user.toJson());
+
+    await _firestore
+        .collection(FirebaseCollection.news.collectionName)
+        .doc(user.id)
+        .set({
+          FirebaseCollection.savedNews.collectionName: List<String>.empty(),
+        });
   }
 
   @override
@@ -192,9 +199,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
   }
 
   @override
-  Future<void> updateTopic({
-    required List<Topic> topics,
-  }) async {
+  Future<void> updateTopic({required List<Topic> topics}) async {
     await _firestore
         .collection(FirebaseCollection.users.collectionName)
         .doc(userId)
@@ -231,7 +236,11 @@ class FirebaseDataSource implements IFirebaseDataSource {
     );
 
     await saveUser(
-      user: UserModel(id: user.id ?? '', email: user.email ?? '', name: user.name ?? ''),
+      user: UserModel(
+        id: user.id ?? '',
+        email: user.email ?? '',
+        name: user.name ?? '',
+      ),
     );
   }
 
@@ -282,6 +291,48 @@ class FirebaseDataSource implements IFirebaseDataSource {
       );
     }
     return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+  }
+
+  Future<void> saveNews(Article article) async {
+    await _firestore
+        .collection(FirebaseCollection.news.collectionName)
+        .doc(userId)
+        .update({
+          FirebaseCollection.savedNews.collectionName: FieldValue.arrayUnion([
+            article.toJson(),
+          ]),
+        });
+  }
+
+  Future<void> removeNews(Article article) async {
+    await _firestore
+        .collection(FirebaseCollection.news.collectionName)
+        .doc(userId)
+        .update({
+          FirebaseCollection.savedNews.collectionName: FieldValue.arrayRemove([
+            article.toJson(),
+          ]),
+        });
+  }
+
+  Future<List<Article>> getNews() async {
+    final snapshot = await _firestore
+        .collection(FirebaseCollection.news.collectionName)
+        .doc(userId)
+        .get();
+
+    if (snapshot.exists) {
+      final data = snapshot.data();
+      if (data != null) {
+        final articlesData =
+            data[FirebaseCollection.savedNews.collectionName] as List<dynamic>?;
+        if (articlesData == null) return [];
+        return articlesData
+            .map((e) => Article.fromJson(e as Map<String, dynamic>))
+            .toList();
+      }
+    }
+    return [];
   }
 }
 

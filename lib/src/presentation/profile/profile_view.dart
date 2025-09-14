@@ -12,6 +12,7 @@ import 'package:newsapp/src/common/utils/enums/my_account.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 import 'package:newsapp/src/common/widget/other/decorated_container.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/domain/theme/theme_repository.dart';
@@ -64,7 +65,7 @@ final class _Body extends StatelessWidget with ProfileMixin {
     return Observer(
       builder: (_) {
         return viewmodel.currentUser == null
-            ? const Center(child: CircularProgressIndicator.adaptive())
+            ? const AdaptiveCircular()
             : ListView(
                 children: [
                   verticalBox16,

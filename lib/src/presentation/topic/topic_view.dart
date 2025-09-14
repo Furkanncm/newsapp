@@ -130,7 +130,7 @@ final class _CategoryWidget extends StatelessWidget {
           horizontalBox12,
           Flexible(
             child: LuciText.bodyLarge(
-              topic.value,
+              topic.value?.capitalizeFirst,
               textColor: viewmodel.isSelected(topic)
                   ? AppTheme.buttonBackground
                   : AppTheme.primaryColor,

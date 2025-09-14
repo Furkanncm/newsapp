@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 
 class LoadingDialog extends StatelessWidget {
   const LoadingDialog({super.key});
@@ -14,7 +15,7 @@ class LoadingDialog extends StatelessWidget {
         ),
         width: 75,
         height: 75,
-        child: const Center(child: CircularProgressIndicator.adaptive()),
+        child: const AdaptiveCircular(),
       ),
     );
   }

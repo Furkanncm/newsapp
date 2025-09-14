@@ -41,14 +41,13 @@ class _SplashViewState extends State<SplashView> {
   }
 
   Future<void> _init() async {
-    await _incrementProgress();
-    await FirebaseDataSource.instance.initialize();
+    await FirebaseDataSource.instance.initialize(); 
     await _incrementProgress();
     final userId = _cacheRepository.getString(PrefKeys.isUserLoggedIn);
     await _incrementProgress();
     await checkUser(userId: userId);
     await _incrementProgress();
-     checkLogin(userId?.isNotEmpty);
+    checkLogin(userId?.isNotEmpty);
   }
 
   void checkLogin(bool? isLoggedIn) {
@@ -58,7 +57,6 @@ class _SplashViewState extends State<SplashView> {
       router.goNamed(RoutePaths.login.name);
     }
   }
-
 
   Future<void> checkUser({required String? userId}) async {
     if (userId == null) return;
@@ -70,28 +68,34 @@ class _SplashViewState extends State<SplashView> {
     return SafeArea(
       child: Scaffold(
         body: Center(child: Assets.images.icAppLogo.toImage),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: SizedBox(
-              height: 12,
-              child: TweenAnimationBuilder<double>(
-                tween: Tween<double>(
-                  begin: _previousStep / 5,
-                  end: _currentStep / 5,
+        bottomNavigationBar: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: SizedBox(
+                  height: 12,
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween<double>(
+                      begin: _previousStep / 5,
+                      end: _currentStep / 5,
+                    ),
+                    duration: const Duration(milliseconds: 300),
+                    builder: (context, value, child) {
+                      return LinearProgressIndicator(
+                        value: value,
+                        backgroundColor: AppTheme.buttonText.withValues(
+                          alpha: 0.2,
+                        ),
+                        color: AppTheme.primaryColor,
+                      );
+                    },
+                  ),
                 ),
-                duration: const Duration(milliseconds: 300),
-                builder: (context, value, child) {
-                  return LinearProgressIndicator(
-                    value: value,
-                    backgroundColor: AppTheme.buttonText.withValues(alpha: 0.2),
-                    color: AppTheme.primaryColor,
-                  );
-                },
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

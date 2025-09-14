@@ -160,5 +160,9 @@ abstract class  LocaleKeys {
   static const gender = 'gender';
   static const country = 'country';
   static const language = 'language';
+  static const noNetwork_title = 'noNetwork.title';
+  static const noNetwork_subtitle1 = 'noNetwork.subtitle1';
+  static const noNetwork_subtitle2 = 'noNetwork.subtitle2';
+  static const noNetwork = 'noNetwork';
 
 }
