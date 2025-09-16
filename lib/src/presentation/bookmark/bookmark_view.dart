@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/extensions/bookmarked_extensions.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 import 'package:newsapp/src/common/widget/other/list_last_news.dart';
@@ -33,16 +34,25 @@ class _BookmarkViewState extends State<BookmarkView> with BookmarkMixin {
         padding: NaPadding.pagePadding,
         child: Column(
           children: [
-            const SearchField(),
+            SearchField(
+              controller: viewmodel.controller,
+              onChanged: (value) {
+                viewmodel.onSearchChanged(value);
+              },
+              focusNode: FocusNode(),
+            ),
             verticalBox12,
             Observer(
               builder: (_) {
                 return viewmodel.isLoading
                     ? const AdaptiveCircular()
                     : ListLastestNews(
-                        newsList: viewmodel.articles!,
-                        onRefresh: (article, isBookmarked) => viewmodel
-                            .refreshArticles(article, isBookmarked ?? false),
+                        newsList: viewmodel.filteredNews,
+                        onRefresh: (article, isBookmarked) =>
+                            viewmodel.refreshArticles(
+                              article,
+                              isBookmarked.toBool() ?? false,
+                            ),
                       );
               },
             ),

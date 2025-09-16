@@ -1,6 +1,7 @@
 import 'package:codegen/codegen.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/widget/widget.dart';
+import 'package:newsapp/src/common/utils/enums/bookmark_state.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/widget/other/last_news.dart';
@@ -10,12 +11,12 @@ final class ListLastestNews extends StatelessWidget {
   const ListLastestNews({required this.newsList, super.key, this.onRefresh});
 
   final List<Article> newsList;
-  final Future<void> Function(Article article, bool? isBookmarked)? onRefresh;
-  
+  final Future<void> Function(Article article, BookmarkState bookmarkedState)?
+  onRefresh;
 
   @override
   Widget build(BuildContext context) {
-    bool? result;
+    BookmarkState? bookmarkedState;
     return Expanded(
       child: newsList.isEmpty
           ? Center(child: LuciText.bodyLarge('No news found'))
@@ -26,12 +27,14 @@ final class ListLastestNews extends StatelessWidget {
                 final news = newsList[index];
                 return GestureDetector(
                   onTap: () async {
-                    result = await router.pushNamed<bool>(
+                    bookmarkedState = await router.pushNamed<BookmarkState>(
                       RoutePaths.newsDetail.name,
                       extra: news,
                     );
+                    if (bookmarkedState == null) return;
+                    if (bookmarkedState == BookmarkState.nothingChanged) return;
                     if (onRefresh != null) {
-                      await onRefresh!.call(news, result);
+                      await onRefresh!.call(news, bookmarkedState!);
                     }
                   },
                   child: Material(

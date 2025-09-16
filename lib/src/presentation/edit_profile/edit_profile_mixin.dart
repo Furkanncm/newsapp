@@ -2,7 +2,9 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/utils/decoration/textfield_decoration/phone_number_formatter.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/model/gender/gender.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
@@ -92,12 +94,14 @@ mixin EditProfileMixin on State<EditProfileView> {
       profilePhoto: imageFile.value?.path ?? viewmodel.user?.profilePhoto,
       gender: viewmodel.genderController.text,
       country: viewmodel.countryController.text,
-
     );
-    await viewmodel
+    final result = await viewmodel
         .updateUser()
         .withToast(context, successMessage: LocaleKeys.editProfileSuccess.tr())
         .withIndicator(context);
+    if (result?.data ?? false) {
+      router.goNamed(RoutePaths.profile.name);
+    }
   }
 
   @override

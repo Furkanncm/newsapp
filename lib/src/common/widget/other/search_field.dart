@@ -27,6 +27,7 @@ class SearchField extends StatefulWidget {
 
 class _SearchFieldState extends State<SearchField> {
   late final TextEditingController _controller;
+  
 
   @override
   void initState() {

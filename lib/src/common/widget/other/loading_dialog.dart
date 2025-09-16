@@ -15,7 +15,7 @@ class LoadingDialog extends StatelessWidget {
         ),
         width: 75,
         height: 75,
-        child: const AdaptiveCircular(),
+        child: const AdaptiveCircular.withoutExpanded(),
       ),
     );
   }

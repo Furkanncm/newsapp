@@ -26,6 +26,8 @@ class NewsRepository implements INewsRepository {
 
   late final FirebaseDataSource _firebaseDataSource;
 
+
+
   @override
   Future<List<Article>> fetchNews() async {
     return _firebaseDataSource.getNews();

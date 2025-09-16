@@ -1,5 +1,6 @@
 import 'package:codegen/codegen.dart';
 import 'package:codegen/model/topic/topic.dart';
+import 'package:codegen/model/user/user_model.dart';
 import 'package:mobx/mobx.dart';
 import 'package:newsapp/src/domain/news/news_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
@@ -11,6 +12,9 @@ class HomeViewmodel = _HomeViewmodelBase with _$HomeViewmodel;
 abstract class _HomeViewmodelBase with Store {
   late final IUserRepository userRepository;
   late final INewsRepository newsRepository;
+
+  @observable
+   UserModel? currentUser;
 
   @observable
   int lastestIndex = 0;
@@ -52,5 +56,11 @@ abstract class _HomeViewmodelBase with Store {
   @action
   Future<void> refreshLastestNews(Article article, bool isBookmarked) async {
     await newsRepository.refreshArticles(article, isBookmarked);
+  }
+
+  @action
+  Future<void> getUserInfo() async {
+    currentUser= await userRepository.getUserInfo();
+  
   }
 }

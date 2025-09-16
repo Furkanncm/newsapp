@@ -26,6 +26,7 @@ mixin NewsDetailMixin on State<NewsDetailView> {
   Future<void> fetchNews() async {
     await viewmodel.fetchNews();
     viewmodel.isBookmarkedNotifier = viewmodel.isBookmarked(article);
+    viewmodel.isInitialBookMarkedNotifier = viewmodel.isBookmarkedNotifier;
   }
 
   Future<void> shareNews({required String url}) async {

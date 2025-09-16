@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
+import 'package:newsapp/src/common/utils/extensions/bookmarked_extensions.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/circular_progress.dart';
@@ -29,67 +30,86 @@ final class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> with HomeMixin {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: NaPadding.pagePadding,
-      child: Scaffold(
-        appBar: const _AppBar(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(user?.email ?? ''),
-            verticalBox20,
-            SearchField(
-              controller: controller,
-              readOnly: true,
-              onTap: () => router.pushNamed(
-                RoutePaths.searchPage.name,
-                extra: viewmodel.news?.articles ?? [],
-              ),
+    return Observer(
+      builder: (_) {
+        if (viewmodel.currentUser == null) {
+          return const AdaptiveCircular.withoutExpanded();
+        }
+        return Padding(
+          padding: NaPadding.pagePadding,
+          child: Scaffold(
+            appBar: _AppBar(viewmodel: viewmodel),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                verticalBox8,
+                SearchField(
+                  controller: controller,
+                  readOnly: true,
+                  onTap: () => router.pushNamed(
+                    RoutePaths.searchPage.name,
+                    extra: viewmodel.news?.articles ?? [],
+                  ),
+                ),
+                verticalBox8,
+                Observer(
+                  builder: (_) {
+                    return _AnimatedNewsOnboard(
+                      viewmodel: viewmodel,
+                      article: viewmodel.news?.articles ?? [],
+                    );
+                  },
+                ),
+                verticalBox4,
+                RowSeeAllWidget(
+                  text: LocaleKeys.latest.tr(),
+                  onSeeAllPressed: () => viewmodel.changeIsSeeAll(),
+                ),
+                verticalBox16,
+                _HorizontalTopicList(viewmodel: viewmodel),
+                Observer(
+                  builder: (_) {
+                    return viewmodel.isLoading
+                        ? const AdaptiveCircular()
+                        : ListLastestNews(
+                            newsList: viewmodel.categoryNews?.articles ?? [],
+                            onRefresh: (article, isBookmarked) async =>
+                                viewmodel.refreshLastestNews(
+                                  article,
+                                  isBookmarked.toBool() ?? false,
+                                ),
+                          );
+                  },
+                ),
+              ],
             ),
-            verticalBox8,
-            Observer(
-              builder: (_) {
-                return _AnimatedNewsOnboard(
-                  viewmodel: viewmodel,
-                  article: viewmodel.news?.articles ?? [],
-                );
-              },
-            ),
-            verticalBox4,
-            RowSeeAllWidget(
-              text: LocaleKeys.latest.tr(),
-              onSeeAllPressed: () => viewmodel.changeIsSeeAll(),
-            ),
-            verticalBox16,
-            _HorizontalTopicList(viewmodel: viewmodel),
-            Observer(
-              builder: (_) {
-                return viewmodel.isLoading
-                    ? const AdaptiveCircular()
-                    : ListLastestNews(
-                        newsList: viewmodel.categoryNews?.articles ?? [],
-                        onRefresh: (article, isBookmarked) async => viewmodel
-                            .refreshLastestNews(article, isBookmarked ?? false),
-                      );
-              },
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
 
 @immutable
 final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _AppBar();
+  const _AppBar({required this.viewmodel});
 
+  final HomeViewmodel viewmodel;
   @override
   Widget build(BuildContext context) {
+    final user = viewmodel.currentUser;
     return AppBar(
       forceMaterialTransparency: true,
       leadingWidth: context.width / 3.5,
       leading: Assets.images.icAppLogo.toImage,
+      actions: [
+        LuciText.bodyMedium(user?.username),
+        ClipOval(
+          child: user?.profilePhoto != null
+              ? const Icon(Icons.golf_course_outlined)
+              : const Icon(Icons.person_2_outlined),
+        ),
+      ],
     );
   }
 

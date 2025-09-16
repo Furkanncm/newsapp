@@ -64,7 +64,7 @@ final class _Body extends StatelessWidget {
     return Observer(
       builder: (_) {
         return viewmodel.user == null
-            ? const AdaptiveCircular()
+            ? const AdaptiveCircular.withoutExpanded()
             : ListView(
                 padding: NaPadding.pagePadding,
                 physics: const ClampingScrollPhysics(),

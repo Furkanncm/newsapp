@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/widget/widget.dart';
+import 'package:newsapp/src/common/utils/enums/bookmark_state.dart';
 import 'package:newsapp/src/common/utils/extensions/string_extensions.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
@@ -27,8 +28,8 @@ class _NewsDetailViewState extends State<NewsDetailView> with NewsDetailMixin {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-        if (viewmodel.isBookmarkedNotifier == null) {
-          return const Scaffold(body: AdaptiveCircular.withoutExpanded());
+        if (viewmodel.isLoading) {
+          return const Material(child: AdaptiveCircular.withoutExpanded());
         }
         return Scaffold(
           extendBodyBehindAppBar: true,
@@ -69,7 +70,10 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
-        onPressed: () => router.pop(viewmodel.isBookmarkedNotifier),
+        onPressed: () {
+          viewmodel.checkBookmark();
+          router.pop<BookmarkState>(viewmodel.bookmarkState);
+        },
         icon: const Icon(Icons.arrow_back_ios_new_outlined),
       ),
       actions: [
@@ -80,7 +84,7 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
               onTap: () => onBookmarkPressed?.call(),
               child: BlurIcon(
                 child: Icon(
-                  (viewmodel.isBookmarkedNotifier ?? false)
+                  (viewmodel.isBookmarkedNotifier)
                       ? Icons.bookmark
                       : Icons.bookmark_border,
                 ),

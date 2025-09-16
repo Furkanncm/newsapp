@@ -11,6 +11,7 @@ mixin BookmarkMixin on State<BookmarkView> {
     super.initState();
     viewmodel = BookmarkViewModel();
     viewmodel.newsRepository = NewsRepository();
+    viewmodel.controller = TextEditingController();
 
     setArticles();
   }

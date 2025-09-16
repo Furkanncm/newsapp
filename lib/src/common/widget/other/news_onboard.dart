@@ -1,7 +1,9 @@
 import 'package:codegen/model/article_model/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/enums/bookmark_state.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
+import 'package:newsapp/src/common/utils/extensions/bookmarked_extensions.dart';
 import 'package:newsapp/src/common/utils/extensions/string_extensions.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/widget/other/news_info.dart';
@@ -19,11 +21,16 @@ final class TrendNewsOnboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final result = await router.pushNamed<bool>(
+        final bookmarkedState = await router.pushNamed<BookmarkState>(
           RoutePaths.newsDetail.name,
           extra: article,
         );
-        await newsRepository.refreshArticles(article, result ?? false);
+        if (bookmarkedState == null) return;
+        if (bookmarkedState == BookmarkState.nothingChanged) return;
+        await newsRepository.refreshArticles(
+          article,
+          bookmarkedState.toBool() ?? false,
+        );
       },
       child: Column(
         children: [

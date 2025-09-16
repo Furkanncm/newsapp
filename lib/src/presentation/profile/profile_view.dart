@@ -65,7 +65,7 @@ final class _Body extends StatelessWidget with ProfileMixin {
     return Observer(
       builder: (_) {
         return viewmodel.currentUser == null
-            ? const AdaptiveCircular()
+            ? const AdaptiveCircular.withoutExpanded()
             : ListView(
                 children: [
                   verticalBox16,
