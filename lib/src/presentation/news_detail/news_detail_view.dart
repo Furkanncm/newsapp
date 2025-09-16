@@ -8,6 +8,7 @@ import 'package:newsapp/src/common/utils/extensions/string_extensions.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/blur_icon.dart';
+import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 import 'package:newsapp/src/common/widget/other/safe_image_network.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/presentation/news_detail/news_detail_mixin.dart';
@@ -24,20 +25,27 @@ final class NewsDetailView extends StatefulWidget {
 class _NewsDetailViewState extends State<NewsDetailView> with NewsDetailMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: _AppBar(
-        onBookmarkPressed: () => viewmodel.toggleBookmark(article),
-        article: article,
-        viewmodel: viewmodel,
-      ),
-      body: _Body(article: article),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async => shareNews(url: article.url ?? ''),
-        label: LuciText.bodyMedium(LocaleKeys.share.tr()),
-        icon: const Icon(Icons.share),
-        backgroundColor: AppTheme.primaryColor,
-      ),
+    return Observer(
+      builder: (_) {
+        if (viewmodel.isBookmarkedNotifier == null) {
+          return const Scaffold(body: AdaptiveCircular.withoutExpanded());
+        }
+        return Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: _AppBar(
+            onBookmarkPressed: () => viewmodel.toggleBookmark(),
+            article: article,
+            viewmodel: viewmodel,
+          ),
+          body: _Body(article: article),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () async => shareNews(url: article.url ?? ''),
+            label: LuciText.bodyMedium(LocaleKeys.share.tr()),
+            icon: const Icon(Icons.share),
+            backgroundColor: AppTheme.primaryColor,
+          ),
+        );
+      },
     );
   }
 }
@@ -61,7 +69,7 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
-        onPressed: ()=>router.pop(true),
+        onPressed: () => router.pop(viewmodel.isBookmarkedNotifier),
         icon: const Icon(Icons.arrow_back_ios_new_outlined),
       ),
       actions: [
@@ -72,7 +80,7 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
               onTap: () => onBookmarkPressed?.call(),
               child: BlurIcon(
                 child: Icon(
-                  viewmodel.isBookmarked(article)
+                  (viewmodel.isBookmarkedNotifier ?? false)
                       ? Icons.bookmark
                       : Icons.bookmark_border,
                 ),
@@ -199,24 +207,22 @@ final class _NewsDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SingleChildScrollView(
-        padding: NaPadding.pagePadding.copyWith(top: 20, bottom: 100),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            verticalBox4,
-            LuciText.titleLarge(
-              article.title ?? 'Unknown',
-              fontWeight: FontWeight.bold,
-            ),
-            verticalBox32,
-            LuciText.bodyLarge(
-              article.content ?? 'There is no content available.',
-              textColor: AppTheme.bodyText,
-            ),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: NaPadding.pagePadding.copyWith(top: 20, bottom: 100),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          verticalBox4,
+          LuciText.titleLarge(
+            article.title ?? 'Unknown',
+            fontWeight: FontWeight.bold,
+          ),
+          verticalBox32,
+          LuciText.bodyLarge(
+            article.content ?? 'There is no content available.',
+            textColor: AppTheme.bodyText,
+          ),
+        ],
       ),
     );
   }

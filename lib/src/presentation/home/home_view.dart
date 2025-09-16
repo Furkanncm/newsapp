@@ -68,6 +68,8 @@ class _HomeViewState extends State<HomeView> with HomeMixin {
                     ? const AdaptiveCircular()
                     : ListLastestNews(
                         newsList: viewmodel.categoryNews?.articles ?? [],
+                        onRefresh: (article, isBookmarked) async => viewmodel
+                            .refreshLastestNews(article, isBookmarked ?? false),
                       );
               },
             ),
@@ -154,10 +156,6 @@ final class _AnimatedNewsOnboard extends StatelessWidget {
                             ) => Padding(
                               padding: const EdgeInsets.only(left: 8, right: 8),
                               child: TrendNewsOnboard(
-                                onDetail: () => router.pushNamed(
-                                  RoutePaths.newsDetail.name,
-                                  extra: showsArticle[itemIndex],
-                                ),
                                 article: showsArticle[itemIndex],
                               ),
                             ),

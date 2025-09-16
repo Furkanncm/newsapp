@@ -1,25 +1,30 @@
 import 'package:codegen/model/article_model/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/extensions/string_extensions.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/widget/other/news_info.dart';
 import 'package:newsapp/src/common/widget/other/safe_image_network.dart';
+import 'package:newsapp/src/domain/news/news_repository.dart';
 
 @immutable
 final class TrendNewsOnboard extends StatelessWidget {
-  const TrendNewsOnboard({
-    required this.onDetail,
-    required this.article,
-    super.key,
-  });
+  TrendNewsOnboard({required this.article, super.key});
 
-  final VoidCallback onDetail;
   final Article article;
+  final INewsRepository newsRepository = NewsRepository();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onDetail,
+      onTap: () async {
+        final result = await router.pushNamed<bool>(
+          RoutePaths.newsDetail.name,
+          extra: article,
+        );
+        await newsRepository.refreshArticles(article, result ?? false);
+      },
       child: Column(
         children: [
           SizedBox(

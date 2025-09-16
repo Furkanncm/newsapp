@@ -1,13 +1,13 @@
 import 'package:codegen/model/article_model/article_model.dart';
 import 'package:mobx/mobx.dart';
-import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/domain/news/news_repository.dart';
 
 part 'bookmark_viewmodel.g.dart';
 
 class BookmarkViewModel = _Base with _$BookmarkViewModel;
 
 abstract class _Base with Store {
-  late final FirebaseDataSource firebaseDataSource;
+  late final INewsRepository newsRepository;
 
   @observable
   List<Article>? articles;
@@ -18,12 +18,14 @@ abstract class _Base with Store {
   @action
   Future<void> setArticles() async {
     changeLoading();
-    articles = await firebaseDataSource.getNews();
+    articles = await newsRepository.fetchNews();
     changeLoading();
   }
 
   @action
-  Future<void> refreshArticles() async {
+  Future<void> refreshArticles(Article article, bool isBookmarked) async {
+    await newsRepository.refreshArticles(article, isBookmarked);
+
     await setArticles();
   }
 

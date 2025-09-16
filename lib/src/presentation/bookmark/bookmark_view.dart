@@ -41,7 +41,8 @@ class _BookmarkViewState extends State<BookmarkView> with BookmarkMixin {
                     ? const AdaptiveCircular()
                     : ListLastestNews(
                         newsList: viewmodel.articles!,
-                        onRefresh: () => viewmodel.refreshArticles(),
+                        onRefresh: (article, isBookmarked) => viewmodel
+                            .refreshArticles(article, isBookmarked ?? false),
                       );
               },
             ),

@@ -1,9 +1,7 @@
-import 'package:codegen/model/news_model/news_model.dart';
+import 'package:codegen/codegen.dart';
 import 'package:codegen/model/topic/topic.dart';
 import 'package:mobx/mobx.dart';
-import 'package:newsapp/src/common/utils/enums/query_params.dart';
-import 'package:newsapp/src/common/utils/enums/remote_ds_path.dart';
-import 'package:newsapp/src/data/data_source/remote/news_api_ds.dart';
+import 'package:newsapp/src/domain/news/news_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 
 part 'home_viewmodel.g.dart';
@@ -11,7 +9,8 @@ part 'home_viewmodel.g.dart';
 class HomeViewmodel = _HomeViewmodelBase with _$HomeViewmodel;
 
 abstract class _HomeViewmodelBase with Store {
-  final IUserRepository userRepository = UserRepository();
+  late final IUserRepository userRepository;
+  late final INewsRepository newsRepository;
 
   @observable
   int lastestIndex = 0;
@@ -37,31 +36,21 @@ abstract class _HomeViewmodelBase with Store {
   @action
   Future<void> fetchTrendingNews() async {
     if (news != null) return;
-    final data = await NewsApiDs().fetch<News>(
-      path: RemoteDsPath.topheadlines,
-      queryParameters: {QueryParams.country.name: 'us'},
-    );
-    if (data.succeeded ?? false) {
-      news = data.data;
-    }
+    news = await newsRepository.fetchTrendingNews();
   }
 
   @action
   Future<void> fetchNewsForCategory(Topic topic) async {
     isLoading = true;
-    final data = await NewsApiDs().fetch<News>(
-      path: RemoteDsPath.topheadlines,
-      queryParameters: {
-        QueryParams.country.name: 'us',
-        QueryParams.category.name: topic.value,
-      },
-    );
-    if (data.succeeded ?? false) {
-      categoryNews = data.data;
-    }
+    categoryNews = await newsRepository.fetchNewsForCategory(topic);
     isLoading = false;
   }
 
   @action
   void changeIsSeeAll() => isSeeAll = !isSeeAll;
+
+  @action
+  Future<void> refreshLastestNews(Article article, bool isBookmarked) async {
+    await newsRepository.refreshArticles(article, isBookmarked);
+  }
 }

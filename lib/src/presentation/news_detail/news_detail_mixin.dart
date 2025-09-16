@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsapp/src/common/utils/enums/snackbar_enum.dart';
 import 'package:newsapp/src/common/utils/snackbar/snackbar.dart';
+import 'package:newsapp/src/domain/news/news_repository.dart';
 import 'package:newsapp/src/domain/share/share_manager.dart';
 import 'package:newsapp/src/presentation/news_detail/news_detail_view.dart';
 import 'package:newsapp/src/presentation/news_detail/news_detail_viewmodel.dart';
@@ -18,11 +19,13 @@ mixin NewsDetailMixin on State<NewsDetailView> {
     super.initState();
     article = GoRouter.of(context).state.extra! as Article;
     viewmodel = NewsDetailViewmodel();
+    viewmodel.newsRepository = NewsRepository();
     fetchNews();
   }
 
   Future<void> fetchNews() async {
     await viewmodel.fetchNews();
+    viewmodel.isBookmarkedNotifier = viewmodel.isBookmarked(article);
   }
 
   Future<void> shareNews({required String url}) async {

@@ -81,10 +81,6 @@ class _ExploreViewState extends State<ExploreView> with ExploreMixin {
                   return Padding(
                     padding: NaPadding.pagePadding.copyWith(top: 0),
                     child: TrendNewsOnboard(
-                      onDetail: () => router.pushNamed(
-                        RoutePaths.newsDetail.name,
-                        extra: viewmodel.news!.articles![index],
-                      ),
                       article: viewmodel.news!.articles![index],
                     ),
                   );

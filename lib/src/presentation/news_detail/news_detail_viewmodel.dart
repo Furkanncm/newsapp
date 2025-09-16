@@ -7,13 +7,13 @@ part 'news_detail_viewmodel.g.dart';
 class NewsDetailViewmodel = _NewsDetailViewmodelBase with _$NewsDetailViewmodel;
 
 abstract class _NewsDetailViewmodelBase with Store {
-  final NewsRepository newsRepository = NewsRepository();
+  late final INewsRepository newsRepository ;
 
   @observable
   ObservableList<Article> savedNews = ObservableList<Article>();
 
   @observable
-  bool isBookmarkedNotifier = false;
+  bool? isBookmarkedNotifier;
 
   @action
   Future<void> fetchNews([Article? current]) async {
@@ -26,19 +26,14 @@ abstract class _NewsDetailViewmodelBase with Store {
   }
 
   @action
-  Future<void> toggleBookmark(Article article) async {
-    final bookmarked = isBookmarked(article);
-
-    if (bookmarked) {
-      await newsRepository.saveNews(article, true); 
-    } else {
-      await newsRepository.saveNews(article, false);
-    }
-
-    await fetchNews(article);
+  Future<void> toggleBookmark() async {
+    isBookmarkedNotifier = !(isBookmarkedNotifier ?? false);
   }
 
   bool isBookmarked(Article article) {
-    return savedNews.any((savedArticle) => article.url == savedArticle.url);
+    return savedNews.any((savedArticle) {
+      print(article.url == savedArticle.url);
+      return article.url == savedArticle.url;
+    });
   }
 }
