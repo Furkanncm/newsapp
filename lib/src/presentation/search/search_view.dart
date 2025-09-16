@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/enums/search_page.dart';
+import 'package:newsapp/src/common/utils/extensions/bookmarked_extensions.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/list_last_news.dart';
 import 'package:newsapp/src/common/widget/other/search_field.dart';
@@ -49,7 +50,14 @@ class _SearchViewState extends State<SearchView> with SearchMixin {
             Observer(
               builder: (context) {
                 if (viewmodel.lastestIndex == 0) {
-                  return ListLastestNews(newsList: viewmodel.filteredNews);
+                  return ListLastestNews(
+                    newsList: viewmodel.filteredNews,
+                    onRefresh: (article, bookmarkedState) async =>
+                        viewmodel.newsRepository.refreshArticles(
+                          article,
+                          bookmarkedState.toBool() ?? false,
+                        ),
+                  );
                 }
                 if (viewmodel.lastestIndex == 1) {
                   return const Expanded(child: TopicsList());

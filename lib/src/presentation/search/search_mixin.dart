@@ -1,6 +1,7 @@
 import 'package:codegen/model/article_model/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsapp/src/domain/news/news_repository.dart';
 import 'package:newsapp/src/presentation/search/search_view.dart';
 import 'package:newsapp/src/presentation/search/search_viewmodel.dart';
 
@@ -10,16 +11,16 @@ mixin SearchMixin on State<SearchView> {
   late final List<Article>? newsList;
 
   @override
-void initState() {
-  super.initState();
-  controller = TextEditingController();
-  viewmodel = SearchViewmodel();
-
-  final list = GoRouter.of(context).state.extra as List<Article>?;
-  if (list != null) {
-    viewmodel.setNews(list);
+  void initState() {
+    super.initState();
+    controller = TextEditingController();
+    viewmodel = SearchViewmodel();
+    viewmodel.newsRepository = NewsRepository();
+    final list = GoRouter.of(context).state.extra as List<Article>?;
+    if (list != null) {
+      viewmodel.setNews(list);
+    }
   }
-}
 
   @override
   void dispose() {
