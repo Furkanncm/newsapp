@@ -88,6 +88,8 @@ class AppTheme extends LuciTheme {
       }),
     ),
     dividerTheme: const DividerThemeData(thickness: 1, color: placeholder),
+
+  
     
   );
 

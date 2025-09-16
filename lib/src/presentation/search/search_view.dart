@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/bottom_sheet/news_app_bottom_sheet.dart';
 import 'package:newsapp/src/common/utils/enums/search_page.dart';
 import 'package:newsapp/src/common/utils/extensions/bookmarked_extensions.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
@@ -30,16 +31,37 @@ class _SearchViewState extends State<SearchView> with SearchMixin {
             verticalBox16,
             Column(
               children: [
-                Observer(
-                  builder: (_) {
-                    return SearchField(
-                      controller: controller,
-                      onChanged: (value) {
-                        viewmodel.onSearchChanged(value);
-                      },
-                      focusNode: FocusNode(),
-                    );
-                  },
+                Row(
+                  children: [
+                    Expanded(
+                      child: Observer(
+                        builder: (_) {
+                          return SearchField(
+                            controller: controller,
+                            onChanged: (value) {
+                              viewmodel.onSearchChanged(value);
+                            },
+                            focusNode: FocusNode(),
+                          );
+                        },
+                      ),
+                    ),
+                    horizontalBox4,
+                    Container(
+                      decoration: BoxDecoration(
+                        border: BoxBorder.all(),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: IconButton(
+                        onPressed: () =>
+                            NewsAppBottomSheet.showFilterBottomSheet(context, viewmodel.onlyFilterCountries),
+                        icon: const Icon(
+                          Icons.tune_outlined,
+                          color: AppTheme.backgroundDark,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
 
                 verticalBox20,

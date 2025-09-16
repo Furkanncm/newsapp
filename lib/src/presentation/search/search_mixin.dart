@@ -1,6 +1,7 @@
 import 'package:codegen/model/article_model/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/news/news_repository.dart';
 import 'package:newsapp/src/presentation/search/search_view.dart';
 import 'package:newsapp/src/presentation/search/search_viewmodel.dart';
@@ -16,10 +17,12 @@ mixin SearchMixin on State<SearchView> {
     controller = TextEditingController();
     viewmodel = SearchViewmodel();
     viewmodel.newsRepository = NewsRepository();
+    viewmodel.countryRepository = CountryRepository();
     final list = GoRouter.of(context).state.extra as List<Article>?;
     if (list != null) {
       viewmodel.setNews(list);
     }
+    viewmodel.getOnlyFilterCountries();
   }
 
   @override
