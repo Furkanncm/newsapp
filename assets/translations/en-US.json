@@ -49,6 +49,7 @@
   "sendCodeAgain": "Send code again",
   "verify": "Verify",
   "newPassword": "New Password",
+  "confirmPassword":"Confirm your Password",
   "confirmNewPassword": "Confirm New Password",
   "reset": "Reset",
   "phoneNumber": "Phone Number",
@@ -159,9 +160,12 @@
   "other": "Other",
   "country": "Country",
   "language": "Language",
-   "noNetwork": {
+  "noNetwork": {
     "title": "Whooops!",
     "subtitle1": "No Internet connection Found,",
     "subtitle2": "Please check your Internet Settings"
-  }
+  },
+  "noContentAvaible": "There is no content available!",
+  "continueWithFacebook":"Continue with Facebook",
+  "continueWithGoogle":"Continue with Google"
 }

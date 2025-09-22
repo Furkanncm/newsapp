@@ -26,35 +26,31 @@ class _LoginViewState extends State<LoginView> with LoginMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: NaPadding.pagePadding,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const _Headline(),
-                verticalBox24,
-                EmailPasswordForm(
-                  emailController: emailController,
-                  passwordController: passwordController,
-                  formKey: formKey,
-                ),
-                verticalBox4,
-                _RememberMe(viewmodel: viewModel),
-                verticalBox12,
-                _LoginButton(isFormValid: isFormValid, onPressed: login),
-                verticalBox16,
-                 SocialMediaLogin(),
-                verticalBox24,
-                const _DontHaveAccount(),
-                verticalBox64,
-                verticalBox64,
-                verticalBox32,
-              ],
-            ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: NaPadding.pagePadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const _Headline(),
+              verticalBox24,
+              EmailPasswordForm(
+                emailController: emailController,
+                passwordController: passwordController,
+                formKey: formKey,
+              ),
+              _RememberMe(viewmodel: viewModel),
+              verticalBox12,
+              _LoginButton(isFormValid: isFormValid, onPressed: login),
+              verticalBox16,
+              SocialMediaLogin(),
+            ],
           ),
         ),
+      ),
+      bottomNavigationBar: const Padding(
+        padding: NaPadding.verticalHighPadding,
+        child: _DontHaveAccount(),
       ),
     );
   }

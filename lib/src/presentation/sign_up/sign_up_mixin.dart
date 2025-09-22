@@ -9,17 +9,15 @@ import 'package:newsapp/src/presentation/sign_up/sign_up_viewmodel.dart';
 
 mixin SignUpMixin on State<SignUpView> {
   late final SignUpViewmodel viewModel;
-  late final GlobalKey<FormState> formKey;
-  late final TextEditingController emailController;
-  late final TextEditingController passwordController;
 
   @override
   void initState() {
     super.initState();
     viewModel = SignUpViewmodel();
-    formKey = viewModel.formKey;
-    emailController = viewModel.emailController;
-    passwordController = viewModel.passwordController;
+    viewModel.formKey = GlobalKey<FormState>();
+    viewModel.emailController = TextEditingController();
+    viewModel.passwordController = TextEditingController();
+    viewModel.confirmPasswordController = TextEditingController();
   }
 
   bool get isFormValid => viewModel.isFormValid;
@@ -40,8 +38,9 @@ mixin SignUpMixin on State<SignUpView> {
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    viewModel.emailController.dispose();
+    viewModel.passwordController.dispose();
+    viewModel.confirmPasswordController.dispose();
     super.dispose();
   }
 }

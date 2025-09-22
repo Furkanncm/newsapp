@@ -12,9 +12,14 @@ mixin BookmarkMixin on State<BookmarkView> {
     viewmodel = BookmarkViewModel();
     viewmodel.newsRepository = NewsRepository();
     viewmodel.controller = TextEditingController();
-
     setArticles();
   }
 
   Future<void> setArticles() async => viewmodel.setArticles();
+
+  @override
+  void dispose() {
+    viewmodel.controller.dispose();
+    super.dispose();
+  }
 }

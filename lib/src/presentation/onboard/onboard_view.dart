@@ -40,19 +40,7 @@ class _OnboardViewState extends State<OnboardView> with OnboardMixin {
               },
             ),
           ),
-          ValueListenableBuilder<bool>(
-            valueListenable: isDontShowAgain,
-            builder: (context, value, child) {
-              return CheckboxListTile(
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                visualDensity: VisualDensity.compact,
-                controlAffinity: ListTileControlAffinity.leading,
-                title: LuciText.bodyMedium(LocaleKeys.dontShowAgain.tr()),
-                value: isDontShowAgainValue,
-                onChanged: dontShowAgain,
-              );
-            },
-          ),
+         
           Expanded(
             child: Padding(
               padding: NaPadding.pagePadding,

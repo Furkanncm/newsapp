@@ -47,6 +47,7 @@
   "sendCodeAgain": "Kodu yeniden gönder",
   "verify": "Doğrula",
   "newPassword": "Yeni Şifre",
+  "confirmPassword": "Sifreyi Doğrula",
   "confirmNewPassword": "Yeni Şifreyi Onayla",
   "reset": "Sıfırla",
   "phoneNumber": "Telefon Numarası",
@@ -152,11 +153,14 @@
   "male": "Erkek",
   "female": "Kadın",
   "other": "Diğer",
-  "country":"Ülke",
-  "language":"Dil",
-   "noNetwork": {
+  "country": "Ülke",
+  "language": "Dil",
+  "noNetwork": {
     "title": "Bağlantı Hatası!",
     "subtitle1": "İnternet bağlantısı bulunamadı,",
     "subtitle2": "Lütfen internet ayarlarınızı kontrol edin"
-  }
+  },
+  "noContentAvaible": "Gösterilecek içerik bulunmuyor!",
+  "continueWithFacebook": "Facebook ile devam et",
+  "continueWithGoogle": "Google ile devam et"
 }

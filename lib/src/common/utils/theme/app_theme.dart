@@ -68,7 +68,7 @@ class AppTheme extends LuciTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(foregroundColor: buttonText),
     ),
-    iconTheme: const IconThemeData(size: 24, color: primaryColor),
+    iconTheme: const IconThemeData(size: 24, color: buttonText),
 
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: AppTheme.primaryColor,
@@ -89,8 +89,6 @@ class AppTheme extends LuciTheme {
     ),
     dividerTheme: const DividerThemeData(thickness: 1, color: placeholder),
 
-  
-    
   );
 
   // Dark Theme

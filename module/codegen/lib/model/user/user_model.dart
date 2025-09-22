@@ -14,7 +14,6 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
     this.id,
     this.username,
     this.name,
-    this.surname,
     this.gender,
     this.email,
     this.phone,
@@ -25,13 +24,11 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
     this.profilePhoto,
     this.website,
     this.topics,
-    this.savedArticles,
   });
 
   final String? id;
   final String? username;
   final String? name;
-  final String? surname;
   final String? gender;
   final String? email;
   final String? phone;
@@ -42,14 +39,12 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
   final String? profilePhoto;
   final String? website;
   final List<Topic>? topics;
-  final List<Article>? savedArticles;
 
   @override
   List<Object?> get props => [
     id,
     username,
     name,
-    surname,
     email,
     gender,
     phone,
@@ -60,14 +55,12 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
     profilePhoto,
     website,
     topics,
-    savedArticles,
   ];
 
   UserModel copyWith({
     String? id,
     String? username,
     String? name,
-    String? surname,
     String? gender,
     String? email,
     String? phone,
@@ -78,13 +71,11 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
     String? profilePhoto,
     String? website,
     List<Topic>? topics,
-    List<Article>? savedArticles,
   }) {
     return UserModel(
       id: id ?? this.id,
       username: username ?? this.username,
       name: name ?? this.name,
-      surname: surname ?? this.surname,
       gender: gender ?? this.gender,
       email: email ?? this.email,
       phone: phone ?? this.phone,
@@ -95,7 +86,6 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
       profilePhoto: profilePhoto ?? this.profilePhoto,
       website: website ?? this.website,
       topics: topics ?? this.topics,
-      savedArticles: savedArticles ?? this.savedArticles,
     );
   }
 

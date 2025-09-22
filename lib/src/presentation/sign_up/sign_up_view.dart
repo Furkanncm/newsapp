@@ -33,6 +33,7 @@ class _SignUpViewState extends State<SignUpView> with SignUpMixin {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                verticalBox64,
                 LuciText.headlineLarge(
                   LocaleKeys.hello.tr(),
                   fontWeight: FontWeight.bold,
@@ -42,22 +43,26 @@ class _SignUpViewState extends State<SignUpView> with SignUpMixin {
                 FaddedText(text: LocaleKeys.signUpToGetStarted.tr()),
                 verticalBox24,
                 EmailPasswordForm(
-                  emailController: emailController,
-                  passwordController: passwordController,
-                  formKey: formKey,
+                  emailController: viewModel.emailController,
+                  passwordController: viewModel.passwordController,
+                  confirmPasswordController:
+                      viewModel.confirmPasswordController,
+                  formKey: viewModel.formKey,
                 ),
-                verticalBox4,
+                verticalBox8,
                 _RememberMe(viewmodel: viewModel),
                 verticalBox16,
                 _SignUpButton(onPressed: register),
                 verticalBox16,
                 SocialMediaLogin(),
-                verticalBox24,
-                const _AlreadyHaveAccount(),
               ],
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: const Padding(
+        padding: NaPadding.verticalHighPadding,
+        child: _AlreadyHaveAccount(),
       ),
     );
   }

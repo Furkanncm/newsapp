@@ -7,6 +7,4 @@ enum FirebaseCollection {
 
   const FirebaseCollection(this.collectionName);
   final String collectionName;
-
-
 }

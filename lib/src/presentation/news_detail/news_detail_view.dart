@@ -4,9 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/widget/widget.dart';
-import 'package:newsapp/src/common/utils/enums/bookmark_state.dart';
 import 'package:newsapp/src/common/utils/extensions/string_extensions.dart';
-import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/blur_icon.dart';
 import 'package:newsapp/src/common/widget/other/circular_progress.dart';
@@ -31,19 +29,27 @@ class _NewsDetailViewState extends State<NewsDetailView> with NewsDetailMixin {
         if (viewmodel.isLoading) {
           return const Material(child: AdaptiveCircular.withoutExpanded());
         }
-        return Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: _AppBar(
-            onBookmarkPressed: () => viewmodel.toggleBookmark(),
-            article: article,
-            viewmodel: viewmodel,
-          ),
-          body: _Body(article: article),
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () async => shareNews(url: article.url ?? ''),
-            label: LuciText.bodyMedium(LocaleKeys.share.tr()),
-            icon: const Icon(Icons.share),
-            backgroundColor: AppTheme.primaryColor,
+        return PopScope(
+          canPop: false,
+          onPopInvoked: (didPop) {
+            if (! didPop) {
+              viewmodel.handlePop();
+            }
+          },
+          child: Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: _AppBar(
+              onBookmarkPressed: () => viewmodel.toggleBookmark(),
+              article: article,
+              viewmodel: viewmodel,
+            ),
+            body: _Body(article: article),
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () async => shareNews(url: article.url ?? ''),
+              label: LuciText.bodyMedium(LocaleKeys.share.tr()),
+              icon: const Icon(Icons.share),
+              backgroundColor: AppTheme.primaryColor,
+            ),
           ),
         );
       },
@@ -70,10 +76,7 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
-        onPressed: () {
-          viewmodel.checkBookmark();
-          router.pop<BookmarkState>(viewmodel.bookmarkState);
-        },
+        onPressed: viewmodel.handlePop,
         icon: const Icon(Icons.arrow_back_ios_new_outlined),
       ),
       actions: [
@@ -218,12 +221,12 @@ final class _NewsDetails extends StatelessWidget {
         children: [
           verticalBox4,
           LuciText.titleLarge(
-            article.title ?? 'Unknown',
+            article.title ?? LocaleKeys.unknownError.tr(),
             fontWeight: FontWeight.bold,
           ),
           verticalBox32,
           LuciText.bodyLarge(
-            article.content ?? 'There is no content available.',
+            article.content ?? LocaleKeys.noContentAvaible.tr(),
             textColor: AppTheme.bodyText,
           ),
         ],

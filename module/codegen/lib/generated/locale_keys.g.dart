@@ -53,6 +53,7 @@ abstract class  LocaleKeys {
   static const sendCodeAgain = 'sendCodeAgain';
   static const verify = 'verify';
   static const newPassword = 'newPassword';
+  static const confirmPassword = 'confirmPassword';
   static const confirmNewPassword = 'confirmNewPassword';
   static const reset = 'reset';
   static const phoneNumber = 'phoneNumber';
@@ -164,5 +165,8 @@ abstract class  LocaleKeys {
   static const noNetwork_subtitle1 = 'noNetwork.subtitle1';
   static const noNetwork_subtitle2 = 'noNetwork.subtitle2';
   static const noNetwork = 'noNetwork';
+  static const noContentAvaible = 'noContentAvaible';
+  static const continueWithFacebook = 'continueWithFacebook';
+  static const continueWithGoogle = 'continueWithGoogle';
 
 }

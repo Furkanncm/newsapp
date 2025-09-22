@@ -26,10 +26,9 @@ mixin ChooseCountryMixin on State<ChooseCountryView> {
   }
 
   Future<void> _getCountries() async {
-    allCountries = await _countryRepository.getCountries();
+    allCountries = _countryRepository.allCountries!;
     countryListNotifier.value = List.from(allCountries);
   }
-
 
   void _getCountriesWithCompute() => _getCountries();
 

@@ -13,20 +13,10 @@ mixin OnboardMixin on State<OnboardView> {
   int get currentPage => currentPageNotifier.value;
   ValueNotifier<bool> isFirstPage = ValueNotifier(true);
   ValueNotifier<bool> isLastPage = ValueNotifier(false);
-  final ValueNotifier<bool> isDontShowAgain = ValueNotifier(false);
-  bool get isDontShowAgainValue => isDontShowAgain.value;
 
   @override
   void initState() {
     super.initState();
-    setIsOnboardActive(true);
-  }
-
-  Future<void> setIsOnboardActive(bool isActivated) async {
-    await CacheRepository.instance.setBool(
-      PrefKeys.isOnboardActive,
-      isActivated,
-    );
   }
 
   void pageChanged(int value) {
@@ -35,13 +25,13 @@ mixin OnboardMixin on State<OnboardView> {
     isLastPage.value = currentPage == onboardList.length - 1;
   }
 
-  void nextPage() {
+  Future<void> nextPage() async {
     if (currentPage == onboardList.length - 1) {
-      router.pushReplacementNamed(RoutePaths.topics.name);
-      if (isDontShowAgainValue == true) setIsOnboardActive(false);
+      await CacheRepository.instance.setBool(PrefKeys.isOnboardActive, false);
+      await router.pushReplacementNamed(RoutePaths.topics.name);
     }
     if (currentPage < onboardList.length - 1) {
-      pageController.animateToPage(
+      await pageController.animateToPage(
         currentPage + 1,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -57,10 +47,5 @@ mixin OnboardMixin on State<OnboardView> {
         curve: Curves.easeInOut,
       );
     }
-  }
-
-  void dontShowAgain(bool? value) {
-    isDontShowAgain.value = value ?? false;
-    setIsOnboardActive(!isDontShowAgain.value);
   }
 }

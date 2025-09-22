@@ -21,6 +21,9 @@ final class NaPadding {
   );
   static const EdgeInsets rightPadding = EdgeInsets.only(right: 16);
   static const EdgeInsets verticalPadding = EdgeInsets.symmetric(vertical: 12);
+  static const EdgeInsets verticalHighPadding = EdgeInsets.symmetric(
+    vertical: 40,
+  );
   static const EdgeInsets outlinedButtonPadding = EdgeInsets.symmetric(
     horizontal: 13,
     vertical: 3,

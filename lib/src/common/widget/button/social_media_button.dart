@@ -37,6 +37,7 @@ final class SocialMediaLogin extends StatelessWidget {
 
     return Column(
       children: [
+        const Divider(),
         Center(
           child: LuciText.bodyMedium(
             LocaleKeys.orContinueWith.tr(),
@@ -44,22 +45,31 @@ final class SocialMediaLogin extends StatelessWidget {
           ),
         ),
         verticalBox16,
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            LuciOutlinedButton(
-              child: Assets.images.icFacebook.toImageWithSize,
+            LuciOutlinedButton.icon(
+              borderRadius: BorderRadius.circular(16),
+              icon: Assets.images.icFacebook.toIcon(32),
+              child: Center(
+                child: LuciText.bodyMedium(
+                  LocaleKeys.continueWithFacebook.tr(),
+                  textColor: AppTheme.bodyText,
+                ),
+              ),
               onPressed: () {},
             ),
-            horizontalBox4,
-            LuciOutlinedButton(
+            verticalBox12,
+            LuciOutlinedButton.icon(
+              borderRadius: BorderRadius.circular(16),
+              icon: Assets.images.icGoogle.toIcon(32),
               onPressed: loginWithGoogle,
-              child: Assets.images.icGoogle.toImageWithSize,
-            ),
-            horizontalBox4,
-            LuciOutlinedButton(
-              child: Assets.images.icApple.toImageWithSize,
-              onPressed: () {},
+              child: Center(
+                child: LuciText.bodyMedium(
+                  LocaleKeys.continueWithGoogle.tr(),
+                  textColor: AppTheme.bodyText,
+                ),
+              ),
             ),
           ],
         ),

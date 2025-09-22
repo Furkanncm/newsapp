@@ -1,6 +1,7 @@
 import 'package:codegen/codegen.dart';
 import 'package:mobx/mobx.dart';
 import 'package:newsapp/src/common/utils/enums/bookmark_state.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/domain/news/news_repository.dart';
 
 part 'news_detail_viewmodel.g.dart';
@@ -62,5 +63,10 @@ abstract class _NewsDetailViewmodelBase with Store {
           bookmarkState = BookmarkState.notBookmarked;
       }
     }
+  }
+
+   void handlePop() {
+    checkBookmark();
+    router.pop<BookmarkState>(bookmarkState);
   }
 }

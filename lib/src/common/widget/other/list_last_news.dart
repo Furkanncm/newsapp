@@ -1,4 +1,6 @@
 import 'package:codegen/codegen.dart';
+import 'package:codegen/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/widget/widget.dart';
 import 'package:newsapp/src/common/utils/enums/bookmark_state.dart';
@@ -19,7 +21,7 @@ final class ListLastestNews extends StatelessWidget {
     BookmarkState? bookmarkedState;
     return Expanded(
       child: newsList.isEmpty
-          ? Center(child: LuciText.bodyLarge('No news found'))
+          ? Center(child: LuciText.bodyLarge(LocaleKeys.noContentAvaible.tr()))
           : ListView.builder(
               padding: NaPadding.zeroPadding,
               itemCount: newsList.length,

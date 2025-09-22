@@ -8,9 +8,10 @@ part 'sign_up_viewmodel.g.dart';
 class SignUpViewmodel = _SignUpViewmodelBase with _$SignUpViewmodel;
 
 abstract class _SignUpViewmodelBase with Store {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  late final GlobalKey<FormState> formKey;
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
+  late final TextEditingController confirmPasswordController;
   final IFirebaseDataSource _firebaseDataSource = FirebaseDataSource.instance;
 
   @computed
@@ -57,12 +58,12 @@ abstract class _SignUpViewmodelBase with Store {
       isRememberMe: isRememberMe,
     );
 
-    isLoading = false;  
+    isLoading = false;
     registrationResponse = response;
     if (response.data == true && response.succeeded == true) {
       isSuccess = true;
       resetForm();
-      return NetworkResponse.success(data: response.succeeded??false);
+      return NetworkResponse.success(data: response.succeeded ?? false);
     } else {
       isSuccess = false;
       return NetworkResponse.failure(message: 'Registration failed');

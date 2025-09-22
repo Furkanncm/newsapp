@@ -10,12 +10,14 @@ class EmailPasswordForm extends StatelessWidget {
     required this.emailController,
     required this.passwordController,
     required this.formKey,
+    this.confirmPasswordController,
     this.onChanged,
     super.key,
   });
 
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final TextEditingController? confirmPasswordController;
   final GlobalKey<FormState> formKey;
   final VoidCallback? onChanged;
 
@@ -29,8 +31,9 @@ class EmailPasswordForm extends StatelessWidget {
           EmailFieldWithLabel(emailController: emailController),
           verticalBox16,
           PasswordField(
-            passwordController: passwordController,
             labelText: LocaleKeys.password.tr(),
+            passwordController: passwordController,
+            confirmPasswordController: confirmPasswordController,
           ),
         ],
       ),

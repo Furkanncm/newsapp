@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/bottom_sheet/news_app_bottom_sheet.dart';
 import 'package:newsapp/src/common/utils/enums/search_page.dart';
 import 'package:newsapp/src/common/utils/extensions/bookmarked_extensions.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 import 'package:newsapp/src/common/widget/other/list_last_news.dart';
 import 'package:newsapp/src/common/widget/other/search_field.dart';
 import 'package:newsapp/src/common/widget/other/topics_list.dart';
@@ -23,74 +23,67 @@ class _SearchViewState extends State<SearchView> with SearchMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: NaPadding.pagePadding,
-        child: Column(
-          children: [
-            verticalBox64,
-            verticalBox16,
-            Column(
+      body: Observer(
+        builder: (_) {
+          if (viewmodel.onlyFilterCountries.isEmpty) {
+            return const AdaptiveCircular.withoutExpanded();
+          }
+          return Padding(
+            padding: NaPadding.pagePadding,
+            child: Column(
               children: [
-                Row(
+                verticalBox64,
+                verticalBox16,
+                Column(
                   children: [
-                    Expanded(
-                      child: Observer(
-                        builder: (_) {
-                          return SearchField(
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SearchField(
                             controller: controller,
                             onChanged: (value) {
                               viewmodel.onSearchChanged(value);
                             },
                             focusNode: FocusNode(),
-                          );
-                        },
-                      ),
-                    ),
-                    horizontalBox4,
-                    Container(
-                      decoration: BoxDecoration(
-                        border: BoxBorder.all(),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: IconButton(
-                        onPressed: () =>
-                            NewsAppBottomSheet.showFilterBottomSheet(context, viewmodel.onlyFilterCountries),
-                        icon: const Icon(
-                          Icons.tune_outlined,
-                          color: AppTheme.backgroundDark,
+                          ),
                         ),
-                      ),
+                        horizontalBox4,
+                        Container(
+                          decoration: BoxDecoration(border: BoxBorder.all(), borderRadius: BorderRadius.circular(16)),
+                          child: IconButton(
+                            onPressed: () async => onFilteredPressed(),
+                            icon: const Icon(Icons.tune_outlined, color: AppTheme.backgroundDark),
+                          ),
+                        ),
+                      ],
                     ),
+
+                    verticalBox20,
+                    _HorizontalTopicList(viewmodel: viewmodel),
+                    verticalBox20,
                   ],
                 ),
+                Observer(
+                  builder: (context) {
+                    if (viewmodel.lastestIndex == 0) {
+                      return ListLastestNews(
+                        newsList: viewmodel.filteredNews,
+                        onRefresh: (article, bookmarkedState) async =>
+                            viewmodel.newsRepository.refreshArticles(article, bookmarkedState.toBool() ?? false),
+                      );
+                    }
+                    if (viewmodel.lastestIndex == 1) {
+                      return const Expanded(child: TopicsList());
+                    }
+                    return emptyBox;
+                  },
+                ),
 
-                verticalBox20,
-                _HorizontalTopicList(viewmodel: viewmodel),
-                verticalBox20,
+                verticalBox16,
               ],
             ),
-            Observer(
-              builder: (context) {
-                if (viewmodel.lastestIndex == 0) {
-                  return ListLastestNews(
-                    newsList: viewmodel.filteredNews,
-                    onRefresh: (article, bookmarkedState) async =>
-                        viewmodel.newsRepository.refreshArticles(
-                          article,
-                          bookmarkedState.toBool() ?? false,
-                        ),
-                  );
-                }
-                if (viewmodel.lastestIndex == 1) {
-                  return const Expanded(child: TopicsList());
-                }
-                return emptyBox;
-              },
-            ),
-
-            verticalBox16,
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -110,10 +103,7 @@ final class _HorizontalTopicList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(SearchEnum.values.length, (index) {
             final searchItem = SearchEnum.values[index];
-            return _HorizontalTopic(
-              searchItem: searchItem,
-              viewmodel: viewmodel,
-            );
+            return _HorizontalTopic(searchItem: searchItem, viewmodel: viewmodel);
           }),
         ),
       ),
@@ -146,10 +136,7 @@ final class _HorizontalTopic extends StatelessWidget {
                       height: 3,
                       decoration: const BoxDecoration(
                         color: AppTheme.primaryColor,
-                        borderRadius: BorderRadius.horizontal(
-                          left: Radius.circular(8),
-                          right: Radius.circular(8),
-                        ),
+                        borderRadius: BorderRadius.horizontal(left: Radius.circular(8), right: Radius.circular(8)),
                       ),
                     )
                   else

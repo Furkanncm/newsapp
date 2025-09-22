@@ -9,6 +9,7 @@ import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
 import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 
 class SplashView extends StatefulWidget {
@@ -23,12 +24,14 @@ class _SplashViewState extends State<SplashView> {
   double _previousStep = 0;
   late final CacheRepository _cacheRepository;
   late final IUserRepository _userRepository;
+  late final ICountryRepository _countryRepository;
 
   @override
   void initState() {
     super.initState();
     _cacheRepository = CacheRepository.instance;
     _userRepository = UserRepository();
+    _countryRepository = CountryRepository();
     _init();
   }
 
@@ -41,16 +44,27 @@ class _SplashViewState extends State<SplashView> {
   }
 
   Future<void> _init() async {
-    await FirebaseDataSource.instance.initialize(); 
+    await FirebaseDataSource.instance.initialize();
+    final isOnboardActive = _cacheRepository.getBool(PrefKeys.isOnboardActive);
     await _incrementProgress();
     final userId = _cacheRepository.getString(PrefKeys.isUserLoggedIn);
     await _incrementProgress();
     await checkUser(userId: userId);
     await _incrementProgress();
-    checkLogin(userId?.isNotEmpty);
+    await _incrementProgress();
+    await fetchCountries();
+    checkOnboard(isOnboardActive ?? false);
+    checkLogin(userId?.isNotEmpty, isOnboardActive ?? false);
   }
 
-  void checkLogin(bool? isLoggedIn) {
+  void checkOnboard(bool isOnboardActive) {
+    if (isOnboardActive) {
+      router.goNamed(RoutePaths.onboard.name);
+    }
+  }
+
+  void checkLogin(bool? isLoggedIn, bool isOnboardActive) {
+    if (isOnboardActive) return;
     if (isLoggedIn == true) {
       router.goNamed(RoutePaths.home.name);
     } else {
@@ -61,6 +75,12 @@ class _SplashViewState extends State<SplashView> {
   Future<void> checkUser({required String? userId}) async {
     if (userId == null) return;
     await _userRepository.getUserInfo();
+  }
+
+  Future<void> fetchCountries() async {
+    await _countryRepository.getCountries();
+    
+    _countryRepository.getFiltersCountry();
   }
 
   @override

@@ -1,13 +1,17 @@
 import 'package:codegen/model/country_model/country_model.dart';
+import 'package:newsapp/src/common/utils/enums/filter_language_enum.dart';
 import 'package:newsapp/src/common/utils/enums/root_bundle.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
 import 'package:newsapp/src/domain/rootbundle/root_bundle_repository.dart';
 
 abstract class ICountryRepository {
   Country? selectedCountry;
+  List<Country>? allCountries;
+  List<Country> onlyFilterCountries = [];
   Future<List<Country>> getCountries();
   Future<bool> selectCountryAndNext(Country country);
   Future<Country?> getCountryByName(String name);
+  void getFiltersCountry();
 }
 
 class CountryRepository implements ICountryRepository {
@@ -23,8 +27,18 @@ class CountryRepository implements ICountryRepository {
   Country? selectedCountry;
 
   @override
+  List<Country>? allCountries;
+
+  @override
+  List<Country> onlyFilterCountries = [];
+
+  @override
   Future<List<Country>> getCountries() async {
-    return _rootBundleService.loadCountries(RootBundle.countries);
+    final listCountry = await _rootBundleService.loadCountries(
+      RootBundle.countries,
+    );
+    allCountries = listCountry;
+    return listCountry;
   }
 
   @override
@@ -38,9 +52,21 @@ class CountryRepository implements ICountryRepository {
 
   @override
   Future<Country?> getCountryByName(String name) async {
-    final countries = await getCountries();
-    return countries.firstWhere(
+    return allCountries?.firstWhere(
       (c) => c.name?.toLowerCase() == name.toLowerCase(),
     );
+  }
+
+  @override
+  void getFiltersCountry() {
+    onlyFilterCountries.clear();
+
+    for (final country in allCountries!) {
+      if (FilterLanguageEnum.values.any(
+        (e) => e.name.toLowerCase() == country.code?.toLowerCase(),
+      )) {
+        onlyFilterCountries.add(country);
+      }
+    }
   }
 }

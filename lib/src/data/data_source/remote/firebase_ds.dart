@@ -230,17 +230,15 @@ class FirebaseDataSource implements IFirebaseDataSource {
     required bool isRememberMe,
     required UserModel user,
   }) async {
+    if (user.id == null) return;
+
     await _isRememberMeAndSetAuthStatus(
       isRememberMe: isRememberMe,
-      userId: user.id ?? '',
+      userId: user.id!,
     );
 
     await saveUser(
-      user: UserModel(
-        id: user.id ?? '',
-        email: user.email ?? '',
-        name: user.name ?? '',
-      ),
+      user: UserModel(id: user.id, email: user.email, name: user.name),
     );
   }
 

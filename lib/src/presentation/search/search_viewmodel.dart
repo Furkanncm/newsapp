@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:codegen/codegen.dart';
-import 'package:codegen/model/article_model/article_model.dart';
 import 'package:mobx/mobx.dart';
-import 'package:newsapp/src/common/utils/enums/filter_language_enum.dart';
+import 'package:newsapp/src/common/utils/enums/filter_shortby_enum.dart';
+import 'package:newsapp/src/data/model/filter/filter.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/news/news_repository.dart';
 
@@ -24,13 +24,17 @@ abstract class _SearchViewmodelBase with Store {
   @observable
   List<Article> filteredNews = [];
 
-  
   List<Country> allCountries = [];
-
 
   List<Country> onlyFilterCountries = [];
 
   Timer? debounce;
+
+  @observable
+  Filter filters = Filter(
+    shortBy: [FilterShortByEnum.publishedAt],
+    language: []
+  );
 
   @action
   void changeIndex(int index) => lastestIndex = index;
@@ -49,29 +53,21 @@ abstract class _SearchViewmodelBase with Store {
         filteredNews = allNews;
       } else {
         filteredNews = allNews
-            .where(
-              (article) =>
-                  article.title?.toLowerCase().contains(value.toLowerCase()) ??
-                  false,
-            )
+            .where((article) => article.title?.toLowerCase().contains(value.toLowerCase()) ?? false)
             .toList();
       }
     });
   }
 
+  @action
+  void getOnlyFilterCountries() {
+    final list = countryRepository.onlyFilterCountries;
+    onlyFilterCountries = ObservableList.of(list);
+  }
 
-  Future<void> getOnlyFilterCountries() async {
-    allCountries = await countryRepository.getCountries();
-
-    onlyFilterCountries.clear();
-
-    for (final country in allCountries) {
-      if (FilterLanguageEnum.values.any(
-        (e) => e.name.toLowerCase() == country.code?.toLowerCase(),
-      )) {
-        onlyFilterCountries.add(country);
-      }
-    }
-    print(onlyFilterCountries.length);
+  @action
+  void setFilters(Filter? newFilters) {
+    if (newFilters == null) return;
+    filters = newFilters;
   }
 }
