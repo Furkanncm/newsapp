@@ -33,7 +33,8 @@ abstract class _SearchViewmodelBase with Store {
   @observable
   Filter filters = Filter(
     shortBy: [FilterShortByEnum.publishedAt],
-    language: []
+    language: [],
+    topic: [],
   );
 
   @action
@@ -53,7 +54,11 @@ abstract class _SearchViewmodelBase with Store {
         filteredNews = allNews;
       } else {
         filteredNews = allNews
-            .where((article) => article.title?.toLowerCase().contains(value.toLowerCase()) ?? false)
+            .where(
+              (article) =>
+                  article.title?.toLowerCase().contains(value.toLowerCase()) ??
+                  false,
+            )
             .toList();
       }
     });
@@ -66,8 +71,15 @@ abstract class _SearchViewmodelBase with Store {
   }
 
   @action
-  void setFilters(Filter? newFilters) {
+  Future<void> setFilters(Filter? newFilters) async {
     if (newFilters == null) return;
     filters = newFilters;
+    final filterNews = await newsRepository.fetchNewsWithFilters(
+      country: filters.language.first,
+      shortBy: filters.shortBy.first,
+      topic: filters.topic.first,
+    );
+
+    setNews(filterNews?.articles ?? allNews);
   }
 }

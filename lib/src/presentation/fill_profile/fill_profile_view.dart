@@ -24,8 +24,7 @@ final class FillProfileView extends StatefulWidget {
   State<FillProfileView> createState() => _FillProfileViewState();
 }
 
-class _FillProfileViewState extends State<FillProfileView>
-    with FillProfileMixin {
+class _FillProfileViewState extends State<FillProfileView> with FillProfileMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,18 +33,11 @@ class _FillProfileViewState extends State<FillProfileView>
         actions: [
           TextButton(
             onPressed: () => skipProfile(context),
-            child: LuciText.bodyMedium(
-              LocaleKeys.skip.tr(),
-              textColor: AppTheme.primaryColor,
-            ),
+            child: LuciText.bodyMedium(LocaleKeys.skip.tr(), textColor: AppTheme.primaryColor),
           ),
         ],
       ),
-      body: _Body(
-        imageFile: imageFile,
-        viewmodel: viewmodel,
-        onPressed: () => setProfilePhoto(context),
-      ),
+      body: _Body(imageFile: imageFile, viewmodel: viewmodel, onPressed: () => setProfilePhoto(context)),
       bottomNavigationBar: _NextButton(viewmodel: viewmodel),
     );
   }
@@ -53,16 +45,12 @@ class _FillProfileViewState extends State<FillProfileView>
 
 @immutable
 final class _Body extends StatelessWidget {
-  const _Body({
-    required this.imageFile,
-    required this.viewmodel,
-    required this.onPressed,
-  });
+  const _Body({required this.imageFile, required this.viewmodel, required this.onPressed});
 
   final ValueNotifier<XFile?> imageFile;
   final FillProfileViewmodel viewmodel;
   final VoidCallback onPressed;
-
+//furkankazmmcam@gmail.com
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -96,26 +84,15 @@ final class _FormField extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: UserNameTextfield(
-                  nameController: viewmodel.usernameController,
-                ),
-              ),
+              Expanded(child: UserNameTextfield(nameController: viewmodel.usernameController)),
               horizontalBox16,
-              Expanded(
-                child: FullNameTextfield(
-                  fullNameController: viewmodel.fullNameController,
-                ),
-              ),
+              Expanded(child: FullNameTextfield(fullNameController: viewmodel.fullNameController)),
             ],
           ),
           verticalBox12,
           PhoneNumberTextfield(phoneController: viewmodel.phoneController),
           verticalBox12,
-          BioTextField(
-            controller: viewmodel.bioController,
-            bio: viewmodel.bioController.text,
-          ),
+          BioTextField(controller: viewmodel.bioController, bio: viewmodel.bioController.text),
           verticalBox12,
           Row(
             children: [
@@ -185,9 +162,6 @@ final class _NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NewsBottomButton(
-      text: LocaleKeys.next.tr(),
-      onPressed: () => viewmodel.next(context),
-    );
+    return NewsBottomButton(text: LocaleKeys.next.tr(), onPressed: () => viewmodel.next(context));
   }
 }

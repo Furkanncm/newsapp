@@ -68,7 +68,6 @@ class UserRepository implements IUserRepository {
       buttonBackgroundColor: AppTheme.bodyDark,
     );
     if (result == null) return null;
-    // Firebase kayıt
     return result;
   }
 

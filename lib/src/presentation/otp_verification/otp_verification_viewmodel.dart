@@ -6,10 +6,12 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 part 'otp_verification_viewmodel.g.dart';
 
-class OTPVerificationViewmodel = _OTPVerificationViewmodelBase with _$OTPVerificationViewmodel;
+class OTPVerificationViewmodel = _OTPVerificationViewmodelBase
+    with _$OTPVerificationViewmodel;
 
 abstract class _OTPVerificationViewmodelBase with Store {
-  StreamController<ErrorAnimationType> errorController = StreamController<ErrorAnimationType>();
+  StreamController<ErrorAnimationType> errorController =
+      StreamController<ErrorAnimationType>();
   late final TextEditingController pinCodeController;
 
   @observable

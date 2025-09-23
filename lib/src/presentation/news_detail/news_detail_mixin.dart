@@ -31,7 +31,7 @@ mixin NewsDetailMixin on State<NewsDetailView> {
 
   Future<void> shareNews({required String url}) async {
     final status = await ShareManager.instance.shareNewsLink(url);
-    if (!context.mounted) return;
+    if (!mounted) return;
     switch (status) {
       case ShareResultStatus.success:
         NewsAppSnackBar.show(

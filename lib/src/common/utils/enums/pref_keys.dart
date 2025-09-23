@@ -1,5 +1,5 @@
 enum PrefKeys {
-  isOnboardActive('isOnboardActive'),
+  isFirstTime('isFirstTime'),
   themeCacheKey('ThemeCacheKey'),
   isUserLoggedIn('isUserLoggedIn');
 

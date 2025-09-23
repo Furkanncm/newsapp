@@ -43,7 +43,42 @@ extension FutureX<T> on Future<NetworkResponse<T>?> {
     );
 
     final result = await this;
-    router.pop();
+    if (context.mounted) router.pop();
+    return result;
+  }
+}
+
+extension FutureXAll<T> on Future<T> {
+  Future<T> withLoading({
+    required BuildContext context,
+    String? successMessage,
+    Future<void> Function(T value)? onSuccess,
+  }) async {
+    // Loading göstermek
+    unawaited(
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingDialog(),
+      ),
+    );
+
+    final result = await this;
+
+    // Loading kapat
+    if (context.mounted) router.pop();
+
+    // Başarılı mesaj ve callback
+    if (successMessage != null && context.mounted) {
+      NewsAppSnackBar.show(
+        context: context,
+        text: successMessage,
+        type: SnackBarType.info,
+      );
+    }
+
+    if (onSuccess != null) await onSuccess(result);
+
     return result;
   }
 }

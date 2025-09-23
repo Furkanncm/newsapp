@@ -23,6 +23,7 @@ class _TopicsViewState extends State<TopicsView> with TopicMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NewsAppBar(
+        isPop: false,
         title: LocaleKeys.chooseYourTopics.tr(),
         actions: [
           TextButton(

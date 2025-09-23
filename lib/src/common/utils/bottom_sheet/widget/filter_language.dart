@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/bottom_sheet/widget/filter_chip.dart';
 
-
 @immutable
 final class FilterLanguage extends StatefulWidget {
-  const FilterLanguage({required this.languages, required this.onlyFilterCountries, super.key});
+  const FilterLanguage({
+    required this.languages,
+    required this.onlyFilterCountries,
+    super.key,
+  });
 
   final List<Country> languages;
   final List<Country> onlyFilterCountries;
@@ -31,7 +34,12 @@ class _FilterLanguageState extends State<FilterLanguage> {
               width: 48,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(4),
-                child: Image.network(language.flag ?? '', width: 40, height: 30, fit: BoxFit.cover),
+                child: Image.network(
+                  language.flag ?? '',
+                  width: 40,
+                  height: 30,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             label: language.name?.capitalizeFirst ?? '',
@@ -39,8 +47,11 @@ class _FilterLanguageState extends State<FilterLanguage> {
             onSelected: (value) {
               final result = isLangugeItemSelected(language);
               if (result) {
-                newLanguages.remove(language);
+                newLanguages.clear();
               } else {
+                if (newLanguages.length == 1) {
+                  newLanguages.clear();
+                }
                 newLanguages.add(language);
               }
               setState(() {});

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
+import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
-class AppNavigationBar extends StatelessWidget {
+@immutable
+final class AppNavigationBar extends StatelessWidget {
   const AppNavigationBar({required this.child, super.key});
 
   final Widget child;
@@ -22,6 +24,7 @@ class AppNavigationBar extends StatelessWidget {
     final location = GoRouterState.of(context).uri.toString();
     var currentIndex = tabs.indexWhere(location.startsWith);
     if (currentIndex == -1) currentIndex = 0;
+
     return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
@@ -31,37 +34,66 @@ class AppNavigationBar extends StatelessWidget {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(
-              currentIndex == 0 ? Icons.home_rounded : Icons.home_outlined,
+            icon: _BehindContainer(
+              isCurrentIndex: currentIndex == 0,
+              selectedIcon: Icons.home,
+              unSelectedIcon: Icons.home_outlined,
             ),
             label: LocaleKeys.home.tr(),
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              currentIndex == 1
-                  ? Icons.explore_rounded
-                  : Icons.explore_outlined,
+            icon: _BehindContainer(
+              isCurrentIndex: currentIndex == 1,
+              selectedIcon: Icons.explore_rounded,
+              unSelectedIcon: Icons.explore_outlined,
             ),
             label: LocaleKeys.explore.tr(),
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              currentIndex == 2
-                  ? Icons.bookmark_rounded
-                  : Icons.bookmark_border_outlined,
+            icon: _BehindContainer(
+              isCurrentIndex: currentIndex == 2,
+              selectedIcon: Icons.bookmark_rounded,
+              unSelectedIcon: Icons.bookmark_border_outlined,
             ),
             label: LocaleKeys.bookmarks.tr(),
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              currentIndex == 3
-                  ? Icons.person_2_rounded
-                  : Icons.person_2_outlined,
+            icon: _BehindContainer(
+              isCurrentIndex: currentIndex == 3,
+              selectedIcon: Icons.person_2_rounded,
+              unSelectedIcon: Icons.person_2_outlined,
             ),
             label: LocaleKeys.profile.tr(),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _BehindContainer extends StatelessWidget {
+  const _BehindContainer({
+    required this.isCurrentIndex,
+    required this.selectedIcon,
+    required this.unSelectedIcon,
+  });
+
+  final bool isCurrentIndex;
+  final IconData selectedIcon;
+  final IconData unSelectedIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      width: 40,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: isCurrentIndex
+            ? AppTheme.primaryColor.withValues(alpha: 0.1)
+            : null,
+      ),
+      child: Icon(isCurrentIndex ? selectedIcon : unSelectedIcon),
     );
   }
 }

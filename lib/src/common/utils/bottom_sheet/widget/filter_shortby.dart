@@ -4,7 +4,6 @@ import 'package:newsapp/src/common/utils/enums/filter_shortby_enum.dart';
 import 'package:newsapp/src/common/utils/extensions/filter_shortby_extension.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
-
 @immutable
 final class FilterShortby extends StatefulWidget {
   const FilterShortby({required this.shortBy, super.key});
@@ -28,15 +27,20 @@ class _FilterShortbyState extends State<FilterShortby> {
           return FilterChipItem(
             avatar: Icon(
               item.getIcon,
-              color: isShortByItemSelected(item) ? AppTheme.buttonBackground : AppTheme.backgroundDark,
+              color: isShortByItemSelected(item)
+                  ? AppTheme.buttonBackground
+                  : AppTheme.backgroundDark,
             ),
             label: item.name,
             isSelected: isShortByItemSelected(item),
             onSelected: (value) {
               final result = isShortByItemSelected(item);
               if (result) {
-                newShortBy.remove(item);
+                newShortBy.clear();
               } else {
+                if (newShortBy.length == 1) {
+                  newShortBy.clear();
+                }
                 newShortBy.add(item);
               }
               setState(() {});

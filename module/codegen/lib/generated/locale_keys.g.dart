@@ -168,5 +168,11 @@ abstract class  LocaleKeys {
   static const noContentAvaible = 'noContentAvaible';
   static const continueWithFacebook = 'continueWithFacebook';
   static const continueWithGoogle = 'continueWithGoogle';
+  static const unknown = 'unknown';
+  static const filters = 'filters';
+  static const shortBy = 'shortBy';
+  static const languageBy = 'languageBy';
+  static const selectGender = 'selectGender';
+  static const topicsBy = 'topicsBy';
 
 }

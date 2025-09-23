@@ -1,7 +1,1 @@
-enum QueryParams {
-  country,
-  search,
-  category,
-  sortBy,
-  page,
-}
+enum QueryParams { country, search, category, sortBy, page }

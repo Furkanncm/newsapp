@@ -27,8 +27,8 @@ mixin OnboardMixin on State<OnboardView> {
 
   Future<void> nextPage() async {
     if (currentPage == onboardList.length - 1) {
-      await CacheRepository.instance.setBool(PrefKeys.isOnboardActive, false);
-      await router.pushReplacementNamed(RoutePaths.topics.name);
+      await CacheRepository.instance.setBool(PrefKeys.isFirstTime, false);
+      router.goNamed(RoutePaths.topics.name);
     }
     if (currentPage < onboardList.length - 1) {
       await pageController.animateToPage(

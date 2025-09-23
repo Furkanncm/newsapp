@@ -167,5 +167,14 @@
   },
   "noContentAvaible": "There is no content available!",
   "continueWithFacebook":"Continue with Facebook",
-  "continueWithGoogle":"Continue with Google"
+  "continueWithGoogle":"Continue with Google",
+  "unknown":"Unknown",
+  "filters":"Filters",
+  "shortBy":"Short by",
+  "languageBy":"Language by",
+  "selectGender":"Select your Gender",
+    "topicsBy":"Topics by"
+  
+
+
 }

@@ -91,9 +91,9 @@ class FirebaseDataSource implements IFirebaseDataSource {
       final user = userCredential.user;
 
       if (user != null) {
-        await _isRememberMeAndSetAuthStatus(
+        await _setAuthAndSaveUser(
           isRememberMe: isRememberMe,
-          userId: user.uid,
+          user: user.toUserModel(),
         );
         return NetworkResponse.success(data: true);
       }

@@ -46,7 +46,7 @@ abstract class _HomeViewmodelBase with Store {
   @action
   Future<void> fetchNewsForCategory(Topic topic) async {
     isLoading = true;
-    categoryNews = await newsRepository.fetchNewsForCategory(topic);
+    categoryNews = await newsRepository.fetchNewsWithFilters(topic:topic);
     isLoading = false;
   }
 

@@ -4,7 +4,4 @@ enum LanguageEnum {
 
   const LanguageEnum(this.title);
   final String title;
-
-
 }
-  

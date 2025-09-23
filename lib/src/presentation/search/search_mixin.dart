@@ -2,6 +2,7 @@ import 'package:codegen/model/article_model/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsapp/src/common/utils/bottom_sheet/news_app_bottom_sheet.dart';
+import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/data/model/filter/filter.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/news/news_repository.dart';
@@ -33,8 +34,11 @@ mixin SearchMixin on State<SearchView> {
       onlyFilterCountries: viewmodel.onlyFilterCountries,
       shortBy: viewmodel.filters.shortBy,
       languages: viewmodel.filters.language,
+      topicList: viewmodel.filters.topic,
     );
-    viewmodel.setFilters(result);
+    if (!mounted) return;
+
+    await viewmodel.setFilters(result).withLoading(context: context);
   }
 
   @override

@@ -11,7 +11,8 @@ import 'package:newsapp/src/common/widget/other/search_field.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/presentation/bookmark/bookmark_mixin.dart';
 
-class BookmarkView extends StatefulWidget {
+@immutable
+final class BookmarkView extends StatefulWidget {
   const BookmarkView({super.key});
 
   @override
@@ -39,7 +40,6 @@ class _BookmarkViewState extends State<BookmarkView> with BookmarkMixin {
               onChanged: (value) {
                 viewmodel.onSearchChanged(value);
               },
-              focusNode: FocusNode(),
             ),
             verticalBox12,
             Observer(

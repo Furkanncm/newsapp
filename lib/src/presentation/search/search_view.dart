@@ -12,7 +12,8 @@ import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/presentation/search/search_mixin.dart';
 import 'package:newsapp/src/presentation/search/search_viewmodel.dart';
 
-class SearchView extends StatefulWidget {
+@immutable
+final class SearchView extends StatefulWidget {
   const SearchView({super.key});
 
   @override
@@ -49,10 +50,16 @@ class _SearchViewState extends State<SearchView> with SearchMixin {
                         ),
                         horizontalBox4,
                         Container(
-                          decoration: BoxDecoration(border: BoxBorder.all(), borderRadius: BorderRadius.circular(16)),
+                          decoration: BoxDecoration(
+                            border: BoxBorder.all(),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
                           child: IconButton(
                             onPressed: () async => onFilteredPressed(),
-                            icon: const Icon(Icons.tune_outlined, color: AppTheme.backgroundDark),
+                            icon: const Icon(
+                              Icons.tune_outlined,
+                              color: AppTheme.backgroundDark,
+                            ),
                           ),
                         ),
                       ],
@@ -69,7 +76,10 @@ class _SearchViewState extends State<SearchView> with SearchMixin {
                       return ListLastestNews(
                         newsList: viewmodel.filteredNews,
                         onRefresh: (article, bookmarkedState) async =>
-                            viewmodel.newsRepository.refreshArticles(article, bookmarkedState.toBool() ?? false),
+                            viewmodel.newsRepository.refreshArticles(
+                              article,
+                              bookmarkedState.toBool() ?? false,
+                            ),
                       );
                     }
                     if (viewmodel.lastestIndex == 1) {
@@ -103,7 +113,10 @@ final class _HorizontalTopicList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(SearchEnum.values.length, (index) {
             final searchItem = SearchEnum.values[index];
-            return _HorizontalTopic(searchItem: searchItem, viewmodel: viewmodel);
+            return _HorizontalTopic(
+              searchItem: searchItem,
+              viewmodel: viewmodel,
+            );
           }),
         ),
       ),
@@ -136,7 +149,10 @@ final class _HorizontalTopic extends StatelessWidget {
                       height: 3,
                       decoration: const BoxDecoration(
                         color: AppTheme.primaryColor,
-                        borderRadius: BorderRadius.horizontal(left: Radius.circular(8), right: Radius.circular(8)),
+                        borderRadius: BorderRadius.horizontal(
+                          left: Radius.circular(8),
+                          right: Radius.circular(8),
+                        ),
                       ),
                     )
                   else

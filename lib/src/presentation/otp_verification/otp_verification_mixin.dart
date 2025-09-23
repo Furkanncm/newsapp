@@ -16,9 +16,11 @@ mixin OtTPVerificationMixin on State<OtpVerificationView> {
   }
 
   Future<void> verify() async {
-    viewmodel.stopTimer();
-    viewmodel.isRetry = false;
-    viewmodel.isPinComp = false;
+    viewmodel
+      ..stopTimer()
+      ..isRetry = false
+      ..isPinComp = false;
+
     final result = await router.pushNamed(RoutePaths.resetPassword.name);
     if (result == true) {
       viewmodel.startTimer();

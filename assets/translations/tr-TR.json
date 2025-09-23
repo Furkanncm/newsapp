@@ -162,5 +162,11 @@
   },
   "noContentAvaible": "Gösterilecek içerik bulunmuyor!",
   "continueWithFacebook": "Facebook ile devam et",
-  "continueWithGoogle": "Google ile devam et"
+  "continueWithGoogle": "Google ile devam et",
+  "unknown": "Bilinmeyen",
+  "filters": "Filtreler",
+  "shortBy": "Sıralama Ölçütü",
+  "languageBy": "Dil",
+  "selectGender": "Cinsiyet Seçiniz",
+  "topicsBy":"kategori"
 }
