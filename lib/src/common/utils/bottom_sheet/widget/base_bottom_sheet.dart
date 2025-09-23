@@ -19,37 +19,33 @@ final class BaseBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: NaPadding.pagePadding,
-      child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          verticalBox8,
+          Divider(
+            thickness: 4,
+            indent: context.width * 0.4,
+            endIndent: context.width * 0.4,
+            radius: BorderRadius.circular(16),
+          ),
+          verticalBox16,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              verticalBox8,
-              Divider(
-                thickness: 4,
-                indent: context.width * 0.4,
-                endIndent: context.width * 0.4,
-                radius: BorderRadius.circular(16),
+              LuciText.labelLarge(title),
+              IconButton(
+                onPressed: onPressed?.call,
+                icon: const Icon(Icons.check_outlined),
               ),
-              verticalBox16,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  LuciText.labelLarge(title),
-                  IconButton(
-                    onPressed: onPressed?.call,
-                    icon: const Icon(Icons.check_outlined),
-                  ),
-                ],
-              ),
-              const Divider(),
-              verticalBox8,
-              child,
-              verticalBox16,
             ],
           ),
-        ),
+          const Divider(),
+          verticalBox8,
+          child,
+          verticalBox16,
+        ],
       ),
     );
   }

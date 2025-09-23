@@ -39,36 +39,42 @@ class FilterBottomSheetState extends State<FilterBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseBottomSheet(
-      title: LocaleKeys.filters.tr(),
-      onPressed: () {
-        widget.result.call(
-          Filter(shortBy: newShortBy, language: newLanguages, topic: newTopics),
-        );
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _FilterBottomSheetSection(
-            title: LocaleKeys.shortBy.tr(),
-            child: FilterShortby(shortBy: newShortBy),
-          ),
-          const Divider(),
-          _FilterBottomSheetSection(
-            title: LocaleKeys.languageBy.tr(),
-            child: FilterLanguage(
-              languages: newLanguages,
-              onlyFilterCountries: widget.onlyFilterCountries,
+    return SingleChildScrollView(
+      child: BaseBottomSheet(
+        title: LocaleKeys.filters.tr(),
+        onPressed: () {
+          widget.result.call(
+            Filter(
+              shortBy: newShortBy,
+              language: newLanguages,
+              topic: newTopics,
             ),
-          ),
+          );
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _FilterBottomSheetSection(
+              title: LocaleKeys.shortBy.tr(),
+              child: FilterShortby(shortBy: newShortBy),
+            ),
+            const Divider(),
+            _FilterBottomSheetSection(
+              title: LocaleKeys.languageBy.tr(),
+              child: FilterLanguage(
+                languages: newLanguages,
+                onlyFilterCountries: widget.onlyFilterCountries,
+              ),
+            ),
 
-          const Divider(),
-          horizontalBox8,
-          _FilterBottomSheetSection(
-            title: LocaleKeys.topicsBy.tr(),
-            child: FilterTopic(topics: widget.topicBy),
-          ),
-        ],
+            const Divider(),
+            horizontalBox8,
+            _FilterBottomSheetSection(
+              title: LocaleKeys.topicsBy.tr(),
+              child: FilterTopic(topics: widget.topicBy),
+            ),
+          ],
+        ),
       ),
     );
   }
