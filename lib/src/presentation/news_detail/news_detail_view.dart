@@ -31,8 +31,8 @@ class _NewsDetailViewState extends State<NewsDetailView> with NewsDetailMixin {
         }
         return PopScope(
           canPop: false,
-          onPopInvoked: (didPop) {
-            if (! didPop) {
+          onPopInvokedWithResult: (didPop, result) {
+            if (!didPop) {
               viewmodel.handlePop();
             }
           },
