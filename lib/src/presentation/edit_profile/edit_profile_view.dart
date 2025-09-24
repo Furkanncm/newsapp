@@ -17,7 +17,8 @@ import 'package:newsapp/src/presentation/edit_profile/edit_profile_mixin.dart';
 import 'package:newsapp/src/presentation/edit_profile/edit_profile_viewmodel.dart';
 import 'package:share_plus/share_plus.dart';
 
-class EditProfileView extends StatefulWidget {
+@immutable
+final class EditProfileView extends StatefulWidget {
   const EditProfileView({super.key});
 
   @override
@@ -196,7 +197,10 @@ final class _FormWidget extends StatelessWidget {
       key: viewmodel.formKey,
       child: Column(
         children: [
-          EmailFieldWithLabel(emailController: viewmodel.emailController),
+          EmailFieldWithLabel(
+            emailController: viewmodel.emailController,
+            readOnly: true,
+          ),
           verticalBox12,
           PhoneNumberTextfield(phoneController: viewmodel.phoneController),
           verticalBox12,

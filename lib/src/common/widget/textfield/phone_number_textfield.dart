@@ -2,7 +2,7 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/button/verify_button.dart';
 import 'package:newsapp/src/common/widget/text/label_with_star.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
@@ -43,24 +43,13 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
           onChanged: (p0) => setState(() {}),
           controller: widget.phoneController,
           labelText: '',
-          suffixIcon: isVerified
-              ? Icon(
-                  Icons.check_circle,
-                  color: Theme.of(context).colorScheme.primary,
-                )
-              : TextButton(
-                  onPressed: () async => checkValid
-                      ? _authRepository.sendVerificationCodePhoneNumber(
-                          phoneNumber: widget.phoneController.text,
-                        )
-                      : null,
-                  child: LuciText.bodyMedium(
-                    'Verify',
-                    textColor: checkValid
-                        ? AppTheme.successColor
-                        : AppTheme.bodyText,
-                  ),
-                ),
+          suffixIcon: VerifyButton(
+            isValid: !widget.phoneController.text.isPhoneNumber,
+            isVerified: isVerified,
+            onPressed: () => _authRepository.sendVerificationCodePhoneNumber(
+              phoneNumber: widget.phoneController.text,
+            ),
+          ),
         ),
       ],
     );

@@ -12,8 +12,6 @@ import 'package:newsapp/src/presentation/login/login_viewmodel.dart';
 
 mixin LoginMixin on State<LoginView> {
   late final LoginViewmodel viewModel;
-  late final IUserRepository _userRepository;
-  late final CacheRepository _cacheRepository;
 
   @override
   void initState() {
@@ -22,8 +20,8 @@ mixin LoginMixin on State<LoginView> {
     viewModel.formKey= GlobalKey<FormState>();
     viewModel.emailController= TextEditingController();
      viewModel.passwordController= TextEditingController();
-    _userRepository = UserRepository();
-    _cacheRepository = CacheRepository.instance;
+    viewModel.userRepository = UserRepository();
+    viewModel.cacheRepository = CacheRepository.instance;
   }
 
   bool get isFormValid => viewModel.isFormValid;
@@ -42,10 +40,10 @@ mixin LoginMixin on State<LoginView> {
   }
 
   Future<void> navigate() async {
-    final userId = _cacheRepository.getString(PrefKeys.isUserLoggedIn);
+    final userId = viewModel.cacheRepository.getString(PrefKeys.isUserLoggedIn);
     if (userId == null) return;
-    await _userRepository.getUserInfo();
-    if (_userRepository.currentUser?.isSkipped == true) {
+    await viewModel.userRepository.getUserInfo();
+    if (viewModel.userRepository.currentUser?.isSkipped == true) {
       router.goNamed(RoutePaths.home.name);
     } else {
       router.goNamed(RoutePaths.topics.name);

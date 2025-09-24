@@ -51,7 +51,7 @@ class _SearchViewState extends State<SearchView> with SearchMixin {
                         horizontalBox4,
                         Container(
                           decoration: BoxDecoration(
-                            border: BoxBorder.all(),
+                            border: BoxBorder.all(color: AppTheme.bodyText),
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: IconButton(

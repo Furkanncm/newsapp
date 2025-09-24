@@ -58,6 +58,8 @@ class UserRepository implements IUserRepository {
   @override
   FirebaseAuthEnum get authStatus => _authRepository.authStatus;
 
+  
+
   @override
   void setIsNewUser(AdditionalUserInfo? additionalUserInfo) =>
       _authRepository.isNewsUser;

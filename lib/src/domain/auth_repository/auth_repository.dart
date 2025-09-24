@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
 import 'package:newsapp/src/common/utils/enums/firebase_auth.dart';
 import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
@@ -21,11 +22,17 @@ abstract class IAuthRepository {
 
   Future<void> sendVerificationCodePhoneNumber({required String phoneNumber});
 
+  Future<void> sendVerificationEmail();
+
   Future<NetworkResponse<bool>> verifyPhoneNumber({required String smsCode});
 
   FirebaseAuthEnum get authStatus;
 
+  User? get firebaseUser;
+
   bool? get isNewsUser;
+
+  bool? get isVerified;
 }
 
 final class AuthRepository implements IAuthRepository {
@@ -45,6 +52,11 @@ final class AuthRepository implements IAuthRepository {
   @override
   bool? get isNewsUser => _firebaseDataSource.isNewUser;
 
+  @override
+  User? get firebaseUser => _firebaseDataSource.firebaseUser;
+
+  @override
+  bool? get isVerified => firebaseUser?.emailVerified??false;
   @override
   Future<NetworkResponse<bool>> logInWithEmail({
     required String email,
@@ -78,4 +90,8 @@ final class AuthRepository implements IAuthRepository {
   Future<NetworkResponse<bool>> verifyPhoneNumber({
     required String smsCode,
   }) async => _firebaseDataSource.verifyPhoneNumber(smsCode: smsCode);
+
+  @override
+  Future<void> sendVerificationEmail() async =>
+      _firebaseDataSource.sendVerificationEmail();
 }

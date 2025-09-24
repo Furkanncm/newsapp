@@ -9,6 +9,7 @@ import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/data/model/otp/otp_model.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_mixin.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_viewmodel.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -20,7 +21,8 @@ final class OtpVerificationView extends StatefulWidget {
   State<OtpVerificationView> createState() => _OtpVerificationViewState();
 }
 
-class _OtpVerificationViewState extends State<OtpVerificationView> with OtTPVerificationMixin {
+class _OtpVerificationViewState extends State<OtpVerificationView>
+    with OtTPVerificationMixin {
   @override
   Widget build(BuildContext context) {
     final extra = GoRouterState.of(context).extra as OTPModel?;
@@ -35,12 +37,14 @@ class _OtpVerificationViewState extends State<OtpVerificationView> with OtTPVeri
       bottomNavigationBar: Observer(
         builder: (_) {
           return NewsBottomButton(
-            text: viewmodel.isRetry ? LocaleKeys.resendCodeIn.tr() : LocaleKeys.verify.tr(),
+            text: viewmodel.isRetry
+                ? LocaleKeys.resendCodeIn.tr()
+                : LocaleKeys.verify.tr(),
             onPressed: viewmodel.isRetry
                 ? viewmodel.sendOtp
                 : viewmodel.isPinComp
-                    ? verify
-                    : null,
+                ? verify
+                : null,
           );
         },
       ),
@@ -50,10 +54,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> with OtTPVeri
 
 @immutable
 final class _Body extends StatelessWidget {
-  const _Body({
-    required this.extra,
-    required this.viewmodel,
-  });
+  const _Body({required this.extra, required this.viewmodel});
 
   final OTPModel? extra;
   final OTPVerificationViewmodel viewmodel;
@@ -66,9 +67,14 @@ final class _Body extends StatelessWidget {
         child: Align(
           child: Column(
             children: [
-              LuciText.headlineSmall(LocaleKeys.otpVerification.tr(), fontWeight: FontWeight.bold),
+              LuciText.headlineSmall(
+                LocaleKeys.otpVerification.tr(),
+                fontWeight: FontWeight.bold,
+              ),
               verticalBox16,
-              LuciText.bodyLarge('${LocaleKeys.enterOtpSentTo.tr()} ${extra?.otpContent}'),
+              LuciText.bodyLarge(
+                '${LocaleKeys.enterOtpSentTo.tr()} ${extra?.otpContent}',
+              ),
               verticalBox24,
               PinField(viewmodel: viewmodel),
               verticalBox16,
@@ -83,10 +89,7 @@ final class _Body extends StatelessWidget {
 
 @immutable
 final class PinField extends StatefulWidget {
-  const PinField({
-    required this.viewmodel,
-    super.key,
-  });
+  const PinField({required this.viewmodel, super.key});
   final OTPVerificationViewmodel viewmodel;
   @override
   State<PinField> createState() => _PinFieldState();
@@ -121,6 +124,11 @@ class _PinFieldState extends State<PinField> {
           backgroundColor: AppTheme.buttonBackground,
           enabled: !widget.viewmodel.isRetry,
           onCompleted: (v) async {
+            final IAuthRepository authRepository = AuthRepository();
+            await authRepository.verifyPhoneNumber(
+              smsCode: widget.viewmodel.pinCodeController.text,
+            );
+
             widget.viewmodel.pinCompleted();
           },
           onChanged: (value) {
@@ -137,9 +145,7 @@ class _PinFieldState extends State<PinField> {
 
 @immutable
 final class _ResendCode extends StatelessWidget {
-  const _ResendCode({
-    required this.viewmodel,
-  });
+  const _ResendCode({required this.viewmodel});
 
   final OTPVerificationViewmodel viewmodel;
 

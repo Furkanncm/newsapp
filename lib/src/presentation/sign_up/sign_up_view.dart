@@ -54,7 +54,7 @@ class _SignUpViewState extends State<SignUpView> with SignUpMixin {
                 verticalBox16,
                 _SignUpButton(onPressed: register),
                 verticalBox16,
-                SocialMediaLogin(),
+                const SocialMediaLogin(),
               ],
             ),
           ),

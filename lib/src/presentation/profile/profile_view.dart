@@ -100,11 +100,13 @@ final class _UserDetails extends StatelessWidget with ProfileMixin {
         ),
         verticalBox12,
         LuciText.titleSmall(
-          viewmodel.currentUser?.name ?? 'Unknown',
+          viewmodel.currentUser?.name ?? LocaleKeys.unknown.tr(),
           fontWeight: FontWeight.bold,
         ),
         verticalBox4,
-        LuciText.bodyMedium(viewmodel.currentUser?.email ?? ''),
+        LuciText.bodyMedium(
+          viewmodel.currentUser?.email ?? LocaleKeys.exampleGmail.tr(),
+        ),
         verticalBox16,
         const _EditButton(),
       ],

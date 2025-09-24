@@ -20,7 +20,7 @@ abstract class INewsRepository {
   Country? get selectedCountry;
 }
 
-class NewsRepository implements INewsRepository {
+final class NewsRepository implements INewsRepository {
   factory NewsRepository() {
     return _instance ??= NewsRepository._internal();
   }
@@ -72,18 +72,23 @@ class NewsRepository implements INewsRepository {
     FilterShortByEnum? shortBy,
     Country? country,
   }) async {
-    final countryCode = country != null ? country.code?.toLowerCase() : 'us';
+    final countryCode = country?.code?.toLowerCase() ?? 'us';
+    final params = <String, dynamic>{QueryParams.country.name: countryCode};
+
+    if (topic?.value?.isNotEmpty ?? false) {
+      params[QueryParams.category.name] = topic!.value;
+    }
+
+    if (shortBy?.name.isNotEmpty ?? false) {
+      params[QueryParams.sortBy.name] = shortBy!.name;
+    }
 
     final data = await NewsApiDs().fetch<News>(
       path: RemoteDsPath.topheadlines,
-      queryParameters: {
-        QueryParams.country.name: countryCode,
-        QueryParams.category.name: topic?.value,
-        QueryParams.sortBy.name: shortBy?.name,
-      },
+      queryParameters: params,
     );
-    if (!(data.succeeded ?? false)) return null;
 
+    if (!(data.succeeded ?? false)) return null;
     return data.data;
   }
 }

@@ -13,13 +13,17 @@ import 'package:newsapp/src/common/base/base_response.dart';
 import 'package:newsapp/src/common/utils/constants/firebase_error.dart';
 import 'package:newsapp/src/common/utils/enums/firebase_auth.dart';
 import 'package:newsapp/src/common/utils/enums/firebase_collection.dart';
+import 'package:newsapp/src/common/utils/enums/otp_options_enum.dart';
 import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
+import 'package:newsapp/src/data/model/otp/otp_model.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 
 abstract class IFirebaseDataSource {
   Future<void> initialize();
-  String get userId;
+
   void setIsNewUser(AdditionalUserInfo? additionalUserInfo);
   Future<NetworkResponse<bool>> register({
     required String email,
@@ -39,11 +43,14 @@ abstract class IFirebaseDataSource {
   Future<void> updateTopic({required List<Topic> topics});
   Future<void> sendVerificationCodePhoneNumber({required String phoneNumber});
   Future<NetworkResponse<bool>> verifyPhoneNumber({required String smsCode});
+  Future<void> sendVerificationEmail();
   Future<void> saveNews(Article article);
   Future<void> removeNews(Article article);
   Future<List<Article>> getNews();
   FirebaseAuthEnum authStatus = FirebaseAuthEnum.unauthenticated;
   bool? isNewUser;
+  User? firebaseUser;
+  String get userId;
 }
 
 class FirebaseDataSource implements IFirebaseDataSource {
@@ -77,6 +84,9 @@ class FirebaseDataSource implements IFirebaseDataSource {
   }
 
   @override
+  User? firebaseUser;
+
+  @override
   void setIsNewUser(AdditionalUserInfo? additionalUserInfo) =>
       isNewUser = additionalUserInfo?.isNewUser;
   @override
@@ -96,6 +106,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
       final user = userCredential.user;
 
       if (user != null) {
+        firebaseUser = user;
         await _setAuthAndSaveUser(
           isRememberMe: isRememberMe,
           user: user.toUserModel(),
@@ -127,6 +138,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
         final user = userCredential.user;
 
         if (user != null) {
+          firebaseUser = user;
           await _setAuthAndSaveUser(
             isRememberMe: true,
             user: user.toUserModel(),
@@ -157,6 +169,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
       final user = userCredential.user;
 
       if (user != null) {
+        firebaseUser = user;
         await _setAuthAndSaveUser(
           isRememberMe: isRememberMe,
           user: user.toUserModel(),
@@ -175,6 +188,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
     await _firebaseAuth.signOut();
     await _cacheRepository.remove(PrefKeys.isUserLoggedIn);
     authStatus = FirebaseAuthEnum.unauthenticated;
+    firebaseUser = null;
   }
 
   @override
@@ -239,7 +253,6 @@ class FirebaseDataSource implements IFirebaseDataSource {
     bool isNewsUser = false,
   }) async {
     if (user.id == null) return;
-
     await _isRememberMeAndSetAuthStatus(
       isRememberMe: isRememberMe,
       userId: user.id!,
@@ -255,11 +268,13 @@ class FirebaseDataSource implements IFirebaseDataSource {
     required String phoneNumber,
   }) async {
     final selectedCountry = _countryRepository.selectedCountry;
-    final cleanedPhoneNumber = '${selectedCountry?.phoneCode ?? 90}$phoneNumber'
-        .replaceAll(RegExp('[^0-9+]'), '');
-    print('+$cleanedPhoneNumber');
+    final cleanedPhoneNumber =
+        '+${selectedCountry?.phoneCode ?? 90}$phoneNumber'.replaceAll(
+          RegExp('[^0-9+]'),
+          '',
+        );
     await _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: '+905305282918',
+      phoneNumber: cleanedPhoneNumber,
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) async =>
           _firebaseAuth.signInWithCredential(credential),
@@ -267,14 +282,25 @@ class FirebaseDataSource implements IFirebaseDataSource {
         debugPrint('Phone verification failed: ${e.code} - ${e.message}');
       },
       codeSent: (String verificationId, int? resendToken) {
-        print(verificationId);
+        router.pushNamed(
+          RoutePaths.otpVerification.name,
+          extra: OTPModel(
+            otpOptions: OTPOptions.sms,
+            otpContent: cleanedPhoneNumber,
+          ),
+        );
         _verificationId = verificationId;
       },
       codeAutoRetrievalTimeout: (String verificationId) {
-        print(verificationId);
         _verificationId = verificationId;
       },
     );
+  }
+
+  @override
+  Future<void> sendVerificationEmail() async {
+    if (firebaseUser == null) return;
+    await firebaseUser!.sendEmailVerification();
   }
 
   @override

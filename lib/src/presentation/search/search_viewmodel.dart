@@ -75,9 +75,9 @@ abstract class _SearchViewmodelBase with Store {
     if (newFilters == null) return;
     filters = newFilters;
     final filterNews = await newsRepository.fetchNewsWithFilters(
-      country: filters.language.first,
-      shortBy: filters.shortBy.first,
-      topic: filters.topic.first,
+      country: filters.language.isNotEmpty ? filters.language.first : null,
+      shortBy: filters.shortBy.isNotEmpty ? filters.shortBy.first : null,
+      topic: filters.topic.isNotEmpty ? filters.topic.first : null,
     );
 
     setNews(filterNews?.articles ?? allNews);

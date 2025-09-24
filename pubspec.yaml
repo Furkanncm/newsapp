@@ -52,12 +52,12 @@ dependencies:
   google_sign_in: ^6.1.6
   
 
-
   # Core
   lucielle:
     git:
       url: https://github.com/Furkanncm/lucielle_core
       ref: main
+
 
     
 dev_dependencies:
