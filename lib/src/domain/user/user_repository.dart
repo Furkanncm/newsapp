@@ -7,7 +7,8 @@ import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
 import 'package:newsapp/src/common/utils/enums/firebase_auth.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
-import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
+import 'package:newsapp/src/domain/firebase_firestore/firebase_firestore_repository.dart';
 import 'package:share_plus/share_plus.dart';
 
 abstract class IUserRepository {
@@ -27,13 +28,17 @@ abstract class IUserRepository {
 }
 
 class UserRepository implements IUserRepository {
-  factory UserRepository() => instance;
+  factory UserRepository() {
+    return _instance ??= UserRepository._();
+  }
+  UserRepository._() {
+    _firestoreRepository = FirebaseFirestoreRepository();
+    _authRepository = AuthRepository();
+  }
+  static UserRepository? _instance;
 
-  UserRepository._();
-  bool? isNewUser;
-  static final UserRepository instance = UserRepository._();
-
-  final FirebaseDataSource _firebaseDataSource = FirebaseDataSource.instance;
+  late final IFirebaseFirestoreRepository _firestoreRepository;
+  late final IAuthRepository _authRepository;
 
   @override
   UserModel? currentUser;
@@ -51,11 +56,11 @@ class UserRepository implements IUserRepository {
   String? get getUserPhotoURL => currentUser?.profilePhoto;
 
   @override
-  FirebaseAuthEnum get authStatus => _firebaseDataSource.authStatus;
+  FirebaseAuthEnum get authStatus => _authRepository.authStatus;
 
   @override
   void setIsNewUser(AdditionalUserInfo? additionalUserInfo) =>
-      isNewUser = additionalUserInfo?.isNewUser;
+      _authRepository.isNewsUser;
 
   @override
   Future<XFile?> setProfilePhoto(BuildContext context) async {
@@ -73,7 +78,7 @@ class UserRepository implements IUserRepository {
 
   @override
   Future<UserModel?> getUserInfo() async {
-    final user = await _firebaseDataSource.getUserInfo();
+    final user = await _firestoreRepository.getUserInfo();
     setCurrentUser(user);
     return user;
   }
@@ -86,18 +91,20 @@ class UserRepository implements IUserRepository {
 
   @override
   Future<void> setSkipped() async {
-    await _firebaseDataSource.updateProfile(currentUser!.copyWith(isSkipped: true));
+    await _firestoreRepository.updateProfile(
+      currentUser!.copyWith(isSkipped: true),
+    );
   }
 
   @override
   Future<NetworkResponse<bool>> updateProfile({required UserModel user}) async {
-    return _firebaseDataSource.updateProfile(
-        user.copyWith(id: currentUser?.id ?? ''),
-      );
+    return _firestoreRepository.updateProfile(
+      user.copyWith(id: currentUser?.id ?? ''),
+    );
   }
 
   @override
   Future<void> updateTopic({required List<Topic> topics}) async {
-    await _firebaseDataSource.updateTopic(topics: topics);
+    await _firestoreRepository.updateTopic(topics: topics);
   }
 }

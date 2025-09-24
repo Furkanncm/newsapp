@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
-import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 
 part 'sign_up_viewmodel.g.dart';
@@ -13,8 +13,8 @@ abstract class _SignUpViewmodelBase with Store {
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
   late final TextEditingController confirmPasswordController;
-  final IFirebaseDataSource _firebaseDataSource = FirebaseDataSource.instance;
-  final IUserRepository _userRepository = UserRepository.instance;
+  late final IAuthRepository authRepository;
+  late final IUserRepository userRepository;
 
   @computed
   bool get isFormValid => validateForm();
@@ -54,7 +54,7 @@ abstract class _SignUpViewmodelBase with Store {
 
     isLoading = true;
 
-    final response = await _firebaseDataSource.register(
+    final response = await authRepository.register(
       email: emailController.text,
       password: passwordController.text,
       isRememberMe: isRememberMe,
@@ -64,7 +64,7 @@ abstract class _SignUpViewmodelBase with Store {
     registrationResponse = response;
     if (response.data == true && response.succeeded == true) {
       isSuccess = true;
-      await _userRepository.getUserInfo();
+      await userRepository.getUserInfo();
       resetForm();
       return NetworkResponse.success(data: response.succeeded ?? false);
     } else {

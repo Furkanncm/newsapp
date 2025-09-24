@@ -8,20 +8,33 @@ import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
 import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
-import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 
 @immutable
-final class SocialMediaLogin extends StatelessWidget {
-  SocialMediaLogin({super.key});
+final class SocialMediaLogin extends StatefulWidget {
+  const SocialMediaLogin({super.key});
 
-  final IFirebaseDataSource _firebaseDataSource = FirebaseDataSource.instance;
-  final IUserRepository _userRepository = UserRepository();
+  @override
+  State<SocialMediaLogin> createState() => _SocialMediaLoginState();
+}
+
+class _SocialMediaLoginState extends State<SocialMediaLogin> {
+  late final IAuthRepository _authRepository;
+
+  late final IUserRepository _userRepository;
+
+  @override
+  void initState() {
+    super.initState();
+    _authRepository = AuthRepository();
+    _userRepository = UserRepository();
+  }
 
   @override
   Widget build(BuildContext context) {
     Future<void> loginWithGoogle() async {
-      await _firebaseDataSource.loginWithGoogle().withToast(
+      await _authRepository.loginWithGoogle().withToast(
         context,
         successMessage: LocaleKeys.welcome_sincere.tr(),
         onSuccess: () async {
@@ -50,18 +63,6 @@ final class SocialMediaLogin extends StatelessWidget {
           children: [
             LuciOutlinedButton.icon(
               borderRadius: BorderRadius.circular(16),
-              icon: Assets.images.icFacebook.toIcon(32),
-              child: Center(
-                child: LuciText.bodyMedium(
-                  LocaleKeys.continueWithFacebook.tr(),
-                  textColor: AppTheme.bodyText,
-                ),
-              ),
-              onPressed: () {},
-            ),
-            verticalBox12,
-            LuciOutlinedButton.icon(
-              borderRadius: BorderRadius.circular(16),
               icon: Assets.images.icGoogle.toIcon(32),
               onPressed: loginWithGoogle,
               child: Center(
@@ -70,6 +71,18 @@ final class SocialMediaLogin extends StatelessWidget {
                   textColor: AppTheme.bodyText,
                 ),
               ),
+            ),
+            verticalBox12,
+            LuciOutlinedButton.icon(
+              borderRadius: BorderRadius.circular(16),
+              icon: Assets.images.icFacebook.toIcon(32),
+              child: Center(
+                child: LuciText.bodyMedium(
+                  LocaleKeys.continueWithFacebook.tr(),
+                  textColor: AppTheme.bodyText,
+                ),
+              ),
+              onPressed: () {},
             ),
           ],
         ),

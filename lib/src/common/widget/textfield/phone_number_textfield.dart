@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/text/label_with_star.dart';
-import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 
 @immutable
@@ -19,16 +19,18 @@ final class PhoneNumberTextfield extends StatefulWidget {
 
 class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
   late final IUserRepository _userRepository;
-  late final IFirebaseDataSource _firebaseDataSource;
+  late final IAuthRepository _authRepository;
   bool isVerified = false;
 
   @override
   void initState() {
     super.initState();
-    _userRepository = UserRepository.instance;
-    _firebaseDataSource = FirebaseDataSource.instance;
+    _userRepository = UserRepository();
+    _authRepository = AuthRepository();
     isVerified = _userRepository.currentUser?.isPhoneNumberVerified ?? false;
   }
+
+  bool get checkValid => widget.phoneController.text.length == 14;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
         LabelWithStar(isRequired: true, text: LocaleKeys.phoneNumber.tr()),
         verticalBox4,
         LuciPhoneTextFormField(
+          onChanged: (p0) => setState(() {}),
           controller: widget.phoneController,
           labelText: '',
           suffixIcon: isVerified
@@ -46,13 +49,16 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
                   color: Theme.of(context).colorScheme.primary,
                 )
               : TextButton(
-                  onPressed: () async =>
-                      _firebaseDataSource.sendVerificationCodePhoneNumber(
-                        phoneNumber: widget.phoneController.text,
-                      ),
+                  onPressed: () async => checkValid
+                      ? _authRepository.sendVerificationCodePhoneNumber(
+                          phoneNumber: widget.phoneController.text,
+                        )
+                      : null,
                   child: LuciText.bodyMedium(
                     'Verify',
-                    textColor: AppTheme.successColor,
+                    textColor: checkValid
+                        ? AppTheme.successColor
+                        : AppTheme.bodyText,
                   ),
                 ),
         ),

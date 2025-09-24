@@ -45,24 +45,6 @@ mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
     });
   }
 
-  late final _$isValidAtom = Atom(
-    name: '_ForgotPasswordViewmodelBase.isValid',
-    context: context,
-  );
-
-  @override
-  bool get isValid {
-    _$isValidAtom.reportRead();
-    return super.isValid;
-  }
-
-  @override
-  set isValid(bool value) {
-    _$isValidAtom.reportWrite(value, super.isValid, () {
-      super.isValid = value;
-    });
-  }
-
   late final _$_ForgotPasswordViewmodelBaseActionController = ActionController(
     name: '_ForgotPasswordViewmodelBase',
     context: context,
@@ -94,8 +76,7 @@ mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
   String toString() {
     return '''
 selectedOption: ${selectedOption},
-isSubmitted: ${isSubmitted},
-isValid: ${isValid}
+isSubmitted: ${isSubmitted}
     ''';
   }
 }

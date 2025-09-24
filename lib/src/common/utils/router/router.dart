@@ -5,7 +5,7 @@ import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/widget/navigation_bar/bottom_navigationbar.dart';
 import 'package:newsapp/src/common/widget/other/no_network_container.dart';
 import 'package:newsapp/src/common/widget/other/topic_list_view.dart';
-import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/network_status/network_status.dart';
 import 'package:newsapp/src/presentation/all_trends/all_trends_view.dart';
 import 'package:newsapp/src/presentation/bookmark/bookmark_view.dart';
@@ -165,13 +165,12 @@ final GoRouter router = GoRouter(
     ),
   ],
   redirect: (context, state) {
-    final authStatus = FirebaseDataSource.instance.authStatus;
+    final authStatus = AuthRepository().authStatus;
     final status = networkNotifier.value;
     if (status == NetworkStatus.off &&
         state.fullPath != RoutePaths.noNetwork.path) {
       return RoutePaths.noNetwork.path;
     }
-
 
     if (status == NetworkStatus.on &&
         state.fullPath == RoutePaths.noNetwork.path) {

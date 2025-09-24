@@ -12,7 +12,7 @@ class LabelWithStar extends StatelessWidget {
         text: text,
         children: [
           TextSpan(
-            text: isRequired ? '*' : '',
+            text: isRequired ? ' *' : '',
             style: const TextStyle(color: AppTheme.errorColor),
           ),
         ],

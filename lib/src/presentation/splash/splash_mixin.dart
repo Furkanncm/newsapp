@@ -27,10 +27,22 @@ mixin SplashMixin on State<SplashView> {
     _cacheRepository = CacheRepository.instance;
     _userRepository = UserRepository();
     _countryRepository = CountryRepository();
-    _animationController = AnimationController(vsync: this as TickerProvider, duration: const Duration(seconds: 1));
-    fadeAnimation = Tween<double>(begin: 0, end: 1).animate(_animationController);
-    scaleAnimation = Tween<double>(begin: 0, end: 1).animate(_animationController);
-    slideAnimation = Tween<Offset>(begin:  Offset.zero, end: Offset.zero).animate(_animationController);
+    _animationController = AnimationController(
+      vsync: this as TickerProvider,
+      duration: const Duration(seconds: 1),
+    );
+    fadeAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(_animationController);
+    scaleAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(_animationController);
+    slideAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: Offset.zero,
+    ).animate(_animationController);
 
     // Animasyonu başlat
     _animationController.forward();
@@ -47,7 +59,7 @@ mixin SplashMixin on State<SplashView> {
   }
 
   Future<void> _init() async {
-    await FirebaseDataSource.instance.initialize();
+    await FirebaseDataSource().initialize();
     final isFirstTime = _cacheRepository.getBool(PrefKeys.isFirstTime);
     await _incrementProgress();
     final userId = _cacheRepository.getString(PrefKeys.isUserLoggedIn);

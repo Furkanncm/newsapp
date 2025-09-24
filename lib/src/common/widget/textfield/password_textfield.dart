@@ -30,7 +30,7 @@ final class PasswordField extends StatelessWidget {
           confirmController: confirmPasswordController,
           labelText: '',
         ),
-        verticalBox16,
+        verticalBox12,
         Visibility(
           visible: confirmPasswordController != null,
           replacement: emptyBox,

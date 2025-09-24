@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
-import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 
 part 'login_viewmodel.g.dart';
 
 class LoginViewmodel = _LoginViewmodelBase with _$LoginViewmodel;
 
 abstract class _LoginViewmodelBase with Store {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final FirebaseDataSource _firebaseDataSource = FirebaseDataSource.instance;
+  late final GlobalKey<FormState> formKey;
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
+  late final IAuthRepository _authRepository;
 
   @observable
   bool isRememberMe = true;
@@ -29,7 +28,7 @@ abstract class _LoginViewmodelBase with Store {
   }
 
   Future<NetworkResponse<bool>?> login() async {
-    return _firebaseDataSource.logInWithEmail(
+    return _authRepository.logInWithEmail(
       email: emailController.text,
       password: passwordController.text,
       isRememberMe: isRememberMe,

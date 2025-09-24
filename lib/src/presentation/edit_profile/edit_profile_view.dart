@@ -115,7 +115,6 @@ final class _GenderAndCountryPicker extends StatelessWidget {
           builder: (_) {
             return Expanded(
               child: LabelTextField(
-                
                 onTap: () => viewmodel.setGender(context: context),
                 prefixIcon: viewmodel.currentGender?.icon,
                 label: LocaleKeys.gender.tr(),

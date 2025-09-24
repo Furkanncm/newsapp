@@ -38,17 +38,20 @@ abstract class IFirebaseDataSource {
   Future<NetworkResponse<bool>> updateProfile(UserModel user);
   Future<void> updateTopic({required List<Topic> topics});
   Future<void> sendVerificationCodePhoneNumber({required String phoneNumber});
+  Future<NetworkResponse<bool>> verifyPhoneNumber({required String smsCode});
+  Future<void> saveNews(Article article);
+  Future<void> removeNews(Article article);
+  Future<List<Article>> getNews();
+  FirebaseAuthEnum authStatus = FirebaseAuthEnum.unauthenticated;
+  bool? isNewUser;
 }
 
 class FirebaseDataSource implements IFirebaseDataSource {
-  FirebaseDataSource._();
-
-  static FirebaseDataSource? _instance;
-
-  static FirebaseDataSource get instance {
-    _instance ??= FirebaseDataSource._();
-    return _instance!;
+  factory FirebaseDataSource() {
+    return _instance ??= FirebaseDataSource._();
   }
+  FirebaseDataSource._();
+  static FirebaseDataSource? _instance;
 
   late final FirebaseAuth _firebaseAuth;
   late final FirebaseFirestore _firestore;
@@ -59,6 +62,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
   String get userId =>
       _cacheRepository.getString(PrefKeys.isUserLoggedIn) ?? '';
 
+  @override
   bool? isNewUser;
 
   @override
@@ -75,6 +79,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
   @override
   void setIsNewUser(AdditionalUserInfo? additionalUserInfo) =>
       isNewUser = additionalUserInfo?.isNewUser;
+  @override
   FirebaseAuthEnum authStatus = FirebaseAuthEnum.unauthenticated;
 
   @override
@@ -125,6 +130,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
           await _setAuthAndSaveUser(
             isRememberMe: true,
             user: user.toUserModel(),
+            isNewsUser: userCredential.additionalUserInfo?.isNewUser ?? false,
           );
           await _cacheRepository.setString(PrefKeys.isUserLoggedIn, user.uid);
           return NetworkResponse.success(data: user.uid);
@@ -154,6 +160,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
         await _setAuthAndSaveUser(
           isRememberMe: isRememberMe,
           user: user.toUserModel(),
+          isNewsUser: userCredential.additionalUserInfo?.isNewUser ?? false,
         );
         return NetworkResponse.success(data: true);
       }
@@ -229,6 +236,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
   Future<void> _setAuthAndSaveUser({
     required bool isRememberMe,
     required UserModel user,
+    bool isNewsUser = false,
   }) async {
     if (user.id == null) return;
 
@@ -236,10 +244,8 @@ class FirebaseDataSource implements IFirebaseDataSource {
       isRememberMe: isRememberMe,
       userId: user.id!,
     );
-
-    await saveUser(
-      user: UserModel(id: user.id, email: user.email, name: user.name),
-    );
+    if (!isNewsUser) return;
+    await saveUser(user: user);
   }
 
   String _verificationId = '';
@@ -251,8 +257,9 @@ class FirebaseDataSource implements IFirebaseDataSource {
     final selectedCountry = _countryRepository.selectedCountry;
     final cleanedPhoneNumber = '${selectedCountry?.phoneCode ?? 90}$phoneNumber'
         .replaceAll(RegExp('[^0-9+]'), '');
+    print('+$cleanedPhoneNumber');
     await _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: '+$cleanedPhoneNumber',
+      phoneNumber: '+905305282918',
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) async =>
           _firebaseAuth.signInWithCredential(credential),
@@ -260,13 +267,17 @@ class FirebaseDataSource implements IFirebaseDataSource {
         debugPrint('Phone verification failed: ${e.code} - ${e.message}');
       },
       codeSent: (String verificationId, int? resendToken) {
+        print(verificationId);
         _verificationId = verificationId;
       },
-      codeAutoRetrievalTimeout: (String verificationId) =>
-          _verificationId = verificationId,
+      codeAutoRetrievalTimeout: (String verificationId) {
+        print(verificationId);
+        _verificationId = verificationId;
+      },
     );
   }
 
+  @override
   Future<NetworkResponse<bool>> verifyPhoneNumber({
     required String smsCode,
   }) async {
@@ -291,6 +302,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
     return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
   }
 
+  @override
   Future<void> saveNews(Article article) async {
     await _firestore
         .collection(FirebaseCollection.news.collectionName)
@@ -302,6 +314,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
         });
   }
 
+  @override
   Future<void> removeNews(Article article) async {
     await _firestore
         .collection(FirebaseCollection.news.collectionName)
@@ -313,6 +326,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
         });
   }
 
+  @override
   Future<List<Article>> getNews() async {
     final snapshot = await _firestore
         .collection(FirebaseCollection.news.collectionName)

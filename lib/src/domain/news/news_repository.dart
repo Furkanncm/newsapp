@@ -3,9 +3,9 @@ import 'package:codegen/model/topic/topic.dart';
 import 'package:newsapp/src/common/utils/enums/filter_shortby_enum.dart';
 import 'package:newsapp/src/common/utils/enums/query_params.dart';
 import 'package:newsapp/src/common/utils/enums/remote_ds_path.dart';
-import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
 import 'package:newsapp/src/data/data_source/remote/news_api_ds.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
+import 'package:newsapp/src/domain/firebase_firestore/firebase_firestore_repository.dart';
 
 abstract class INewsRepository {
   Future<List<Article>> fetchNews();
@@ -26,37 +26,34 @@ class NewsRepository implements INewsRepository {
   }
 
   NewsRepository._internal() {
-    _firebaseDataSource = FirebaseDataSource.instance;
+    _firestoreRepository = FirebaseFirestoreRepository();
     _countryRepository = CountryRepository();
   }
 
   static NewsRepository? _instance;
 
-  late final FirebaseDataSource _firebaseDataSource;
+  late final IFirebaseFirestoreRepository _firestoreRepository;
   late final ICountryRepository _countryRepository;
 
   @override
   Country? get selectedCountry => _countryRepository.selectedCountry;
 
   @override
-  Future<List<Article>> fetchNews() async {
-    return _firebaseDataSource.getNews();
-  }
+  Future<List<Article>> fetchNews() async => _firestoreRepository.getNews();
 
   @override
   Future<void> saveNews(Article article, bool isBookmarked) async {
     await fetchNews();
     if (isBookmarked) {
-      await _firebaseDataSource.removeNews(article);
+      await _firestoreRepository.removeNews(article);
     } else {
-      await _firebaseDataSource.saveNews(article);
+      await _firestoreRepository.saveNews(article);
     }
   }
 
   @override
-  Future<void> refreshArticles(Article article, bool isBookmarked) async {
-    await saveNews(article, !isBookmarked);
-  }
+  Future<void> refreshArticles(Article article, bool isBookmarked) async =>
+      saveNews(article, !isBookmarked);
 
   @override
   Future<News?> fetchTrendingNews() async {

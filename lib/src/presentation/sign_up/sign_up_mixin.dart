@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
+import 'package:newsapp/src/domain/user/user_repository.dart';
 import 'package:newsapp/src/presentation/sign_up/sign_up_view.dart';
 import 'package:newsapp/src/presentation/sign_up/sign_up_viewmodel.dart';
 
@@ -18,6 +20,8 @@ mixin SignUpMixin on State<SignUpView> {
     viewModel.emailController = TextEditingController();
     viewModel.passwordController = TextEditingController();
     viewModel.confirmPasswordController = TextEditingController();
+    viewModel.authRepository = AuthRepository();
+    viewModel.userRepository = UserRepository();
   }
 
   bool get isFormValid => viewModel.isFormValid;

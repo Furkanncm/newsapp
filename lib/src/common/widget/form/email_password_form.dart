@@ -29,7 +29,7 @@ class EmailPasswordForm extends StatelessWidget {
       child: Column(
         children: [
           EmailFieldWithLabel(emailController: emailController),
-          verticalBox16,
+          verticalBox12,
           PasswordField(
             labelText: LocaleKeys.password.tr(),
             passwordController: passwordController,

@@ -7,7 +7,8 @@ import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
-import 'package:newsapp/src/common/widget/textfield/email_texfield.dart';
+import 'package:newsapp/src/common/widget/textfield/email_textfield_with_label.dart';
+import 'package:newsapp/src/common/widget/textfield/phone_number_textfield.dart';
 import 'package:newsapp/src/presentation/forgot_password/forgot_password_mixin.dart';
 import 'package:newsapp/src/presentation/forgot_password/forgot_passwprd_viewmodel.dart';
 
@@ -72,39 +73,40 @@ final class _Body extends StatelessWidget {
           Observer(
             builder: (context) {
               return viewmodel.isSubmitted
-                  ? Form(
-                      key: viewmodel.formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text.rich(
-                            TextSpan(
-                              text: viewmodel.isEmailSelected
-                                  ? LocaleKeys.email.tr()
-                                  : LocaleKeys.phoneNumber.tr(),
-                              children: const [
-                                TextSpan(
-                                  text: '*',
-                                  style: TextStyle(color: AppTheme.errorColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                          verticalBox4,
-                          if (viewmodel.isEmailSelected)
-                            EmailTextField(emailController: emailController)
-                          else
-                            LuciPhoneTextFormField(
-                              labelText: '',
-                              controller: phoneController,
-                            ),
-                        ],
-                      ),
+                  ? _TextFields(
+                      viewmodel: viewmodel,
+                      emailController: emailController,
+                      phoneController: phoneController,
                     )
                   : _EmailAndPhoneNumber(viewmodel: viewmodel);
             },
           ),
         ],
+      ),
+    );
+  }
+}
+
+@immutable
+final class _TextFields extends StatelessWidget {
+  const _TextFields({
+    required this.viewmodel,
+    required this.emailController,
+    required this.phoneController,
+  });
+
+  final ForgotPasswordViewmodel viewmodel;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: viewmodel.formKey,
+      child: Visibility(
+        visible: viewmodel.isEmailSelected,
+        replacement: PhoneNumberTextfield(phoneController: phoneController),
+        child: EmailFieldWithLabel(emailController: emailController),
       ),
     );
   }

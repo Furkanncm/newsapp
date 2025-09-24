@@ -12,9 +12,6 @@ import 'package:newsapp/src/presentation/login/login_viewmodel.dart';
 
 mixin LoginMixin on State<LoginView> {
   late final LoginViewmodel viewModel;
-  late final GlobalKey<FormState> formKey;
-  late final TextEditingController emailController;
-  late final TextEditingController passwordController;
   late final IUserRepository _userRepository;
   late final CacheRepository _cacheRepository;
 
@@ -22,9 +19,9 @@ mixin LoginMixin on State<LoginView> {
   void initState() {
     super.initState();
     viewModel = LoginViewmodel();
-    formKey = viewModel.formKey;
-    emailController = viewModel.emailController;
-    passwordController = viewModel.passwordController;
+    viewModel.formKey= GlobalKey<FormState>();
+    viewModel.emailController= TextEditingController();
+     viewModel.passwordController= TextEditingController();
     _userRepository = UserRepository();
     _cacheRepository = CacheRepository.instance;
   }
@@ -35,7 +32,7 @@ mixin LoginMixin on State<LoginView> {
   void toggleRememberMe() => viewModel.toggleRememberMe();
 
   Future<void> login() async {
-    if (formKey.currentState?.validate() ?? false) {
+    if (viewModel.formKey.currentState?.validate() ?? false) {
       await viewModel.login().withToast(
         context,
         successMessage: LocaleKeys.welcome_sincere.tr(),
@@ -57,8 +54,8 @@ mixin LoginMixin on State<LoginView> {
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+   viewModel. emailController.dispose();
+    viewModel.passwordController.dispose();
     super.dispose();
   }
 }
