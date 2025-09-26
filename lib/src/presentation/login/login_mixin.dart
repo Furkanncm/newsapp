@@ -6,6 +6,7 @@ import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 import 'package:newsapp/src/presentation/login/login_view.dart';
 import 'package:newsapp/src/presentation/login/login_viewmodel.dart';
@@ -17,9 +18,10 @@ mixin LoginMixin on State<LoginView> {
   void initState() {
     super.initState();
     viewModel = LoginViewmodel();
-    viewModel.formKey= GlobalKey<FormState>();
-    viewModel.emailController= TextEditingController();
-     viewModel.passwordController= TextEditingController();
+    viewModel.formKey = GlobalKey<FormState>();
+    viewModel.emailController = TextEditingController();
+    viewModel.passwordController = TextEditingController();
+    viewModel.authRepository = AuthRepository();
     viewModel.userRepository = UserRepository();
     viewModel.cacheRepository = CacheRepository.instance;
   }
@@ -52,7 +54,7 @@ mixin LoginMixin on State<LoginView> {
 
   @override
   void dispose() {
-   viewModel. emailController.dispose();
+    viewModel.emailController.dispose();
     viewModel.passwordController.dispose();
     super.dispose();
   }
