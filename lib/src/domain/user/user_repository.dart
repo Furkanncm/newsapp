@@ -18,6 +18,7 @@ abstract class IUserRepository {
   String? get getUserEmail;
   String? get getUserName;
   String? get getUserPhotoURL;
+  bool get isEmailVerified;
   FirebaseAuthEnum get authStatus;
   void setCurrentUser(UserModel user);
   void setIsNewUser(AdditionalUserInfo? additionalUserInfo);
@@ -58,7 +59,8 @@ class UserRepository implements IUserRepository {
   @override
   FirebaseAuthEnum get authStatus => _authRepository.authStatus;
 
-  
+  @override
+  bool get isEmailVerified => currentUser?.isEmailVerified ?? false;
 
   @override
   void setIsNewUser(AdditionalUserInfo? additionalUserInfo) =>

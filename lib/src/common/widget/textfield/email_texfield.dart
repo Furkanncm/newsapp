@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/common/widget/button/verify_button.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
+import 'package:newsapp/src/domain/user/user_repository.dart';
 
-class EmailTextField extends StatefulWidget {
+@immutable
+final class EmailTextField extends StatefulWidget {
   const EmailTextField({
     required this.emailController,
     this.readOnly = false,
@@ -20,6 +23,7 @@ class EmailTextField extends StatefulWidget {
 class _EmailTextFieldState extends State<EmailTextField> {
   late final TextEditingController _emailController;
   late final IAuthRepository _authRepository;
+  late final IUserRepository _userRepository;
 
   late final ValueNotifier<bool?> isVerifiedNotifier;
 
@@ -28,8 +32,8 @@ class _EmailTextFieldState extends State<EmailTextField> {
     super.initState();
     _emailController = widget.emailController;
     _authRepository = AuthRepository();
-
-    isVerifiedNotifier = ValueNotifier(_authRepository.isVerified);
+    _userRepository = UserRepository();
+    isVerifiedNotifier = ValueNotifier(_userRepository.isEmailVerified);
   }
 
   @override
@@ -45,8 +49,23 @@ class _EmailTextFieldState extends State<EmailTextField> {
             isValid: !_emailController.text.isEmail,
             isVerified: isVerified,
             onPressed: () async {
-              await _authRepository.sendVerificationEmail();
-              isVerifiedNotifier.value = _authRepository.isVerified;
+              await _authRepository
+                  .sendVerificationEmail()
+                  .withIndicator(context)
+                  .withToast(
+                    context,
+                    successMessage:
+                        'Please check your email: ${_emailController.text}',
+                    onSuccess: () {
+                      return _userRepository.updateProfile(
+                        user: _userRepository.currentUser!.copyWith(
+                          isEmailVerified: true,
+                        ),
+                      );
+                    },
+                  );
+
+              isVerifiedNotifier.value = _userRepository.isEmailVerified;
             },
           );
         },

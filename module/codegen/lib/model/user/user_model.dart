@@ -20,6 +20,7 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
     this.bio,
     this.isSkipped,
     this.isPhoneNumberVerified,
+    this.isEmailVerified,
     this.country,
     this.profilePhoto,
     this.website,
@@ -35,6 +36,7 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
   final String? bio;
   final bool? isSkipped;
   final bool? isPhoneNumberVerified;
+  final bool? isEmailVerified;
   final String? country;
   final String? profilePhoto;
   final String? website;
@@ -51,6 +53,7 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
     bio,
     isSkipped,
     isPhoneNumberVerified,
+    isEmailVerified,
     country,
     profilePhoto,
     website,
@@ -67,6 +70,7 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
     String? bio,
     bool? isSkipped,
     bool? isPhoneNumberVerified,
+    bool? isEmailVerified,
     String? country,
     String? profilePhoto,
     String? website,
@@ -82,6 +86,7 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
       bio: bio ?? this.bio,
       isSkipped: isSkipped ?? this.isSkipped,
       isPhoneNumberVerified: isPhoneNumberVerified ?? this.isPhoneNumberVerified,
+      isEmailVerified:isEmailVerified??this.isEmailVerified,
       country: country ?? this.country,
       profilePhoto: profilePhoto ?? this.profilePhoto,
       website: website ?? this.website,

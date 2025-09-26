@@ -43,7 +43,7 @@ abstract class IFirebaseDataSource {
   Future<void> updateTopic({required List<Topic> topics});
   Future<void> sendVerificationCodePhoneNumber({required String phoneNumber});
   Future<NetworkResponse<bool>> verifyPhoneNumber({required String smsCode});
-  Future<void> sendVerificationEmail();
+  Future<NetworkResponse<bool>?> sendVerificationEmail();
   Future<void> saveNews(Article article);
   Future<void> removeNews(Article article);
   Future<List<Article>> getNews();
@@ -110,7 +110,9 @@ class FirebaseDataSource implements IFirebaseDataSource {
         await _setAuthAndSaveUser(
           isRememberMe: isRememberMe,
           user: user.toUserModel(),
+          isNewsUser: userCredential.additionalUserInfo?.isNewUser ?? false,
         );
+        await _cacheRepository.setString(PrefKeys.isUserLoggedIn, user.uid);
         return NetworkResponse.success(data: true);
       }
     } on FirebaseAuthException catch (e) {
@@ -144,7 +146,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
             user: user.toUserModel(),
             isNewsUser: userCredential.additionalUserInfo?.isNewUser ?? false,
           );
-          await _cacheRepository.setString(PrefKeys.isUserLoggedIn, user.uid);
+
           return NetworkResponse.success(data: user.uid);
         }
       }
@@ -167,7 +169,6 @@ class FirebaseDataSource implements IFirebaseDataSource {
       );
       setIsNewUser(userCredential.additionalUserInfo);
       final user = userCredential.user;
-
       if (user != null) {
         firebaseUser = user;
         await _setAuthAndSaveUser(
@@ -253,6 +254,7 @@ class FirebaseDataSource implements IFirebaseDataSource {
     bool isNewsUser = false,
   }) async {
     if (user.id == null) return;
+    await _cacheRepository.setString(PrefKeys.isUserLoggedIn, user.id!);
     await _isRememberMeAndSetAuthStatus(
       isRememberMe: isRememberMe,
       userId: user.id!,
@@ -298,9 +300,14 @@ class FirebaseDataSource implements IFirebaseDataSource {
   }
 
   @override
-  Future<void> sendVerificationEmail() async {
-    if (firebaseUser == null) return;
-    await firebaseUser!.sendEmailVerification();
+  Future<NetworkResponse<bool>?> sendVerificationEmail() async {
+    if (firebaseUser == null) return null;
+    try {
+      await firebaseUser!.sendEmailVerification();
+      return NetworkResponse.success(data: true);
+    } on FirebaseAuthException catch (e) {
+      return FirebaseError.errorInfo(e);
+    }
   }
 
   @override
@@ -376,6 +383,11 @@ class FirebaseDataSource implements IFirebaseDataSource {
 
 extension Userss on User {
   UserModel toUserModel() {
-    return UserModel(id: uid, email: email, name: displayName);
+    return UserModel(
+      id: uid,
+      email: email,
+      isEmailVerified: emailVerified,
+      name: displayName,
+    );
   }
 }

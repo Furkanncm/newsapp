@@ -22,7 +22,7 @@ abstract class IAuthRepository {
 
   Future<void> sendVerificationCodePhoneNumber({required String phoneNumber});
 
-  Future<void> sendVerificationEmail();
+   Future<NetworkResponse<bool>?> sendVerificationEmail();
 
   Future<NetworkResponse<bool>> verifyPhoneNumber({required String smsCode});
 
@@ -32,7 +32,6 @@ abstract class IAuthRepository {
 
   bool? get isNewsUser;
 
-  bool? get isVerified;
 }
 
 final class AuthRepository implements IAuthRepository {
@@ -55,8 +54,7 @@ final class AuthRepository implements IAuthRepository {
   @override
   User? get firebaseUser => _firebaseDataSource.firebaseUser;
 
-  @override
-  bool? get isVerified => firebaseUser?.emailVerified??false;
+  
   @override
   Future<NetworkResponse<bool>> logInWithEmail({
     required String email,
@@ -92,6 +90,6 @@ final class AuthRepository implements IAuthRepository {
   }) async => _firebaseDataSource.verifyPhoneNumber(smsCode: smsCode);
 
   @override
-  Future<void> sendVerificationEmail() async =>
+  Future<NetworkResponse<bool>?> sendVerificationEmail() async =>
       _firebaseDataSource.sendVerificationEmail();
 }

@@ -50,7 +50,7 @@ final class _Body extends StatelessWidget {
   final ValueNotifier<XFile?> imageFile;
   final FillProfileViewmodel viewmodel;
   final VoidCallback onPressed;
-//furkankazmmcam@gmail.com
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
