@@ -379,6 +379,23 @@ class FirebaseDataSource implements IFirebaseDataSource {
     }
     return [];
   }
+
+Future<NetworkResponse<T>> withTryCatch<T>(
+  Future<T?> Function() onSuccess,
+) async {
+  try {
+    final result = await onSuccess.call();
+    if (result != null) {
+      return NetworkResponse.success(data: result);
+    }
+    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+  } on FirebaseAuthException catch (e) {
+    return FirebaseError.errorInfo(e);
+  } catch (_) {
+    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+  }
+}
+
 }
 
 extension Userss on User {

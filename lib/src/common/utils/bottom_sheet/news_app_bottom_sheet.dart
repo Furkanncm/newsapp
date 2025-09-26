@@ -35,9 +35,9 @@ abstract class NewsAppBottomSheet {
   static Future<Filter?> showFilterBottomSheet<Filter>({
     required BuildContext context,
     required List<Country> onlyFilterCountries,
-    required List<FilterShortByEnum> shortBy,
-    required List<Country> languages,
-    required List<Topic> topicList,
+    List<FilterShortByEnum>? shortBy,
+    List<Country>? languages,
+    List<Topic>? topicList,
   }) async {
     return showModalBottomSheet<Filter>(
       context: context,
@@ -45,9 +45,9 @@ abstract class NewsAppBottomSheet {
       builder: (context) {
         return FilterBottomSheet(
           onlyFilterCountries: onlyFilterCountries,
-          shortBy: shortBy,
-          languages: languages,
-          topicBy: topicList,
+          shortBy: shortBy ?? [],
+          languages: languages ?? [],
+          topicBy: topicList ?? [],
           result: router.pop,
         );
       },

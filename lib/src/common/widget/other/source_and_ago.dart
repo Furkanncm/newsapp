@@ -11,7 +11,6 @@ final class SourceAndAgoWidget extends StatelessWidget {
     super.key,
   });
 
-  //final Source source;
   final String source;
   final String pastTime;
   @override
@@ -19,12 +18,10 @@ final class SourceAndAgoWidget extends StatelessWidget {
     return Row(
       children: [
         LuciText.bodySmall(source, fontWeight: FontWeight.w500),
-        horizontalBox20,
+        const Spacer(),
         Assets.uiKitImages.icTimeOutline.toIcon(16),
         horizontalBox4,
         LuciText.bodySmall(pastTime),
-        const Spacer(),
-        Assets.uiKitImages.icMoreHorOutline.toIcon(16),
       ],
     );
   }

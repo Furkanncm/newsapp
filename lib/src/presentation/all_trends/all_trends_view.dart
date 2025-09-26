@@ -31,9 +31,8 @@ class _AllTrendsViewState extends State<AllTrendsView> {
       ),
       body: Padding(
         padding: NaPadding.pagePadding,
-        child: ListView.separated(
+        child: ListView.builder(
           itemCount: articles.length,
-          separatorBuilder: (context, index) => const Divider(),
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 12, top: 8),

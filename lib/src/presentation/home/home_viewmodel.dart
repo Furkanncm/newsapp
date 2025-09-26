@@ -2,6 +2,7 @@ import 'package:codegen/codegen.dart';
 import 'package:codegen/model/topic/topic.dart';
 import 'package:codegen/model/user/user_model.dart';
 import 'package:mobx/mobx.dart';
+import 'package:newsapp/src/data/model/filter/filter.dart';
 import 'package:newsapp/src/domain/news/news_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 
@@ -46,7 +47,7 @@ abstract class _HomeViewmodelBase with Store {
   @action
   Future<void> fetchNewsForCategory(Topic topic) async {
     isLoading = true;
-    categoryNews = await newsRepository.fetchNewsWithFilters(topic:topic);
+    categoryNews = await newsRepository.fetchNewsWithFilters(filter: Filter( topic: [topic]));
     isLoading = false;
   }
 

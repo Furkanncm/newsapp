@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/widget/sized_box/space_box.dart';
 import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
+import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
 class SearchField extends StatefulWidget {
   const SearchField({
@@ -27,7 +28,6 @@ class SearchField extends StatefulWidget {
 
 class _SearchFieldState extends State<SearchField> {
   late final TextEditingController _controller;
-  
 
   @override
   void initState() {
@@ -76,7 +76,7 @@ class _SearchFieldState extends State<SearchField> {
                   widget.onChanged?.call('');
                   setState(() {});
                 },
-                icon: const Icon(Icons.clear),
+                icon: const Icon(Icons.clear, color: AppTheme.backgroundDark),
               ),
       ),
     );

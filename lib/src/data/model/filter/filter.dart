@@ -6,12 +6,12 @@ import 'package:newsapp/src/common/utils/enums/filter_shortby_enum.dart';
 
 class Filter {
   Filter({
-    required this.shortBy,
-    required this.language,
-    required this.topic,
+     this.shortBy,
+     this.language,
+     this.topic,
   });
 
-  final List<FilterShortByEnum> shortBy;
-  final List<Country> language;
-  final List<Topic> topic;
+  final List<FilterShortByEnum>? shortBy;
+  final List<Country> ?language;
+  final List<Topic> ?topic;
 }

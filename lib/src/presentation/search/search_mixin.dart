@@ -1,3 +1,4 @@
+import 'package:codegen/codegen.dart';
 import 'package:codegen/model/article_model/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -38,8 +39,9 @@ mixin SearchMixin on State<SearchView> {
     );
     if (!mounted) return;
 
-    await viewmodel.setFilters(result).withLoading(context: context);
+    await viewmodel.setFilters(result, controller.text).withLoading(context: context);
   }
+
 
   @override
   void dispose() {

@@ -1,9 +1,8 @@
 import 'package:codegen/codegen.dart';
-import 'package:codegen/model/topic/topic.dart';
-import 'package:newsapp/src/common/utils/enums/filter_shortby_enum.dart';
 import 'package:newsapp/src/common/utils/enums/query_params.dart';
 import 'package:newsapp/src/common/utils/enums/remote_ds_path.dart';
 import 'package:newsapp/src/data/data_source/remote/news_api_ds.dart';
+import 'package:newsapp/src/data/model/filter/filter.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/firebase_firestore/firebase_firestore_repository.dart';
 
@@ -12,11 +11,7 @@ abstract class INewsRepository {
   Future<void> saveNews(Article article, bool isBookmarked);
   Future<void> refreshArticles(Article article, bool isBookmarked);
   Future<News?> fetchTrendingNews();
-  Future<News?> fetchNewsWithFilters({
-    Topic? topic,
-    FilterShortByEnum? shortBy,
-    Country? country,
-  });
+  Future<News?> fetchNewsWithFilters({Filter? filter, String? query});
   Country? get selectedCountry;
 }
 
@@ -67,20 +62,29 @@ final class NewsRepository implements INewsRepository {
   }
 
   @override
-  Future<News?> fetchNewsWithFilters({
-    Topic? topic,
-    FilterShortByEnum? shortBy,
-    Country? country,
-  }) async {
-    final countryCode = country?.code?.toLowerCase() ?? 'us';
+  Future<News?> fetchNewsWithFilters({Filter? filter, String? query}) async {
+    final countries = filter?.language;
+    final topics = filter?.topic;
+    final shortByList = filter?.shortBy;
+
+    final countryCode = (countries != null && countries.isNotEmpty)
+        ? countries.first.code
+        : 'us';
+
     final params = <String, dynamic>{QueryParams.country.name: countryCode};
 
-    if (topic?.value?.isNotEmpty ?? false) {
-      params[QueryParams.category.name] = topic!.value;
+
+    if (topics != null && topics.isNotEmpty && topics.first.value!.isNotEmpty) {
+      params[QueryParams.category.name] = topics.first.value;
     }
 
-    if (shortBy?.name.isNotEmpty ?? false) {
-      params[QueryParams.sortBy.name] = shortBy!.name;
+
+    if (shortByList != null && shortByList.isNotEmpty) {
+      params[QueryParams.sortBy.name] = shortByList.first.name;
+    }
+
+    if (query?.isNotEmpty ?? false) {
+      params[QueryParams.q.name] = query;
     }
 
     final data = await NewsApiDs().fetch<News>(
