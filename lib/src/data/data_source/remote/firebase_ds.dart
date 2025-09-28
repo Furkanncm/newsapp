@@ -47,13 +47,14 @@ abstract class IFirebaseDataSource {
   Future<void> saveNews(Article article);
   Future<void> removeNews(Article article);
   Future<List<Article>> getNews();
+  Future<void> resetPasswordWithEmail({required String email});
   FirebaseAuthEnum authStatus = FirebaseAuthEnum.unauthenticated;
   bool? isNewUser;
   User? firebaseUser;
   String get userId;
 }
 
-class FirebaseDataSource implements IFirebaseDataSource {
+class FirebaseDataSource {
   factory FirebaseDataSource() {
     return _instance ??= FirebaseDataSource._();
   }
@@ -92,34 +93,34 @@ class FirebaseDataSource implements IFirebaseDataSource {
   @override
   FirebaseAuthEnum authStatus = FirebaseAuthEnum.unauthenticated;
 
-  @override
-  Future<NetworkResponse<bool>> logInWithEmail({
-    required String email,
-    required String password,
-    bool isRememberMe = false,
-  }) async {
-    try {
-      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      final user = userCredential.user;
+  // @override
+  // Future<NetworkResponse<bool>> logInWithEmail({
+  //   required String email,
+  //   required String password,
+  //   bool isRememberMe = false,
+  // }) async {
+  //   try {
+  //     final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+  //       email: email,
+  //       password: password,
+  //     );
+  //     final user = userCredential.user;
 
-      if (user != null) {
-        firebaseUser = user;
-        await _setAuthAndSaveUser(
-          isRememberMe: isRememberMe,
-          user: user.toUserModel(),
-          isNewsUser: userCredential.additionalUserInfo?.isNewUser ?? false,
-        );
-        await _cacheRepository.setString(PrefKeys.isUserLoggedIn, user.uid);
-        return NetworkResponse.success(data: true);
-      }
-    } on FirebaseAuthException catch (e) {
-      return FirebaseError.errorInfo(e);
-    }
-    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
-  }
+  //     if (user != null) {
+  //       firebaseUser = user;
+  //       await _setAuthAndSaveUser(
+  //         isRememberMe: isRememberMe,
+  //         user: user.toUserModel(),
+  //         isNewsUser: userCredential.additionalUserInfo?.isNewUser ?? false,
+  //       );
+  //       await _cacheRepository.setString(PrefKeys.isUserLoggedIn, user.uid);
+  //       return NetworkResponse.success(data: true);
+  //     }
+  //   } on FirebaseAuthException catch (e) {
+  //     return FirebaseError.errorInfo(e);
+  //   }
+  //   return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+  // }
 
   @override
   Future<NetworkResponse<String>?> loginWithGoogle() async {
@@ -205,6 +206,13 @@ class FirebaseDataSource implements IFirebaseDataSource {
         .set({
           FirebaseCollection.savedNews.collectionName: List<String>.empty(),
         });
+  }
+
+  @override
+  Future<void> resetPasswordWithEmail({required String email}) async {
+    await withTryCatch(() async {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    });
   }
 
   @override
@@ -335,6 +343,11 @@ class FirebaseDataSource implements IFirebaseDataSource {
     return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
   }
 
+  Future<void> updatePassword(String newPassword) async {
+    if (firebaseUser == null) return;
+    await firebaseUser!.updatePassword(newPassword);
+  }
+
   @override
   Future<void> saveNews(Article article) async {
     await _firestore
@@ -380,22 +393,21 @@ class FirebaseDataSource implements IFirebaseDataSource {
     return [];
   }
 
-Future<NetworkResponse<T>> withTryCatch<T>(
-  Future<T?> Function() onSuccess,
-) async {
-  try {
-    final result = await onSuccess.call();
-    if (result != null) {
-      return NetworkResponse.success(data: result);
+  Future<NetworkResponse<T>> withTryCatch<T>(
+    Future<T?> Function() onSuccess,
+  ) async {
+    try {
+      final result = await onSuccess.call();
+      if (result != null) {
+        return NetworkResponse.success(data: result);
+      }
+      return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+    } on FirebaseAuthException catch (e) {
+      return FirebaseError.errorInfo(e);
+    } catch (_) {
+      return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
     }
-    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
-  } on FirebaseAuthException catch (e) {
-    return FirebaseError.errorInfo(e);
-  } catch (_) {
-    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
   }
-}
-
 }
 
 extension Userss on User {

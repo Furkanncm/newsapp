@@ -174,5 +174,7 @@ abstract class  LocaleKeys {
   static const languageBy = 'languageBy';
   static const selectGender = 'selectGender';
   static const topicsBy = 'topicsBy';
+  static const check = 'check';
+  static const sentTo = 'sentTo';
 
 }

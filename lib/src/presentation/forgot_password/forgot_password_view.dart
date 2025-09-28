@@ -270,7 +270,7 @@ final class _SubmitButton extends StatelessWidget {
       builder: (_) {
         return NewsBottomButton(
           text: LocaleKeys.submit.tr(),
-          onPressed: viewmodel.onSubmit,
+          onPressed: () => viewmodel.onSubmit(context),
         );
       },
     );

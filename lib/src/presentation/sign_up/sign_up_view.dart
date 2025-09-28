@@ -53,7 +53,7 @@ class _SignUpViewState extends State<SignUpView> with SignUpMixin {
                 _RememberMe(viewmodel: viewModel),
                 verticalBox16,
                 _SignUpButton(onPressed: register),
-                verticalBox16,
+                verticalBox32,
                 const SocialMediaLogin(),
               ],
             ),

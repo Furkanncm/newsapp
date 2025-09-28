@@ -45,6 +45,16 @@ mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
     });
   }
 
+  late final _$onSubmitAsyncAction = AsyncAction(
+    '_ForgotPasswordViewmodelBase.onSubmit',
+    context: context,
+  );
+
+  @override
+  Future<void> onSubmit(BuildContext context) {
+    return _$onSubmitAsyncAction.run(() => super.onSubmit(context));
+  }
+
   late final _$_ForgotPasswordViewmodelBaseActionController = ActionController(
     name: '_ForgotPasswordViewmodelBase',
     context: context,
@@ -56,17 +66,6 @@ mixin _$ForgotPasswordViewmodel on _ForgotPasswordViewmodelBase, Store {
         .startAction(name: '_ForgotPasswordViewmodelBase.setSelectedOption');
     try {
       return super.setSelectedOption(option);
-    } finally {
-      _$_ForgotPasswordViewmodelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void onSubmit() {
-    final _$actionInfo = _$_ForgotPasswordViewmodelBaseActionController
-        .startAction(name: '_ForgotPasswordViewmodelBase.onSubmit');
-    try {
-      return super.onSubmit();
     } finally {
       _$_ForgotPasswordViewmodelBaseActionController.endAction(_$actionInfo);
     }

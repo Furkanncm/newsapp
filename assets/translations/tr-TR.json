@@ -168,5 +168,7 @@
   "shortBy": "Sıralama Ölçütü",
   "languageBy": "Dil",
   "selectGender": "Cinsiyet Seçiniz",
-  "topicsBy":"kategori"
+  "topicsBy":"kategori",
+  "check":"Lütfen kontrol edin!",
+  "sent" : "gönderildi"
 }

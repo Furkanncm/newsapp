@@ -77,7 +77,10 @@ abstract class _FillProfileViewmodelBase with Store {
     if (user == null || !context.mounted) return;
     await userRepository
         .updateProfile(user: user)
-        .withToast(context, successMessage: LocaleKeys.editProfileSuccess.tr());
-    router.goNamed(RoutePaths.home.name);
+        .withToast(
+          context,
+          successMessage: LocaleKeys.editProfileSuccess.tr(),
+          onSuccess: () async => router.goNamed(RoutePaths.home.name),
+        );
   }
 }

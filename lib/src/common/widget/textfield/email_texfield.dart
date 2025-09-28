@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/dialog/news_app_dialogs.dart';
 import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/common/widget/button/verify_button.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
@@ -49,21 +50,24 @@ class _EmailTextFieldState extends State<EmailTextField> {
             isValid: !_emailController.text.isEmail,
             isVerified: isVerified,
             onPressed: () async {
-              await _authRepository
+              final response = await _authRepository
                   .sendVerificationEmail()
-                  .withIndicator(context)
-                  .withToast(
-                    context,
-                    successMessage:
-                        'Please check your email: ${_emailController.text}',
-                    onSuccess: () {
-                      return _userRepository.updateProfile(
-                        user: _userRepository.currentUser!.copyWith(
-                          isEmailVerified: true,
-                        ),
-                      );
-                    },
-                  );
+                  .withIndicator(context);
+              if (response?.data != true) return;
+              if (!context.mounted) return;
+              await NewsAppDialogs.infoDialog(
+                context: context,
+                title: "title",
+                content: "content",
+              );
+              if (!context.mounted) return;
+              await _userRepository
+                  .updateProfile(
+                    user: _userRepository.currentUser!.copyWith(
+                      isEmailVerified: true,
+                    ),
+                  )
+                  .withIndicator(context);
 
               isVerifiedNotifier.value = _userRepository.isEmailVerified;
             },

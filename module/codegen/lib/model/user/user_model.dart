@@ -106,6 +106,7 @@ final class UserModel extends Equatable implements BaseModel<UserModel> {
     if (user == null) return UserModel();
 
     return UserModel(
+
       id: user.uid,
       email: user.email,
       name: user.displayName,

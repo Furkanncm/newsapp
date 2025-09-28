@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/presentation/forgot_password/forgot_password_view.dart';
 import 'package:newsapp/src/presentation/forgot_password/forgot_passwprd_viewmodel.dart';
 
@@ -11,6 +12,7 @@ mixin ForgotPasswordMixin on State<ForgotPasswordView> {
     viewmodel.formKey = GlobalKey<FormState>();
     viewmodel.emailController = TextEditingController();
     viewmodel.phoneController = TextEditingController();
+    viewmodel.authRepository = AuthRepository();
   }
 
   @override

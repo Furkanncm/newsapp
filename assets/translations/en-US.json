@@ -173,5 +173,7 @@
   "shortBy": "Short by",
   "languageBy": "Language by",
   "selectGender": "Select your Gender",
-  "topicsBy": "Topics by"
+  "topicsBy": "Topics by",
+  "check":"Please check ",
+  "sentTo": "sent"
 }

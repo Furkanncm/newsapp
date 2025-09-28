@@ -22,16 +22,17 @@ abstract class IAuthRepository {
 
   Future<void> sendVerificationCodePhoneNumber({required String phoneNumber});
 
-   Future<NetworkResponse<bool>?> sendVerificationEmail();
+  Future<NetworkResponse<bool>?> sendVerificationEmail();
 
   Future<NetworkResponse<bool>> verifyPhoneNumber({required String smsCode});
+
+  Future<void> resetPasswordWithEmail({required String email});
 
   FirebaseAuthEnum get authStatus;
 
   User? get firebaseUser;
 
   bool? get isNewsUser;
-
 }
 
 final class AuthRepository implements IAuthRepository {
@@ -54,7 +55,6 @@ final class AuthRepository implements IAuthRepository {
   @override
   User? get firebaseUser => _firebaseDataSource.firebaseUser;
 
-  
   @override
   Future<NetworkResponse<bool>> logInWithEmail({
     required String email,
@@ -92,4 +92,8 @@ final class AuthRepository implements IAuthRepository {
   @override
   Future<NetworkResponse<bool>?> sendVerificationEmail() async =>
       _firebaseDataSource.sendVerificationEmail();
+
+  @override
+  Future<void> resetPasswordWithEmail({required String email}) =>
+      _firebaseDataSource.resetPasswordWithEmail(email: email);
 }

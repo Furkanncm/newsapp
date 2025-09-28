@@ -55,3 +55,4 @@ android/app/google-services.json
 firebase.json
 lib/firebase_options.dart
 .env
+android/app/src/main/res/values/strings.xml

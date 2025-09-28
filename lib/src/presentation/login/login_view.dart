@@ -42,7 +42,7 @@ class _LoginViewState extends State<LoginView> with LoginMixin {
               _RememberMe(viewmodel: viewModel),
               verticalBox12,
               _LoginButton(isFormValid: isFormValid, onPressed: login),
-              verticalBox16,
+              verticalBox32,
               const SocialMediaLogin(),
             ],
           ),

@@ -51,4 +51,56 @@ class NewsAppDialogs {
     );
   }
 
+  static Future<void> infoDialog({
+    required BuildContext context,
+    required String title,
+    required String content,
+  }) async {
+    return showAdaptiveDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog.adaptive(
+          icon: Container(
+            width: 75,
+            height: 75,
+            decoration: BoxDecoration(
+              color: AppTheme.surfaceColor,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppTheme.primaryColor, width: 4),
+            ),
+            child: const Icon(
+              Icons.info_outline_rounded,
+              color: AppTheme.primaryColor,
+              size: 40,
+            ),
+          ),
+          title: LuciText.titleMedium(title, fontWeight: FontWeight.bold),
+          content: LuciText.bodyMedium(content),
+          actionsAlignment: MainAxisAlignment.center,
+          actions: <Widget>[
+            Center(
+              child: SizedBox(
+                width: context.width * 0.8,
+                child: Expanded(
+                  child: LuciOutlinedButton(
+                    borderColor: AppTheme.primaryColor,
+                    borderSide: const BorderSide(
+                      color: AppTheme.backgroundDark,
+                    ),
+                    onPressed: () => Navigator.of(context).pop(true),
+                    child: LuciText.bodyMedium(
+                      LocaleKeys.yes.tr(),
+                      fontWeight: FontWeight.bold,
+                      textColor: AppTheme.primaryColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

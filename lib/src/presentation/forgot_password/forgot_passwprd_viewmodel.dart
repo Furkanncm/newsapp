@@ -2,10 +2,12 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
+import 'package:newsapp/src/common/utils/dialog/news_app_dialogs.dart';
 import 'package:newsapp/src/common/utils/enums/otp_options_enum.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/model/otp/otp_model.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 
 part 'forgot_passwprd_viewmodel.g.dart';
 
@@ -19,6 +21,7 @@ abstract class _ForgotPasswordViewmodelBase with Store {
   late final TextEditingController emailController;
   late final TextEditingController phoneController;
   late final GlobalKey<FormState> formKey;
+  late final IAuthRepository authRepository;
 
   OTPModel? _otpModel;
 
@@ -36,20 +39,34 @@ abstract class _ForgotPasswordViewmodelBase with Store {
   }
 
   @action
-  void onSubmit() {
+  Future<void> onSubmit(BuildContext context) async {
     isSubmitted = true;
+
+    if (!(formKey.currentState?.validate() ?? false)) return;
     if (isEmailSelected) {
       _otpModel = OTPModel(
         otpOptions: OTPOptions.email,
         otpContent: emailController.text,
       );
+      if (_otpModel == null) return;
+      await authRepository.resetPasswordWithEmail(email: _otpModel!.otpContent);
+      if (!context.mounted) return;
+      await NewsAppDialogs.infoDialog(
+        context: context,
+        title: '${LocaleKeys.check.tr()}${_otpModel?.otpOptions.value}',
+        content:
+            '${_otpModel?.otpOptions.value} ${LocaleKeys.sentTo.tr()} ${_otpModel?.otpContent}',
+      );
+      router.goNamed(RoutePaths.login.name);
     } else if (!isEmailSelected) {
       _otpModel = OTPModel(
         otpOptions: OTPOptions.sms,
         otpContent: phoneController.text,
       );
+      if (_otpModel == null) return;
+      await authRepository.sendVerificationCodePhoneNumber(
+        phoneNumber: _otpModel!.otpContent,
+      );
     }
-    if (!(formKey.currentState?.validate() ?? false)) return;
-    router.pushNamed(RoutePaths.otpVerification.name, extra: _otpModel);
   }
 }

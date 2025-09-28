@@ -31,33 +31,41 @@ class _SocialMediaLoginState extends State<SocialMediaLogin> {
     _userRepository = UserRepository();
   }
 
+  Future<void> _succesRoute() async {
+    final user = await _userRepository.getUserInfo();
+    if (user?.isSkipped == true) {
+      router.goNamed(RoutePaths.home.name);
+    } else {
+      router.goNamed(RoutePaths.topics.name);
+    }
+  }
+
+  Future<void> loginWithGoogle() async {
+    await _authRepository.loginWithGoogle().withToast(
+      context,
+      successMessage: LocaleKeys.welcome_sincere.tr(),
+      onSuccess: _succesRoute,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<void> loginWithGoogle() async {
-      await _authRepository.loginWithGoogle().withToast(
-        context,
-        successMessage: LocaleKeys.welcome_sincere.tr(),
-        onSuccess: () async {
-          final user = await _userRepository.getUserInfo();
-          if (user?.isSkipped == true) {
-            router.goNamed(RoutePaths.home.name);
-          } else {
-            router.goNamed(RoutePaths.topics.name);
-          }
-        },
-      );
-    }
-
     return Column(
       children: [
-        const Divider(),
-        Center(
-          child: LuciText.bodyMedium(
-            LocaleKeys.orContinueWith.tr(),
-            textColor: AppTheme.placeholder,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const Expanded(child: Divider()),
+            horizontalBox4,
+            LuciText.bodyMedium(
+              LocaleKeys.orContinueWith.tr(),
+              textColor: AppTheme.placeholder,
+            ),
+            horizontalBox4,
+            const Expanded(child: Divider()),
+          ],
         ),
-        verticalBox16,
+        verticalBox32,
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -71,18 +79,6 @@ class _SocialMediaLoginState extends State<SocialMediaLogin> {
                   textColor: AppTheme.bodyText,
                 ),
               ),
-            ),
-            verticalBox12,
-            LuciOutlinedButton.icon(
-              borderRadius: BorderRadius.circular(16),
-              icon: Assets.images.icFacebook.toIcon(32),
-              child: Center(
-                child: LuciText.bodyMedium(
-                  LocaleKeys.continueWithFacebook.tr(),
-                  textColor: AppTheme.bodyText,
-                ),
-              ),
-              onPressed: () {},
             ),
           ],
         ),

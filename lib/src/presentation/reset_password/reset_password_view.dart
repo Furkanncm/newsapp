@@ -17,7 +17,8 @@ final class ResetPasswordView extends StatefulWidget {
   State<ResetPasswordView> createState() => _ResetPasswordViewState();
 }
 
-class _ResetPasswordViewState extends State<ResetPasswordView> with ResetPasswordMixin {
+class _ResetPasswordViewState extends State<ResetPasswordView>
+    with ResetPasswordMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,9 +51,7 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
 
 @immutable
 final class _Body extends StatelessWidget {
-  const _Body({
-    required this.viewmodel,
-  });
+  const _Body({required this.viewmodel});
 
   final ResetPasswordViewmodel viewmodel;
 
@@ -77,9 +76,7 @@ final class _Body extends StatelessWidget {
 
 @immutable
 final class _PasswordForm extends StatelessWidget {
-  const _PasswordForm({
-    required this.viewmodel,
-  });
+  const _PasswordForm({required this.viewmodel});
 
   final ResetPasswordViewmodel viewmodel;
 
@@ -92,12 +89,7 @@ final class _PasswordForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PasswordField(
-            labelText: LocaleKeys.newPassword.tr(),
-            passwordController: viewmodel.passwordController,
-          ),
-          verticalBox16,
-          PasswordField(
-            labelText: LocaleKeys.confirmNewPassword.tr(),
+            labelText: LocaleKeys.confirmPassword.tr(),
             passwordController: viewmodel.confirmPasswordController,
             confirmPasswordController: viewmodel.passwordController,
           ),
