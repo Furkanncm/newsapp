@@ -14,16 +14,11 @@ mixin HomeMixin on State<HomeView> {
     viewmodel = HomeViewmodel();
     viewmodel.userRepository = UserRepository();
     viewmodel.newsRepository = NewsRepository();
-    getUser();
     controller = TextEditingController();
     viewmodel
       ..fetchTrendingNews()
       ..fetchNewsForCategory(Topic.allTopics.first);
     viewmodel.newsRepository.fetchNews();
-  }
-
-  Future<void> getUser() async {
-    await viewmodel.getUserInfo();
   }
 
   @override

@@ -91,30 +91,28 @@ final class AuthRepository implements IAuthRepository {
     required String email,
     required String password,
     bool isRememberMe = false,
-  }) async {
-    try {
+  }) {
+    return withTryCatch(() async {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      final user = userCredential.user;
 
+      final user = userCredential.user;
       if (user != null) {
         await _setAuth(
           userCredential: userCredential,
           isRememberMe: isRememberMe,
         );
-        return NetworkResponse.success(data: true);
+        return true;
       }
-    } on FirebaseAuthException catch (e) {
-      return FirebaseError.errorInfo(e);
-    }
-    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+      return null; // başarısız durumda
+    });
   }
 
   @override
-  Future<NetworkResponse<String>?> loginWithGoogle() async {
-    try {
+  Future<NetworkResponse<String>> loginWithGoogle() {
+    return withTryCatch(() async {
       await _googleSignIn.signOut();
       final googleUser = await _googleSignIn.signIn();
       final googleAuth = await googleUser?.authentication;
@@ -132,13 +130,11 @@ final class AuthRepository implements IAuthRepository {
 
         if (user != null) {
           await _setAuth(userCredential: userCredential, isRememberMe: true);
-          return NetworkResponse.success(data: user.uid);
+          return user.uid;
         }
       }
-    } on FirebaseAuthException catch (e) {
-      return FirebaseError.errorInfo(e);
-    }
-    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+      return null;
+    });
   }
 
   @override
@@ -146,25 +142,24 @@ final class AuthRepository implements IAuthRepository {
     required String email,
     required String password,
     bool isRememberMe = false,
-  }) async {
-    try {
+  }) {
+    return withTryCatch(() async {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       setIsNewUser(userCredential.additionalUserInfo);
+
       final user = userCredential.user;
       if (user != null) {
         await _setAuth(
           userCredential: userCredential,
           isRememberMe: isRememberMe,
         );
-        return NetworkResponse.success(data: true);
+        return true;
       }
-    } on FirebaseAuthException catch (e) {
-      return FirebaseError.errorInfo(e);
-    }
-    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+      return null;
+    });
   }
 
   @override
@@ -209,14 +204,13 @@ final class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<NetworkResponse<bool>> verifyPhoneNumber({
-    required String smsCode,
-  }) async {
-    try {
+  Future<NetworkResponse<bool>> verifyPhoneNumber({required String smsCode}) {
+    return withTryCatch(() async {
       final credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
         smsCode: smsCode,
       );
+
       final userCredential = await _firebaseAuth.signInWithCredential(
         credential,
       );
@@ -225,32 +219,29 @@ final class AuthRepository implements IAuthRepository {
         await _firestoreRepository.saveUser(
           user: const UserModel(isPhoneNumberVerified: true),
         );
-        return NetworkResponse.success(data: true);
+        return true;
       }
-    } on FirebaseAuthException catch (e) {
-      return NetworkResponse.failure(
-        message: e.message ?? LocaleKeys.unknownError.tr(),
-      );
-    }
-    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+      return null;
+    });
   }
 
   @override
-  Future<NetworkResponse<bool>?> sendVerificationEmail() async {
-    if (firebaseUser == null) return null;
-    try {
+  Future<NetworkResponse<bool>> sendVerificationEmail() {
+    return withTryCatch(() async {
+      if (firebaseUser == null) return null;
       await firebaseUser!.sendEmailVerification();
       await firebaseUser!.reload();
-      return NetworkResponse.success(data: firebaseUser!.emailVerified);
-    } on FirebaseAuthException catch (e) {
-      return FirebaseError.errorInfo(e);
-    }
+      return firebaseUser!.emailVerified;
+    });
   }
 
   @override
-  Future<void> resetPasswordWithEmail({required String email}) async {
-    await withTryCatch(() async {
+  Future<NetworkResponse<bool>> resetPasswordWithEmail({
+    required String email,
+  }) {
+    return withTryCatch(() async {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
+      return true;
     });
   }
 
@@ -258,6 +249,19 @@ final class AuthRepository implements IAuthRepository {
   Future<void> updatePassword(String newPassword) async {
     if (firebaseUser == null) return;
     await firebaseUser!.updatePassword(newPassword);
+  }
+
+  Future<void> _setAuth({
+    required UserCredential userCredential,
+    required bool isRememberMe,
+  }) async {
+    if (firebaseUser == null) return;
+    await _firestoreRepository.setAuthAndSaveUser(
+      isRememberMe: isRememberMe,
+      user: firebaseUser!.toUserModel(),
+      isNewsUser: userCredential.additionalUserInfo?.isNewUser ?? false,
+    );
+    authStatus = FirebaseAuthEnum.authenticated;
   }
 
   Future<NetworkResponse<T>> withTryCatch<T>(
@@ -274,19 +278,6 @@ final class AuthRepository implements IAuthRepository {
     } catch (_) {
       return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
     }
-  }
-
-  Future<void> _setAuth({
-    required UserCredential userCredential,
-    required bool isRememberMe,
-  }) async {
-    if (firebaseUser == null) return;
-    await _firestoreRepository.setAuthAndSaveUser(
-      isRememberMe: isRememberMe,
-      user: firebaseUser!.toUserModel(),
-      isNewsUser: userCredential.additionalUserInfo?.isNewUser ?? false,
-    );
-    authStatus = FirebaseAuthEnum.authenticated;
   }
 }
 

@@ -32,9 +32,7 @@ class _HomeViewState extends State<HomeView> with HomeMixin {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-        if (viewmodel.currentUser == null) {
-          return const AdaptiveCircular.withoutExpanded();
-        }
+      
         return Padding(
           padding: NaPadding.pagePadding,
           child: Scaffold(
@@ -97,19 +95,12 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   final HomeViewmodel viewmodel;
   @override
   Widget build(BuildContext context) {
-    final user = viewmodel.currentUser;
+   
     return AppBar(
       forceMaterialTransparency: true,
       leadingWidth: context.width / 3.5,
       leading: Assets.images.icAppLogo.toImage,
-      actions: [
-        LuciText.bodyMedium(user?.username),
-        ClipOval(
-          child: user?.profilePhoto != null
-              ? const Icon(Icons.golf_course_outlined)
-              : const Icon(Icons.person_2_outlined),
-        ),
-      ],
+     
     );
   }
 

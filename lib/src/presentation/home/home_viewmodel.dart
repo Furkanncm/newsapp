@@ -1,6 +1,5 @@
 import 'package:codegen/codegen.dart';
 import 'package:codegen/model/topic/topic.dart';
-import 'package:codegen/model/user/user_model.dart';
 import 'package:mobx/mobx.dart';
 import 'package:newsapp/src/data/model/filter/filter.dart';
 import 'package:newsapp/src/domain/news/news_repository.dart';
@@ -13,9 +12,6 @@ class HomeViewmodel = _HomeViewmodelBase with _$HomeViewmodel;
 abstract class _HomeViewmodelBase with Store {
   late final IUserRepository userRepository;
   late final INewsRepository newsRepository;
-
-  @observable
-   UserModel? currentUser;
 
   @observable
   int lastestIndex = 0;
@@ -47,7 +43,9 @@ abstract class _HomeViewmodelBase with Store {
   @action
   Future<void> fetchNewsForCategory(Topic topic) async {
     isLoading = true;
-    categoryNews = await newsRepository.fetchNewsWithFilters(filter: Filter( topic: [topic]));
+    categoryNews = await newsRepository.fetchNewsWithFilters(
+      filter: Filter(topic: [topic]),
+    );
     isLoading = false;
   }
 
@@ -57,11 +55,5 @@ abstract class _HomeViewmodelBase with Store {
   @action
   Future<void> refreshLastestNews(Article article, bool isBookmarked) async {
     await newsRepository.refreshArticles(article, isBookmarked);
-  }
-
-  @action
-  Future<void> getUserInfo() async {
-    currentUser= await userRepository.getUserInfo();
-  
   }
 }
