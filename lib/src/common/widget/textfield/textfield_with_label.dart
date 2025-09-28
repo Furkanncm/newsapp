@@ -23,7 +23,6 @@ class TextFieldWithLabel extends StatelessWidget {
     this.suffixIcon,
     this.enabled,
     this.focusNode,
-    this.fillColor,
     this.hintText,
   });
 
@@ -44,7 +43,6 @@ class TextFieldWithLabel extends StatelessWidget {
   final Widget? suffixIcon;
   final bool? enabled;
   final FocusNode? focusNode;
-  final Color? fillColor;
   final bool isRequired;
 
   @override
@@ -71,7 +69,6 @@ class TextFieldWithLabel extends StatelessWidget {
           suffixIcon: suffixIcon,
           enabled: enabled,
           focusNode: focusNode,
-          fillColor: fillColor,
         ),
       ],
     );

@@ -176,5 +176,7 @@ abstract class  LocaleKeys {
   static const topicsBy = 'topicsBy';
   static const check = 'check';
   static const sentTo = 'sentTo';
+  static const phoneFailed = 'phoneFailed';
+  static const verifyCodeSent = 'verifyCodeSent';
 
 }

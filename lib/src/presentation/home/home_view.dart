@@ -32,7 +32,6 @@ class _HomeViewState extends State<HomeView> with HomeMixin {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-      
         return Padding(
           padding: NaPadding.pagePadding,
           child: Scaffold(
@@ -63,7 +62,7 @@ class _HomeViewState extends State<HomeView> with HomeMixin {
                   text: LocaleKeys.latest.tr(),
                   onSeeAllPressed: () => viewmodel.changeIsSeeAll(),
                 ),
-                verticalBox16,
+                verticalBox8,
                 _HorizontalTopicList(viewmodel: viewmodel),
                 Observer(
                   builder: (_) {
@@ -95,17 +94,15 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   final HomeViewmodel viewmodel;
   @override
   Widget build(BuildContext context) {
-   
     return AppBar(
       forceMaterialTransparency: true,
       leadingWidth: context.width / 3.5,
       leading: Assets.images.icAppLogo.toImage,
-     
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(40);
 }
 
 @immutable
@@ -145,7 +142,7 @@ final class _AnimatedNewsOnboard extends StatelessWidget {
                     verticalBox16,
                     if (article.isEmpty)
                       SizedBox(
-                        height: context.height * 0.30,
+                        height: context.height * 0.28,
                         child: const AdaptiveCircular.withoutExpanded(),
                       )
                     else
@@ -156,7 +153,7 @@ final class _AnimatedNewsOnboard extends StatelessWidget {
                           viewportFraction: 0.9,
                           enlargeStrategy: CenterPageEnlargeStrategy.zoom,
                           initialPage: 1,
-                          height: context.height * 0.30,
+                          height: context.height * 0.28,
                         ),
                         itemCount: showsArticle.length,
                         itemBuilder:

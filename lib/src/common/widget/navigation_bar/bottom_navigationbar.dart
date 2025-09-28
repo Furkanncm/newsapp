@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
-import 'package:newsapp/src/common/utils/theme/app_theme.dart';
+import 'package:newsapp/src/common/widget/other/behind_container.dart';
 
 @immutable
 final class AppNavigationBar extends StatelessWidget {
@@ -34,7 +34,7 @@ final class AppNavigationBar extends StatelessWidget {
         },
         items: [
           BottomNavigationBarItem(
-            icon: _BehindContainer(
+            icon: BehindContainer(
               isCurrentIndex: currentIndex == 0,
               selectedIcon: Icons.home,
               unSelectedIcon: Icons.home_outlined,
@@ -42,7 +42,7 @@ final class AppNavigationBar extends StatelessWidget {
             label: LocaleKeys.home.tr(),
           ),
           BottomNavigationBarItem(
-            icon: _BehindContainer(
+            icon: BehindContainer(
               isCurrentIndex: currentIndex == 1,
               selectedIcon: Icons.explore_rounded,
               unSelectedIcon: Icons.explore_outlined,
@@ -50,7 +50,7 @@ final class AppNavigationBar extends StatelessWidget {
             label: LocaleKeys.explore.tr(),
           ),
           BottomNavigationBarItem(
-            icon: _BehindContainer(
+            icon: BehindContainer(
               isCurrentIndex: currentIndex == 2,
               selectedIcon: Icons.bookmark_rounded,
               unSelectedIcon: Icons.bookmark_border_outlined,
@@ -58,7 +58,7 @@ final class AppNavigationBar extends StatelessWidget {
             label: LocaleKeys.bookmarks.tr(),
           ),
           BottomNavigationBarItem(
-            icon: _BehindContainer(
+            icon: BehindContainer(
               isCurrentIndex: currentIndex == 3,
               selectedIcon: Icons.person_2_rounded,
               unSelectedIcon: Icons.person_2_outlined,
@@ -67,33 +67,6 @@ final class AppNavigationBar extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _BehindContainer extends StatelessWidget {
-  const _BehindContainer({
-    required this.isCurrentIndex,
-    required this.selectedIcon,
-    required this.unSelectedIcon,
-  });
-
-  final bool isCurrentIndex;
-  final IconData selectedIcon;
-  final IconData unSelectedIcon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 40,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: isCurrentIndex
-            ? AppTheme.primaryColor.withValues(alpha: 0.1)
-            : null,
-      ),
-      child: Icon(isCurrentIndex ? selectedIcon : unSelectedIcon),
     );
   }
 }

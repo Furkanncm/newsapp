@@ -24,7 +24,9 @@ class NewsAppDialogs {
           negativeButtonLabel ?? LocaleKeys.no.tr().toUpperCase(),
       positiveButtonCallback: onPositiveButton,
       primaryColor: AppTheme.primaryColor,
-      dialogBackgroundColor: AppTheme.buttonBackground,
+      dialogBackgroundColor: Theme.brightnessOf(context) == Brightness.light
+          ? AppTheme.buttonBackground
+          : AppTheme.bodyText,
     );
   }
 
@@ -48,7 +50,9 @@ class NewsAppDialogs {
           negativeButtonLabel ?? LocaleKeys.cancel.toUpperCase(),
       positiveButtonCallback: onPositiveButton,
       primaryColor: AppTheme.primaryColor,
-      dialogBackgroundColor: AppTheme.buttonBackground,
+      dialogBackgroundColor: Theme.brightnessOf(context) == Brightness.light
+          ? AppTheme.buttonBackground
+          : AppTheme.bodyText,
     );
   }
 

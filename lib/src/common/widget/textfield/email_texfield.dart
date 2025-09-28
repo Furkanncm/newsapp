@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/dialog/news_app_dialogs.dart';
 import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
+import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/verify_button.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
@@ -74,6 +75,9 @@ class _EmailTextFieldState extends State<EmailTextField> {
       controller: _emailController,
       labelText: '',
       readOnly: widget.readOnly,
+      fillColor: Theme.brightnessOf(context) == Brightness.light
+          ? AppTheme.surfaceColor
+          : AppTheme.bodyText,
       suffixIcon: ValueListenableBuilder<bool?>(
         valueListenable: isVerifiedNotifier,
         builder: (context, isVerified, child) {
@@ -83,7 +87,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
             onPressed: () async {
               await _authRepository.sendVerificationEmail().withToast(
                 context,
-                successMessage: 'Verification mail sent!',
+                successMessage: LocaleKeys.verifyCodeSent.tr(),
                 onSuccess: () async {
                   await NewsAppDialogs.infoDialog(
                     context: context,
@@ -93,7 +97,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
                   );
                 },
               );
-              
+
               _startVerificationChecker();
             },
           );

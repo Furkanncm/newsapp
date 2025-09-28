@@ -175,5 +175,7 @@
   "selectGender": "Select your Gender",
   "topicsBy": "Topics by",
   "check":"Please check ",
-  "sentTo": "sent"
+  "sentTo": "sent",
+  "phoneFailed": "Phone verification failed",
+  "verifyCodeSent":"Verification code sent!"
 }

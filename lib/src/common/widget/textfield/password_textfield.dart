@@ -1,8 +1,9 @@
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:lucielle/widget/sized_box/space_box.dart';
 import 'package:lucielle/widget/textfield/password_field.dart';
+import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/text/label_with_star.dart';
 
 @immutable
@@ -26,6 +27,9 @@ final class PasswordField extends StatelessWidget {
         LabelWithStar(isRequired: true, text: labelText),
         verticalBox4,
         LuciPasswordTextFormField(
+          fillColor: Theme.brightnessOf(context) == Brightness.light
+              ? AppTheme.surfaceColor
+              : AppTheme.bodyText,
           controller: passwordController,
           confirmController: confirmPasswordController,
           labelText: '',
@@ -43,6 +47,9 @@ final class PasswordField extends StatelessWidget {
               ),
               verticalBox4,
               LuciPasswordTextFormField(
+                fillColor: Theme.brightnessOf(context) == Brightness.light
+                    ? AppTheme.surfaceColor
+                    : AppTheme.bodyText,
                 controller: confirmPasswordController,
                 confirmController: passwordController,
                 labelText: '',

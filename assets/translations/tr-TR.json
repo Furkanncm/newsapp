@@ -170,5 +170,7 @@
   "selectGender": "Cinsiyet Seçiniz",
   "topicsBy":"kategori",
   "check":"Lütfen kontrol edin!",
-  "sent" : "gönderildi"
+  "sent" : "gönderildi",
+  "phoneFailed":"Telefon doğrulaması başarısız!",
+  "verifyCodeSent":"Doğrulama kodu gönderildi!"
 }

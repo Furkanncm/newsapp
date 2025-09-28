@@ -70,13 +70,18 @@ class _SocialMediaLoginState extends State<SocialMediaLogin> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             LuciOutlinedButton.icon(
+              borderColor: Theme.brightnessOf(context) == Brightness.light
+                  ? AppTheme.inputDark
+                  : AppTheme.bodyText,
               borderRadius: BorderRadius.circular(16),
               icon: Assets.images.icGoogle.toIcon(32),
               onPressed: loginWithGoogle,
               child: Center(
                 child: LuciText.bodyMedium(
                   LocaleKeys.continueWithGoogle.tr(),
-                  textColor: AppTheme.bodyText,
+                  textColor: Theme.brightnessOf(context) == Brightness.light
+                      ? AppTheme.inputDark
+                      : AppTheme.bodyDark,
                 ),
               ),
             ),

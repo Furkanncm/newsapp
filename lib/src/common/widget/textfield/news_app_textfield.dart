@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
 class NewsAppTextField extends StatelessWidget {
   const NewsAppTextField({
@@ -21,7 +22,6 @@ class NewsAppTextField extends StatelessWidget {
     this.suffixIcon,
     this.enabled,
     this.focusNode,
-    this.fillColor,
   });
 
   /// Controls the text being edited.
@@ -74,9 +74,6 @@ class NewsAppTextField extends StatelessWidget {
   /// An optional focus node to control the field's focus state.
   final FocusNode? focusNode;
 
-  /// The background color of the text field.
-  /// Defaults to [Colors.white] if not provided.
-  final Color? fillColor;
 
   @override
   Widget build(BuildContext context) {
@@ -92,17 +89,13 @@ class NewsAppTextField extends StatelessWidget {
       textInputAction: textInputAction,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.horizontal(
-            right: Radius.circular(8),
-            left: Radius.circular(8),
-          ),
-        ),
         prefixIcon: prefixIcon,
         hintText: hintText,
         labelText: labelText,
         suffixIcon: suffixIcon,
-      ).copyWith(filled: true, fillColor: fillColor ?? Colors.white),
+      ).copyWith(filled: true, fillColor: (Theme.brightnessOf(context) == Brightness.light)
+          ? AppTheme.surfaceColor
+          : AppTheme.bodyText),
       enabled: enabled,
       focusNode: focusNode,
       maxLines: maxLines ?? 1,

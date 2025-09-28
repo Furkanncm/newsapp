@@ -23,7 +23,13 @@ final class NewsInfo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LuciText.bodyMedium(region, textColor: AppTheme.bodyText, maxLines: 1),
+        LuciText.bodyMedium(
+          region,
+          textColor: Theme.brightnessOf(context) == Brightness.light
+              ? AppTheme.bodyText
+              : AppTheme.bodyDark,
+          maxLines: 1,
+        ),
         LuciText.bodyLarge(
           title,
           maxLines: 2,

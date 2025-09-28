@@ -106,7 +106,7 @@ final class AuthRepository implements IAuthRepository {
         );
         return true;
       }
-      return null; // başarısız durumda
+      return null; 
     });
   }
 
@@ -185,7 +185,7 @@ final class AuthRepository implements IAuthRepository {
       verificationCompleted: (PhoneAuthCredential credential) async =>
           _firebaseAuth.signInWithCredential(credential),
       verificationFailed: (FirebaseAuthException e) {
-        debugPrint('Phone verification failed: ${e.code} - ${e.message}');
+        debugPrint('${LocaleKeys.phoneFailed.tr()}: ${e.code} - ${e.message}');
       },
       codeSent: (String verificationId, int? resendToken) {
         router.pushNamed(

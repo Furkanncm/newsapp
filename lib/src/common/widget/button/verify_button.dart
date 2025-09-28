@@ -28,7 +28,9 @@ final class VerifyButton extends StatelessWidget {
         onPressed: () async => onPressed.call(),
         child: LuciText.bodyMedium(
           LocaleKeys.verify.tr(),
-          textColor: AppTheme.primaryColor,
+          textColor: Theme.brightnessOf(context) == Brightness.light
+              ? AppTheme.bodyText
+              : AppTheme.surfaceColor,
         ),
       );
     }

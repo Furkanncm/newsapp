@@ -51,14 +51,18 @@ class _SearchViewState extends State<SearchView> with SearchMixin {
                         horizontalBox4,
                         Container(
                           decoration: BoxDecoration(
-                            border: BoxBorder.all(color: AppTheme.bodyText),
+                            border: BoxBorder.all(color: AppTheme.buttonText),
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: IconButton(
                             onPressed: () async => onFilteredPressed(),
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.tune_outlined,
-                              color: AppTheme.backgroundDark,
+                              color:
+                                  Theme.brightnessOf(context) ==
+                                      Brightness.light
+                                  ? AppTheme.backgroundDark
+                                  : AppTheme.buttonText,
                             ),
                           ),
                         ),

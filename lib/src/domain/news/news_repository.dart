@@ -73,11 +73,9 @@ final class NewsRepository implements INewsRepository {
 
     final params = <String, dynamic>{QueryParams.country.name: countryCode};
 
-
     if (topics != null && topics.isNotEmpty && topics.first.value!.isNotEmpty) {
       params[QueryParams.category.name] = topics.first.value;
     }
-
 
     if (shortByList != null && shortByList.isNotEmpty) {
       params[QueryParams.sortBy.name] = shortByList.first.name;

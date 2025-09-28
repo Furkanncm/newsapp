@@ -33,10 +33,8 @@ final class ContactView extends StatelessWidget with ContactMixin {
                         Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.primary.withValues(alpha: 0.1),
-                            shape: BoxShape.circle,
+                            color: AppTheme.primaryColor.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(16),
                           ),
                           child: contact.icon,
                         ),

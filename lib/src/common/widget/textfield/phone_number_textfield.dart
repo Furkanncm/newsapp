@@ -2,6 +2,7 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/verify_button.dart';
 import 'package:newsapp/src/common/widget/text/label_with_star.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
@@ -40,6 +41,9 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
         LabelWithStar(isRequired: true, text: LocaleKeys.phoneNumber.tr()),
         verticalBox4,
         LuciPhoneTextFormField(
+          fillColor: Theme.brightnessOf(context) == Brightness.light
+              ? AppTheme.surfaceColor
+              : AppTheme.bodyText,
           onChanged: (p0) => setState(() {}),
           controller: widget.phoneController,
           labelText: '',

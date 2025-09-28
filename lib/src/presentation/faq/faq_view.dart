@@ -23,18 +23,22 @@ final class FAQView extends StatelessWidget {
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
           child: DecoratedContainer(
             child: ExpansionTile(
-              tilePadding: const EdgeInsets.symmetric(horizontal: 16),
-              collapsedBackgroundColor: Colors.transparent,
-              backgroundColor: Colors.transparent,
-              childrenPadding: NaPadding.pagePadding,
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              iconColor: AppTheme.bodyDark,
-              collapsedIconColor: AppTheme.backgroundDark,
               title: ListTile(
                 dense: true,
                 visualDensity: VisualDensity.compact,
                 contentPadding: NaPadding.zeroPadding,
-                leading: Icon(question.icon, color: AppTheme.primaryColor),
+                leading: Container(
+                  padding: NaPadding.zeroPadding,
+                  margin: NaPadding.zeroPadding,
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: AppTheme.primaryColor.withValues(alpha: 0.1),
+                  ),
+                  child: Icon(question.icon, color: AppTheme.primaryColor),
+                ),
                 title: LuciText.bodyLarge(question.question),
               ),
               children: [LuciText.bodyMedium(question.answer)],

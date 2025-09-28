@@ -1,6 +1,7 @@
 import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 
 class AppTheme extends LuciTheme {
   // Renk tanımları
@@ -44,18 +45,31 @@ class AppTheme extends LuciTheme {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: surfaceColor,
-      suffixIconColor: primaryColor,
+      hintStyle: const TextStyle(color: placeholder),
       labelStyle: const TextStyle(color: bodyText),
-      border: OutlineInputBorder(
+      errorStyle: const TextStyle(color: errorColor, fontSize: 12),
+      enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
+        borderSide: BorderSide(color: placeholder.withValues(alpha: 0.4)),
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: primaryColor, width: 1.5),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: errorColor, width: 1.5),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: errorColor, width: 1.5),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
+        foregroundColor: buttonBackground,
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
@@ -88,7 +102,14 @@ class AppTheme extends LuciTheme {
       }),
     ),
     dividerTheme: const DividerThemeData(thickness: 1, color: placeholder),
-
+    expansionTileTheme: const ExpansionTileThemeData(
+      tilePadding: EdgeInsets.symmetric(horizontal: 16),
+      collapsedBackgroundColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
+      childrenPadding: NaPadding.pagePadding,
+      iconColor: AppTheme.bodyDark,
+      collapsedIconColor: AppTheme.backgroundDark,
+    ),
   );
 
   // Dark Theme
@@ -119,11 +140,26 @@ class AppTheme extends LuciTheme {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: inputDark,
-      border: OutlineInputBorder(
+      hintStyle: const TextStyle(color: bodyDark),
+      labelStyle: const TextStyle(color: titleDark),
+      errorStyle: const TextStyle(color: errorColor, fontSize: 12),
+      enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
+        borderSide: BorderSide(color: bodyDark.withValues(alpha: 0.4)),
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: primaryColor, width: 1.5),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: errorColor, width: 1.5),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: errorColor, width: 1.5),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -155,6 +191,15 @@ class AppTheme extends LuciTheme {
         }
         return titleDark.withValues(alpha: 0.3);
       }),
+    ),
+    dividerTheme: const DividerThemeData(thickness: 1, color: placeholder),
+    expansionTileTheme: const ExpansionTileThemeData(
+      tilePadding: EdgeInsets.symmetric(horizontal: 16),
+      collapsedBackgroundColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
+      childrenPadding: NaPadding.pagePadding,
+      iconColor: AppTheme.bodyDark,
+      collapsedIconColor: AppTheme.titleDark,
     ),
   );
 
