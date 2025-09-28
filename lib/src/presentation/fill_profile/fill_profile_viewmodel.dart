@@ -63,7 +63,7 @@ abstract class _FillProfileViewmodelBase with Store {
 
   Future<void> next(BuildContext context) async {
     if (!(formKey.currentState?.validate() ?? false)) return;
-    final currentUser = await userRepository.getUserInfo();
+    final currentUser = userRepository.currentUser;
     final user = currentUser?.copyWith(
       username: usernameController.text,
       name: fullNameController.text,

@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:codegen/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/dialog/news_app_dialogs.dart';
@@ -27,6 +31,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
   late final IUserRepository _userRepository;
 
   late final ValueNotifier<bool?> isVerifiedNotifier;
+  Timer? _verificationCheckTimer;
 
   @override
   void initState() {
@@ -34,7 +39,33 @@ class _EmailTextFieldState extends State<EmailTextField> {
     _emailController = widget.emailController;
     _authRepository = AuthRepository();
     _userRepository = UserRepository();
-    isVerifiedNotifier = ValueNotifier(_userRepository.isEmailVerified);
+
+    isVerifiedNotifier = ValueNotifier(
+      _userRepository.firebaseUser?.emailVerified ?? false,
+    );
+
+    if (!(isVerifiedNotifier.value ?? false)) {
+      _startVerificationChecker();
+    }
+  }
+
+  void _startVerificationChecker() {
+    _verificationCheckTimer = Timer.periodic(const Duration(seconds: 5), (
+      _,
+    ) async {
+      final isVerified = await _checkEmailVerified();
+      if (isVerified) {
+        isVerifiedNotifier.value = true;
+        _verificationCheckTimer?.cancel();
+      }
+    });
+  }
+
+  Future<bool> _checkEmailVerified() async {
+    final user = _authRepository.firebaseUser;
+    if (user == null) return false;
+    await user.reload();
+    return user.emailVerified;
   }
 
   @override
@@ -50,26 +81,20 @@ class _EmailTextFieldState extends State<EmailTextField> {
             isValid: !_emailController.text.isEmail,
             isVerified: isVerified,
             onPressed: () async {
-              final response = await _authRepository
-                  .sendVerificationEmail()
-                  .withIndicator(context);
-              if (response?.data != true) return;
-              if (!context.mounted) return;
-              await NewsAppDialogs.infoDialog(
-                context: context,
-                title: "title",
-                content: "content",
+              await _authRepository.sendVerificationEmail().withToast(
+                context,
+                successMessage: 'Verification mail sent!',
+                onSuccess: () async {
+                  await NewsAppDialogs.infoDialog(
+                    context: context,
+                    title: '${LocaleKeys.check.tr()}${LocaleKeys.email.tr()}',
+                    content:
+                        '${LocaleKeys.email.tr()} ${LocaleKeys.sentTo.tr()} ${_emailController.text}',
+                  );
+                },
               );
-              if (!context.mounted) return;
-              await _userRepository
-                  .updateProfile(
-                    user: _userRepository.currentUser!.copyWith(
-                      isEmailVerified: true,
-                    ),
-                  )
-                  .withIndicator(context);
-
-              isVerifiedNotifier.value = _userRepository.isEmailVerified;
+              
+              _startVerificationChecker();
             },
           );
         },
@@ -80,6 +105,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
   @override
   void dispose() {
     isVerifiedNotifier.dispose();
+    _verificationCheckTimer?.cancel();
     super.dispose();
   }
 }

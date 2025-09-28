@@ -1,9 +1,30 @@
+import 'package:codegen/generated/locale_keys.g.dart';
+import 'package:codegen/model/user/user_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
+import 'package:newsapp/src/common/utils/constants/firebase_error.dart';
 import 'package:newsapp/src/common/utils/enums/firebase_auth.dart';
-import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
+import 'package:newsapp/src/common/utils/enums/otp_options_enum.dart';
+import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
+import 'package:newsapp/src/data/data_source/local/local_ds.dart';
+import 'package:newsapp/src/data/model/otp/otp_model.dart';
+import 'package:newsapp/src/domain/country/country_repository.dart';
+import 'package:newsapp/src/domain/firebase_firestore/firebase_firestore_repository.dart';
 
 abstract class IAuthRepository {
+  FirebaseAuthEnum authStatus = FirebaseAuthEnum.unauthenticated;
+
+  bool? isNewUser;
+
+  final String verificationId = '';
+
+  User? get firebaseUser;
+
   Future<NetworkResponse<bool>> logInWithEmail({
     required String email,
     required String password,
@@ -28,11 +49,7 @@ abstract class IAuthRepository {
 
   Future<void> resetPasswordWithEmail({required String email});
 
-  FirebaseAuthEnum get authStatus;
-
-  User? get firebaseUser;
-
-  bool? get isNewsUser;
+  Future<void> updatePassword(String newPassword);
 }
 
 final class AuthRepository implements IAuthRepository {
@@ -40,60 +57,246 @@ final class AuthRepository implements IAuthRepository {
     return _instance ??= AuthRepository._();
   }
   AuthRepository._() {
-    _firebaseDataSource = FirebaseDataSource();
+    _firebaseAuth = FirebaseAuth.instance;
+    _firestoreRepository = FirebaseFirestoreRepository();
+    _cacheRepository = CacheRepository.instance;
+    _googleSignIn = GoogleSignIn();
+    _countryRepository = CountryRepository();
   }
   static AuthRepository? _instance;
 
-  late final IFirebaseDataSource _firebaseDataSource;
+  late final FirebaseAuth _firebaseAuth;
+  late final IFirebaseFirestoreRepository _firestoreRepository;
+  late final CacheRepository _cacheRepository;
+  late final GoogleSignIn _googleSignIn;
+  late final CountryRepository _countryRepository;
 
   @override
-  FirebaseAuthEnum get authStatus => _firebaseDataSource.authStatus;
+  FirebaseAuthEnum authStatus = FirebaseAuthEnum.unauthenticated;
 
   @override
-  bool? get isNewsUser => _firebaseDataSource.isNewUser;
+  bool? isNewUser;
 
   @override
-  User? get firebaseUser => _firebaseDataSource.firebaseUser;
+  String verificationId = '';
+
+  void setIsNewUser(AdditionalUserInfo? additionalUserInfo) =>
+      isNewUser = additionalUserInfo?.isNewUser;
+
+  @override
+  User? get firebaseUser => _firebaseAuth.currentUser;
 
   @override
   Future<NetworkResponse<bool>> logInWithEmail({
     required String email,
     required String password,
     bool isRememberMe = false,
-  }) async =>
-      _firebaseDataSource.logInWithEmail(email: email, password: password);
+  }) async {
+    try {
+      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final user = userCredential.user;
+
+      if (user != null) {
+        await _setAuth(
+          userCredential: userCredential,
+          isRememberMe: isRememberMe,
+        );
+        return NetworkResponse.success(data: true);
+      }
+    } on FirebaseAuthException catch (e) {
+      return FirebaseError.errorInfo(e);
+    }
+    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+  }
 
   @override
-  Future<NetworkResponse<String>?> loginWithGoogle() async =>
-      _firebaseDataSource.loginWithGoogle();
+  Future<NetworkResponse<String>?> loginWithGoogle() async {
+    try {
+      await _googleSignIn.signOut();
+      final googleUser = await _googleSignIn.signIn();
+      final googleAuth = await googleUser?.authentication;
+
+      if (googleAuth?.idToken != null && googleAuth?.accessToken != null) {
+        final credential = GoogleAuthProvider.credential(
+          idToken: googleAuth?.idToken,
+          accessToken: googleAuth?.accessToken,
+        );
+
+        final userCredential = await _firebaseAuth.signInWithCredential(
+          credential,
+        );
+        final user = userCredential.user;
+
+        if (user != null) {
+          await _setAuth(userCredential: userCredential, isRememberMe: true);
+          return NetworkResponse.success(data: user.uid);
+        }
+      }
+    } on FirebaseAuthException catch (e) {
+      return FirebaseError.errorInfo(e);
+    }
+    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+  }
 
   @override
   Future<NetworkResponse<bool>> register({
     required String email,
     required String password,
     bool isRememberMe = false,
-  }) async => _firebaseDataSource.register(email: email, password: password);
+  }) async {
+    try {
+      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      setIsNewUser(userCredential.additionalUserInfo);
+      final user = userCredential.user;
+      if (user != null) {
+        await _setAuth(
+          userCredential: userCredential,
+          isRememberMe: isRememberMe,
+        );
+        return NetworkResponse.success(data: true);
+      }
+    } on FirebaseAuthException catch (e) {
+      return FirebaseError.errorInfo(e);
+    }
+    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+  }
 
   @override
-  Future<void> logOut() async => _firebaseDataSource.logOut();
+  Future<void> logOut() async {
+    await _firebaseAuth.signOut();
+    await _cacheRepository.remove(PrefKeys.isUserLoggedIn);
+    authStatus = FirebaseAuthEnum.unauthenticated;
+  }
 
   @override
   Future<void> sendVerificationCodePhoneNumber({
     required String phoneNumber,
-  }) async => _firebaseDataSource.sendVerificationCodePhoneNumber(
-    phoneNumber: phoneNumber,
-  );
+  }) async {
+    final selectedCountry = _countryRepository.selectedCountry;
+    final cleanedPhoneNumber =
+        '+${selectedCountry?.phoneCode ?? 90}$phoneNumber'.replaceAll(
+          RegExp('[^0-9+]'),
+          '',
+        );
+    await _firebaseAuth.verifyPhoneNumber(
+      phoneNumber: cleanedPhoneNumber,
+      timeout: const Duration(seconds: 60),
+      verificationCompleted: (PhoneAuthCredential credential) async =>
+          _firebaseAuth.signInWithCredential(credential),
+      verificationFailed: (FirebaseAuthException e) {
+        debugPrint('Phone verification failed: ${e.code} - ${e.message}');
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        router.pushNamed(
+          RoutePaths.otpVerification.name,
+          extra: OTPModel(
+            otpOptions: OTPOptions.sms,
+            otpContent: cleanedPhoneNumber,
+          ),
+        );
+        this.verificationId = verificationId;
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        this.verificationId = verificationId;
+      },
+    );
+  }
 
   @override
   Future<NetworkResponse<bool>> verifyPhoneNumber({
     required String smsCode,
-  }) async => _firebaseDataSource.verifyPhoneNumber(smsCode: smsCode);
+  }) async {
+    try {
+      final credential = PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: smsCode,
+      );
+      final userCredential = await _firebaseAuth.signInWithCredential(
+        credential,
+      );
+      final user = userCredential.user;
+      if (user != null) {
+        await _firestoreRepository.saveUser(
+          user: const UserModel(isPhoneNumberVerified: true),
+        );
+        return NetworkResponse.success(data: true);
+      }
+    } on FirebaseAuthException catch (e) {
+      return NetworkResponse.failure(
+        message: e.message ?? LocaleKeys.unknownError.tr(),
+      );
+    }
+    return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+  }
 
   @override
-  Future<NetworkResponse<bool>?> sendVerificationEmail() async =>
-      _firebaseDataSource.sendVerificationEmail();
+  Future<NetworkResponse<bool>?> sendVerificationEmail() async {
+    if (firebaseUser == null) return null;
+    try {
+      await firebaseUser!.sendEmailVerification();
+      await firebaseUser!.reload();
+      return NetworkResponse.success(data: firebaseUser!.emailVerified);
+    } on FirebaseAuthException catch (e) {
+      return FirebaseError.errorInfo(e);
+    }
+  }
 
   @override
-  Future<void> resetPasswordWithEmail({required String email}) =>
-      _firebaseDataSource.resetPasswordWithEmail(email: email);
+  Future<void> resetPasswordWithEmail({required String email}) async {
+    await withTryCatch(() async {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    });
+  }
+
+  @override
+  Future<void> updatePassword(String newPassword) async {
+    if (firebaseUser == null) return;
+    await firebaseUser!.updatePassword(newPassword);
+  }
+
+  Future<NetworkResponse<T>> withTryCatch<T>(
+    Future<T?> Function() onSuccess,
+  ) async {
+    try {
+      final result = await onSuccess.call();
+      if (result != null) {
+        return NetworkResponse.success(data: result);
+      }
+      return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+    } on FirebaseAuthException catch (e) {
+      return FirebaseError.errorInfo(e);
+    } catch (_) {
+      return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+    }
+  }
+
+  Future<void> _setAuth({
+    required UserCredential userCredential,
+    required bool isRememberMe,
+  }) async {
+    if (firebaseUser == null) return;
+    await _firestoreRepository.setAuthAndSaveUser(
+      isRememberMe: isRememberMe,
+      user: firebaseUser!.toUserModel(),
+      isNewsUser: userCredential.additionalUserInfo?.isNewUser ?? false,
+    );
+    authStatus = FirebaseAuthEnum.authenticated;
+  }
+}
+
+extension Userss on User {
+  UserModel toUserModel() {
+    return UserModel(
+      id: uid,
+      email: email,
+      isEmailVerified: emailVerified,
+      name: displayName,
+    );
+  }
 }

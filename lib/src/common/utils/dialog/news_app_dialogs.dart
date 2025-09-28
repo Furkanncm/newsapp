@@ -2,6 +2,7 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
 class NewsAppDialogs {
@@ -82,18 +83,14 @@ class NewsAppDialogs {
             Center(
               child: SizedBox(
                 width: context.width * 0.8,
-                child: Expanded(
-                  child: LuciOutlinedButton(
-                    borderColor: AppTheme.primaryColor,
-                    borderSide: const BorderSide(
-                      color: AppTheme.backgroundDark,
-                    ),
-                    onPressed: () => Navigator.of(context).pop(true),
-                    child: LuciText.bodyMedium(
-                      LocaleKeys.yes.tr(),
-                      fontWeight: FontWeight.bold,
-                      textColor: AppTheme.primaryColor,
-                    ),
+                child: LuciOutlinedButton(
+                  borderColor: AppTheme.primaryColor,
+                  borderSide: const BorderSide(color: AppTheme.backgroundDark),
+                  onPressed: router.pop,
+                  child: LuciText.bodyMedium(
+                    LocaleKeys.yes.tr(),
+                    fontWeight: FontWeight.bold,
+                    textColor: AppTheme.primaryColor,
                   ),
                 ),
               ),

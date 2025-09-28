@@ -13,19 +13,36 @@ import 'package:share_plus/share_plus.dart';
 
 abstract class IUserRepository {
   UserModel? get currentUser;
+
+  User? get firebaseUser;
+
   Future<XFile?> setProfilePhoto(BuildContext context);
+
   String? get getUserId;
+
   String? get getUserEmail;
+
   String? get getUserName;
+
   String? get getUserPhotoURL;
+
   bool get isEmailVerified;
+
   FirebaseAuthEnum get authStatus;
+
   void setCurrentUser(UserModel user);
+
   void setIsNewUser(AdditionalUserInfo? additionalUserInfo);
+
   Future<UserModel?> getUserInfo();
+
   Future<void> setSkipped();
+
   Future<NetworkResponse<bool>> updateProfile({required UserModel user});
+
   Future<void> updateTopic({required List<Topic> topics});
+
+  Future<bool> checkEmailVerified();
 }
 
 class UserRepository implements IUserRepository {
@@ -43,6 +60,9 @@ class UserRepository implements IUserRepository {
 
   @override
   UserModel? currentUser;
+
+  @override
+  User? get firebaseUser => _authRepository.firebaseUser;
 
   @override
   String? get getUserId => currentUser?.id;
@@ -64,7 +84,7 @@ class UserRepository implements IUserRepository {
 
   @override
   void setIsNewUser(AdditionalUserInfo? additionalUserInfo) =>
-      _authRepository.isNewsUser;
+      _authRepository.isNewUser;
 
   @override
   Future<XFile?> setProfilePhoto(BuildContext context) async {
@@ -107,8 +127,18 @@ class UserRepository implements IUserRepository {
     );
   }
 
+  //dev.furkankazimcam@gmail.com
   @override
   Future<void> updateTopic({required List<Topic> topics}) async {
     await _firestoreRepository.updateTopic(topics: topics);
+  }
+
+  @override
+  Future<bool> checkEmailVerified() async {
+    final user = _authRepository.firebaseUser;
+    if (user == null) return false;
+
+    await user.reload();
+    return user.emailVerified;
   }
 }

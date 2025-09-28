@@ -5,7 +5,6 @@ import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
-import 'package:newsapp/src/data/data_source/remote/firebase_ds.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 import 'package:newsapp/src/presentation/splash/splash_view.dart';
@@ -44,7 +43,6 @@ mixin SplashMixin on State<SplashView> {
       end: Offset.zero,
     ).animate(_animationController);
 
-    // Animasyonu başlat
     _animationController.forward();
 
     _init();
@@ -55,11 +53,9 @@ mixin SplashMixin on State<SplashView> {
       previousStep = currentStep;
       currentStep += 1;
     });
-    await Future<void>.delayed(const Duration(milliseconds: 300));
   }
 
   Future<void> _init() async {
-    await FirebaseDataSource().initialize();
     final isFirstTime = _cacheRepository.getBool(PrefKeys.isFirstTime);
     await _incrementProgress();
     final userId = _cacheRepository.getString(PrefKeys.isUserLoggedIn);
@@ -90,6 +86,7 @@ mixin SplashMixin on State<SplashView> {
   Future<void> checkUser({required String? userId}) async {
     if (userId == null) return;
     await _userRepository.getUserInfo();
+ 
   }
 
   Future<void> fetchCountries() async {

@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:newsapp/firebase_options.dart';
 import 'package:newsapp/main.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
 import 'package:newsapp/src/domain/localization/localization_repository.dart';
@@ -15,6 +17,9 @@ class AppConfiguration {
 
   Future<void> appConfigurationReady() async {
     WidgetsFlutterBinding.ensureInitialized();
+     await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     await CacheRepository.instance.getInstance();
     ThemeRepository.instance.loadTheme();
     await EasyLocalization.ensureInitialized();
