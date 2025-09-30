@@ -27,6 +27,24 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
     });
   }
 
+  late final _$isPinCompAtom = Atom(
+    name: '_OTPVerificationViewmodelBase.isPinComp',
+    context: context,
+  );
+
+  @override
+  bool get isPinComp {
+    _$isPinCompAtom.reportRead();
+    return super.isPinComp;
+  }
+
+  @override
+  set isPinComp(bool value) {
+    _$isPinCompAtom.reportWrite(value, super.isPinComp, () {
+      super.isPinComp = value;
+    });
+  }
+
   late final _$isRetryAtom = Atom(
     name: '_OTPVerificationViewmodelBase.isRetry',
     context: context,
@@ -45,22 +63,14 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
     });
   }
 
-  late final _$isPinCompAtom = Atom(
-    name: '_OTPVerificationViewmodelBase.isPinComp',
+  late final _$verifyPressedAsyncAction = AsyncAction(
+    '_OTPVerificationViewmodelBase.verifyPressed',
     context: context,
   );
 
   @override
-  bool get isPinComp {
-    _$isPinCompAtom.reportRead();
-    return super.isPinComp;
-  }
-
-  @override
-  set isPinComp(bool value) {
-    _$isPinCompAtom.reportWrite(value, super.isPinComp, () {
-      super.isPinComp = value;
-    });
+  Future<NetworkResponse<bool>> verifyPressed() {
+    return _$verifyPressedAsyncAction.run(() => super.verifyPressed());
   }
 
   late final _$_OTPVerificationViewmodelBaseActionController = ActionController(
@@ -138,8 +148,8 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
   String toString() {
     return '''
 secondsRemaining: ${secondsRemaining},
-isRetry: ${isRetry},
-isPinComp: ${isPinComp}
+isPinComp: ${isPinComp},
+isRetry: ${isRetry}
     ''';
   }
 }

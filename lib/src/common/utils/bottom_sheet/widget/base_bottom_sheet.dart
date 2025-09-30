@@ -31,16 +31,7 @@ final class BaseBottomSheet extends StatelessWidget {
             radius: BorderRadius.circular(16),
           ),
           verticalBox16,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              LuciText.labelLarge(title),
-              IconButton(
-                onPressed: onPressed?.call,
-                icon: const Icon(Icons.check_outlined),
-              ),
-            ],
-          ),
+          LuciText.labelLarge(title),
           const Divider(),
           verticalBox8,
           child,

@@ -32,8 +32,6 @@ final class NewsBottomButton extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.zero,
         shape: LinearBorder.bottom(),
-        elevation: 3,
-        color: AppTheme.buttonBackground,
         child: SafeArea(
           child: Padding(
             padding: NaPadding.mainButtonPadding,

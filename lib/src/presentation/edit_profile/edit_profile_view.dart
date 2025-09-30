@@ -202,7 +202,10 @@ final class _FormWidget extends StatelessWidget {
             readOnly: true,
           ),
           verticalBox12,
-          PhoneNumberTextfield(phoneController: viewmodel.phoneController),
+          PhoneNumberTextfield(
+            phoneController: viewmodel.phoneController,
+            isForVerifyPhoneNumber: true,
+          ),
           verticalBox12,
         ],
       ),

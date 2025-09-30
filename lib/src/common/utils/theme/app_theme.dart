@@ -50,19 +50,19 @@ class AppTheme extends LuciTheme {
       errorStyle: const TextStyle(color: errorColor, fontSize: 12),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: placeholder.withValues(alpha: 0.4)),
+        borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: primaryColor, width: 1.5),
+        borderSide: BorderSide.none,
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: errorColor, width: 1.5),
+        borderSide: BorderSide.none,
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: errorColor, width: 1.5),
+        borderSide: BorderSide.none,
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     ),
@@ -88,6 +88,11 @@ class AppTheme extends LuciTheme {
       selectedItemColor: AppTheme.primaryColor,
       unselectedItemColor: AppTheme.bodyDark,
       showUnselectedLabels: true,
+    ),
+    cardTheme: const CardThemeData(
+      color: surfaceColor,
+      shadowColor: Colors.black26,
+      elevation: 4,
     ),
     switchTheme: SwitchThemeData(
       thumbColor: WidgetStateProperty.resolveWith((states) {
@@ -179,6 +184,11 @@ class AppTheme extends LuciTheme {
       selectedItemColor: AppTheme.primaryColor,
       unselectedItemColor: AppTheme.bodyDark,
       showUnselectedLabels: true,
+    ),
+    cardTheme: const CardThemeData(
+      color: inputDark, // Dark modda card rengi
+      shadowColor: AppTheme.backgroundDark,
+      elevation: 4,
     ),
     switchTheme: SwitchThemeData(
       thumbColor: WidgetStateProperty.resolveWith((states) {

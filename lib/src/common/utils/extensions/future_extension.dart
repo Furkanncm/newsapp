@@ -54,21 +54,20 @@ extension FutureXAll<T> on Future<T> {
     String? successMessage,
     Future<void> Function(T value)? onSuccess,
   }) async {
-    // Loading göstermek
-    unawaited(
-      showDialog<void>(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) => const LoadingDialog(),
-      ),
+    if (!context.mounted) return this;
+
+    final dialogFuture = showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const LoadingDialog(),
     );
 
     final result = await this;
 
-    // Loading kapat
-    if (context.mounted) router.pop();
+    if (context.mounted) {
+      Navigator.of(context, rootNavigator: true).pop();
+    }
 
-    // Başarılı mesaj ve callback
     if (successMessage != null && context.mounted) {
       NewsAppSnackBar.show(
         context: context,
@@ -78,6 +77,8 @@ extension FutureXAll<T> on Future<T> {
     }
 
     if (onSuccess != null) await onSuccess(result);
+
+    await dialogFuture;
 
     return result;
   }

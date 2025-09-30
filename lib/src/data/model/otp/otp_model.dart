@@ -7,4 +7,5 @@ class OTPModel {
   });
   final OTPOptions otpOptions;
   final String otpContent;
+
 }

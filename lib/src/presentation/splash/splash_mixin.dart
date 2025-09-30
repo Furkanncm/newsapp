@@ -56,15 +56,21 @@ mixin SplashMixin on State<SplashView> {
   }
 
   Future<void> _init() async {
+    
     final isFirstTime = _cacheRepository.getBool(PrefKeys.isFirstTime);
     await _incrementProgress();
+
     final userId = _cacheRepository.getString(PrefKeys.isUserLoggedIn);
     await _incrementProgress();
     await checkUser(userId: userId);
-    await _incrementProgress();
+
     await _incrementProgress();
     await fetchCountries();
+  
+    await _incrementProgress();
     checkOnboard(isFirstTime ?? true);
+    
+    await _incrementProgress();
     checkLogin(userId?.isNotEmpty, isFirstTime ?? true);
   }
 

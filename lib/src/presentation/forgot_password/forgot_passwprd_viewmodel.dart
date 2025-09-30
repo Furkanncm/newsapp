@@ -58,15 +58,14 @@ abstract class _ForgotPasswordViewmodelBase with Store {
             '${_otpModel?.otpOptions.value} ${LocaleKeys.sentTo.tr()} ${_otpModel?.otpContent}',
       );
       router.goNamed(RoutePaths.login.name);
-    } else if (!isEmailSelected) {
+    } else {
       _otpModel = OTPModel(
         otpOptions: OTPOptions.sms,
         otpContent: phoneController.text,
       );
       if (_otpModel == null) return;
-      await authRepository.sendVerificationCodePhoneNumber(
-        phoneNumber: _otpModel!.otpContent,
-      );
+      await authRepository.sendVerificationCodePhoneNumber(model: _otpModel!);
     }
   }
 }
+//furkankazic@gmail.com

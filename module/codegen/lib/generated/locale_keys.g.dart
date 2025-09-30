@@ -2,7 +2,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const appName = 'appName';
   static const packageName = 'packageName';
   static const bitcoinHeader = 'bitcoinHeader';
@@ -70,13 +70,15 @@ abstract class  LocaleKeys {
   static const locationPermissionTitle = 'locationPermissionTitle';
   static const locationPermissionDescription = 'locationPermissionDescription';
   static const notificationPermissionTitle = 'notificationPermissionTitle';
-  static const notificationPermissionDescription = 'notificationPermissionDescription';
+  static const notificationPermissionDescription =
+      'notificationPermissionDescription';
   static const cameraPermissionTitle = 'cameraPermissionTitle';
   static const cameraPermissionDescription = 'cameraPermissionDescription';
   static const galleryPermissionTitle = 'galleryPermissionTitle';
   static const galleryPermissionDescription = 'galleryPermissionDescription';
   static const microphonePermissionTitle = 'microphonePermissionTitle';
-  static const microphonePermissionDescription = 'microphonePermissionDescription';
+  static const microphonePermissionDescription =
+      'microphonePermissionDescription';
   static const storagePermissionTitle = 'storagePermissionTitle';
   static const storagePermissionDescription = 'storagePermissionDescription';
   static const permissionSettingsButton = 'permissionSettingsButton';
@@ -178,5 +180,4 @@ abstract class  LocaleKeys {
   static const sentTo = 'sentTo';
   static const phoneFailed = 'phoneFailed';
   static const verifyCodeSent = 'verifyCodeSent';
-
 }

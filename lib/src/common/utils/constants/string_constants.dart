@@ -1,5 +1,8 @@
 // string_constants.dart
 class StringConstants {
+  // App
+  static const appName = 'Luci News';
+
   // Translation paths
   static const translationPath = 'assets/translations';
   static const en = 'en';
@@ -27,4 +30,5 @@ class StringConstants {
   static const tooManyRequests = 'too-many-requests';
   static const networkRequestFailed = 'network-request-failed';
   static const invalidCredential = 'invalid-credential';
+  
 }

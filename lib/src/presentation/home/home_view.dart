@@ -30,59 +30,55 @@ final class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> with HomeMixin {
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) {
-        return Padding(
-          padding: NaPadding.pagePadding,
-          child: Scaffold(
-            appBar: _AppBar(viewmodel: viewmodel),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                verticalBox8,
-                SearchField(
-                  controller: controller,
-                  readOnly: true,
-                  onTap: () => router.pushNamed(
-                    RoutePaths.searchPage.name,
-                    extra: viewmodel.news?.articles ?? [],
-                  ),
-                ),
-                verticalBox8,
-                Observer(
-                  builder: (_) {
-                    return _AnimatedNewsOnboard(
-                      viewmodel: viewmodel,
-                      article: viewmodel.news?.articles ?? [],
-                    );
-                  },
-                ),
-                verticalBox4,
-                RowSeeAllWidget(
-                  text: LocaleKeys.latest.tr(),
-                  onSeeAllPressed: () => viewmodel.changeIsSeeAll(),
-                ),
-                verticalBox8,
-                _HorizontalTopicList(viewmodel: viewmodel),
-                Observer(
-                  builder: (_) {
-                    return viewmodel.isLoading
-                        ? const AdaptiveCircular()
-                        : ListLastestNews(
-                            newsList: viewmodel.categoryNews?.articles ?? [],
-                            onRefresh: (article, isBookmarked) async =>
-                                viewmodel.refreshLastestNews(
-                                  article,
-                                  isBookmarked.toBool() ?? false,
-                                ),
-                          );
-                  },
-                ),
-              ],
+    return Padding(
+      padding: NaPadding.pagePadding,
+      child: Scaffold(
+        appBar: _AppBar(viewmodel: viewmodel),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            verticalBox8,
+            SearchField(
+              controller: controller,
+              readOnly: true,
+              onTap: () => router.pushNamed(
+                RoutePaths.searchPage.name,
+                extra: viewmodel.news?.articles ?? [],
+              ),
             ),
-          ),
-        );
-      },
+            verticalBox8,
+            Observer(
+              builder: (_) {
+                return _AnimatedNewsOnboard(
+                  viewmodel: viewmodel,
+                  article: viewmodel.news?.articles ?? [],
+                );
+              },
+            ),
+            verticalBox4,
+            RowSeeAllWidget(
+              text: LocaleKeys.latest.tr(),
+              onSeeAllPressed: () => viewmodel.changeIsSeeAll(),
+            ),
+            verticalBox8,
+            _HorizontalTopicList(viewmodel: viewmodel),
+            Observer(
+              builder: (_) {
+                return viewmodel.isLoading
+                    ? const AdaptiveCircular()
+                    : ListLastestNews(
+                        newsList: viewmodel.categoryNews?.articles ?? [],
+                        onRefresh: (article, isBookmarked) async =>
+                            viewmodel.refreshLastestNews(
+                              article,
+                              isBookmarked.toBool() ?? false,
+                            ),
+                      );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

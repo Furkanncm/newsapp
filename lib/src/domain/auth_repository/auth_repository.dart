@@ -7,7 +7,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
 import 'package:newsapp/src/common/utils/constants/firebase_error.dart';
 import 'package:newsapp/src/common/utils/enums/firebase_auth.dart';
-import 'package:newsapp/src/common/utils/enums/otp_options_enum.dart';
 import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
@@ -15,6 +14,7 @@ import 'package:newsapp/src/data/data_source/local/local_ds.dart';
 import 'package:newsapp/src/data/model/otp/otp_model.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/firebase_firestore/firebase_firestore_repository.dart';
+import 'package:newsapp/src/domain/localization/localization_repository.dart';
 
 abstract class IAuthRepository {
   FirebaseAuthEnum authStatus = FirebaseAuthEnum.unauthenticated;
@@ -41,7 +41,9 @@ abstract class IAuthRepository {
 
   Future<void> logOut();
 
-  Future<void> sendVerificationCodePhoneNumber({required String phoneNumber});
+  Future<NetworkResponse<bool>> sendVerificationCodePhoneNumber({
+    required OTPModel model,
+  });
 
   Future<NetworkResponse<bool>?> sendVerificationEmail();
 
@@ -58,6 +60,9 @@ final class AuthRepository implements IAuthRepository {
   }
   AuthRepository._() {
     _firebaseAuth = FirebaseAuth.instance;
+    _firebaseAuth.setLanguageCode(
+      LocalizationManager.instance.foolbackLocale?.countryCode,
+    );
     _firestoreRepository = FirebaseFirestoreRepository();
     _cacheRepository = CacheRepository.instance;
     _googleSignIn = GoogleSignIn();
@@ -92,7 +97,7 @@ final class AuthRepository implements IAuthRepository {
     required String password,
     bool isRememberMe = false,
   }) {
-    return withTryCatch(() async {
+    return _withTryCatch(() async {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -106,13 +111,13 @@ final class AuthRepository implements IAuthRepository {
         );
         return true;
       }
-      return null; 
+      return null;
     });
   }
 
   @override
   Future<NetworkResponse<String>> loginWithGoogle() {
-    return withTryCatch(() async {
+    return _withTryCatch(() async {
       await _googleSignIn.signOut();
       final googleUser = await _googleSignIn.signIn();
       final googleAuth = await googleUser?.authentication;
@@ -143,7 +148,7 @@ final class AuthRepository implements IAuthRepository {
     required String password,
     bool isRememberMe = false,
   }) {
-    return withTryCatch(() async {
+    return _withTryCatch(() async {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -170,42 +175,49 @@ final class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<void> sendVerificationCodePhoneNumber({
-    required String phoneNumber,
+  Future<NetworkResponse<bool>> sendVerificationCodePhoneNumber({
+    required OTPModel model,
   }) async {
-    final selectedCountry = _countryRepository.selectedCountry;
-    final cleanedPhoneNumber =
-        '+${selectedCountry?.phoneCode ?? 90}$phoneNumber'.replaceAll(
-          RegExp('[^0-9+]'),
-          '',
-        );
-    await _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: cleanedPhoneNumber,
-      timeout: const Duration(seconds: 60),
-      verificationCompleted: (PhoneAuthCredential credential) async =>
-          _firebaseAuth.signInWithCredential(credential),
-      verificationFailed: (FirebaseAuthException e) {
-        debugPrint('${LocaleKeys.phoneFailed.tr()}: ${e.code} - ${e.message}');
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        router.pushNamed(
-          RoutePaths.otpVerification.name,
-          extra: OTPModel(
-            otpOptions: OTPOptions.sms,
-            otpContent: cleanedPhoneNumber,
-          ),
-        );
-        this.verificationId = verificationId;
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        this.verificationId = verificationId;
-      },
-    );
+    return _withTryCatch<bool>(() async {
+      final selectedCountry = _countryRepository.selectedCountry;
+      final cleanedPhoneNumber =
+          '+${selectedCountry?.phoneCode ?? 90}${model.otpContent}'.replaceAll(
+            RegExp('[^0-9+]'),
+            '',
+          );
+
+      await _firebaseAuth.verifyPhoneNumber(
+        phoneNumber: cleanedPhoneNumber,
+        timeout: const Duration(seconds: 60),
+        verificationCompleted: (PhoneAuthCredential credential) async =>
+            _firebaseAuth.signInWithCredential(credential),
+        verificationFailed: (FirebaseAuthException e) {
+          debugPrint(
+            '${LocaleKeys.phoneFailed.tr()}: ${e.code} - ${e.message}',
+          );
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          router.pushNamed(
+            RoutePaths.otpVerification.name,
+            extra: OTPModel(
+              otpOptions: model.otpOptions,
+              otpContent: cleanedPhoneNumber,
+            ),
+          );
+          this.verificationId = verificationId;
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          this.verificationId = verificationId;
+        },
+      );
+
+      return null;
+    });
   }
 
   @override
   Future<NetworkResponse<bool>> verifyPhoneNumber({required String smsCode}) {
-    return withTryCatch(() async {
+    return _withTryCatch(() async {
       final credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
         smsCode: smsCode,
@@ -227,7 +239,7 @@ final class AuthRepository implements IAuthRepository {
 
   @override
   Future<NetworkResponse<bool>> sendVerificationEmail() {
-    return withTryCatch(() async {
+    return _withTryCatch(() async {
       if (firebaseUser == null) return null;
       await firebaseUser!.sendEmailVerification();
       await firebaseUser!.reload();
@@ -239,7 +251,7 @@ final class AuthRepository implements IAuthRepository {
   Future<NetworkResponse<bool>> resetPasswordWithEmail({
     required String email,
   }) {
-    return withTryCatch(() async {
+    return _withTryCatch(() async {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
       return true;
     });
@@ -264,7 +276,7 @@ final class AuthRepository implements IAuthRepository {
     authStatus = FirebaseAuthEnum.authenticated;
   }
 
-  Future<NetworkResponse<T>> withTryCatch<T>(
+  Future<NetworkResponse<T>> _withTryCatch<T>(
     Future<T?> Function() onSuccess,
   ) async {
     try {
@@ -275,8 +287,8 @@ final class AuthRepository implements IAuthRepository {
       return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
     } on FirebaseAuthException catch (e) {
       return FirebaseError.errorInfo(e);
-    } catch (_) {
-      return NetworkResponse.failure(message: LocaleKeys.unknownError.tr());
+    } catch (e) {
+      return NetworkResponse.failure(message: e.toString());
     }
   }
 }

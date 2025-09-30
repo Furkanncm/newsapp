@@ -2,17 +2,25 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/enums/otp_options_enum.dart';
+import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/verify_button.dart';
 import 'package:newsapp/src/common/widget/text/label_with_star.dart';
+import 'package:newsapp/src/data/model/otp/otp_model.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 
 @immutable
 final class PhoneNumberTextfield extends StatefulWidget {
-  const PhoneNumberTextfield({required this.phoneController, super.key});
+  const PhoneNumberTextfield({
+    required this.phoneController,
+    this.isForVerifyPhoneNumber = false,
+    super.key,
+  });
 
   final TextEditingController phoneController;
+  final bool isForVerifyPhoneNumber;
 
   @override
   State<PhoneNumberTextfield> createState() => _PhoneNumberTextfieldState();
@@ -50,9 +58,18 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
           suffixIcon: VerifyButton(
             isValid: !widget.phoneController.text.isPhoneNumber,
             isVerified: isVerified,
-            onPressed: () => _authRepository.sendVerificationCodePhoneNumber(
-              phoneNumber: widget.phoneController.text,
-            ),
+            onPressed: () async {
+              await _authRepository
+                  .sendVerificationCodePhoneNumber(
+                    model: OTPModel(
+                      otpOptions: widget.isForVerifyPhoneNumber
+                          ? OTPOptions.verifyWithNumber
+                          : OTPOptions.sms,
+                      otpContent: widget.phoneController.text,
+                    ),
+                  )
+                  .withToast(context, successMessage: 'Code Send');
+            },
           ),
         ),
       ],
