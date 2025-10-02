@@ -30,6 +30,7 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
   late final IUserRepository _userRepository;
   late final IAuthRepository _authRepository;
   bool isVerified = false;
+  bool get checkValid => widget.phoneController.text.length == 14;
 
   @override
   void initState() {
@@ -38,8 +39,6 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
     _authRepository = AuthRepository();
     isVerified = _userRepository.currentUser?.isPhoneNumberVerified ?? false;
   }
-
-  bool get checkValid => widget.phoneController.text.length == 14;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +67,10 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
                       otpContent: widget.phoneController.text,
                     ),
                   )
-                  .withToast(context, successMessage: 'Code Send');
+                  .withToast(
+                    context,
+                    successMessage: LocaleKeys.verifyCodeSent.tr(),
+                  );
             },
           ),
         ),

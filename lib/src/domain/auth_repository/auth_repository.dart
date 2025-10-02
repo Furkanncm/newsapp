@@ -169,13 +169,6 @@ final class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<void> logOut() async {
-    await _firebaseAuth.signOut();
-    await _cacheRepository.remove(PrefKeys.isUserLoggedIn);
-    authStatus = FirebaseAuthEnum.unauthenticated;
-  }
-
-  @override
   Future<NetworkResponse<bool>> sendVerificationCodePhoneNumber({
     required OTPModel model,
   }) async {
@@ -265,6 +258,13 @@ final class AuthRepository implements IAuthRepository {
     await firebaseUser!.updatePassword(newPassword);
   }
 
+  @override
+  Future<void> logOut() async {
+    await _firebaseAuth.signOut();
+    await _cacheRepository.remove(PrefKeys.isUserLoggedIn);
+    authStatus = FirebaseAuthEnum.unauthenticated;
+  }
+
   Future<void> _setAuth({
     required UserCredential userCredential,
     required bool isRememberMe,
@@ -277,7 +277,7 @@ final class AuthRepository implements IAuthRepository {
     );
     authStatus = FirebaseAuthEnum.authenticated;
   }
-//furkankazimc@gmail.com
+
   Future<NetworkResponse<T>> _withTryCatch<T>(
     Future<T?> Function() onSuccess,
   ) async {
@@ -302,7 +302,7 @@ extension Userss on User {
       email: email,
       isEmailVerified: emailVerified,
       name: displayName,
-      profilePhoto: photoURL
+      profilePhoto: photoURL,
     );
   }
 }

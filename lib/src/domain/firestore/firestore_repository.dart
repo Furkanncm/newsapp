@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:codegen/model/article_model/article_model.dart';
 import 'package:codegen/model/topic/topic.dart';
 import 'package:codegen/model/user/user_model.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
@@ -22,7 +20,8 @@ abstract class IFirestoreRepository {
 
   Future<void> updateTopic({required List<Topic> topics});
 
-  Future<NetworkResponse<String>> updateProfilePhoto(File imageFile);
+  Future<NetworkResponse<String>> updateProfilePhoto({required UserModel user});
+
 
   Future<UserModel?> getUserInfo();
 
@@ -66,20 +65,12 @@ final class FirestoreRepository implements IFirestoreRepository {
 
   @override
   Future<void> saveUser({required UserModel user}) async {
-    String? profilePhotoUrl;
     var userToSave = user;
 
     if (user.profilePhoto != null && user.profilePhoto!.isNotEmpty) {
-      final file = File(user.profilePhoto!);
-      if (await file.exists()) {
-        final storageRef = _storage
-            .ref()
-            .child('profile_photos')
-            .child('${user.id}.jpg');
-        await storageRef.putFile(file);
-        profilePhotoUrl = await storageRef.getDownloadURL();
-        userToSave = user.copyWith(profilePhoto: profilePhotoUrl);
-      }
+      final response = await _saveToStorage(user: user);
+      if (response == null) return;
+      userToSave = response;
     }
 
     await _firestore
@@ -93,6 +84,22 @@ final class FirestoreRepository implements IFirestoreRepository {
         .set({
           FirebaseCollection.savedNews.collectionName: List<String>.empty(),
         });
+  }
+
+  Future<UserModel?> _saveToStorage({required UserModel user}) async {
+    String? profilePhotoUrl;
+    final file = File(user.profilePhoto!);
+    if (await file.exists()) {
+      final storageRef = _storage
+          .ref()
+          .child(FirebaseCollection.profilePhotos.collectionName)
+          .child('${user.id}.jpg');
+      await storageRef.putFile(file);
+      profilePhotoUrl = await storageRef.getDownloadURL();
+      return user.copyWith(profilePhoto: profilePhotoUrl);
+    }
+
+    return null;
   }
 
   @override
@@ -172,29 +179,18 @@ final class FirestoreRepository implements IFirestoreRepository {
   }
 
   @override
-  Future<NetworkResponse<String>> updateProfilePhoto(File imageFile,) async {
-    try {
-      final storageRef = _storage
-          .ref()
-          .child('profile_photos')
-          .child('$userId.jpg');
-      await storageRef.putFile(imageFile);
-
-      final downloadUrl = await storageRef.getDownloadURL();
-
-      await _firestore
-          .collection(FirebaseCollection.users.collectionName)
-          .doc(userId)
-          .update({'profilePhoto': downloadUrl});
-
-      return NetworkResponse.success(data: downloadUrl);
-    } on FirebaseException catch (e) {
-      return NetworkResponse.failure(
-        message: e.message ?? LocaleKeys.unknownError.tr(),
-      );
-    } catch (e) {
-      return NetworkResponse.failure(message: e.toString());
+  Future<NetworkResponse<String>> updateProfilePhoto({
+    required UserModel user,
+  }) async {
+    final response = await _saveToStorage(user: user);
+    if (response == null) {
+      return NetworkResponse.failure(message: 'İşlem başarısız');
     }
+    await _firestore
+        .collection(FirebaseCollection.users.collectionName)
+        .doc(userId)
+        .update(user.toJson());
+    return NetworkResponse.success(data: response.profilePhoto!);
   }
 
   @override
