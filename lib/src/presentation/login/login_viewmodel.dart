@@ -26,10 +26,7 @@ abstract class _LoginViewmodelBase with Store {
   @observable
   bool isFormValid = false;
 
-  @action
-  void toggleRememberMe() {
-    isRememberMe = !isRememberMe;
-  }
+
 
   Future<NetworkResponse<bool>?> login() async {
     return authRepository.logInWithEmail(

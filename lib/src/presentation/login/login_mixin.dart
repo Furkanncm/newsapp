@@ -27,9 +27,7 @@ mixin LoginMixin on State<LoginView> {
   }
 
   bool get isFormValid => viewModel.isFormValid;
-  bool get rememberMe => viewModel.isRememberMe;
 
-  void toggleRememberMe() => viewModel.toggleRememberMe();
 
   Future<void> login() async {
     if (viewModel.formKey.currentState?.validate() ?? false) {

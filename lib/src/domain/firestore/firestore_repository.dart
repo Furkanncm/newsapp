@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:codegen/model/article_model/article_model.dart';
 import 'package:codegen/model/topic/topic.dart';
 import 'package:codegen/model/user/user_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
@@ -31,13 +33,8 @@ abstract class IFirestoreRepository {
 
   Future<List<Article>> getNews();
 
-  Future<void> isRememberMeAndSetAuthStatus({
-    required bool isRememberMe,
-    required String userId,
-  });
 
   Future<void> setAuthAndSaveUser({
-    required bool isRememberMe,
     required UserModel user,
     bool isNewsUser = false,
   });
@@ -184,7 +181,7 @@ final class FirestoreRepository implements IFirestoreRepository {
   }) async {
     final response = await _saveToStorage(user: user);
     if (response == null) {
-      return NetworkResponse.failure(message: 'İşlem başarısız');
+      return NetworkResponse.failure(message: LocaleKeys.fail.tr());
     }
     await _firestore
         .collection(FirebaseCollection.users.collectionName)
@@ -193,28 +190,16 @@ final class FirestoreRepository implements IFirestoreRepository {
     return NetworkResponse.success(data: response.profilePhoto!);
   }
 
-  @override
-  Future<void> isRememberMeAndSetAuthStatus({
-    required bool isRememberMe,
-    required String userId,
-  }) async {
-    if (isRememberMe) {
-      await _cacheRepository.setString(PrefKeys.isUserLoggedIn, userId);
-    }
-  }
+
 
   @override
   Future<void> setAuthAndSaveUser({
-    required bool isRememberMe,
     required UserModel user,
     bool isNewsUser = false,
   }) async {
     if (user.id == null) return;
     await _cacheRepository.setString(PrefKeys.isUserLoggedIn, user.id!);
-    await isRememberMeAndSetAuthStatus(
-      isRememberMe: isRememberMe,
-      userId: user.id!,
-    );
+    await _cacheRepository.setString(PrefKeys.isUserLoggedIn, userId);
     if (!isNewsUser) return;
     await saveUser(user: user);
   }

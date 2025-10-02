@@ -69,18 +69,6 @@ mixin _$LoginViewmodel on _LoginViewmodelBase, Store {
   );
 
   @override
-  void toggleRememberMe() {
-    final _$actionInfo = _$_LoginViewmodelBaseActionController.startAction(
-      name: '_LoginViewmodelBase.toggleRememberMe',
-    );
-    try {
-      return super.toggleRememberMe();
-    } finally {
-      _$_LoginViewmodelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void validateForm() {
     final _$actionInfo = _$_LoginViewmodelBaseActionController.startAction(
       name: '_LoginViewmodelBase.validateForm',

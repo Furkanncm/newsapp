@@ -37,7 +37,6 @@ abstract class IAuthRepository {
   Future<NetworkResponse<bool>> register({
     required String email,
     required String password,
-    bool isRememberMe,
   });
 
   Future<void> logOut();
@@ -108,7 +107,6 @@ final class AuthRepository implements IAuthRepository {
       if (user != null) {
         await _setAuth(
           userCredential: userCredential,
-          isRememberMe: isRememberMe,
         );
         return true;
       }
@@ -135,7 +133,7 @@ final class AuthRepository implements IAuthRepository {
         final user = userCredential.user;
 
         if (user != null) {
-          await _setAuth(userCredential: userCredential, isRememberMe: true);
+          await _setAuth(userCredential: userCredential,);
           return user.uid;
         }
       }
@@ -147,7 +145,6 @@ final class AuthRepository implements IAuthRepository {
   Future<NetworkResponse<bool>> register({
     required String email,
     required String password,
-    bool isRememberMe = false,
   }) {
     return _withTryCatch(() async {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -160,7 +157,6 @@ final class AuthRepository implements IAuthRepository {
       if (user != null) {
         await _setAuth(
           userCredential: userCredential,
-          isRememberMe: isRememberMe,
         );
         return true;
       }
@@ -267,11 +263,9 @@ final class AuthRepository implements IAuthRepository {
 
   Future<void> _setAuth({
     required UserCredential userCredential,
-    required bool isRememberMe,
   }) async {
     if (firebaseUser == null) return;
     await _firestoreRepository.setAuthAndSaveUser(
-      isRememberMe: isRememberMe,
       user: firebaseUser!.toUserModel(),
       isNewsUser: userCredential.additionalUserInfo?.isNewUser ?? false,
     );

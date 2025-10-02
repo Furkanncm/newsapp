@@ -25,9 +25,6 @@ mixin SignUpMixin on State<SignUpView> {
   }
 
   bool get isFormValid => viewModel.isFormValid;
-  bool get rememberMe => viewModel.isRememberMe;
-
-  void toggleRememberMe() => viewModel.toggleRememberMe();
 
   Future<void> register() async {
     viewModel.validateForm();

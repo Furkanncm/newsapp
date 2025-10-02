@@ -1,7 +1,6 @@
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
@@ -89,31 +88,15 @@ final class _RememberMe extends StatelessWidget {
   final LoginViewmodel viewmodel;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Observer(
-          builder: (_) {
-            return Checkbox(
-              value: viewmodel.isRememberMe,
-              onChanged: (value) => viewmodel.toggleRememberMe(),
-              visualDensity: VisualDensity.compact,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            );
-          },
+    return Align(
+      alignment: Alignment.bottomRight,
+      child: GestureDetector(
+        onTap: () => router.pushNamed(RoutePaths.forgotPassword.name),
+        child: LuciText.bodyMedium(
+          LocaleKeys.forgotPassword.tr(),
+          textColor: AppTheme.primaryColor,
         ),
-        LuciText.bodyMedium(
-          LocaleKeys.rememberMe.tr(),
-          textColor: AppTheme.bodyText,
-        ),
-        const Spacer(),
-        GestureDetector(
-          onTap: () => router.pushNamed(RoutePaths.forgotPassword.name),
-          child: LuciText.bodyMedium(
-            LocaleKeys.forgotPassword.tr(),
-            textColor: AppTheme.primaryColor,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

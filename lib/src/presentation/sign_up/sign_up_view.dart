@@ -1,7 +1,6 @@
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
@@ -12,7 +11,6 @@ import 'package:newsapp/src/common/widget/form/email_password_form.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/common/widget/text/fadded_text.dart';
 import 'package:newsapp/src/presentation/sign_up/sign_up_mixin.dart';
-import 'package:newsapp/src/presentation/sign_up/sign_up_viewmodel.dart';
 
 @immutable
 final class SignUpView extends StatefulWidget {
@@ -49,9 +47,7 @@ class _SignUpViewState extends State<SignUpView> with SignUpMixin {
                       viewModel.confirmPasswordController,
                   formKey: viewModel.formKey,
                 ),
-                verticalBox8,
-                _RememberMe(viewmodel: viewModel),
-                verticalBox16,
+                verticalBox48,
                 _SignUpButton(onPressed: register),
                 verticalBox32,
                 const SocialMediaLogin(),
@@ -64,35 +60,6 @@ class _SignUpViewState extends State<SignUpView> with SignUpMixin {
         padding: NaPadding.verticalHighPadding,
         child: _AlreadyHaveAccount(),
       ),
-    );
-  }
-}
-
-@immutable
-final class _RememberMe extends StatelessWidget {
-  const _RememberMe({required this.viewmodel});
-
-  final SignUpViewmodel viewmodel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Observer(
-          builder: (_) {
-            return Checkbox(
-              value: viewmodel.isRememberMe,
-              onChanged: (value) => viewmodel.toggleRememberMe(),
-              visualDensity: VisualDensity.compact,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            );
-          },
-        ),
-        LuciText.bodyMedium(
-          LocaleKeys.rememberMe.tr(),
-          textColor: AppTheme.bodyText,
-        ),
-      ],
     );
   }
 }

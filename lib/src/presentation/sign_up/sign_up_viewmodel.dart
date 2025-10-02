@@ -19,8 +19,7 @@ abstract class _SignUpViewmodelBase with Store {
   @computed
   bool get isFormValid => validateForm();
 
-  @observable
-  bool isRememberMe = true;
+
 
   @observable
   NetworkResponse<bool?>? registrationResponse;
@@ -31,10 +30,7 @@ abstract class _SignUpViewmodelBase with Store {
   @observable
   bool? isSuccess;
 
-  @action
-  void toggleRememberMe() {
-    isRememberMe = !isRememberMe;
-  }
+
 
   @action
   void resetForm() {
@@ -57,7 +53,6 @@ abstract class _SignUpViewmodelBase with Store {
     final response = await authRepository.register(
       email: emailController.text,
       password: passwordController.text,
-      isRememberMe: isRememberMe,
     );
 
     isLoading = false;

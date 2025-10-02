@@ -172,6 +172,7 @@
   "sent" : "gönderildi",
   "phoneFailed":"Telefon doğrulaması başarısız!",
   "verifyCodeSent":"Doğrulama kodu gönderildi!",
-   "phoneNumberVerified": "Telefon numaranız doğrulandı"
+   "phoneNumberVerified": "Telefon numaranız doğrulandı",
+   "fail": "İşlem Başarısız"
   
 }
