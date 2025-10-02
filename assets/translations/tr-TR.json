@@ -171,5 +171,7 @@
   "check":"Lütfen kontrol edin!",
   "sent" : "gönderildi",
   "phoneFailed":"Telefon doğrulaması başarısız!",
-  "verifyCodeSent":"Doğrulama kodu gönderildi!"
+  "verifyCodeSent":"Doğrulama kodu gönderildi!",
+   "phoneNumberVerified": "Telefon numaranız doğrulandı"
+  
 }

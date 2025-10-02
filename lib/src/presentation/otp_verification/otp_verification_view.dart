@@ -157,12 +157,11 @@ final class _ResendCode extends StatelessWidget {
 }
 
 final class AppPinTheme {
-  final BuildContext context;
-  late final bool isLightTheme;
-
   AppPinTheme({required this.context}) {
     isLightTheme = Theme.of(context).brightness == Brightness.light;
   }
+  final BuildContext context;
+  late final bool isLightTheme;
 
   PinTheme get pinTheme => PinTheme(
     shape: PinCodeFieldShape.box,

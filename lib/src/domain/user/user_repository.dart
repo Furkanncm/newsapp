@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:codegen/model/topic/topic.dart';
 import 'package:codegen/model/user/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,7 +37,7 @@ abstract class IUserRepository {
 
   Future<bool> checkEmailVerified();
 
-  Future<NetworkResponse<String>> updateProfilePhoto(File imageFile);
+  Future<NetworkResponse<String>> updateProfilePhoto(String imagePath);
 }
 
 class UserRepository implements IUserRepository {
@@ -126,6 +124,9 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future<NetworkResponse<String>> updateProfilePhoto(File imageFile) =>
-      _firestoreRepository.updateProfilePhoto(imageFile);
+  Future<NetworkResponse<String>> updateProfilePhoto(String imagePath) {
+    return _firestoreRepository.updateProfilePhoto(
+      user: currentUser!.copyWith(profilePhoto: imagePath),
+    );
+  }
 }

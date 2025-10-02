@@ -36,10 +36,8 @@ class _PhotoWithCameraIconState extends State<PhotoWithCameraIcon> {
       iconColor: AppTheme.primaryColor,
       buttonBackgroundColor: AppTheme.bodyDark,
     );
-    if (result == null) return;
-
-    final file = File(result.path);
-
+    if (result == null || !mounted) return;
+    final file = result.path;
     final response = await _userRepository
         .updateProfilePhoto(file)
         .withIndicator(context);

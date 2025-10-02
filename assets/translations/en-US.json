@@ -176,5 +176,7 @@
   "check":"Please check ",
   "sentTo": "sent",
   "phoneFailed": "Phone verification failed",
-  "verifyCodeSent":"Verification code sent!"
+  "verifyCodeSent":"Verification code sent!",
+  "phoneNumberVerified": "Your phone number is verified"
+
 }
