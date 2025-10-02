@@ -1,6 +1,4 @@
-import 'package:codegen/codegen.dart';
 import 'package:codegen/generated/locale_keys.g.dart';
-import 'package:codegen/model/topic/topic.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -14,6 +12,7 @@ import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 import 'package:newsapp/src/common/widget/other/decorated_container.dart';
+import 'package:newsapp/src/common/widget/other/profile_photo.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/domain/theme/theme_repository.dart';
 import 'package:newsapp/src/presentation/profile/profile_viewmodel.dart';
@@ -83,19 +82,14 @@ final class _Body extends StatelessWidget with ProfileMixin {
 final class _UserDetails extends StatelessWidget with ProfileMixin {
   @override
   Widget build(BuildContext context) {
+    final profilePhoto = viewmodel.currentUser?.profilePhoto ?? '';
     return Column(
       children: [
         Hero(
           tag: StringConstants.profileImage,
           child: GestureDetector(
-            onTap: () => showProfileImageDialog(context),
-            child: CircleAvatar(
-              radius: 75,
-              backgroundImage: Assets.images.onboard2.toFit.image,
-              onBackgroundImageError: (exception, stackTrace) {
-                // error handle edilecek
-              },
-            ),
+            onTap: () => showProfileImageDialog(context, profilePhoto),
+            child: ProfilePhoto(imagepath: profilePhoto),
           ),
         ),
         verticalBox12,
@@ -132,7 +126,7 @@ final class _EditButton extends StatelessWidget {
         LocaleKeys.editProfile.tr(),
         fontWeight: FontWeight.bold,
       ),
-      onPressed: () => router.pushNamed(RoutePaths.editProfile.name),
+      onPressed: () => router.goNamed(RoutePaths.editProfile.name),
     );
   }
 }

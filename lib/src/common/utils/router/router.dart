@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsapp/src/common/utils/enums/firebase_auth.dart';
+import 'package:newsapp/src/common/utils/enums/firebase_auth_enum.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/widget/navigation_bar/bottom_navigationbar.dart';
 import 'package:newsapp/src/common/widget/other/no_network_container.dart';

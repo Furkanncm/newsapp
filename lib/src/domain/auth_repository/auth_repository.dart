@@ -1,19 +1,20 @@
+import 'dart:async';
+
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:codegen/model/user/user_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
 import 'package:newsapp/src/common/utils/constants/firebase_error.dart';
-import 'package:newsapp/src/common/utils/enums/firebase_auth.dart';
+import 'package:newsapp/src/common/utils/enums/firebase_auth_enum.dart';
 import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/data_source/local/local_ds.dart';
 import 'package:newsapp/src/data/model/otp/otp_model.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
-import 'package:newsapp/src/domain/firebase_firestore/firebase_firestore_repository.dart';
+import 'package:newsapp/src/domain/firestore/firestore_repository.dart';
 import 'package:newsapp/src/domain/localization/localization_repository.dart';
 
 abstract class IAuthRepository {
@@ -63,7 +64,7 @@ final class AuthRepository implements IAuthRepository {
     _firebaseAuth.setLanguageCode(
       LocalizationManager.instance.foolbackLocale?.countryCode,
     );
-    _firestoreRepository = FirebaseFirestoreRepository();
+    _firestoreRepository = FirestoreRepository();
     _cacheRepository = CacheRepository.instance;
     _googleSignIn = GoogleSignIn();
     _countryRepository = CountryRepository();
@@ -71,7 +72,7 @@ final class AuthRepository implements IAuthRepository {
   static AuthRepository? _instance;
 
   late final FirebaseAuth _firebaseAuth;
-  late final IFirebaseFirestoreRepository _firestoreRepository;
+  late final IFirestoreRepository _firestoreRepository;
   late final CacheRepository _cacheRepository;
   late final GoogleSignIn _googleSignIn;
   late final CountryRepository _countryRepository;
@@ -178,24 +179,24 @@ final class AuthRepository implements IAuthRepository {
   Future<NetworkResponse<bool>> sendVerificationCodePhoneNumber({
     required OTPModel model,
   }) async {
+    final selectedCountry = _countryRepository.selectedCountry;
+    final cleanedPhoneNumber =
+        '+${selectedCountry?.phoneCode ?? 90}${model.otpContent}'.replaceAll(
+          RegExp('[^0-9+]'),
+          '',
+        );
+
     return _withTryCatch<bool>(() async {
-      final selectedCountry = _countryRepository.selectedCountry;
-      final cleanedPhoneNumber =
-          '+${selectedCountry?.phoneCode ?? 90}${model.otpContent}'.replaceAll(
-            RegExp('[^0-9+]'),
-            '',
-          );
+      final completer = Completer<bool>();
 
       await _firebaseAuth.verifyPhoneNumber(
         phoneNumber: cleanedPhoneNumber,
         timeout: const Duration(seconds: 60),
-        verificationCompleted: (PhoneAuthCredential credential) async =>
-            _firebaseAuth.signInWithCredential(credential),
-        verificationFailed: (FirebaseAuthException e) {
-          debugPrint(
-            '${LocaleKeys.phoneFailed.tr()}: ${e.code} - ${e.message}',
-          );
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await _firebaseAuth.signInWithCredential(credential);
+          completer.complete(true);
         },
+        verificationFailed: completer.completeError,
         codeSent: (String verificationId, int? resendToken) {
           router.pushNamed(
             RoutePaths.otpVerification.name,
@@ -205,13 +206,14 @@ final class AuthRepository implements IAuthRepository {
             ),
           );
           this.verificationId = verificationId;
+          completer.complete(true);
         },
         codeAutoRetrievalTimeout: (String verificationId) {
           this.verificationId = verificationId;
         },
       );
 
-      return null;
+      return completer.future;
     });
   }
 
@@ -275,7 +277,7 @@ final class AuthRepository implements IAuthRepository {
     );
     authStatus = FirebaseAuthEnum.authenticated;
   }
-
+//furkankazimc@gmail.com
   Future<NetworkResponse<T>> _withTryCatch<T>(
     Future<T?> Function() onSuccess,
   ) async {
@@ -300,6 +302,7 @@ extension Userss on User {
       email: email,
       isEmailVerified: emailVerified,
       name: displayName,
+      profilePhoto: photoURL
     );
   }
 }

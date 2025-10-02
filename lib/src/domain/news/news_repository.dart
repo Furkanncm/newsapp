@@ -4,7 +4,7 @@ import 'package:newsapp/src/common/utils/enums/remote_ds_path.dart';
 import 'package:newsapp/src/data/data_source/remote/news_api_ds.dart';
 import 'package:newsapp/src/data/model/filter/filter.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
-import 'package:newsapp/src/domain/firebase_firestore/firebase_firestore_repository.dart';
+import 'package:newsapp/src/domain/firestore/firestore_repository.dart';
 
 abstract class INewsRepository {
   Future<List<Article>> fetchNews();
@@ -21,13 +21,13 @@ final class NewsRepository implements INewsRepository {
   }
 
   NewsRepository._internal() {
-    _firestoreRepository = FirebaseFirestoreRepository();
+    _firestoreRepository = FirestoreRepository();
     _countryRepository = CountryRepository();
   }
 
   static NewsRepository? _instance;
 
-  late final IFirebaseFirestoreRepository _firestoreRepository;
+  late final IFirestoreRepository _firestoreRepository;
   late final ICountryRepository _countryRepository;
 
   @override

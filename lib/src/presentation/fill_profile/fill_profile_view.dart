@@ -14,7 +14,6 @@ import 'package:newsapp/src/common/widget/textfield/phone_number_textfield.dart'
 import 'package:newsapp/src/common/widget/textfield/user_name_textfield.dart';
 import 'package:newsapp/src/presentation/fill_profile/fill_profile_mixin.dart';
 import 'package:newsapp/src/presentation/fill_profile/fill_profile_viewmodel.dart';
-import 'package:share_plus/share_plus.dart';
 
 @immutable
 final class FillProfileView extends StatefulWidget {
@@ -29,11 +28,7 @@ class _FillProfileViewState extends State<FillProfileView>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NewsAppBar(title: LocaleKeys.fillProfile.tr()),
-      body: _Body(
-        imageFile: imageFile,
-        viewmodel: viewmodel,
-        onPressed: () => setProfilePhoto(context),
-      ),
+      body: _Body(viewmodel: viewmodel),
       bottomNavigationBar: _NextButton(viewmodel: viewmodel),
     );
   }
@@ -41,15 +36,9 @@ class _FillProfileViewState extends State<FillProfileView>
 
 @immutable
 final class _Body extends StatelessWidget {
-  const _Body({
-    required this.imageFile,
-    required this.viewmodel,
-    required this.onPressed,
-  });
+  const _Body({required this.viewmodel});
 
-  final ValueNotifier<XFile?> imageFile;
   final FillProfileViewmodel viewmodel;
-  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +47,7 @@ final class _Body extends StatelessWidget {
         padding: NaPadding.pagePadding,
         child: Column(
           children: [
-            PhotoChange(onPressed: onPressed, imageFile: imageFile),
+            const PhotoWithCameraIcon(),
             verticalBox48,
             _FormField(viewmodel: viewmodel),
           ],
@@ -125,9 +114,7 @@ final class _FormField extends StatelessWidget {
                 builder: (_) {
                   return Expanded(
                     child: LabelTextField(
-                      onTap: () async {
-                        await viewmodel.onCountryTap(context);
-                      },
+                      onTap: () async => viewmodel.onCountryTap(context),
                       label: LocaleKeys.country.tr(),
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(8),

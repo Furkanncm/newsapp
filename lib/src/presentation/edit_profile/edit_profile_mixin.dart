@@ -10,11 +10,9 @@ import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 import 'package:newsapp/src/presentation/edit_profile/edit_profile_view.dart';
 import 'package:newsapp/src/presentation/edit_profile/edit_profile_viewmodel.dart';
-import 'package:share_plus/share_plus.dart';
 
 mixin EditProfileMixin on State<EditProfileView> {
   late final EditProfileViewmodel viewmodel;
-  final ValueNotifier<XFile?> imageFile = ValueNotifier(null);
 
   @override
   void initState() {
@@ -77,21 +75,15 @@ mixin EditProfileMixin on State<EditProfileView> {
     }
   }
 
-  Future<void> setProfilePhoto(BuildContext context) async {
-    final result = await viewmodel.userRepository.setProfilePhoto(context);
-    imageFile.value = result;
-  }
-
   Future<void> editProfile() async {
     if (!(viewmodel.formKey.currentState?.validate() ?? false)) return;
-    viewmodel.user = viewmodel.user?.copyWith(
+    viewmodel.user = viewmodel.userRepository.currentUser?.copyWith(
       email: viewmodel.emailController.text,
       username: viewmodel.nameController.text,
       name: viewmodel.fullNameController.text,
       phone: viewmodel.phoneController.text,
       bio: viewmodel.bioController.text,
       website: viewmodel.websiteController.text,
-      profilePhoto: imageFile.value?.path ?? viewmodel.user?.profilePhoto,
       gender: viewmodel.genderController.text,
       country: viewmodel.countryController.text,
     );
@@ -100,7 +92,7 @@ mixin EditProfileMixin on State<EditProfileView> {
         .withToast(context, successMessage: LocaleKeys.editProfileSuccess.tr())
         .withIndicator(context);
     if (result?.data ?? false) {
-      router.goNamed(RoutePaths.profile.name);
+      router.go(RoutePaths.profile.path);
     }
   }
 

@@ -9,7 +9,7 @@ import 'package:share_plus/share_plus.dart';
 
 mixin FillProfileMixin on State<FillProfileView> {
   late final FillProfileViewmodel viewmodel;
-  final ValueNotifier<XFile?> imageFile = ValueNotifier(null);
+  late final XFile imageFile;
 
   @override
   void initState() {
@@ -30,17 +30,11 @@ mixin FillProfileMixin on State<FillProfileView> {
     viewmodel.fullNameController.text = viewmodel.currentUser?.name ?? '';
   }
 
-  Future<void> setProfilePhoto(BuildContext context) async {
-    final result = await viewmodel.userRepository.setProfilePhoto(context);
-    imageFile.value = result;
-  }
 
   void skipProfile(BuildContext context) {
     viewmodel.userRepository.setSkipped();
     router.goNamed(RoutePaths.home.name);
   }
-
-
 
   @override
   void dispose() {

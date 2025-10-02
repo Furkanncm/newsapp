@@ -15,7 +15,6 @@ import 'package:newsapp/src/common/widget/textfield/phone_number_textfield.dart'
 import 'package:newsapp/src/common/widget/textfield/user_name_textfield.dart';
 import 'package:newsapp/src/presentation/edit_profile/edit_profile_mixin.dart';
 import 'package:newsapp/src/presentation/edit_profile/edit_profile_viewmodel.dart';
-import 'package:share_plus/share_plus.dart';
 
 @immutable
 final class EditProfileView extends StatefulWidget {
@@ -32,6 +31,7 @@ class _EditProfileViewState extends State<EditProfileView>
     return Scaffold(
       appBar: NewsAppBar(
         title: LocaleKeys.editProfile.tr(),
+        isPop: false,
         actions: [
           IconButton(
             onPressed: editProfile,
@@ -39,25 +39,15 @@ class _EditProfileViewState extends State<EditProfileView>
           ),
         ],
       ),
-      body: _Body(
-        onPressed: () => setProfilePhoto(context),
-        imageFile: imageFile,
-        viewmodel: viewmodel,
-      ),
+      body: _Body(viewmodel: viewmodel),
     );
   }
 }
 
 @immutable
 final class _Body extends StatelessWidget {
-  const _Body({
-    required this.onPressed,
-    required this.imageFile,
-    required this.viewmodel,
-  });
+  const _Body({required this.viewmodel});
 
-  final VoidCallback onPressed;
-  final ValueNotifier<XFile?> imageFile;
   final EditProfileViewmodel viewmodel;
 
   @override
@@ -70,10 +60,7 @@ final class _Body extends StatelessWidget {
                 padding: NaPadding.pagePadding,
                 physics: const ClampingScrollPhysics(),
                 children: [
-                  ProfilePhotoWidget(
-                    onPressed: onPressed,
-                    imageFile: imageFile,
-                  ),
+                  const PhotoWithCameraIcon(),
                   verticalBox32,
                   UserNameTextfield(nameController: viewmodel.nameController),
                   verticalBox12,
@@ -154,33 +141,6 @@ final class _GenderAndCountryPicker extends StatelessWidget {
           },
         ),
       ],
-    );
-  }
-}
-
-@immutable
-final class ProfilePhotoWidget extends StatelessWidget {
-  const ProfilePhotoWidget({
-    required this.onPressed,
-    required this.imageFile,
-    super.key,
-  });
-  final VoidCallback onPressed;
-  final ValueNotifier<XFile?> imageFile;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: GestureDetector(
-        onTap: onPressed.call,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            ProfilePhoto(imageFile: imageFile),
-            const CameraIcon(),
-          ],
-        ),
-      ),
     );
   }
 }

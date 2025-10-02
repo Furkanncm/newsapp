@@ -3,9 +3,10 @@ part of 'profile_view.dart';
 mixin ProfileMixin on StatelessWidget {
   final ProfileViewModel viewmodel = ProfileViewModel();
 
-  void showProfileImageDialog(BuildContext context) {
+  void showProfileImageDialog(BuildContext context, String imagePath) {
     showAdaptiveDialog<void>(
-      barrierColor: Colors.black,
+      barrierColor: Colors.transparent.withValues(alpha: 0.7),
+
       context: context,
       builder: (context) {
         return Hero(
@@ -13,16 +14,12 @@ mixin ProfileMixin on StatelessWidget {
           child: Dialog(
             elevation: 2,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32),
+              borderRadius: BorderRadius.circular(150),
             ),
-            child: ClipRect(
-              child: SizedBox(
-                height: 300,
-                child: Assets.images.onboard2.image(
-                  package: LocaleKeys.packageName.tr(),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            child: ProfilePhoto(
+              imagepath: imagePath,
+              height: context.height * 0.4,
+              radius: 150,
             ),
           ),
         );

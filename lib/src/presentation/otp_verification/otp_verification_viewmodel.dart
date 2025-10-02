@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
-import 'package:newsapp/src/domain/firebase_firestore/firebase_firestore_repository.dart';
+import 'package:newsapp/src/domain/firestore/firestore_repository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 part 'otp_verification_viewmodel.g.dart';
@@ -20,7 +20,7 @@ abstract class _OTPVerificationViewmodelBase with Store {
 
   late final IAuthRepository authRepository;
 
-  late final IFirebaseFirestoreRepository firestoreRepository;
+  late final IFirestoreRepository firestoreRepository;
 
   late final ICountryRepository countryRepository;
 

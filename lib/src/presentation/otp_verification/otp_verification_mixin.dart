@@ -9,7 +9,7 @@ import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/model/otp/otp_model.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
-import 'package:newsapp/src/domain/firebase_firestore/firebase_firestore_repository.dart';
+import 'package:newsapp/src/domain/firestore/firestore_repository.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_view.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_viewmodel.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -28,7 +28,7 @@ mixin OtTPVerificationMixin on State<OtpVerificationView> {
       ..errorController = StreamController<ErrorAnimationType>()
       ..pinCodeController = TextEditingController()
       ..authRepository = AuthRepository()
-      ..firestoreRepository = FirebaseFirestoreRepository()
+      ..firestoreRepository = FirestoreRepository()
       ..startTimer();
   }
 
