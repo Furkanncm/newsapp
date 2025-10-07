@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:codegen/model/article_model/article_model.dart';
 import 'package:codegen/model/topic/topic.dart';
 import 'package:codegen/model/user/user_model.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
@@ -24,7 +20,6 @@ abstract class IFirestoreRepository {
 
   Future<NetworkResponse<String>> updateProfilePhoto({required UserModel user});
 
-
   Future<UserModel?> getUserInfo();
 
   Future<void> saveNews(Article article);
@@ -32,7 +27,6 @@ abstract class IFirestoreRepository {
   Future<void> removeNews(Article article);
 
   Future<List<Article>> getNews();
-
 
   Future<void> setAuthAndSaveUser({
     required UserModel user,
@@ -47,11 +41,11 @@ final class FirestoreRepository implements IFirestoreRepository {
   FirestoreRepository._() {
     _firestore = FirebaseFirestore.instance;
     _cacheRepository = CacheRepository.instance;
-    _storage = FirebaseStorage.instance;
+    // _storage = FirebaseStorage.instance;
   }
   static FirestoreRepository? _instance;
   late final FirebaseFirestore _firestore;
-  late final FirebaseStorage _storage;
+  // late final FirebaseStorage _storage;
   late final CacheRepository _cacheRepository;
 
   @override
@@ -62,13 +56,12 @@ final class FirestoreRepository implements IFirestoreRepository {
 
   @override
   Future<void> saveUser({required UserModel user}) async {
-    var userToSave = user;
+    final userToSave = user;
 
-    if (user.profilePhoto != null && user.profilePhoto!.isNotEmpty) {
-      final response = await _saveToStorage(user: user);
-      if (response == null) return;
-      userToSave = response;
-    }
+    // if (user.profilePhoto != null && user.profilePhoto!.isNotEmpty) {
+    //   final response = await _saveToStorage(user: user);
+    //   userToSave = response;
+    // }
 
     await _firestore
         .collection(FirebaseCollection.users.collectionName)
@@ -83,21 +76,24 @@ final class FirestoreRepository implements IFirestoreRepository {
         });
   }
 
-  Future<UserModel?> _saveToStorage({required UserModel user}) async {
-    String? profilePhotoUrl;
-    final file = File(user.profilePhoto!);
-    if (await file.exists()) {
-      final storageRef = _storage
-          .ref()
-          .child(FirebaseCollection.profilePhotos.collectionName)
-          .child('${user.id}.jpg');
-      await storageRef.putFile(file);
-      profilePhotoUrl = await storageRef.getDownloadURL();
-      return user.copyWith(profilePhoto: profilePhotoUrl);
-    }
+  // Future<UserModel> _saveToStorage({required UserModel user}) async {
+  //   String? profilePhotoUrl;
+  //   final file = File(user.profilePhoto!);
+  //   final isFileExist = await file.exists();
+  //   if (isFileExist) {
+  //     final storageRef = _storage
+  //         .ref()
+  //         .child(FirebaseCollection.profilePhotos.collectionName)
+  //         .child('${user.id}.jpg');
+  //     final currentUser = FirebaseAuth.instance.currentUser;
+  //     await currentUser?.getIdToken(true);
+  //     await storageRef.putFile(file);
+  //     profilePhotoUrl = await storageRef.getDownloadURL();
+  //     return user.copyWith(profilePhoto: profilePhotoUrl);
+  //   }
 
-    return null;
-  }
+  //   return user;
+  // }
 
   @override
   Future<NetworkResponse<bool>> updateProfile(UserModel user) async {
@@ -179,18 +175,13 @@ final class FirestoreRepository implements IFirestoreRepository {
   Future<NetworkResponse<String>> updateProfilePhoto({
     required UserModel user,
   }) async {
-    final response = await _saveToStorage(user: user);
-    if (response == null) {
-      return NetworkResponse.failure(message: LocaleKeys.fail.tr());
-    }
+    // final response = await _saveToStorage(user: user);
     await _firestore
         .collection(FirebaseCollection.users.collectionName)
         .doc(userId)
         .update(user.toJson());
-    return NetworkResponse.success(data: response.profilePhoto!);
+    return NetworkResponse.success(data: user.profilePhoto ?? '');
   }
-
-
 
   @override
   Future<void> setAuthAndSaveUser({
@@ -199,7 +190,6 @@ final class FirestoreRepository implements IFirestoreRepository {
   }) async {
     if (user.id == null) return;
     await _cacheRepository.setString(PrefKeys.isUserLoggedIn, user.id!);
-    await _cacheRepository.setString(PrefKeys.isUserLoggedIn, userId);
     if (!isNewsUser) return;
     await saveUser(user: user);
   }

@@ -3,7 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 import 'package:newsapp/src/common/widget/other/profile_photo.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
@@ -29,9 +30,17 @@ class _EditProfileViewState extends State<EditProfileView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewsAppBar(
-        title: LocaleKeys.editProfile.tr(),
-        isPop: false,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => router.goNamed(RoutePaths.profile.name),
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+        ),
+
+        title: LuciText.labelMedium(
+          LocaleKeys.editProfile.tr(),
+          fontWeight: FontWeight.bold,
+        ),
+        centerTitle: true,
         actions: [
           IconButton(
             onPressed: editProfile,
@@ -160,6 +169,7 @@ final class _FormWidget extends StatelessWidget {
           EmailFieldWithLabel(
             emailController: viewmodel.emailController,
             readOnly: true,
+            isForVerify: true,
           ),
           verticalBox12,
           PhoneNumberTextfield(

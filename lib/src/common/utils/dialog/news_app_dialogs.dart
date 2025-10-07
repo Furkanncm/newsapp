@@ -2,9 +2,11 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
-class NewsAppDialogs {
+abstract class NewsAppDialogs {
+  NewsAppDialogs._();
   static Future<void> confirmationDialog({
     required BuildContext context,
     required String title,
@@ -70,5 +72,23 @@ class NewsAppDialogs {
           ? AppTheme.buttonBackground
           : AppTheme.bodyText,
     );
+  }
+
+  static Future<bool> showExitDialog({required BuildContext context}) async {
+    final result =await  LuciDialogs.showDialog<bool>(
+      barrierDismissible: true,
+      context: context,
+      title: LocaleKeys.exit_title.tr(),
+      content: LocaleKeys.exit_content.tr(),
+      icon: Icons.exit_to_app_outlined,
+      positiveButtonLabel: LocaleKeys.ok.tr().toUpperCase(),
+      negativeButtonLabel: LocaleKeys.cancel.tr().toUpperCase(),
+      positiveButtonCallback: router.pop,
+      primaryColor: AppTheme.primaryColor,
+      dialogBackgroundColor: Theme.brightnessOf(context) == Brightness.light
+          ? AppTheme.buttonBackground
+          : AppTheme.bodyText,
+    );
+    return result ?? false;
   }
 }

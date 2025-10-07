@@ -27,7 +27,6 @@ abstract class _LoginViewmodelBase with Store {
   bool isFormValid = false;
 
 
-
   Future<NetworkResponse<bool>?> login() async {
     return authRepository.logInWithEmail(
       email: emailController.text,

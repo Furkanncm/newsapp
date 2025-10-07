@@ -28,13 +28,18 @@ class _PhotoWithCameraIconState extends State<PhotoWithCameraIcon> {
   }
 
   Future<void> onCameraIconPressed() async {
+    final isLightTheme = Theme.brightnessOf(context) == Brightness.light;
     final result = await ImagePickerBottomSheet().showImagePickerBottomSheet(
       context: context,
       locale: context.locale,
       showDragHandle: true,
-      bottomSheetBackgroundColor: AppTheme.buttonBackground,
+      bottomSheetBackgroundColor: isLightTheme
+          ? AppTheme.buttonBackground
+          : AppTheme.backgroundDark,
       iconColor: AppTheme.primaryColor,
-      buttonBackgroundColor: AppTheme.bodyDark,
+      buttonBackgroundColor: isLightTheme
+          ? AppTheme.bodyDark
+          : AppTheme.inputDark,
     );
     if (result == null || !mounted) return;
     final file = result.path;
@@ -43,8 +48,8 @@ class _PhotoWithCameraIconState extends State<PhotoWithCameraIcon> {
         .withIndicator(context);
     imagePath = response?.data;
     if (imagePath != null) {
-      setState(() {});
       await _userRepository.getUserInfo();
+      setState(() {});
     }
   }
 
@@ -89,7 +94,9 @@ final class ProfilePhoto extends StatelessWidget {
       valueListenable: ValueNotifier<XFile>(imageFile),
       builder: (context, imageFileValue, child) {
         Widget childWidget;
-        if (imageFileValue.path.startsWith('http')) {
+        if (imageFileValue.path.isEmpty) {
+          childWidget = const _EmptyProfilePhoto();
+        } else if (imageFileValue.path.startsWith('http')) {
           childWidget = Image.network(
             imageFileValue.path,
             fit: BoxFit.cover,
@@ -149,6 +156,15 @@ class _EmptyProfilePhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Icon(Icons.person, size: 75, color: AppTheme.errorColor);
+    return const CircleAvatar(
+      radius: 75,
+      child: ClipOval(
+        child: SizedBox(
+          width: 150,
+          height: 150,
+          child: Icon(Icons.person, size: 75, color: AppTheme.bodyText),
+        ),
+      ),
+    );
   }
 }

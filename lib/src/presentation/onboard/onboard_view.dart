@@ -1,7 +1,7 @@
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lucielle/widget/text/luci_text.dart';
+import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/na_button.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
@@ -40,7 +40,7 @@ class _OnboardViewState extends State<OnboardView> with OnboardMixin {
               },
             ),
           ),
-         
+
           Expanded(
             child: Padding(
               padding: NaPadding.pagePadding,
@@ -128,6 +128,7 @@ final class HeaderAndDescriptionField extends StatelessWidget {
       child: Column(
         children: [
           LuciText.titleMedium(item.header ?? '', fontWeight: FontWeight.bold),
+          verticalBox12,
           LuciText.bodyMedium(item.description ?? ''),
         ],
       ),

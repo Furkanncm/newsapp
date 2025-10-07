@@ -1,5 +1,3 @@
-import 'package:codegen/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
@@ -9,13 +7,16 @@ final class VerifyButton extends StatelessWidget {
   const VerifyButton({
     required this.onPressed,
     required this.isValid,
-    super.key,
+    required this.label,
     this.isVerified,
+
+    super.key,
   });
 
   final VoidCallback onPressed;
   final bool isValid;
   final bool? isVerified;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ final class VerifyButton extends StatelessWidget {
       return TextButton(
         onPressed: () async => onPressed.call(),
         child: LuciText.bodyMedium(
-          LocaleKeys.verify.tr(),
+          label,
           textColor: Theme.brightnessOf(context) == Brightness.light
               ? AppTheme.bodyText
               : AppTheme.surfaceColor,

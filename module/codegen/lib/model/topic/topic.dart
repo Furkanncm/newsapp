@@ -76,7 +76,7 @@ final class Topic extends Equatable implements BaseModel<Topic> {
   ];
 
   @override
-  List<Object?> get props => [value, icon, description, image];
+  List<Object?> get props => [value, description];
 
   factory Topic.fromJson(Map<String, dynamic> json) => _$TopicFromJson(json);
   @override

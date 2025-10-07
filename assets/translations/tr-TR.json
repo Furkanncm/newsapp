@@ -173,6 +173,9 @@
   "phoneFailed":"Telefon doğrulaması başarısız!",
   "verifyCodeSent":"Doğrulama kodu gönderildi!",
    "phoneNumberVerified": "Telefon numaranız doğrulandı",
-   "fail": "İşlem Başarısız"
+   "fail": "İşlem Başarısız",
+   "exit_title": "Çıkış",
+  "exit_content": "Uygulamadan çıkmak istiyor musunuz?",
+  "ok": "Tamam"
   
 }

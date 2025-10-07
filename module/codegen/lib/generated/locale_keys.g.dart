@@ -179,5 +179,8 @@ abstract class  LocaleKeys {
   static const verifyCodeSent = 'verifyCodeSent';
   static const phoneNumberVerified = 'phoneNumberVerified';
   static const fail = 'fail';
+  static const exit_title = 'exit_title';
+  static const exit_content = 'exit_content';
+  static const ok = 'ok';
 
 }

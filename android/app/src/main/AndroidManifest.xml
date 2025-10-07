@@ -19,6 +19,7 @@
     android:name="${applicationName}"
     android:label="newsapp"
     android:icon="@mipmap/ic_launcher"
+     android:enableOnBackInvokedCallback="true"
     android:requestLegacyExternalStorage="true">
 
     <activity

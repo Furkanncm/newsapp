@@ -3,6 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/enums/route_paths.dart';
+import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
 import 'package:newsapp/src/common/widget/other/profile_photo.dart';
@@ -26,10 +28,18 @@ class _FillProfileViewState extends State<FillProfileView>
     with FillProfileMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: NewsAppBar(title: LocaleKeys.fillProfile.tr()),
-      body: _Body(viewmodel: viewmodel),
-      bottomNavigationBar: _NextButton(viewmodel: viewmodel),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          router.goNamed(RoutePaths.profile.name);
+        }
+      },
+      child: Scaffold(
+        appBar: NewsAppBar(title: LocaleKeys.fillProfile.tr()),
+        body: _Body(viewmodel: viewmodel),
+        bottomNavigationBar: _NextButton(onPressed: onNextPressed),
+      ),
     );
   }
 }
@@ -47,8 +57,8 @@ final class _Body extends StatelessWidget {
         padding: NaPadding.pagePadding,
         child: Column(
           children: [
-            const PhotoWithCameraIcon(),
-            verticalBox48,
+            ProfilePhoto(imagepath: viewmodel.currentUser?.profilePhoto ?? ''),
+            verticalBox16,
             _FormField(viewmodel: viewmodel),
           ],
         ),
@@ -70,22 +80,9 @@ final class _FormField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: UserNameTextfield(
-                  nameController: viewmodel.usernameController,
-                ),
-              ),
-              horizontalBox16,
-              Expanded(
-                child: FullNameTextfield(
-                  fullNameController: viewmodel.fullNameController,
-                ),
-              ),
-            ],
-          ),
+          UserNameTextfield(nameController: viewmodel.usernameController),
+          verticalBox12,
+          FullNameTextfield(fullNameController: viewmodel.fullNameController),
           verticalBox12,
           PhoneNumberTextfield(phoneController: viewmodel.phoneController),
           verticalBox12,
@@ -154,15 +151,12 @@ final class _FormField extends StatelessWidget {
 
 @immutable
 final class _NextButton extends StatelessWidget {
-  const _NextButton({required this.viewmodel});
+  const _NextButton({required this.onPressed});
 
-  final FillProfileViewmodel viewmodel;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return NewsBottomButton(
-      text: LocaleKeys.next.tr(),
-      onPressed: () => viewmodel.next(context),
-    );
+    return NewsBottomButton(text: LocaleKeys.next.tr(), onPressed: onPressed);
   }
 }

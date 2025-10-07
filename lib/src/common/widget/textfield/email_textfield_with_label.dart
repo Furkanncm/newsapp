@@ -7,10 +7,18 @@ import 'package:newsapp/src/common/widget/textfield/email_texfield.dart';
 
 @immutable
 final class EmailFieldWithLabel extends StatefulWidget {
-  const EmailFieldWithLabel({required this.emailController, this.readOnly =false, super.key});
+  const EmailFieldWithLabel({
+    required this.emailController,
+    required this.isForVerify,
+    this.readOnly = false,
+    this.onPressed,
+    super.key,
+  });
 
   final TextEditingController emailController;
   final bool readOnly;
+  final bool isForVerify;
+  final VoidCallback? onPressed;
 
   @override
   State<EmailFieldWithLabel> createState() => _EmailFieldWithLabelState();
@@ -27,6 +35,8 @@ class _EmailFieldWithLabelState extends State<EmailFieldWithLabel> {
         EmailTextField(
           emailController: widget.emailController,
           readOnly: widget.readOnly,
+          isForVerify: widget.isForVerify,
+          onPressed: widget.onPressed,
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 
 class LoadingDialog extends StatelessWidget {
@@ -6,12 +7,15 @@ class LoadingDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = Theme.brightnessOf(context) == Brightness.light;
     return Center(
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           boxShadow: kElevationToShadow[4],
-          color: Colors.white,
+          color: isLightTheme
+              ? AppTheme.buttonBackground
+              : AppTheme.backgroundDark,
         ),
         width: 75,
         height: 75,

@@ -105,9 +105,7 @@ final class AuthRepository implements IAuthRepository {
 
       final user = userCredential.user;
       if (user != null) {
-        await _setAuth(
-          userCredential: userCredential,
-        );
+        await _setAuth(userCredential: userCredential);
         return true;
       }
       return null;
@@ -133,7 +131,7 @@ final class AuthRepository implements IAuthRepository {
         final user = userCredential.user;
 
         if (user != null) {
-          await _setAuth(userCredential: userCredential,);
+          await _setAuth(userCredential: userCredential);
           return user.uid;
         }
       }
@@ -155,9 +153,7 @@ final class AuthRepository implements IAuthRepository {
 
       final user = userCredential.user;
       if (user != null) {
-        await _setAuth(
-          userCredential: userCredential,
-        );
+        await _setAuth(userCredential: userCredential);
         return true;
       }
       return null;
@@ -261,9 +257,7 @@ final class AuthRepository implements IAuthRepository {
     authStatus = FirebaseAuthEnum.unauthenticated;
   }
 
-  Future<void> _setAuth({
-    required UserCredential userCredential,
-  }) async {
+  Future<void> _setAuth({required UserCredential userCredential}) async {
     if (firebaseUser == null) return;
     await _firestoreRepository.setAuthAndSaveUser(
       user: firebaseUser!.toUserModel(),

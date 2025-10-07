@@ -24,7 +24,11 @@ class _ResetPasswordViewState extends State<ResetPasswordView>
     return Scaffold(
       appBar: const _AppBar(),
       body: _Body(viewmodel: viewmodel),
-      bottomNavigationBar: _SubmitButton(viewmodel: viewmodel),
+      bottomNavigationBar: _SubmitButton(
+        viewmodel: viewmodel,
+        onPressed: onSubmitPressed,
+      ),
+
     );
   }
 }
@@ -37,7 +41,7 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back_ios_new_outlined),
         onPressed: () {
           router.pop<bool>(true);
         },
@@ -101,9 +105,10 @@ final class _PasswordForm extends StatelessWidget {
 
 @immutable
 final class _SubmitButton extends StatelessWidget {
-  const _SubmitButton({required this.viewmodel});
+  const _SubmitButton({required this.viewmodel, required this.onPressed});
 
   final ResetPasswordViewmodel viewmodel;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +116,7 @@ final class _SubmitButton extends StatelessWidget {
       builder: (_) {
         return NewsBottomButton(
           text: LocaleKeys.submit.tr(),
-          onPressed: viewmodel.isValidate ? viewmodel.submit : null,
+          onPressed: viewmodel.isValidate ? onPressed : null,
         );
       },
     );

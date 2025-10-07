@@ -4,8 +4,6 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/dialog/news_app_dialogs.dart';
-import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/button/verify_button.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
@@ -16,11 +14,15 @@ final class EmailTextField extends StatefulWidget {
   const EmailTextField({
     required this.emailController,
     this.readOnly = false,
+    this.isForVerify = true,
+    this.onPressed,
     super.key,
   });
 
   final TextEditingController emailController;
   final bool readOnly;
+  final bool isForVerify;
+  final VoidCallback? onPressed;
 
   @override
   State<EmailTextField> createState() => _EmailTextFieldState();
@@ -78,31 +80,26 @@ class _EmailTextFieldState extends State<EmailTextField> {
       fillColor: Theme.brightnessOf(context) == Brightness.light
           ? AppTheme.surfaceColor
           : AppTheme.bodyText,
-      suffixIcon: ValueListenableBuilder<bool?>(
-        valueListenable: isVerifiedNotifier,
-        builder: (context, isVerified, child) {
-          return VerifyButton(
-            isValid: !_emailController.text.isEmail,
-            isVerified: isVerified,
-            onPressed: () async {
-              await _authRepository.sendVerificationEmail().withToast(
-                context,
-                successMessage: LocaleKeys.verifyCodeSent.tr(),
-                onSuccess: () async {
-                  await NewsAppDialogs.infoDialog(
-                    context: context,
-                    title: '${LocaleKeys.check.tr()}${LocaleKeys.email.tr()}',
-                    content:
-                        '${LocaleKeys.email.tr()} ${LocaleKeys.sentTo.tr()} ${_emailController.text}',
-                  );
-                },
-              );
-
-              _startVerificationChecker();
-            },
-          );
-        },
-      ),
+      suffixIcon: !widget.isForVerify
+          ? emptyBox
+          : ValueListenableBuilder<bool?>(
+              valueListenable: isVerifiedNotifier,
+              builder: (context, isVerified, child) {
+                return ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: _emailController,
+                  builder: (context, value, _) {
+                    return VerifyButton(
+                      label: widget.isForVerify
+                          ? LocaleKeys.verify.tr()
+                          : LocaleKeys.verifyCodeSent.tr(),
+                      isValid: !_emailController.text.isEmail,
+                      isVerified: isVerified,
+                      onPressed: () async => widget.onPressed?.call(),
+                    );
+                  },
+                );
+              },
+            ),
     );
   }
 

@@ -51,14 +51,12 @@ class _SignUpViewState extends State<SignUpView> with SignUpMixin {
                 _SignUpButton(onPressed: register),
                 verticalBox32,
                 const SocialMediaLogin(),
+                verticalBox64,
+                const _AlreadyHaveAccount(),
               ],
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: const Padding(
-        padding: NaPadding.verticalHighPadding,
-        child: _AlreadyHaveAccount(),
       ),
     );
   }

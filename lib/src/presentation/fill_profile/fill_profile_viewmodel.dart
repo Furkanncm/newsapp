@@ -1,13 +1,9 @@
-import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:codegen/model/country_model/country_model.dart';
 import 'package:codegen/model/user/user_model.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobx/mobx.dart';
+import 'package:newsapp/src/common/base/base_response.dart';
 import 'package:newsapp/src/common/utils/bottom_sheet/news_app_bottom_sheet.dart';
-import 'package:newsapp/src/common/utils/enums/route_paths.dart';
-import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
-import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/model/gender/gender.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
@@ -61,26 +57,11 @@ abstract class _FillProfileViewmodelBase with Store {
     }
   }
 
-  Future<void> next(BuildContext context) async {
-    if (!(formKey.currentState?.validate() ?? false)) return;
-    final currentUser = userRepository.currentUser;
-    final user = currentUser?.copyWith(
-      username: usernameController.text,
-      name: fullNameController.text,
-      bio: bioController.text,
-      phone: phoneController.text,
-      isSkipped: true,
-      gender: currentGender?.label,
-      country: selectedCountry?.name,
-      website: websiteController.text,
-    );
-    if (user == null || !context.mounted) return;
-    await userRepository
-        .updateProfile(user: user)
-        .withToast(
-          context,
-          successMessage: LocaleKeys.editProfileSuccess.tr(),
-          onSuccess: () async => router.goNamed(RoutePaths.home.name),
-        );
+  Future<NetworkResponse<bool>> onNextPressed(UserModel user) async {
+   final result = await userRepository.updateProfile(user: user);
+    if (result.data == true) {
+      userRepository.setCurrentUser(user);
+    }
+    return result;
   }
 }

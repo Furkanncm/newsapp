@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
 import 'package:newsapp/src/common/utils/bottom_sheet/news_app_bottom_sheet.dart';
 import 'package:newsapp/src/data/model/gender/gender.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 
@@ -25,6 +26,7 @@ abstract class _EditProfileViewmodelBase with Store {
   late final TextEditingController countryController;
   late final ICountryRepository countryRepository;
   late final IUserRepository userRepository;
+  late final IAuthRepository authRepository;
 
   @observable
   UserModel? user;

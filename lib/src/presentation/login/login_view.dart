@@ -43,13 +43,11 @@ class _LoginViewState extends State<LoginView> with LoginMixin {
               _LoginButton(isFormValid: isFormValid, onPressed: login),
               verticalBox32,
               const SocialMediaLogin(),
+              verticalBox64,
+              const _DontHaveAccount(),
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: const Padding(
-        padding: NaPadding.verticalHighPadding,
-        child: _DontHaveAccount(),
       ),
     );
   }

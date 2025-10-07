@@ -2,10 +2,13 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/utils/decoration/textfield_decoration/phone_number_formatter.dart';
+import 'package:newsapp/src/common/utils/enums/otp_options_enum.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/model/gender/gender.dart';
+import 'package:newsapp/src/data/model/otp/otp_model.dart';
+import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/user/user_repository.dart';
 import 'package:newsapp/src/presentation/edit_profile/edit_profile_view.dart';
@@ -29,6 +32,7 @@ mixin EditProfileMixin on State<EditProfileView> {
     viewmodel.countryController = TextEditingController();
     viewmodel.countryRepository = CountryRepository();
     viewmodel.userRepository = UserRepository();
+    viewmodel.authRepository = AuthRepository();
     getUser();
   }
 
@@ -94,6 +98,16 @@ mixin EditProfileMixin on State<EditProfileView> {
     if (result?.data ?? false) {
       router.go(RoutePaths.profile.path);
     }
+  }
+
+  Future<void> sentVerificat() async {
+    final otpModel = OTPModel(
+      otpOptions: OTPOptions.sms,
+      otpContent: viewmodel.phoneController.text,
+    );
+    await viewmodel.authRepository
+        .sendVerificationCodePhoneNumber(model: otpModel)
+        .withToast(context, successMessage: LocaleKeys.verifyCodeSent.tr());
   }
 
   @override

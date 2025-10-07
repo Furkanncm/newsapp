@@ -103,12 +103,9 @@ class UserRepository implements IUserRepository {
 
   @override
   Future<NetworkResponse<bool>> updateProfile({required UserModel user}) async {
-    return _firestoreRepository.updateProfile(
-      user.copyWith(id: currentUser?.id ?? ''),
-    );
+    return _firestoreRepository.updateProfile(user);
   }
 
-  //dev.furkankazimcam@gmail.com
   @override
   Future<void> updateTopic({required List<Topic> topics}) async {
     await _firestoreRepository.updateTopic(topics: topics);

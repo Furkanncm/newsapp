@@ -54,25 +54,28 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
           onChanged: (p0) => setState(() {}),
           controller: widget.phoneController,
           labelText: '',
-          suffixIcon: VerifyButton(
-            isValid: !widget.phoneController.text.isPhoneNumber,
-            isVerified: isVerified,
-            onPressed: () async {
-              await _authRepository
-                  .sendVerificationCodePhoneNumber(
-                    model: OTPModel(
-                      otpOptions: widget.isForVerifyPhoneNumber
-                          ? OTPOptions.verifyWithNumber
-                          : OTPOptions.sms,
-                      otpContent: widget.phoneController.text,
-                    ),
-                  )
-                  .withToast(
-                    context,
-                    successMessage: LocaleKeys.verifyCodeSent.tr(),
-                  );
-            },
-          ),
+          suffixIcon: !widget.isForVerifyPhoneNumber
+              ? emptyBox
+              : VerifyButton(
+                  isValid: !widget.phoneController.text.isPhoneNumber,
+                  isVerified: isVerified,
+                  label: LocaleKeys.verify.tr(),
+                  onPressed: () async {
+                    await _authRepository
+                        .sendVerificationCodePhoneNumber(
+                          model: OTPModel(
+                            otpOptions: widget.isForVerifyPhoneNumber
+                                ? OTPOptions.verifyWithNumber
+                                : OTPOptions.sms,
+                            otpContent: widget.phoneController.text,
+                          ),
+                        )
+                        .withToast(
+                          context,
+                          successMessage: LocaleKeys.verifyCodeSent.tr(),
+                        );
+                  },
+                ),
         ),
       ],
     );

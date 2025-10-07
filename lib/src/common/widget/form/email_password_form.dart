@@ -28,7 +28,7 @@ class EmailPasswordForm extends StatelessWidget {
       key: formKey,
       child: Column(
         children: [
-          EmailFieldWithLabel(emailController: emailController),
+          EmailFieldWithLabel(emailController: emailController ,isForVerify: false,),
           verticalBox12,
           PasswordField(
             labelText: LocaleKeys.password.tr(),

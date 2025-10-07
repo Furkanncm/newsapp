@@ -17,10 +17,14 @@ class AppConfiguration {
 
   Future<void> appConfigurationReady() async {
     WidgetsFlutterBinding.ensureInitialized();
-     await Firebase.initializeApp(
+    await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    // await FirebaseAppCheck.instance.activate(
+    //   androidProvider: AndroidProvider.debug
+    // );
     await CacheRepository.instance.getInstance();
+
     ThemeRepository.instance.loadTheme();
     await EasyLocalization.ensureInitialized();
     await dotenv.load();
