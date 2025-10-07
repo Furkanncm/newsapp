@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 
@@ -8,9 +7,6 @@ class ForgotPasswordViewmodel = _ForgotPasswordViewmodelBase
     with _$ForgotPasswordViewmodel;
 
 abstract class _ForgotPasswordViewmodelBase with Store {
-
-  late final GlobalKey<FormState> formKey;
-  late final TextEditingController emailController;
   late final IAuthRepository authRepository;
 
   Future<void> resetPasswordWithEmail(String email) async {

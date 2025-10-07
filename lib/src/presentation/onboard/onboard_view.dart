@@ -8,6 +8,7 @@ import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/presentation/onboard/onboard_mixin.dart';
 import 'package:newsapp/src/presentation/onboard/onboard_model.dart';
 
+@immutable
 final class OnboardView extends StatefulWidget {
   const OnboardView({super.key});
 

@@ -36,7 +36,7 @@ class _BookmarkViewState extends State<BookmarkView> with BookmarkMixin {
         child: Column(
           children: [
             SearchField(
-              controller: viewmodel.controller,
+              controller: controller,
               onChanged: (value) {
                 viewmodel.onSearchChanged(value);
               },

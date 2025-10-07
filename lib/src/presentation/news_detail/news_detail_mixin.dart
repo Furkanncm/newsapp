@@ -14,6 +14,8 @@ import 'package:share_plus/share_plus.dart';
 mixin NewsDetailMixin on State<NewsDetailView> {
   late final NewsDetailViewmodel viewmodel;
   late Article article;
+
+  
   @override
   void initState() {
     super.initState();

@@ -37,7 +37,19 @@ class _FillProfileViewState extends State<FillProfileView>
       },
       child: Scaffold(
         appBar: NewsAppBar(title: LocaleKeys.fillProfile.tr()),
-        body: _Body(viewmodel: viewmodel),
+        body: _Body(
+          viewmodel: viewmodel,
+          onSetGender: setGender,
+          onSetCountry: onCountryTap,
+          formKey: formKey,
+          nameController: usernameController,
+          fullNameController: fullNameController,
+          phoneController: phoneController,
+          bioController: bioController,
+          websiteController: websiteController,
+          genderController: genderController,
+          countryController: countryController,
+        ),
         bottomNavigationBar: _NextButton(onPressed: onNextPressed),
       ),
     );
@@ -46,9 +58,31 @@ class _FillProfileViewState extends State<FillProfileView>
 
 @immutable
 final class _Body extends StatelessWidget {
-  const _Body({required this.viewmodel});
+  const _Body({
+    required this.viewmodel,
+    required this.onSetGender,
+    required this.onSetCountry,
+    required this.formKey,
+    required this.nameController,
+    required this.fullNameController,
+    required this.phoneController,
+    required this.bioController,
+    required this.websiteController,
+    required this.genderController,
+    required this.countryController,
+  });
 
   final FillProfileViewmodel viewmodel;
+  final VoidCallback onSetGender;
+  final VoidCallback onSetCountry;
+  final GlobalKey<FormState> formKey;
+  final TextEditingController nameController;
+  final TextEditingController fullNameController;
+  final TextEditingController phoneController;
+  final TextEditingController bioController;
+  final TextEditingController websiteController;
+  final TextEditingController genderController;
+  final TextEditingController countryController;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +93,19 @@ final class _Body extends StatelessWidget {
           children: [
             ProfilePhoto(imagepath: viewmodel.currentUser?.profilePhoto ?? ''),
             verticalBox16,
-            _FormField(viewmodel: viewmodel),
+            _FormField(
+              viewmodel: viewmodel,
+              onSetGender: onSetGender,
+              onSetCountry: onSetCountry,
+              formKey: formKey,
+              nameController: nameController,
+              fullNameController: fullNameController,
+              phoneController: phoneController,
+              bioController: bioController,
+              websiteController: websiteController,
+              genderController: genderController,
+              countryController: countryController,
+            ),
           ],
         ),
       ),
@@ -69,27 +115,46 @@ final class _Body extends StatelessWidget {
 
 @immutable
 final class _FormField extends StatelessWidget {
-  const _FormField({required this.viewmodel});
+  const _FormField({
+    required this.viewmodel,
+    required this.onSetGender,
+    required this.onSetCountry,
+    required this.formKey,
+    required this.nameController,
+    required this.fullNameController,
+    required this.phoneController,
+    required this.bioController,
+    required this.websiteController,
+    required this.genderController,
+    required this.countryController,
+  });
 
   final FillProfileViewmodel viewmodel;
+  final VoidCallback onSetGender;
+  final VoidCallback onSetCountry;
+  final GlobalKey<FormState> formKey;
+  final TextEditingController nameController;
+  final TextEditingController fullNameController;
+  final TextEditingController phoneController;
+  final TextEditingController bioController;
+  final TextEditingController websiteController;
+  final TextEditingController genderController;
+  final TextEditingController countryController;
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: viewmodel.formKey,
+      key: formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          UserNameTextfield(nameController: viewmodel.usernameController),
+          UserNameTextfield(nameController: nameController),
           verticalBox12,
-          FullNameTextfield(fullNameController: viewmodel.fullNameController),
+          FullNameTextfield(fullNameController: fullNameController),
           verticalBox12,
-          PhoneNumberTextfield(phoneController: viewmodel.phoneController),
+          PhoneNumberTextfield(phoneController: phoneController),
           verticalBox12,
-          BioTextField(
-            controller: viewmodel.bioController,
-            bio: viewmodel.bioController.text,
-          ),
+          BioTextField(controller: bioController, bio: bioController.text),
           verticalBox12,
           Row(
             children: [
@@ -97,10 +162,10 @@ final class _FormField extends StatelessWidget {
                 builder: (_) {
                   return Expanded(
                     child: LabelTextField(
-                      onTap: () => viewmodel.setGender(context: context),
+                      onTap: onSetGender,
                       prefixIcon: viewmodel.currentGender?.icon,
                       label: LocaleKeys.gender.tr(),
-                      controller: viewmodel.genderController,
+                      controller: genderController,
                       userInfo: viewmodel.currentGender?.label ?? '',
                     ),
                   );
@@ -111,7 +176,7 @@ final class _FormField extends StatelessWidget {
                 builder: (_) {
                   return Expanded(
                     child: LabelTextField(
-                      onTap: () async => viewmodel.onCountryTap(context),
+                      onTap: () async => onSetCountry(),
                       label: LocaleKeys.country.tr(),
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(8),
@@ -128,7 +193,7 @@ final class _FormField extends StatelessWidget {
                           ),
                         ),
                       ),
-                      controller: viewmodel.countryController,
+                      controller: countryController,
                       userInfo: viewmodel.selectedCountry?.name ?? '',
                     ),
                   );
@@ -140,8 +205,8 @@ final class _FormField extends StatelessWidget {
           LabelTextField(
             label: LocaleKeys.website.tr(),
             prefixIcon: const Icon(Icons.link_outlined),
-            controller: viewmodel.websiteController,
-            userInfo: viewmodel.websiteController.text,
+            controller: websiteController,
+            userInfo: websiteController.text,
           ),
         ],
       ),

@@ -18,17 +18,18 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 mixin OtTPVerificationMixin on State<OtpVerificationView> {
   late final OTPVerificationViewmodel viewmodel;
+  late final StreamController<ErrorAnimationType> errorController;
+  late final TextEditingController pinCodeController;
   OTPModel? extra;
 
   @override
   void initState() {
     super.initState();
-
     viewmodel = OTPVerificationViewmodel();
+    errorController = StreamController<ErrorAnimationType>();
+    pinCodeController = TextEditingController();
     viewmodel
       ..countryRepository = CountryRepository()
-      ..errorController = StreamController<ErrorAnimationType>()
-      ..pinCodeController = TextEditingController()
       ..authRepository = AuthRepository()
       ..firestoreRepository = FirestoreRepository()
       ..startTimer();
@@ -45,11 +46,11 @@ mixin OtTPVerificationMixin on State<OtpVerificationView> {
       ..stopTimer()
       ..isRetry = false
       ..isPinComp = false;
-    await viewmodel.verifyPressed().withToast(
+    await viewmodel.verifyPressed(smsCode: pinCodeController.text).withToast(
       context,
       successMessage: LocaleKeys.phoneNumber.tr(),
       onSuccess: () async {
-        viewmodel.pinCodeController.clear();
+        pinCodeController.clear();
         if (extra == null) return;
         extra!.otpOptions == OTPOptions.verifyWithNumber
             ? router.goNamed(RoutePaths.home.name)

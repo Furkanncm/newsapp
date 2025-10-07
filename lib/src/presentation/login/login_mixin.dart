@@ -14,28 +14,29 @@ import 'package:newsapp/src/presentation/login/login_viewmodel.dart';
 mixin LoginMixin on State<LoginView> {
   late final LoginViewmodel viewModel;
 
+  late final GlobalKey<FormState> formKey;
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
+
   @override
   void initState() {
     super.initState();
     viewModel = LoginViewmodel();
-    viewModel.formKey = GlobalKey<FormState>();
-    viewModel.emailController = TextEditingController();
-    viewModel.passwordController = TextEditingController();
-    viewModel.authRepository = AuthRepository();
-    viewModel.userRepository = UserRepository();
-    viewModel.cacheRepository = CacheRepository.instance;
+    _initController();
+    _initRepositories();
   }
 
-  bool get isFormValid => viewModel.isFormValid;
-
+  bool get isFormValid => formKey.currentState?.validate() ?? false;
 
   Future<void> login() async {
-    if (viewModel.formKey.currentState?.validate() ?? false) {
-      await viewModel.login().withToast(
-        context,
-        successMessage: LocaleKeys.welcome_sincere.tr(),
-        onSuccess: navigate,
-      );
+    if (isFormValid) {
+      await viewModel
+          .login(email: emailController.text, password: passwordController.text)
+          .withToast(
+            context,
+            successMessage: LocaleKeys.welcome_sincere.tr(),
+            onSuccess: navigate,
+          );
     }
   }
 
@@ -50,10 +51,22 @@ mixin LoginMixin on State<LoginView> {
     }
   }
 
+  void _initController() {
+    formKey = GlobalKey<FormState>();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  void _initRepositories() {
+    viewModel.authRepository = AuthRepository();
+    viewModel.userRepository = UserRepository();
+    viewModel.cacheRepository = CacheRepository.instance;
+  }
+
   @override
   void dispose() {
-    viewModel.emailController.dispose();
-    viewModel.passwordController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 }

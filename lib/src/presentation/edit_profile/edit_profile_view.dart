@@ -35,7 +35,6 @@ class _EditProfileViewState extends State<EditProfileView>
           onPressed: () => router.goNamed(RoutePaths.profile.name),
           icon: const Icon(Icons.arrow_back_ios_new_outlined),
         ),
-
         title: LuciText.labelMedium(
           LocaleKeys.editProfile.tr(),
           fontWeight: FontWeight.bold,
@@ -48,16 +47,54 @@ class _EditProfileViewState extends State<EditProfileView>
           ),
         ],
       ),
-      body: _Body(viewmodel: viewmodel),
+      body: _Body(
+        viewmodel: viewmodel,
+        formKey: formKey,
+        nameController: nameController,
+        fullNameController: fullNameController,
+        emailController: emailController,
+        phoneController: phoneController,
+        bioController: bioController,
+        websiteController: websiteController,
+        genderController: genderController,
+        countryController: countryController,
+        onSetGender: setGender,
+        onSetCountry: onCountryTap,
+      ),
     );
   }
 }
 
 @immutable
 final class _Body extends StatelessWidget {
-  const _Body({required this.viewmodel});
+  const _Body({
+    required this.viewmodel,
+    required this.formKey,
+    required this.nameController,
+    required this.fullNameController,
+    required this.emailController,
+    required this.phoneController,
+    required this.bioController,
+    required this.websiteController,
+    required this.genderController,
+    required this.countryController,
+    required this.onSetGender,
+    required this.onSetCountry,
+  });
 
   final EditProfileViewmodel viewmodel;
+
+  final VoidCallback onSetGender;
+  final VoidCallback onSetCountry;
+  final GlobalKey<FormState> formKey;
+  final TextEditingController nameController;
+  final TextEditingController fullNameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+  final TextEditingController bioController;
+  final TextEditingController websiteController;
+  final TextEditingController genderController;
+  final TextEditingController countryController;
 
   @override
   Widget build(BuildContext context) {
@@ -71,25 +108,33 @@ final class _Body extends StatelessWidget {
                 children: [
                   const PhotoWithCameraIcon(),
                   verticalBox32,
-                  UserNameTextfield(nameController: viewmodel.nameController),
+                  UserNameTextfield(nameController: nameController),
                   verticalBox12,
-                  FullNameTextfield(
-                    fullNameController: viewmodel.fullNameController,
+                  FullNameTextfield(fullNameController: fullNameController),
+                  verticalBox12,
+                  _FormWidget(
+                    formKey: formKey,
+                    emailController: emailController,
+                    phoneController: phoneController,
                   ),
-                  verticalBox12,
-                  _FormWidget(viewmodel: viewmodel),
                   BioTextField(
-                    controller: viewmodel.bioController,
-                    bio: viewmodel.bioController.text,
+                    controller: bioController,
+                    bio: bioController.text,
                   ),
                   verticalBox12,
-                  _GenderAndCountryPicker(viewmodel: viewmodel),
+                  _GenderAndCountryPicker(
+                    viewmodel: viewmodel,
+                    genderController: genderController,
+                    countryController: countryController,
+                    onSetGender: onSetGender,
+                    onSetCountry: onSetCountry,
+                  ),
                   verticalBox12,
                   LabelTextField(
                     label: LocaleKeys.website.tr(),
                     prefixIcon: const Icon(Icons.link_outlined),
-                    controller: viewmodel.websiteController,
-                    userInfo: viewmodel.websiteController.text,
+                    controller: websiteController,
+                    userInfo: websiteController.text,
                   ),
                 ],
               );
@@ -100,9 +145,19 @@ final class _Body extends StatelessWidget {
 
 @immutable
 final class _GenderAndCountryPicker extends StatelessWidget {
-  const _GenderAndCountryPicker({required this.viewmodel});
+  const _GenderAndCountryPicker({
+    required this.viewmodel,
+    required this.genderController,
+    required this.countryController,
+    required this.onSetGender,
+    required this.onSetCountry,
+  });
 
   final EditProfileViewmodel viewmodel;
+  final TextEditingController genderController;
+  final TextEditingController countryController;
+  final VoidCallback onSetGender;
+  final VoidCallback onSetCountry;
 
   @override
   Widget build(BuildContext context) {
@@ -112,10 +167,10 @@ final class _GenderAndCountryPicker extends StatelessWidget {
           builder: (_) {
             return Expanded(
               child: LabelTextField(
-                onTap: () => viewmodel.setGender(context: context),
+                onTap: onSetGender,
                 prefixIcon: viewmodel.currentGender?.icon,
                 label: LocaleKeys.gender.tr(),
-                controller: viewmodel.genderController,
+                controller: genderController,
                 userInfo: viewmodel.currentGender?.label ?? '',
               ),
             );
@@ -126,7 +181,7 @@ final class _GenderAndCountryPicker extends StatelessWidget {
           builder: (_) {
             return Expanded(
               child: LabelTextField(
-                onTap: () async => viewmodel.onCountryTap(context),
+                onTap: onSetCountry,
                 label: LocaleKeys.country.tr(),
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(8),
@@ -143,7 +198,7 @@ final class _GenderAndCountryPicker extends StatelessWidget {
                     ),
                   ),
                 ),
-                controller: viewmodel.countryController,
+                controller: countryController,
                 userInfo: viewmodel.selectedCountry?.name ?? '',
               ),
             );
@@ -156,24 +211,30 @@ final class _GenderAndCountryPicker extends StatelessWidget {
 
 @immutable
 final class _FormWidget extends StatelessWidget {
-  const _FormWidget({required this.viewmodel});
+  const _FormWidget({
+    required this.formKey,
+    required this.emailController,
+    required this.phoneController,
+  });
 
-  final EditProfileViewmodel viewmodel;
+  final GlobalKey<FormState> formKey;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: viewmodel.formKey,
+      key: formKey,
       child: Column(
         children: [
           EmailFieldWithLabel(
-            emailController: viewmodel.emailController,
+            emailController: emailController,
             readOnly: true,
             isForVerify: true,
           ),
           verticalBox12,
           PhoneNumberTextfield(
-            phoneController: viewmodel.phoneController,
+            phoneController: phoneController,
             isForVerifyPhoneNumber: true,
           ),
           verticalBox12,

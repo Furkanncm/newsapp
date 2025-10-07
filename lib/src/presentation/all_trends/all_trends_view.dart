@@ -8,7 +8,8 @@ import 'package:newsapp/src/common/widget/appbar/news_app_bar.dart';
 import 'package:newsapp/src/common/widget/other/news_onboard.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 
-class AllTrendsView extends StatefulWidget {
+@immutable
+final class AllTrendsView extends StatefulWidget {
   const AllTrendsView({super.key});
 
   @override

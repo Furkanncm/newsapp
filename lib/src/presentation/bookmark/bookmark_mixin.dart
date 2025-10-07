@@ -5,13 +5,14 @@ import 'package:newsapp/src/presentation/bookmark/bookmark_viewmodel.dart';
 
 mixin BookmarkMixin on State<BookmarkView> {
   late final BookmarkViewModel viewmodel;
+    late final TextEditingController controller;
 
   @override
   void initState() {
     super.initState();
     viewmodel = BookmarkViewModel();
     viewmodel.newsRepository = NewsRepository();
-    viewmodel.controller = TextEditingController();
+    controller = TextEditingController();
     setArticles();
   }
 
@@ -19,7 +20,7 @@ mixin BookmarkMixin on State<BookmarkView> {
 
   @override
   void dispose() {
-    viewmodel.controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 }

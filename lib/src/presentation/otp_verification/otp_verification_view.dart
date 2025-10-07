@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView>
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_outlined ),
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
           onPressed: router.pop,
         ),
       ),
@@ -33,6 +35,8 @@ class _OtpVerificationViewState extends State<OtpVerificationView>
         extra: extra,
         viewmodel: viewmodel,
         onVerify: onVerifyPressed,
+        widgeterrorController: errorController,
+        pinCodeController: pinCodeController,
       ),
     );
   }
@@ -44,11 +48,15 @@ final class _Body extends StatelessWidget {
     required this.extra,
     required this.viewmodel,
     required this.onVerify,
+    required this.widgeterrorController,
+    required this.pinCodeController,
   });
 
   final OTPModel? extra;
   final OTPVerificationViewmodel viewmodel;
   final VoidCallback onVerify;
+  final StreamController<ErrorAnimationType> widgeterrorController;
+  final TextEditingController pinCodeController;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +75,7 @@ final class _Body extends StatelessWidget {
                 '${LocaleKeys.enterOtpSentTo.tr()}${extra?.otpContent}',
               ),
               verticalBox24,
-              PinField(viewmodel: viewmodel, onVerify: onVerify),
+              PinField(viewmodel: viewmodel, onVerify: onVerify, widgeterrorController: widgeterrorController, pinCodeController: pinCodeController),
               verticalBox16,
               _ResendCode(viewmodel: viewmodel, extra: extra!),
             ],
@@ -80,9 +88,13 @@ final class _Body extends StatelessWidget {
 
 @immutable
 final class PinField extends StatefulWidget {
-  const PinField({required this.viewmodel, required this.onVerify, super.key});
+  const PinField({required this.viewmodel, required this.onVerify, required this.widgeterrorController, required this.pinCodeController, super.key});
+
   final OTPVerificationViewmodel viewmodel;
   final VoidCallback onVerify;
+  final StreamController<ErrorAnimationType> widgeterrorController;
+  final TextEditingController pinCodeController;
+
   @override
   State<PinField> createState() => _PinFieldState();
 }
@@ -100,8 +112,8 @@ class _PinFieldState extends State<PinField> {
           animationType: AnimationType.fade,
           pinTheme: AppPinTheme(context: context).pinTheme,
           animationDuration: const Duration(milliseconds: 300),
-          errorAnimationController: widget.viewmodel.errorController,
-          controller: widget.viewmodel.pinCodeController,
+          errorAnimationController: widget.widgeterrorController,
+          controller: widget.pinCodeController,
           backgroundColor: isLightTheme
               ? AppTheme.buttonBackground
               : AppTheme.backgroundDark,

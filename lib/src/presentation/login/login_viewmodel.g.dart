@@ -45,47 +45,11 @@ mixin _$LoginViewmodel on _LoginViewmodelBase, Store {
     });
   }
 
-  late final _$isFormValidAtom = Atom(
-    name: '_LoginViewmodelBase.isFormValid',
-    context: context,
-  );
-
-  @override
-  bool get isFormValid {
-    _$isFormValidAtom.reportRead();
-    return super.isFormValid;
-  }
-
-  @override
-  set isFormValid(bool value) {
-    _$isFormValidAtom.reportWrite(value, super.isFormValid, () {
-      super.isFormValid = value;
-    });
-  }
-
-  late final _$_LoginViewmodelBaseActionController = ActionController(
-    name: '_LoginViewmodelBase',
-    context: context,
-  );
-
-  @override
-  void validateForm() {
-    final _$actionInfo = _$_LoginViewmodelBaseActionController.startAction(
-      name: '_LoginViewmodelBase.validateForm',
-    );
-    try {
-      return super.validateForm();
-    } finally {
-      _$_LoginViewmodelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
 isRememberMe: ${isRememberMe},
-isLoading: ${isLoading},
-isFormValid: ${isFormValid}
+isLoading: ${isLoading}
     ''';
   }
 }

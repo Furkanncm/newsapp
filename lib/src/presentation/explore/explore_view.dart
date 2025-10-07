@@ -12,8 +12,10 @@ import 'package:newsapp/src/common/widget/other/row_see_all.dart';
 import 'package:newsapp/src/common/widget/other/topics_list.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/presentation/explore/explore_mixin.dart';
+import 'package:newsapp/src/presentation/explore/explore_viewmodel.dart';
 
-class ExploreView extends StatefulWidget {
+@immutable
+final class ExploreView extends StatefulWidget {
   const ExploreView({super.key});
 
   @override
@@ -31,70 +33,113 @@ class _ExploreViewState extends State<ExploreView> with ExploreMixin {
           textColor: AppTheme.primaryColor,
         ),
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: NaPadding.pagePadding.copyWith(bottom: 0),
-              child: RowSeeAllWidget(
-                text: LocaleKeys.topic.tr(),
-                onSeeAllPressed: () =>
-                    router.goNamed(RoutePaths.exploreTopic.name),
-              ),
-            ),
-          ),
+      body: _Body(viewmodel: viewmodel),
+    );
+  }
+}
 
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: NaPadding.pagePadding,
-              child: TopicsList(isSearchView: false),
-            ),
-          ),
+@immutable
+final class _Body extends StatelessWidget {
+  const _Body({required this.viewmodel});
 
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: _StickyHeaderDelegate(
-              minHeight: 50,
-              maxHeight: 50,
-              child: Container(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                padding: NaPadding.pagePadding,
-                alignment: Alignment.centerLeft,
-                child: RowSeeAllWidget(
-                  text: LocaleKeys.popularTopic.tr(),
-                  isSeeAllVisible: false,
-                ),
-              ),
-            ),
-          ),
+  final ExploreViewmodel viewmodel;
 
-          Observer(
-            builder: (_) {
-              if (viewmodel.isLoading) {
-                return const SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: AdaptiveCircular.withoutExpanded(),
-                );
-              }
-              return SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return Padding(
-                    padding: NaPadding.pagePadding.copyWith(top: 0),
-                    child: TrendNewsOnboard(
-                      article: viewmodel.news!.articles![index],
-                    ),
-                  );
-                }, childCount: viewmodel.news?.articles?.length ?? 0),
-              );
-            },
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        const _SliverTopics(),
+
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: NaPadding.pagePadding,
+            child: TopicsList(isSearchView: false),
           ),
-        ],
+        ),
+
+        const _SliverHeader(),
+
+        _SliverListForTrends(viewmodel: viewmodel),
+      ],
+    );
+  }
+}
+
+@immutable
+final class _SliverTopics extends StatelessWidget {
+  const _SliverTopics();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: NaPadding.pagePadding.copyWith(bottom: 0),
+        child: RowSeeAllWidget(
+          text: LocaleKeys.topic.tr(),
+          onSeeAllPressed: () => router.goNamed(RoutePaths.exploreTopic.name),
+        ),
       ),
     );
   }
 }
 
-class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
+@immutable
+final class _SliverHeader extends StatelessWidget {
+  const _SliverHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverPersistentHeader(
+      pinned: true,
+      delegate: _StickyHeaderDelegate(
+        minHeight: 50,
+        maxHeight: 50,
+        child: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          padding: NaPadding.pagePadding,
+          alignment: Alignment.centerLeft,
+          child: RowSeeAllWidget(
+            text: LocaleKeys.popularTopic.tr(),
+            isSeeAllVisible: false,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+@immutable
+final class _SliverListForTrends extends StatelessWidget {
+  const _SliverListForTrends({required this.viewmodel});
+
+  final ExploreViewmodel viewmodel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Observer(
+      builder: (_) {
+        if (viewmodel.isLoading) {
+          return const SliverFillRemaining(
+            hasScrollBody: false,
+            child: AdaptiveCircular.withoutExpanded(),
+          );
+        }
+        return SliverList(
+          delegate: SliverChildBuilderDelegate((context, index) {
+            return Padding(
+              padding: NaPadding.pagePadding.copyWith(top: 0),
+              child: TrendNewsOnboard(
+                article: viewmodel.news!.articles![index],
+              ),
+            );
+          }, childCount: viewmodel.news?.articles?.length ?? 0),
+        );
+      },
+    );
+  }
+}
+
+final class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
   _StickyHeaderDelegate({
     required this.minHeight,
     required this.maxHeight,

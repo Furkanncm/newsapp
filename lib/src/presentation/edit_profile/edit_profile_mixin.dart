@@ -2,6 +2,7 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/utils/decoration/textfield_decoration/phone_number_formatter.dart';
+import 'package:newsapp/src/common/utils/bottom_sheet/news_app_bottom_sheet.dart';
 import 'package:newsapp/src/common/utils/enums/otp_options_enum.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
@@ -16,23 +17,24 @@ import 'package:newsapp/src/presentation/edit_profile/edit_profile_viewmodel.dar
 
 mixin EditProfileMixin on State<EditProfileView> {
   late final EditProfileViewmodel viewmodel;
+  late final GlobalKey<FormState> formKey;
+  late final TextEditingController nameController;
+  late final TextEditingController fullNameController;
+  late final TextEditingController emailController;
+  late final TextEditingController phoneController;
+  late final TextEditingController bioController;
+  late final TextEditingController websiteController;
+  late final TextEditingController genderController;
+  late final TextEditingController countryController;
 
   @override
   void initState() {
     super.initState();
     viewmodel = EditProfileViewmodel();
-    viewmodel.formKey = GlobalKey<FormState>();
-    viewmodel.emailController = TextEditingController();
-    viewmodel.nameController = TextEditingController();
-    viewmodel.fullNameController = TextEditingController();
-    viewmodel.phoneController = TextEditingController();
-    viewmodel.bioController = TextEditingController();
-    viewmodel.websiteController = TextEditingController();
-    viewmodel.genderController = TextEditingController();
-    viewmodel.countryController = TextEditingController();
-    viewmodel.countryRepository = CountryRepository();
-    viewmodel.userRepository = UserRepository();
-    viewmodel.authRepository = AuthRepository();
+
+    _repositoryInit();
+    _controllerInit();
+
     getUser();
   }
 
@@ -46,12 +48,12 @@ mixin EditProfileMixin on State<EditProfileView> {
         )
         .text;
     final user = viewmodel.user;
-    viewmodel.emailController.text = user?.email ?? '';
-    viewmodel.nameController.text = user?.username ?? '';
-    viewmodel.fullNameController.text = user?.name ?? '';
-    viewmodel.phoneController.text = formattedPhone;
-    viewmodel.bioController.text = user?.bio ?? '';
-    viewmodel.websiteController.text = user?.website ?? '';
+    emailController.text = user?.email ?? '';
+    nameController.text = user?.username ?? '';
+    fullNameController.text = user?.name ?? '';
+    phoneController.text = formattedPhone;
+    bioController.text = user?.bio ?? '';
+    websiteController.text = user?.website ?? '';
     _setGender();
     await _setCountry();
   }
@@ -63,7 +65,7 @@ mixin EditProfileMixin on State<EditProfileView> {
         orElse: () => Gender.getGenders().last,
       );
       viewmodel.currentGender = selectedGender;
-      viewmodel.genderController.text = selectedGender.label;
+      genderController.text = selectedGender.label;
     }
   }
 
@@ -74,22 +76,22 @@ mixin EditProfileMixin on State<EditProfileView> {
           .getCountryByName(viewmodel.user!.country!);
       if (selectedCountry != null) {
         viewmodel.selectedCountry = selectedCountry;
-        viewmodel.countryController.text = selectedCountry.name ?? '';
+        countryController.text = selectedCountry.name ?? '';
       }
     }
   }
 
   Future<void> editProfile() async {
-    if (!(viewmodel.formKey.currentState?.validate() ?? false)) return;
+    if (!(formKey.currentState?.validate() ?? false)) return;
     viewmodel.user = viewmodel.userRepository.currentUser?.copyWith(
-      email: viewmodel.emailController.text,
-      username: viewmodel.nameController.text,
-      name: viewmodel.fullNameController.text,
-      phone: viewmodel.phoneController.text,
-      bio: viewmodel.bioController.text,
-      website: viewmodel.websiteController.text,
-      gender: viewmodel.genderController.text,
-      country: viewmodel.countryController.text,
+      email: emailController.text,
+      username: nameController.text,
+      name: fullNameController.text,
+      phone: phoneController.text,
+      bio: bioController.text,
+      website: websiteController.text,
+      gender: genderController.text,
+      country: countryController.text,
     );
     final result = await viewmodel
         .updateUser()
@@ -100,26 +102,63 @@ mixin EditProfileMixin on State<EditProfileView> {
     }
   }
 
+  Future<void> setGender({Gender? gender}) async {
+    final selected = await NewsAppBottomSheet.showGenderBottomSheets(
+      context,
+      initialGender: viewmodel.currentGender,
+    );
+    if (selected != null) {
+      viewmodel.currentGender = selected;
+      genderController.text = selected.label;
+    }
+  }
+
+  Future<void> onCountryTap() async {
+    await NewsAppBottomSheet.showCountryBottomSheet(context);
+    viewmodel.selectedCountry = viewmodel.countryRepository.selectedCountry;
+    if (viewmodel.selectedCountry != null) {
+      countryController.text = viewmodel.selectedCountry?.name ?? '';
+    }
+  }
+
   Future<void> sentVerificat() async {
     final otpModel = OTPModel(
       otpOptions: OTPOptions.sms,
-      otpContent: viewmodel.phoneController.text,
+      otpContent: phoneController.text,
     );
     await viewmodel.authRepository
         .sendVerificationCodePhoneNumber(model: otpModel)
         .withToast(context, successMessage: LocaleKeys.verifyCodeSent.tr());
   }
 
+  void _repositoryInit() {
+    viewmodel.countryRepository = CountryRepository();
+    viewmodel.userRepository = UserRepository();
+    viewmodel.authRepository = AuthRepository();
+  }
+
+  void _controllerInit() {
+    formKey = GlobalKey<FormState>();
+    emailController = TextEditingController();
+    nameController = TextEditingController();
+    fullNameController = TextEditingController();
+    phoneController = TextEditingController();
+    bioController = TextEditingController();
+    websiteController = TextEditingController();
+    genderController = TextEditingController();
+    countryController = TextEditingController();
+  }
+
   @override
   void dispose() {
-    viewmodel.nameController.dispose();
-    viewmodel.fullNameController.dispose();
-    viewmodel.emailController.dispose();
-    viewmodel.phoneController.dispose();
-    viewmodel.bioController.dispose();
-    viewmodel.websiteController.dispose();
-    viewmodel.genderController.dispose();
-    viewmodel.countryController.dispose();
+    nameController.dispose();
+    fullNameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    bioController.dispose();
+    websiteController.dispose();
+    genderController.dispose();
+    countryController.dispose();
     super.dispose();
   }
 }

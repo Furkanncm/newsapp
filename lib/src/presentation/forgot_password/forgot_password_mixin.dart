@@ -14,18 +14,20 @@ import 'package:newsapp/src/presentation/forgot_password/forgot_passwprd_viewmod
 
 mixin ForgotPasswordMixin on State<ForgotPasswordView> {
   late final ForgotPasswordViewmodel viewmodel;
+    late final GlobalKey<FormState> formKey;
+  late final TextEditingController emailController;
   @override
   void initState() {
     super.initState();
     viewmodel = ForgotPasswordViewmodel();
-    viewmodel.formKey = GlobalKey<FormState>();
-    viewmodel.emailController = TextEditingController();
     viewmodel.authRepository = AuthRepository();
+    formKey = GlobalKey<FormState>();
+    emailController = TextEditingController();
   }
 
   Future<void> onSubmitPressed() async {
-    final email = viewmodel.emailController.text;
-    if (viewmodel.formKey.currentState?.validate() != true) return;
+    final email = emailController.text;
+    if (formKey.currentState?.validate() != true) return;
     final otpModel = OTPModel(otpOptions: OTPOptions.email, otpContent: email);
     await viewmodel
         .resetPasswordWithEmail(otpModel.otpContent)
@@ -42,7 +44,7 @@ mixin ForgotPasswordMixin on State<ForgotPasswordView> {
 
   @override
   void dispose() {
-    viewmodel.emailController.dispose();
+    emailController.dispose();
     super.dispose();
   }
 }

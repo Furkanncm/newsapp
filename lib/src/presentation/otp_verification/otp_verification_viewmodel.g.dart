@@ -69,8 +69,10 @@ mixin _$OTPVerificationViewmodel on _OTPVerificationViewmodelBase, Store {
   );
 
   @override
-  Future<NetworkResponse<bool>> verifyPressed() {
-    return _$verifyPressedAsyncAction.run(() => super.verifyPressed());
+  Future<NetworkResponse<bool>> verifyPressed({required String smsCode}) {
+    return _$verifyPressedAsyncAction.run(
+      () => super.verifyPressed(smsCode: smsCode),
+    );
   }
 
   late final _$_OTPVerificationViewmodelBaseActionController = ActionController(

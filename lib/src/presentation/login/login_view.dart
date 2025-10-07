@@ -34,9 +34,9 @@ class _LoginViewState extends State<LoginView> with LoginMixin {
               const _Headline(),
               verticalBox24,
               EmailPasswordForm(
-                emailController: viewModel.emailController,
-                passwordController: viewModel.passwordController,
-                formKey: viewModel.formKey,
+                emailController: emailController,
+                passwordController:passwordController,
+                formKey: formKey,
               ),
               _RememberMe(viewmodel: viewModel),
               verticalBox12,

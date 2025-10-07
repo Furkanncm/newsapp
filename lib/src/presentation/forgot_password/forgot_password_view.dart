@@ -8,7 +8,6 @@ import 'package:newsapp/src/common/widget/button/bottom_button.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 import 'package:newsapp/src/common/widget/textfield/email_textfield_with_label.dart';
 import 'package:newsapp/src/presentation/forgot_password/forgot_password_mixin.dart';
-import 'package:newsapp/src/presentation/forgot_password/forgot_passwprd_viewmodel.dart';
 
 @immutable
 final class ForgotPasswordView extends StatefulWidget {
@@ -29,7 +28,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
           onPressed: router.pop,
         ),
       ),
-      body: _Body(viewmodel: viewmodel),
+      body: _Body(formKey: formKey, emailController: emailController),
       bottomNavigationBar: _SubmitButton(onSubmit: onSubmitPressed),
     );
   }
@@ -37,9 +36,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
 
 @immutable
 final class _Body extends StatelessWidget {
-  const _Body({required this.viewmodel});
+  const _Body({required this.formKey, required this.emailController});
 
-  final ForgotPasswordViewmodel viewmodel;
+  final GlobalKey<FormState> formKey;
+  final TextEditingController emailController;
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +59,8 @@ final class _Body extends StatelessWidget {
           ),
           verticalBox32,
           Form(
-            key: viewmodel.formKey,
-            child: _TextFields(emailController: viewmodel.emailController),
+            key: formKey,
+            child: _TextFields(emailController: emailController),
           ),
         ],
       ),

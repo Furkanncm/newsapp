@@ -24,30 +24,7 @@ final class ContactView extends StatelessWidget with ContactMixin {
               itemCount: Contact.values.length,
               itemBuilder: (context, index) {
                 final contact = Contact.values[index];
-                return InkWell(
-                  borderRadius: BorderRadius.circular(16),
-                  onTap: () => onPressed(contact),
-                  child: DecoratedContainer(
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: AppTheme.primaryColor.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: contact.icon,
-                        ),
-                        horizontalBox16,
-                        Expanded(child: LuciText.bodyLarge(contact.title)),
-                        const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: AppTheme.backgroundDark,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                return ContactItem(contact: contact, onPressed: onPressed);
               },
             ),
           ),
@@ -55,6 +32,44 @@ final class ContactView extends StatelessWidget with ContactMixin {
           LuciText.bodyLarge(LocaleKeys.contactUs.tr()),
           verticalBox16,
         ],
+      ),
+    );
+  }
+}
+
+final class ContactItem extends StatelessWidget {
+  const ContactItem({
+    required this.contact,
+    required this.onPressed,
+    super.key,
+  });
+  final Contact contact;
+  final void Function(Contact contact) onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: () => onPressed(contact),
+      child: DecoratedContainer(
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppTheme.primaryColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: contact.icon,
+            ),
+            horizontalBox16,
+            Expanded(child: LuciText.bodyLarge(contact.title)),
+            const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: AppTheme.backgroundDark,
+            ),
+          ],
+        ),
       ),
     );
   }

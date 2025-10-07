@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:codegen/model/article_model/article_model.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:newsapp/src/domain/news/news_repository.dart';
 
@@ -11,7 +10,6 @@ class BookmarkViewModel = _Base with _$BookmarkViewModel;
 
 abstract class _Base with Store {
   late final INewsRepository newsRepository;
-  late final TextEditingController controller;
 
   @observable
   List<Article> articles = [];

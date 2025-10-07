@@ -7,7 +7,8 @@ import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
 import 'package:newsapp/src/common/widget/button/bottom_button.dart';
 import 'package:newsapp/src/presentation/congratulations/congratulations_mixin.dart';
 
-class CongratulationsView extends StatelessWidget with CongratulationsMixin {
+@immutable
+final class CongratulationsView extends StatelessWidget with CongratulationsMixin {
   const CongratulationsView({super.key});
 
   @override
