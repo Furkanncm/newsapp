@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
 @immutable
@@ -21,7 +21,7 @@ final class BehindContainer extends StatelessWidget {
       height: 40,
       width: 40,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: NaBorderRadius.extraLargeRadius(),
         color: isCurrentIndex
             ? AppTheme.primaryColor.withValues(alpha: 0.1)
             : null,

@@ -3,6 +3,7 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
 import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
@@ -73,7 +74,7 @@ class _SocialMediaLoginState extends State<SocialMediaLogin> {
               borderColor: Theme.brightnessOf(context) == Brightness.light
                   ? AppTheme.inputDark
                   : AppTheme.bodyText,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: NaBorderRadius.extraLargeRadius(),
               icon: Assets.images.icGoogle.toIcon(32),
               onPressed: loginWithGoogle,
               child: Center(

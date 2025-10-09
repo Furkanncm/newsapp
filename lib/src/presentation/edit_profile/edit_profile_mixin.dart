@@ -95,7 +95,7 @@ mixin EditProfileMixin on State<EditProfileView> {
     );
     final result = await viewmodel
         .updateUser()
-        .withToast(context, successMessage: LocaleKeys.editProfileSuccess.tr())
+        .withToast(context, showSuccessToast: false)
         .withIndicator(context);
     if (result?.data ?? false) {
       router.go(RoutePaths.profile.path);

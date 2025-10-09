@@ -1,6 +1,8 @@
 import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
+import 'package:newsapp/src/common/utils/decorations/na_outline_input_border.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 
 class AppTheme extends LuciTheme {
@@ -48,22 +50,10 @@ class AppTheme extends LuciTheme {
       hintStyle: const TextStyle(color: placeholder),
       labelStyle: const TextStyle(color: bodyText),
       errorStyle: const TextStyle(color: errorColor, fontSize: 12),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
+      enabledBorder: NaOutlineInputBorder.noneBorder(),
+      focusedBorder: NaOutlineInputBorder.noneBorder(),
+      errorBorder: NaOutlineInputBorder.noneBorder(),
+      focusedErrorBorder: NaOutlineInputBorder.noneBorder(),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -71,13 +61,17 @@ class AppTheme extends LuciTheme {
         backgroundColor: primaryColor,
         foregroundColor: buttonBackground,
         elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(
+          borderRadius: NaBorderRadius.largeRadius(),
+        ),
       ),
     ),
     checkboxTheme: CheckboxThemeData(
       fillColor: const WidgetStatePropertyAll(buttonBackground),
       checkColor: const WidgetStatePropertyAll(backgroundDark),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      shape: RoundedRectangleBorder(
+        borderRadius: NaBorderRadius.mediumRadius(),
+      ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(foregroundColor: buttonText),
@@ -146,35 +140,27 @@ class AppTheme extends LuciTheme {
       hintStyle: const TextStyle(color: bodyDark),
       labelStyle: const TextStyle(color: titleDark),
       errorStyle: const TextStyle(color: errorColor, fontSize: 12),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
+      enabledBorder: NaOutlineInputBorder.noneBorder(),
+      focusedBorder: NaOutlineInputBorder.noneBorder(),
+      errorBorder: NaOutlineInputBorder.noneBorder(),
+      focusedErrorBorder: NaOutlineInputBorder.noneBorder(),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(
+          borderRadius: NaBorderRadius.largeRadius(),
+        ),
         padding: const EdgeInsets.symmetric(vertical: 14),
       ),
     ),
     checkboxTheme: CheckboxThemeData(
       fillColor: const WidgetStatePropertyAll(titleDark),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      shape: RoundedRectangleBorder(
+        borderRadius: NaBorderRadius.mediumRadius(),
+      ),
     ),
 
     iconTheme: const IconThemeData(size: 24, color: primaryColor),

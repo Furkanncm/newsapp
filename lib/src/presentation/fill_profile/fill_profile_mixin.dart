@@ -1,7 +1,5 @@
-import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:codegen/model/topic/topic.dart';
 import 'package:codegen/model/user/user_model.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsapp/src/common/utils/bottom_sheet/news_app_bottom_sheet.dart';
@@ -74,7 +72,7 @@ mixin FillProfileMixin on State<FillProfileView> {
         .onNextPressed(user)
         .withToast(
           context,
-          successMessage: LocaleKeys.editProfileSuccess.tr(),
+          showSuccessToast: false,
           onSuccess: () async => router.goNamed(RoutePaths.home.name),
         );
   }

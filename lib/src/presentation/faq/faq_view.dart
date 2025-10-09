@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/decorated_container.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
@@ -34,7 +35,7 @@ final class FAQView extends StatelessWidget {
                   height: 45,
                   width: 45,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: NaBorderRadius.extraLargeRadius(),
                     color: AppTheme.primaryColor.withValues(alpha: 0.1),
                   ),
                   child: Icon(question.icon, color: AppTheme.primaryColor),

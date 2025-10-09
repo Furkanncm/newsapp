@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/enums/snackbar_enum.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
-class NewsAppSnackBar {
+final class NewsAppSnackBar {
+  NewsAppSnackBar._();
+
   static int _count = 0;
 
   static void show({
@@ -21,7 +24,7 @@ class NewsAppSnackBar {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           decoration: BoxDecoration(
             color: _setBackgroundColor(type),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: NaBorderRadius.largeRadius(),
             boxShadow: [
               BoxShadow(
                 color: _setBackgroundColor(type).withValues(alpha: 0.15),

@@ -50,7 +50,7 @@ mixin OtTPVerificationMixin on State<OtpVerificationView> {
         .verifyPressed(smsCode: pinCodeController.text)
         .withToast(
           context,
-          successMessage: LocaleKeys.phoneNumber.tr(),
+          successMessage: LocaleKeys.phoneAuthSuccess.tr(),
           onSuccess: () async {
             pinCodeController.clear();
             extra!.otpOptions == OTPOptions.verifyWithNumber

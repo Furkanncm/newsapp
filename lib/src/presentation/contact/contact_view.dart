@@ -2,6 +2,7 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/enums/contact.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/decorated_container.dart';
@@ -49,7 +50,7 @@ final class ContactItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: NaBorderRadius.extraLargeRadius(),
       onTap: () => onPressed(contact),
       child: DecoratedContainer(
         child: Row(
@@ -58,7 +59,7 @@ final class ContactItem extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: AppTheme.primaryColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius:NaBorderRadius.extraLargeRadius(),
               ),
               child: contact.icon,
             ),

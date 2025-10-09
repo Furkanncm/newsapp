@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
@@ -177,7 +178,7 @@ final class AppPinTheme {
 
   PinTheme get pinTheme => PinTheme(
     shape: PinCodeFieldShape.box,
-    borderRadius: BorderRadius.circular(8),
+    borderRadius: NaBorderRadius.mediumRadius(),
     fieldHeight: 50,
     fieldWidth: 50,
     activeFillColor: isLightTheme ? AppTheme.surfaceColor : AppTheme.inputDark,

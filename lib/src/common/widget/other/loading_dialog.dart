@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/common/widget/other/circular_progress.dart';
 
@@ -11,7 +12,7 @@ class LoadingDialog extends StatelessWidget {
     return Center(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: NaBorderRadius.mediumRadius(),
           boxShadow: kElevationToShadow[4],
           color: isLightTheme
               ? AppTheme.buttonBackground

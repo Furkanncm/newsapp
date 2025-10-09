@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/common/widget/other/circular_progress.dart';
@@ -200,7 +201,7 @@ final class _GenderAndCountryPicker extends StatelessWidget {
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(8),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius:NaBorderRadius.smallRadius(),
                     child: Image.network(
                       viewmodel.selectedCountry?.flag ?? '',
                       errorBuilder: (context, error, stackTrace) {

@@ -2,6 +2,7 @@ import 'package:codegen/model/country_model/country_model.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/bottom_sheet/widget/filter_chip.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 
 @immutable
 final class FilterLanguage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _FilterLanguageState extends State<FilterLanguage> {
             avatar: SizedBox(
               width: 48,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: NaBorderRadius.smallRadius(),
                 child: Image.network(
                   language.flag ?? '',
                   width: 40,

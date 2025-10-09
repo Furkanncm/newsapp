@@ -3,6 +3,7 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/widget/sized_box/space_box.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
@@ -66,7 +67,7 @@ class _SearchFieldState extends State<SearchField> {
       },
       decoration: InputDecoration(
         hintText: LocaleKeys.search.tr(),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(borderRadius: NaBorderRadius.largeRadius()),
         prefixIcon: Assets.uiKitImages.icQuestionmarkOutline.toIcon(32),
         suffixIcon: widget.controller?.text.isEmpty ?? true
             ? emptyBox

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 
 @immutable
@@ -28,7 +29,7 @@ final class BaseBottomSheet extends StatelessWidget {
             thickness: 4,
             indent: context.width * 0.4,
             endIndent: context.width * 0.4,
-            radius: BorderRadius.circular(16),
+            radius: NaBorderRadius.extraLargeRadius(),
           ),
           verticalBox16,
           LuciText.labelLarge(title),

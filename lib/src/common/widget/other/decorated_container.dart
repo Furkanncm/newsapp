@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/widget/padding/na_padding.dart';
 
 @immutable
@@ -13,7 +14,7 @@ final class DecoratedContainer extends StatelessWidget {
       padding: NaPadding.mainButtonPadding / 2,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: NaBorderRadius.extraLargeRadius(),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),

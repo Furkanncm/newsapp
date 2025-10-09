@@ -191,6 +191,7 @@
   "invalidPhoneNumber": "The phone number entered is invalid.",
   "unverifiedEmail": "Email address is not verified.",
   "invalidAppCredential": "Invalid app credential.",
-  "credentialAlreadyInUse": "This credential is already associated with another user."
+  "credentialAlreadyInUse": "This credential is already associated with another user.",
+  "phoneAuthSuccess": "Phone authentication successful."
 
 }

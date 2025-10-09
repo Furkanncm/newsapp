@@ -53,7 +53,7 @@ class _OnboardViewState extends State<OnboardView> with OnboardMixin {
                   children: [
                     Expanded(
                       child: ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding:  NaPadding.zeroPadding,
                         shrinkWrap: true,
                         itemCount: onboardList.length,
                         scrollDirection: Axis.horizontal,

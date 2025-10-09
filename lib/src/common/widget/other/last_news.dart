@@ -1,6 +1,7 @@
 import 'package:codegen/codegen.dart';
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/extensions/string_extensions.dart';
 import 'package:newsapp/src/common/widget/other/news_info.dart';
 import 'package:newsapp/src/common/widget/other/safe_image_network.dart';
@@ -23,7 +24,7 @@ final class LastNews extends StatelessWidget {
             width: 96,
             height: 96,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius:NaBorderRadius.mediumRadius(),
               child: SafeImageNetwork(article: article),
             ),
           ),

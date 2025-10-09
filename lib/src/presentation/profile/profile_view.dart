@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/constants/string_constants.dart';
+import 'package:newsapp/src/common/utils/decorations/na_border_radius.dart';
 import 'package:newsapp/src/common/utils/dialog/news_app_dialogs.dart';
 import 'package:newsapp/src/common/utils/enums/language_enum.dart';
 import 'package:newsapp/src/common/utils/enums/my_account.dart';
@@ -118,7 +119,9 @@ final class _EditButton extends StatelessWidget {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         padding: NaPadding.pagePadding,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        shape: RoundedRectangleBorder(
+          borderRadius: NaBorderRadius.mediumRadius(),
+        ),
         side: const BorderSide(color: AppTheme.placeholder),
       ),
       child: LuciText.bodyLarge(
@@ -178,7 +181,7 @@ class _LanguageSectionState extends State<_LanguageSection> {
           onPressed: () {},
           leading: Icons.language_outlined,
           trailing: DropdownButton<LanguageEnum>(
-            borderRadius: BorderRadius.circular(16),
+              borderRadius: NaBorderRadius.extraLargeRadius(),
             value: widget.viewmodel.currentLanguage,
             underline: emptyBox,
             items: LanguageEnum.values
@@ -256,7 +259,7 @@ final class MyAccountSection extends StatelessWidget {
             width: 50,
             decoration: BoxDecoration(
               color: AppTheme.primaryColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: NaBorderRadius.extraLargeRadius(),
             ),
             child: Icon(leading ?? item.icon, color: AppTheme.primaryColor),
           ),

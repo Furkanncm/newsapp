@@ -186,6 +186,7 @@
   "invalidPhoneNumber": "Geçersiz telefon numarası.",
   "unverifiedEmail": "E-posta doğrulanmamış.",
   "invalidAppCredential": "Uygulama kimlik bilgisi geçersiz.",
-  "credentialAlreadyInUse": "Kimlik bilgisi zaten kullanımda."
+  "credentialAlreadyInUse": "Kimlik bilgisi zaten kullanımda.",
+  "phoneAuthSuccess": "Telefon doğrulaması başarılı."
   
 }

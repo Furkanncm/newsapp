@@ -22,16 +22,12 @@ final class NewsBottomButton extends StatelessWidget {
       padding: NaPadding.zeroPadding,
       decoration: const BoxDecoration(
         border: Border(
-          top: BorderSide(
-            color: AppTheme.placeholder,
-            width: 0.6,
-          ),
+          top: BorderSide(color: AppTheme.placeholder, width: 0.6),
         ),
       ),
       width: double.infinity,
-      child: Card(
-        margin: EdgeInsets.zero,
-        shape: LinearBorder.bottom(),
+      child: Container(
+        margin: NaPadding.zeroPadding,
         child: SafeArea(
           child: Padding(
             padding: NaPadding.mainButtonPadding,

@@ -195,5 +195,6 @@ abstract class  LocaleKeys {
   static const unverifiedEmail = 'unverifiedEmail';
   static const invalidAppCredential = 'invalidAppCredential';
   static const credentialAlreadyInUse = 'credentialAlreadyInUse';
+  static const phoneAuthSuccess = 'phoneAuthSuccess';
 
 }

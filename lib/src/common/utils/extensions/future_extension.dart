@@ -10,23 +10,26 @@ import 'package:newsapp/src/common/widget/other/loading_dialog.dart';
 extension FutureX<T> on Future<NetworkResponse<T>?> {
   Future<NetworkResponse<T>?> withToast(
     BuildContext context, {
-    required String successMessage,
+    String? successMessage,
     Future<void> Function()? onSuccess,
+    bool showSuccessToast = true,
   }) async {
     final result = await this.withIndicator(context);
     if (!context.mounted) return result;
     if (result != null && result.succeeded == true) {
-      NewsAppSnackBar.show(
-        context: context,
-        text: successMessage,
-        type: SnackBarType.info,
-      );
+      if (showSuccessToast) {
+        NewsAppSnackBar.show(
+          context: context,
+          text: successMessage ?? result.messages?.firstOrNull ?? '',
+          type: SnackBarType.info,
+        );
+      }
 
       await onSuccess?.call();
     } else {
       NewsAppSnackBar.show(
         context: context,
-        text: result?.messages?.first ?? '',
+        text: result?.messages?.firstOrNull ?? '',
         type: SnackBarType.error,
       );
     }
@@ -53,6 +56,7 @@ extension FutureXAll<T> on Future<T> {
     required BuildContext context,
     String? successMessage,
     Future<void> Function(T value)? onSuccess,
+    bool showSuccessToast = true,
   }) async {
     if (!context.mounted) return this;
 
@@ -69,13 +73,14 @@ extension FutureXAll<T> on Future<T> {
     }
 
     if (successMessage != null && context.mounted) {
-      NewsAppSnackBar.show(
-        context: context,
-        text: successMessage,
-        type: SnackBarType.info,
-      );
+      if (showSuccessToast) {
+        NewsAppSnackBar.show(
+          context: context,
+          text: showSuccessToast ? successMessage : '',
+          type: SnackBarType.info,
+        );
+      }
     }
-
     if (onSuccess != null) await onSuccess(result);
 
     await dialogFuture;
