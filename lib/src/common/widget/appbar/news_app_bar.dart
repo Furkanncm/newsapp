@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
 
-class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
+@immutable
+final class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
   const NewsAppBar({
     required this.title,
     this.actions,
@@ -21,8 +22,12 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      forceMaterialTransparency: true,
       leading: isPop
-          ? IconButton(onPressed: router.pop, icon: const Icon(Icons.arrow_back_ios_new_outlined))
+          ? IconButton(
+              onPressed: router.pop,
+              icon: const Icon(Icons.arrow_back_ios_new_outlined),
+            )
           : emptyBox,
       title: LuciText.labelMedium(title, fontWeight: FontWeight.bold),
       centerTitle: centerTitle,

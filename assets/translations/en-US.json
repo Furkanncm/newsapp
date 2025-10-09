@@ -154,9 +154,6 @@
   "editProfileSuccess": "Profile updated successfully.",
   "cancel": "Cancel",
   "gender": "Gender",
-  "male": "Male",
-  "female": "Female",
-  "other": "Other",
   "country": "Country",
   "language": "Language",
   "noNetwork": {
@@ -181,5 +178,19 @@
   "fail": "Failed",
   "exit_title": "Exit",
   "exit_content": "Do you want to exit the app?",
-  "ok": "OK"
+  "ok": "OK",
+   "invalidVerificationCode": "Invalid verification code.",
+  "invalidVerificationId": "Invalid verification ID.",
+  "missingVerificationCode": "Verification code is missing.",
+  "missingVerificationId": "Verification ID is missing.",
+  "sessionExpired": "The verification session has expired. Please try again.",
+  "captchaCheckFailed": "reCAPTCHA verification failed.",
+  "quotaExceeded": "SMS quota exceeded. Try again later.",
+  "appNotAuthorized": "This app is not authorized to use Firebase Authentication with the provided credentials.",
+  "missingPhoneNumber": "Phone number is missing.",
+  "invalidPhoneNumber": "The phone number entered is invalid.",
+  "unverifiedEmail": "Email address is not verified.",
+  "invalidAppCredential": "Invalid app credential.",
+  "credentialAlreadyInUse": "This credential is already associated with another user."
+
 }

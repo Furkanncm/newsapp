@@ -30,6 +30,7 @@ abstract class _EditProfileViewmodelBase with Store {
     user = await userRepository.getUserInfo();
   }
 
+
   @action
   Future<NetworkResponse<bool>> updateUser() async {
     return userRepository.updateProfile(user: user!);

@@ -4,7 +4,8 @@ import 'package:lucielle/widget/button/elevated_button.dart';
 import 'package:lucielle/widget/text/luci_text.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 
-class CenteredButton extends StatefulWidget {
+@immutable
+final class CenteredButton extends StatefulWidget {
   const CenteredButton({
     required this.text,
     required this.onPressed,

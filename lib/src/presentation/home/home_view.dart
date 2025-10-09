@@ -33,72 +33,55 @@ class _HomeViewState extends State<HomeView> with HomeMixin {
     return Padding(
       padding: NaPadding.pagePadding,
       child: Scaffold(
-        appBar: _AppBar(viewmodel: viewmodel),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            verticalBox8,
-            SearchField(
-              controller: controller,
-              readOnly: true,
-              onTap: () => router.pushNamed(
-                RoutePaths.searchPage.name,
-                extra: viewmodel.news?.articles ?? [],
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              verticalBox8,
+              SearchField(
+                controller: controller,
+                readOnly: true,
+                onTap: () => router.pushNamed(
+                  RoutePaths.searchPage.name,
+                  extra: viewmodel.news?.articles ?? [],
+                ),
               ),
-            ),
-            verticalBox8,
-            Observer(
-              builder: (_) {
-                return _AnimatedNewsOnboard(
-                  viewmodel: viewmodel,
-                  article: viewmodel.news?.articles ?? [],
-                );
-              },
-            ),
-            verticalBox4,
-            RowSeeAllWidget(
-              text: LocaleKeys.latest.tr(),
-              onSeeAllPressed: () => viewmodel.changeIsSeeAll(),
-            ),
-            verticalBox8,
-            _HorizontalTopicList(viewmodel: viewmodel),
-            Observer(
-              builder: (_) {
-                return viewmodel.isLoading
-                    ? const AdaptiveCircular()
-                    : ListLastestNews(
-                        newsList: viewmodel.categoryNews?.articles ?? [],
-                        onRefresh: (article, isBookmarked) async =>
-                            viewmodel.refreshLastestNews(
-                              article,
-                              isBookmarked.toBool() ?? false,
-                            ),
-                      );
-              },
-            ),
-          ],
+              verticalBox8,
+              Observer(
+                builder: (_) {
+                  return _AnimatedNewsOnboard(
+                    viewmodel: viewmodel,
+                    article: viewmodel.news?.articles ?? [],
+                  );
+                },
+              ),
+              verticalBox4,
+              RowSeeAllWidget(
+                text: LocaleKeys.latest.tr(),
+                onSeeAllPressed: () => viewmodel.changeIsSeeAll(),
+              ),
+              verticalBox8,
+              _HorizontalTopicList(viewmodel: viewmodel),
+              Observer(
+                builder: (_) {
+                  return viewmodel.isLoading
+                      ? const AdaptiveCircular()
+                      : ListLastestNews(
+                          newsList: viewmodel.categoryNews?.articles ?? [],
+                          onRefresh: (article, isBookmarked) async =>
+                              viewmodel.refreshLastestNews(
+                                article,
+                                isBookmarked.toBool() ?? false,
+                              ),
+                        );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-}
-
-@immutable
-final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _AppBar({required this.viewmodel});
-
-  final HomeViewmodel viewmodel;
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      forceMaterialTransparency: true,
-      leadingWidth: context.width / 3.5,
-      leading: Assets.images.icAppLogo.toImage,
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(40);
 }
 
 @immutable
@@ -124,7 +107,6 @@ final class _AnimatedNewsOnboard extends StatelessWidget {
           },
           child: !viewmodel.isSeeAll
               ? Column(
-                  key: const ValueKey(true),
                   children: [
                     RowSeeAllWidget(
                       text: LocaleKeys.trending.tr(),
@@ -146,7 +128,7 @@ final class _AnimatedNewsOnboard extends StatelessWidget {
                         options: CarouselOptions(
                           autoPlay: true,
                           enlargeCenterPage: true,
-                          viewportFraction: 0.9,
+                          viewportFraction: 0.85,
                           enlargeStrategy: CenterPageEnlargeStrategy.zoom,
                           initialPage: 1,
                           height: context.height * 0.28,

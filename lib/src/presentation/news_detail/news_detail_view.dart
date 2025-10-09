@@ -185,6 +185,8 @@ final class _NewsSource extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLight =
+        Theme.brightnessOf(context) == AppTheme.lightTheme.brightness;
     return Padding(
       padding: NaPadding.pagePadding,
       child: Column(
@@ -193,12 +195,12 @@ final class _NewsSource extends StatelessWidget {
           LuciText.bodySmall(
             '${LocaleKeys.by.tr()} ${article.source?.name}',
             fontWeight: FontWeight.w600,
-            textColor: Colors.grey.shade700,
+            textColor: isLight ? AppTheme.bodyText : AppTheme.bodyDark,
           ),
           verticalBox4,
           LuciText.bodySmall(
             article.publishedAt?.setPastTime ?? '',
-            textColor: Colors.grey.shade600,
+            textColor: isLight ? AppTheme.bodyText : AppTheme.bodyDark,
           ),
         ],
       ),
@@ -214,6 +216,8 @@ final class _NewsDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLight =
+        Theme.brightnessOf(context) == AppTheme.lightTheme.brightness;
     return SingleChildScrollView(
       padding: NaPadding.pagePadding.copyWith(top: 20, bottom: 100),
       child: Column(
@@ -227,7 +231,7 @@ final class _NewsDetails extends StatelessWidget {
           verticalBox32,
           LuciText.bodyLarge(
             article.content ?? LocaleKeys.noContentAvaible.tr(),
-            textColor: AppTheme.bodyText,
+            textColor: isLight ? AppTheme.bodyText : AppTheme.bodyDark,
           ),
         ],
       ),

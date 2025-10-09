@@ -29,37 +29,47 @@ class _EditProfileViewState extends State<EditProfileView>
     with EditProfileMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => router.goNamed(RoutePaths.profile.name),
-          icon: const Icon(Icons.arrow_back_ios_new_outlined),
-        ),
-        title: LuciText.labelMedium(
-          LocaleKeys.editProfile.tr(),
-          fontWeight: FontWeight.bold,
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: editProfile,
-            icon: const Icon(Icons.check_outlined),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          router.goNamed(RoutePaths.profile.name);
+        }
+        return;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => router.goNamed(RoutePaths.profile.name),
+            icon: const Icon(Icons.arrow_back_ios_new_outlined),
           ),
-        ],
-      ),
-      body: _Body(
-        viewmodel: viewmodel,
-        formKey: formKey,
-        nameController: nameController,
-        fullNameController: fullNameController,
-        emailController: emailController,
-        phoneController: phoneController,
-        bioController: bioController,
-        websiteController: websiteController,
-        genderController: genderController,
-        countryController: countryController,
-        onSetGender: setGender,
-        onSetCountry: onCountryTap,
+          title: LuciText.labelMedium(
+            LocaleKeys.editProfile.tr(),
+            fontWeight: FontWeight.bold,
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: editProfile,
+              icon: const Icon(Icons.check_outlined),
+            ),
+          ],
+        ),
+        body: _Body(
+          viewmodel: viewmodel,
+          formKey: formKey,
+          nameController: nameController,
+          fullNameController: fullNameController,
+          emailController: emailController,
+          phoneController: phoneController,
+          bioController: bioController,
+          websiteController: websiteController,
+          genderController: genderController,
+          countryController: countryController,
+          onSetGender: setGender,
+          onSetCountry: onCountryTap,
+          onVerifyEmail: sentVerificationEmail,
+        ),
       ),
     );
   }
@@ -80,12 +90,15 @@ final class _Body extends StatelessWidget {
     required this.countryController,
     required this.onSetGender,
     required this.onSetCountry,
+    required this.onVerifyEmail,
   });
 
   final EditProfileViewmodel viewmodel;
 
   final VoidCallback onSetGender;
   final VoidCallback onSetCountry;
+  final VoidCallback onVerifyEmail;
+
   final GlobalKey<FormState> formKey;
   final TextEditingController nameController;
   final TextEditingController fullNameController;
@@ -116,6 +129,7 @@ final class _Body extends StatelessWidget {
                     formKey: formKey,
                     emailController: emailController,
                     phoneController: phoneController,
+                    onVerifyEmail: onVerifyEmail,
                   ),
                   BioTextField(
                     controller: bioController,
@@ -212,11 +226,13 @@ final class _GenderAndCountryPicker extends StatelessWidget {
 @immutable
 final class _FormWidget extends StatelessWidget {
   const _FormWidget({
+    required this.onVerifyEmail,
     required this.formKey,
     required this.emailController,
     required this.phoneController,
   });
 
+  final VoidCallback onVerifyEmail;
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController phoneController;
@@ -231,6 +247,7 @@ final class _FormWidget extends StatelessWidget {
             emailController: emailController,
             readOnly: true,
             isForVerify: true,
+            onPressed: onVerifyEmail,
           ),
           verticalBox12,
           PhoneNumberTextfield(

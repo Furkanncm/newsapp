@@ -182,5 +182,18 @@ abstract class  LocaleKeys {
   static const exit_title = 'exit_title';
   static const exit_content = 'exit_content';
   static const ok = 'ok';
+  static const invalidVerificationCode = 'invalidVerificationCode';
+  static const invalidVerificationId = 'invalidVerificationId';
+  static const missingVerificationCode = 'missingVerificationCode';
+  static const missingVerificationId = 'missingVerificationId';
+  static const sessionExpired = 'sessionExpired';
+  static const captchaCheckFailed = 'captchaCheckFailed';
+  static const quotaExceeded = 'quotaExceeded';
+  static const appNotAuthorized = 'appNotAuthorized';
+  static const missingPhoneNumber = 'missingPhoneNumber';
+  static const invalidPhoneNumber = 'invalidPhoneNumber';
+  static const unverifiedEmail = 'unverifiedEmail';
+  static const invalidAppCredential = 'invalidAppCredential';
+  static const credentialAlreadyInUse = 'credentialAlreadyInUse';
 
 }

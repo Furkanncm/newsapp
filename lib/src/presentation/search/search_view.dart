@@ -48,7 +48,7 @@ class _SearchViewState extends State<SearchView> with SearchMixin {
                             focusNode: FocusNode(),
                           ),
                         ),
-                        horizontalBox4,
+                        horizontalBox8,
                         Container(
                           decoration: BoxDecoration(
                             border: BoxBorder.all(color: AppTheme.buttonText),

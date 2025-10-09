@@ -39,6 +39,32 @@ final class FirebaseError {
         return LocaleKeys.networkRequestFailed.tr();
       case StringConstants.invalidCredential:
         return LocaleKeys.invalidCredential.tr();
+      case StringConstants.invalidVerificationCode:
+        return LocaleKeys.invalidVerificationCode.tr();
+      case StringConstants.invalidVerificationId:
+        return LocaleKeys.invalidVerificationId.tr();
+      case StringConstants.missingVerificationCode:
+        return LocaleKeys.missingVerificationCode.tr();
+      case StringConstants.missingVerificationId:
+        return LocaleKeys.missingVerificationId.tr();
+      case StringConstants.sessionExpired:
+        return LocaleKeys.sessionExpired.tr();
+      case StringConstants.captchaCheckFailed:
+        return LocaleKeys.captchaCheckFailed.tr();
+      case StringConstants.quotaExceeded:
+        return LocaleKeys.quotaExceeded.tr();
+      case StringConstants.appNotAuthorized:
+        return LocaleKeys.appNotAuthorized.tr();
+      case StringConstants.missingPhoneNumber:
+        return LocaleKeys.missingPhoneNumber.tr();
+      case StringConstants.invalidPhoneNumber:
+        return LocaleKeys.invalidPhoneNumber.tr();
+      case StringConstants.unverifiedEmail:
+        return LocaleKeys.unverifiedEmail.tr();
+      case StringConstants.invalidAppCredential:
+        return LocaleKeys.invalidAppCredential.tr();
+      case StringConstants.credentialAlreadyInUse:
+        return LocaleKeys.credentialAlreadyInUse.tr();
       default:
         return LocaleKeys.unknownError.tr();
     }

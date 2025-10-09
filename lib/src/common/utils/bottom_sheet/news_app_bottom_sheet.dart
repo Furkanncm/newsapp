@@ -6,7 +6,6 @@ import 'package:newsapp/src/common/utils/bottom_sheet/widget/filter_bottom_sheet
 import 'package:newsapp/src/common/utils/bottom_sheet/widget/gender_bottom_sheet.dart';
 import 'package:newsapp/src/common/utils/enums/filter_shortby_enum.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
-import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/data/model/gender/gender.dart';
 
 abstract class NewsAppBottomSheet {
@@ -17,7 +16,6 @@ abstract class NewsAppBottomSheet {
     Gender? initialGender,
   }) async {
     return showModalBottomSheet<Gender?>(
-      backgroundColor: AppTheme.buttonBackground,
       context: context,
       builder: (context) => GenderBottomSheet(initialGender: initialGender),
     );
@@ -25,7 +23,6 @@ abstract class NewsAppBottomSheet {
 
   static Future<void> showCountryBottomSheet(BuildContext context) async {
     return showModalBottomSheet(
-      backgroundColor: AppTheme.buttonBackground,
       isScrollControlled: true,
       context: context,
       builder: (context) => const CountryBottomSheet(),
@@ -53,6 +50,4 @@ abstract class NewsAppBottomSheet {
       },
     );
   }
-
-  
 }

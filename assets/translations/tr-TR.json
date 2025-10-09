@@ -149,9 +149,6 @@
   "editProfileSuccess": "Profil başarıyla güncellendi.",
   "cancel": "İptal",
   "gender": "Cinsiyet",
-  "male": "Erkek",
-  "female": "Kadın",
-  "other": "Diğer",
   "country": "Ülke",
   "language": "Dil",
   "noNetwork": {
@@ -176,6 +173,19 @@
    "fail": "İşlem Başarısız",
    "exit_title": "Çıkış",
   "exit_content": "Uygulamadan çıkmak istiyor musunuz?",
-  "ok": "Tamam"
+  "ok": "Tamam",
+   "invalidVerificationCode": "Geçersiz doğrulama kodu.",
+  "invalidVerificationId": "Doğrulama kimliği geçersiz.",
+  "missingVerificationCode": "Doğrulama kodu eksik.",
+  "missingVerificationId": "Doğrulama kimliği eksik.",
+  "sessionExpired": "Doğrulama oturumunun süresi doldu.",
+  "captchaCheckFailed": "reCAPTCHA doğrulaması başarısız.",
+  "quotaExceeded": "SMS gönderim limiti aşıldı.",
+  "appNotAuthorized": "Uygulama yetkilendirilmedi.",
+  "missingPhoneNumber": "Telefon numarası eksik.",
+  "invalidPhoneNumber": "Geçersiz telefon numarası.",
+  "unverifiedEmail": "E-posta doğrulanmamış.",
+  "invalidAppCredential": "Uygulama kimlik bilgisi geçersiz.",
+  "credentialAlreadyInUse": "Kimlik bilgisi zaten kullanımda."
   
 }

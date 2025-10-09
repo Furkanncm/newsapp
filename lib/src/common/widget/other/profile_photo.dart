@@ -109,8 +109,12 @@ final class ProfilePhoto extends StatelessWidget {
             ),
           );
         } else {
+          final file = File(imageFileValue.path);
+          if (!file.existsSync()) {
+            return const _EmptyProfilePhoto();
+          }
           childWidget = Image.file(
-            File(imageFileValue.path),
+            file,
             fit: BoxFit.cover,
             width: height,
             height: height,

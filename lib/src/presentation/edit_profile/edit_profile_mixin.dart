@@ -121,7 +121,7 @@ mixin EditProfileMixin on State<EditProfileView> {
     }
   }
 
-  Future<void> sentVerificat() async {
+  Future<void> sentVerificationEmail() async {
     final otpModel = OTPModel(
       otpOptions: OTPOptions.sms,
       otpContent: phoneController.text,

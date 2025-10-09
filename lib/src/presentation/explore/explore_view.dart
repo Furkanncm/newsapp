@@ -27,6 +27,7 @@ class _ExploreViewState extends State<ExploreView> with ExploreMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        forceMaterialTransparency: true,
         title: LuciText.titleMedium(
           LocaleKeys.explore.tr(),
           fontWeight: FontWeight.bold,

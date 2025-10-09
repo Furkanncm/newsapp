@@ -4,7 +4,8 @@ import 'package:newsapp/src/common/utils/extensions/asset_extensionss.dart';
 import 'package:newsapp/src/common/utils/theme/app_theme.dart';
 import 'package:newsapp/src/presentation/splash/splash_mixin.dart';
 
-class SplashView extends StatefulWidget {
+@immutable
+final class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
   @override

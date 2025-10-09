@@ -22,7 +22,6 @@ final class NewsApp extends StatelessWidget {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
-
           title: StringConstants.appName,
           debugShowCheckedModeBanner: false,
           theme: theme,

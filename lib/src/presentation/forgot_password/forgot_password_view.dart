@@ -24,7 +24,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
           onPressed: router.pop,
         ),
       ),

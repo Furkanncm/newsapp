@@ -23,7 +23,6 @@ dependencies:
   url_launcher: ^6.3.2
   carousel_slider: ^5.1.1
   
-
   # Security
   flutter_dotenv: ^5.0.2
 
@@ -44,10 +43,7 @@ dependencies:
   # Localization
   easy_localization: ^3.0.7+1
 
-  # Modules
-  codegen:
-    path: module/codegen
-  
+
   # Firebase
   firebase_core: ^4.1.1
   firebase_auth: ^6.1.0
@@ -56,21 +52,31 @@ dependencies:
   firebase_storage: ^13.0.2
   firebase_app_check: ^0.4.1
   
+  # Modules
+  codegen:
+    path: module/codegen
+
   # Core
   lucielle:
     git:
       url: https://github.com/Furkanncm/lucielle_core
       ref: main
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  # Generators
   build_runner: ^2.4.13
   flutter_gen_runner: ^5.10.0
-  very_good_analysis: ^7.0.0
-  json_serializable: ^6.9.0
   mobx_codegen: ^2.7.0
+
+  # Linters
+  very_good_analysis: ^7.0.0
+
+  # Json
+  json_serializable: ^6.9.0
+
 
 flutter:
   uses-material-design: true

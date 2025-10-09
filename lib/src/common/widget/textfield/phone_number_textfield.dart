@@ -40,6 +40,22 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
     isVerified = _userRepository.currentUser?.isPhoneNumberVerified ?? false;
   }
 
+  Future<void> _verifyPhoneNumber() async {
+    await _authRepository
+        .sendVerificationCodePhoneNumber(
+          model: OTPModel(
+            otpOptions: widget.isForVerifyPhoneNumber
+                ? OTPOptions.verifyWithNumber
+                : OTPOptions.sms,
+            otpContent: widget.phoneController.text,
+          ),
+        )
+        .withToast(
+          context,
+          successMessage: LocaleKeys.verifyCodeSent.tr(),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,21 +76,7 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
                   isValid: !widget.phoneController.text.isPhoneNumber,
                   isVerified: isVerified,
                   label: LocaleKeys.verify.tr(),
-                  onPressed: () async {
-                    await _authRepository
-                        .sendVerificationCodePhoneNumber(
-                          model: OTPModel(
-                            otpOptions: widget.isForVerifyPhoneNumber
-                                ? OTPOptions.verifyWithNumber
-                                : OTPOptions.sms,
-                            otpContent: widget.phoneController.text,
-                          ),
-                        )
-                        .withToast(
-                          context,
-                          successMessage: LocaleKeys.verifyCodeSent.tr(),
-                        );
-                  },
+                  onPressed: () async => _verifyPhoneNumber(),
                 ),
         ),
       ],

@@ -67,19 +67,15 @@ mixin SplashMixin on State<SplashView> {
     await fetchCountries();
 
     await _incrementProgress();
-    if (isFirstTime) {
-      checkOnboard(true);
-      return;
-    }
+    checkOnboard(isFirstTime);
 
     await _incrementProgress();
     checkLogin(userId?.isNotEmpty, isFirstTime);
   }
 
   void checkOnboard(bool isFirstTime) {
-    if (isFirstTime) {
-      router.goNamed(RoutePaths.onboard.name);
-    }
+    if (!isFirstTime) return;
+    router.goNamed(RoutePaths.onboard.name);
   }
 
   void checkLogin(bool? isLoggedIn, bool isFirstTime) {
@@ -104,7 +100,9 @@ mixin SplashMixin on State<SplashView> {
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _animationController
+      ..stop()
+      ..dispose();
     super.dispose();
   }
 }

@@ -3,7 +3,6 @@ import 'package:codegen/model/article_model/article_model.dart';
 import 'package:codegen/model/topic/topic.dart';
 import 'package:codegen/model/user/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:newsapp/src/common/base/base_response.dart';
 import 'package:newsapp/src/common/utils/enums/firebase_collection.dart';
 import 'package:newsapp/src/common/utils/enums/pref_keys.dart';
@@ -41,32 +40,21 @@ final class FirestoreRepository implements IFirestoreRepository {
   FirestoreRepository._() {
     _firestore = FirebaseFirestore.instance;
     _cacheRepository = CacheRepository.instance;
-    // _storage = FirebaseStorage.instance;
   }
   static FirestoreRepository? _instance;
   late final FirebaseFirestore _firestore;
-  // late final FirebaseStorage _storage;
   late final CacheRepository _cacheRepository;
 
   @override
   String get userId =>
       _cacheRepository.getString(PrefKeys.isUserLoggedIn) ?? '';
 
-  Reference? storageRef;
-
   @override
   Future<void> saveUser({required UserModel user}) async {
-    final userToSave = user;
-
-    // if (user.profilePhoto != null && user.profilePhoto!.isNotEmpty) {
-    //   final response = await _saveToStorage(user: user);
-    //   userToSave = response;
-    // }
-
     await _firestore
         .collection(FirebaseCollection.users.collectionName)
         .doc(user.id)
-        .set(userToSave.toJson());
+        .set(user.toJson());
 
     await _firestore
         .collection(FirebaseCollection.news.collectionName)
@@ -75,25 +63,6 @@ final class FirestoreRepository implements IFirestoreRepository {
           FirebaseCollection.savedNews.collectionName: List<String>.empty(),
         });
   }
-
-  // Future<UserModel> _saveToStorage({required UserModel user}) async {
-  //   String? profilePhotoUrl;
-  //   final file = File(user.profilePhoto!);
-  //   final isFileExist = await file.exists();
-  //   if (isFileExist) {
-  //     final storageRef = _storage
-  //         .ref()
-  //         .child(FirebaseCollection.profilePhotos.collectionName)
-  //         .child('${user.id}.jpg');
-  //     final currentUser = FirebaseAuth.instance.currentUser;
-  //     await currentUser?.getIdToken(true);
-  //     await storageRef.putFile(file);
-  //     profilePhotoUrl = await storageRef.getDownloadURL();
-  //     return user.copyWith(profilePhoto: profilePhotoUrl);
-  //   }
-
-  //   return user;
-  // }
 
   @override
   Future<NetworkResponse<bool>> updateProfile(UserModel user) async {

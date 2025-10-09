@@ -11,7 +11,7 @@ import 'package:newsapp/src/common/utils/router/router.dart';
 import 'package:newsapp/src/data/model/otp/otp_model.dart';
 import 'package:newsapp/src/domain/auth_repository/auth_repository.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
-import 'package:newsapp/src/domain/firestore/firestore_repository.dart';
+import 'package:newsapp/src/domain/user/user_repository.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_view.dart';
 import 'package:newsapp/src/presentation/otp_verification/otp_verification_viewmodel.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -31,7 +31,7 @@ mixin OtTPVerificationMixin on State<OtpVerificationView> {
     viewmodel
       ..countryRepository = CountryRepository()
       ..authRepository = AuthRepository()
-      ..firestoreRepository = FirestoreRepository()
+      ..userRepository = UserRepository()
       ..startTimer();
   }
 
@@ -46,17 +46,18 @@ mixin OtTPVerificationMixin on State<OtpVerificationView> {
       ..stopTimer()
       ..isRetry = false
       ..isPinComp = false;
-    await viewmodel.verifyPressed(smsCode: pinCodeController.text).withToast(
-      context,
-      successMessage: LocaleKeys.phoneNumber.tr(),
-      onSuccess: () async {
-        pinCodeController.clear();
-        if (extra == null) return;
-        extra!.otpOptions == OTPOptions.verifyWithNumber
-            ? router.goNamed(RoutePaths.home.name)
-            : await router.pushNamed(RoutePaths.resetPassword.name);
-      },
-    );
+    await viewmodel
+        .verifyPressed(smsCode: pinCodeController.text)
+        .withToast(
+          context,
+          successMessage: LocaleKeys.phoneNumber.tr(),
+          onSuccess: () async {
+            pinCodeController.clear();
+            extra!.otpOptions == OTPOptions.verifyWithNumber
+                ? router.goNamed(RoutePaths.home.name)
+                : await router.pushNamed(RoutePaths.resetPassword.name);
+          },
+        );
   }
 
   @override

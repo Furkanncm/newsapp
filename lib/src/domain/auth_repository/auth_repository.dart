@@ -15,7 +15,6 @@ import 'package:newsapp/src/data/data_source/local/local_ds.dart';
 import 'package:newsapp/src/data/model/otp/otp_model.dart';
 import 'package:newsapp/src/domain/country/country_repository.dart';
 import 'package:newsapp/src/domain/firestore/firestore_repository.dart';
-import 'package:newsapp/src/domain/localization/localization_repository.dart';
 
 abstract class IAuthRepository {
   FirebaseAuthEnum authStatus = FirebaseAuthEnum.unauthenticated;
@@ -60,9 +59,7 @@ final class AuthRepository implements IAuthRepository {
   }
   AuthRepository._() {
     _firebaseAuth = FirebaseAuth.instance;
-    _firebaseAuth.setLanguageCode(
-      LocalizationManager.instance.foolbackLocale?.countryCode,
-    );
+
     _firestoreRepository = FirestoreRepository();
     _cacheRepository = CacheRepository.instance;
     _googleSignIn = GoogleSignIn();
@@ -178,7 +175,6 @@ final class AuthRepository implements IAuthRepository {
         phoneNumber: cleanedPhoneNumber,
         timeout: const Duration(seconds: 60),
         verificationCompleted: (PhoneAuthCredential credential) async {
-          await _firebaseAuth.signInWithCredential(credential);
           completer.complete(true);
         },
         verificationFailed: completer.completeError,
@@ -209,12 +205,14 @@ final class AuthRepository implements IAuthRepository {
         verificationId: verificationId,
         smsCode: smsCode,
       );
-
+      
       final userCredential = await _firebaseAuth.signInWithCredential(
         credential,
       );
       final user = userCredential.user;
+      
       if (user != null) {
+        await user.delete();
         await _firestoreRepository.saveUser(
           user: const UserModel(isPhoneNumberVerified: true),
         );

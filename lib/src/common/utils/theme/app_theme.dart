@@ -115,6 +115,12 @@ class AppTheme extends LuciTheme {
       iconColor: AppTheme.bodyDark,
       collapsedIconColor: AppTheme.backgroundDark,
     ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: AppTheme.surfaceColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+    ),
   );
 
   // Dark Theme
@@ -134,14 +140,6 @@ class AppTheme extends LuciTheme {
       elevation: 0,
       foregroundColor: titleDark,
     ),
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(fontSize: 16, color: bodyDark),
-      titleLarge: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: titleDark,
-      ),
-    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: inputDark,
@@ -150,19 +148,19 @@ class AppTheme extends LuciTheme {
       errorStyle: const TextStyle(color: errorColor, fontSize: 12),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: bodyDark.withValues(alpha: 0.4)),
+        borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: primaryColor, width: 1.5),
+        borderSide: BorderSide.none,
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: errorColor, width: 1.5),
+        borderSide: BorderSide.none,
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: errorColor, width: 1.5),
+        borderSide: BorderSide.none,
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     ),
@@ -186,7 +184,7 @@ class AppTheme extends LuciTheme {
       showUnselectedLabels: true,
     ),
     cardTheme: const CardThemeData(
-      color: inputDark, // Dark modda card rengi
+      color: inputDark,
       shadowColor: AppTheme.backgroundDark,
       elevation: 4,
     ),
@@ -210,6 +208,13 @@ class AppTheme extends LuciTheme {
       childrenPadding: NaPadding.pagePadding,
       iconColor: AppTheme.bodyDark,
       collapsedIconColor: AppTheme.titleDark,
+    ),
+
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: AppTheme.backgroundDark,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
     ),
   );
 
