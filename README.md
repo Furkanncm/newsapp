@@ -63,9 +63,6 @@
   <div>
     <img src="assets\screenshots\sign_up_light.png" alt="SingUp View" width="200"/>
   </div>
-   <div>
-    <img src="assets\screenshots\filter__light.png" alt="Filter Bottom Sheet" width="200"/>
-  </div>
   <div>
     <img src="assets\screenshots\explore_view_light.png" alt="Explore View" width="200"/>
   </div>
@@ -78,9 +75,6 @@
   </div>
   <div>
     <img src="assets\screenshots\signup_dark.png" alt="SingUp View" width="200"/>
-  </div>
-   <div>
-    <img src="assets\screenshots\filter_dark.png" alt="Filter Bottom Sheet" width="200"/>
   </div>
   <div>
     <img src="assets\screenshots\explore_view_dark.png" alt="Explore View" width="200"/>
