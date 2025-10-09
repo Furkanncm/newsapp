@@ -7,7 +7,6 @@
 
 **Luci News**, Flutter ile geliştirilmiş modern ve hızlı bir mobil haber uygulamasıdır. Kullanıcılar güncel haberleri takip edebilir, kategori bazlı filtreleme yapabilir ve favori haberlerini kaydedebilir.
 
----
 
 ## 📌 Özellikler
 - 📰 **Kategori Bazlı Haberler:** Teknoloji, Spor, Sağlık, Ekonomi ve daha fazlası.  
@@ -17,7 +16,6 @@
 - 📱 **Responsive UI:** Hem Android hem de iOS uyumlu modern tasarım.  
 - 🔒 **Firebase Entegrasyonu:** Kullanıcı kimlik doğrulama ve favori haber yönetimi.  
 
----
 
 ## 🛠 Teknolojiler
 - **Flutter & Dart** – Mobil uygulama geliştirme  
@@ -25,7 +23,6 @@
 - **MobX** – State Managment  
 - **Firebase** – Authentication Firestore
 
----
 
 ## ⚡ Kurulum
 
@@ -45,7 +42,6 @@
     ```bash
     flutter run
 
----
 
 ## 📱 Kullanım
 * Uygulamayı açtıktan sonra kategoriler arasında gezinebilir ve güncel haberleri görüntüleyebilirsin.
@@ -56,18 +52,16 @@
 
 * Tema ve Dil değiştirerek istediğiniz gibi kullanabilirsin.
 
----
 
 ## 🖼 Ekran Görüntüleri
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
 
-  <!-- 1. satır -->
   <div>
-    <img src="lib/assets/screenshots/login_light.png" alt="Login" width="200"/>
+    <img src="lib\assets\screenshots\login_light.png" alt="Login" width="200"/>
   </div>
   <div>
-    <img src="lib/assets/screenshots/sign_up_light.png" alt="SingUp View" width="200"/>
+    <img src="lib/assets/screenshots/signup_light.png" alt="SingUp View" width="200"/>
   </div>
    <div>
     <img src="lib/assets/screenshots/filter__light.png" alt="Filter Bottom Sheet" width="200"/>
@@ -79,7 +73,6 @@
     <img src="lib/assets/screenshots/profile_view_light.png" alt="Profile View" width="200"/>
   </div>
 
-  <!-- 2. satır -->
  <div>
     <img src="lib/assets/screenshots/login_dark.png" alt="Login" width="200"/>
   </div>
@@ -98,7 +91,6 @@
 
 </div>
 
----
 
 ## 🔗 API Bilgisi
 
@@ -108,13 +100,11 @@
 
 * API anahtarını lib/.env adlı bir dosyada saklayabilirsin.
 
----
 
 ## ✨ Katkıda Bulunanlar
 
 * Furkan Kazım Çam – Ana geliştirici
 
----
 
 ## 🚀 İletişim
 
