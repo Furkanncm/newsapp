@@ -78,4 +78,4 @@
 ## 🚀 Contact
 
 * 📧 E-mail: [dev.furkankazimcam@gmail.com](mailto:dev.furkankazimcam@gmail.com)  
-* GitHub: [github.com/Furkanncam](https://github.com/Furkanncam)
+* GitHub: [github.com/Furkanncam](https://github.com/Furkanncm)
