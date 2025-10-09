@@ -58,35 +58,35 @@
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
 
   <div>
-    <img src="lib\assets\screenshots\login_light.png" alt="Login" width="200"/>
+    <img src="assets\screenshots\login_light.png" alt="Login" width="200"/>
   </div>
   <div>
-    <img src="lib/assets/screenshots/signup_light.png" alt="SingUp View" width="200"/>
+    <img src="assets\screenshots\sign_up_light.png" alt="SingUp View" width="200"/>
   </div>
    <div>
-    <img src="lib/assets/screenshots/filter__light.png" alt="Filter Bottom Sheet" width="200"/>
+    <img src="assets\screenshots\filter__light.png" alt="Filter Bottom Sheet" width="200"/>
   </div>
   <div>
-    <img src="lib/assets/screenshots/explore_view_light.png" alt="Explore View" width="200"/>
+    <img src="assets\screenshots\explore_view_light.png" alt="Explore View" width="200"/>
   </div>
   <div>
-    <img src="lib/assets/screenshots/profile_view_light.png" alt="Profile View" width="200"/>
+    <img src="assets\screenshots\profile_view_light.png" alt="Profile View" width="200"/>
   </div>
 
  <div>
-    <img src="lib/assets/screenshots/login_dark.png" alt="Login" width="200"/>
+    <img src="assets\screenshots\login_dark.png" alt="Login" width="200"/>
   </div>
   <div>
-    <img src="lib/assets/screenshots/sign_up_dark.png" alt="SingUp View" width="200"/>
+    <img src="assets\screenshots\signup_dark.png" alt="SingUp View" width="200"/>
   </div>
    <div>
-    <img src="lib/assets/screenshots/filter_dark.png" alt="Filter Bottom Sheet" width="200"/>
+    <img src="assets\screenshots\filter_dark.png" alt="Filter Bottom Sheet" width="200"/>
   </div>
   <div>
-    <img src="lib/assets/screenshots/explore_view_dark.png" alt="Explore View" width="200"/>
+    <img src="assets\screenshots\explore_view_dark.png" alt="Explore View" width="200"/>
   </div>
   <div>
-    <img src="lib/assets/screenshots/profile_view_dark.png" alt="Profile View" width="200"/>
+    <img src="assets\screenshots\profile_dark.png" alt="Profile View" width="200"/>
   </div>
 
 </div>
