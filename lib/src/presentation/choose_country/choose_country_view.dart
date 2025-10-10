@@ -105,11 +105,14 @@ final class _CountrListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
     return ListTile(
       minLeadingWidth: 48,
       selected: country.isSelected ?? false,
       selectedTileColor: AppTheme.primaryColor,
-      shape: RoundedRectangleBorder(borderRadius: NaBorderRadius.mediumRadius()),
+      shape: RoundedRectangleBorder(
+        borderRadius: NaBorderRadius.mediumRadius(),
+      ),
       leading: SizedBox(
         width: 48,
         child: ClipRRect(
@@ -126,7 +129,9 @@ final class _CountrListTile extends StatelessWidget {
         country.name ?? '',
         textColor: country.isSelected == true
             ? AppTheme.buttonBackground
-            : AppTheme.bodyText,
+            : isLight
+            ? AppTheme.inputDark
+            : AppTheme.bodyDark,
       ),
       onTap: onCountrySelected,
     );

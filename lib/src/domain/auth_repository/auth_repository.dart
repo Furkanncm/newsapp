@@ -167,7 +167,7 @@ final class AuthRepository implements IAuthRepository {
           RegExp('[^0-9+]'),
           '',
         );
-
+    print(cleanedPhoneNumber);
     return _withTryCatch<bool>(() async {
       final completer = Completer<bool>();
 
@@ -205,17 +205,14 @@ final class AuthRepository implements IAuthRepository {
         verificationId: verificationId,
         smsCode: smsCode,
       );
-      
+
       final userCredential = await _firebaseAuth.signInWithCredential(
         credential,
       );
       final user = userCredential.user;
-      
+
       if (user != null) {
         await user.delete();
-        await _firestoreRepository.saveUser(
-          user: const UserModel(isPhoneNumberVerified: true),
-        );
         return true;
       }
       return null;

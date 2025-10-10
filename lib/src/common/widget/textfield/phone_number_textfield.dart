@@ -52,7 +52,8 @@ class _PhoneNumberTextfieldState extends State<PhoneNumberTextfield> {
         )
         .withToast(
           context,
-          successMessage: LocaleKeys.verifyCodeSent.tr(),
+          showSuccessToast: false,
+          
         );
   }
 

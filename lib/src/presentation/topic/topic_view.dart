@@ -92,8 +92,6 @@ final class _TopicWidget extends StatelessWidget {
             viewmodel.addTopicToList(topic);
           },
           child: ChoiceChip(
-            selectedColor: AppTheme.primaryColor,
-            selectedShadowColor: AppTheme.primaryColor,
             checkmarkColor: AppTheme.buttonBackground,
             label: _CategoryWidget(viewmodel: viewmodel, topic: topic),
             selected: viewmodel.isSelected(topic),

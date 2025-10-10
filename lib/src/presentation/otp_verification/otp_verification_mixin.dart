@@ -4,7 +4,6 @@ import 'package:codegen/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsapp/src/common/utils/enums/otp_options_enum.dart';
 import 'package:newsapp/src/common/utils/enums/route_paths.dart';
 import 'package:newsapp/src/common/utils/extensions/future_extension.dart';
 import 'package:newsapp/src/common/utils/router/router.dart';
@@ -53,9 +52,12 @@ mixin OtTPVerificationMixin on State<OtpVerificationView> {
           successMessage: LocaleKeys.phoneAuthSuccess.tr(),
           onSuccess: () async {
             pinCodeController.clear();
-            extra!.otpOptions == OTPOptions.verifyWithNumber
-                ? router.goNamed(RoutePaths.home.name)
-                : await router.pushNamed(RoutePaths.resetPassword.name);
+            await viewmodel.userRepository.updateProfile(
+              user: viewmodel.userRepository.currentUser!.copyWith(
+                isPhoneNumberVerified: true,
+              ),
+            );
+            router.goNamed(RoutePaths.home.name);
           },
         );
   }

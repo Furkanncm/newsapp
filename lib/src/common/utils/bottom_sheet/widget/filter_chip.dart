@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lucielle/lucielle.dart';
-import 'package:newsapp/src/common/utils/theme/app_theme.dart';
-
 
 @immutable
 final class FilterChipItem extends StatelessWidget {
@@ -25,19 +23,8 @@ final class FilterChipItem extends StatelessWidget {
       child: FilterChip(
         selected: isSelected,
         avatar: avatar,
-        disabledColor: Colors.red,
         showCheckmark: false,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(12),
-          side: const BorderSide(color: AppTheme.backgroundDark),
-        ),
-        backgroundColor: WidgetStateColor.resolveWith((states) => AppTheme.disabledInput),
-        selectedShadowColor: Colors.transparent,
-        selectedColor: WidgetStateColor.resolveWith((states) => AppTheme.primaryColor),
-        label: LuciText.bodySmall(
-          label.capitalizeFirst,
-          textColor: isSelected ? AppTheme.disabledInput : AppTheme.bodyText,
-        ),
+        label: LuciText.bodySmall(label.capitalizeFirst),
         onSelected: onSelected.call,
       ),
     );

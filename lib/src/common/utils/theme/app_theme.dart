@@ -79,8 +79,8 @@ class AppTheme extends LuciTheme {
     iconTheme: const IconThemeData(size: 24, color: buttonText),
 
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedItemColor: AppTheme.primaryColor,
-      unselectedItemColor: AppTheme.bodyDark,
+      selectedItemColor: primaryColor,
+      unselectedItemColor: bodyDark,
       showUnselectedLabels: true,
     ),
     cardTheme: const CardThemeData(
@@ -106,14 +106,30 @@ class AppTheme extends LuciTheme {
       collapsedBackgroundColor: Colors.transparent,
       backgroundColor: Colors.transparent,
       childrenPadding: NaPadding.pagePadding,
-      iconColor: AppTheme.bodyDark,
-      collapsedIconColor: AppTheme.backgroundDark,
+      iconColor: bodyDark,
+      collapsedIconColor: backgroundDark,
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: AppTheme.surfaceColor,
+      backgroundColor: buttonBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
+    ),
+    chipTheme: ChipThemeData(
+      labelStyle: const TextStyle(color: bodyText),
+      secondaryLabelStyle: const TextStyle(color: Colors.white),
+      backgroundColor: buttonBackground,
+      selectedColor: primaryColor,
+      secondarySelectedColor: primaryColor,
+      disabledColor: disabledInput,
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      shape: RoundedRectangleBorder(
+        borderRadius: NaBorderRadius.mediumRadius(),
+        side: const BorderSide(color: placeholder),
+      ),
+      checkmarkColor: Colors.white,
+      shadowColor: Colors.transparent,
+      selectedShadowColor: Colors.transparent,
     ),
   );
 
@@ -165,13 +181,13 @@ class AppTheme extends LuciTheme {
 
     iconTheme: const IconThemeData(size: 24, color: primaryColor),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedItemColor: AppTheme.primaryColor,
-      unselectedItemColor: AppTheme.bodyDark,
+      selectedItemColor: primaryColor,
+      unselectedItemColor: bodyDark,
       showUnselectedLabels: true,
     ),
     cardTheme: const CardThemeData(
       color: inputDark,
-      shadowColor: AppTheme.backgroundDark,
+      shadowColor: backgroundDark,
       elevation: 4,
     ),
     switchTheme: SwitchThemeData(
@@ -192,15 +208,31 @@ class AppTheme extends LuciTheme {
       collapsedBackgroundColor: Colors.transparent,
       backgroundColor: Colors.transparent,
       childrenPadding: NaPadding.pagePadding,
-      iconColor: AppTheme.bodyDark,
-      collapsedIconColor: AppTheme.titleDark,
+      iconColor: bodyDark,
+      collapsedIconColor: titleDark,
     ),
 
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: AppTheme.backgroundDark,
+      backgroundColor: backgroundDark,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
+    ),
+    chipTheme: ChipThemeData(
+      labelStyle: const TextStyle(color: titleDark),
+      secondaryLabelStyle: const TextStyle(color: surfaceColor),
+      backgroundColor: inputDark,
+      selectedColor: primaryColor,
+      secondarySelectedColor: primaryColor,
+      disabledColor: backgroundDark,
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      shape: RoundedRectangleBorder(
+        borderRadius: NaBorderRadius.mediumRadius(),
+        side: const BorderSide(color: bodyDark),
+      ),
+      checkmarkColor: surfaceColor,
+      shadowColor: Colors.transparent,
+      selectedShadowColor: Colors.transparent,
     ),
   );
 
